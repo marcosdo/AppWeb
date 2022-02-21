@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <!-- Titulo -->
         <title>Detalles</title>
@@ -8,19 +8,24 @@
     </head>
 
     <body>
-        <img src="img/logo.jpg" alt="Logo de la página">
-
+        <!-- Índice -->
         <h1>Navegación</h1>
-        <ul>
+        <ol id="index">
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="detalles.html">Detalles</a></li>
+            <li><a href="detalles.html">Detalles</a>
+                <ul>
+                    <li><a href="detalles.html#intro">Introducción</a></li>
+                    <li><a href="detalles.html#users">Tipos de usuarios</a></li>
+                    <li><a href="detalles.html#funct">Funcionalidades</a></li>
+                </ul>
+            </li>
             <li><a href="bocetos.html">Bocetos</a></li>
             <li><a href="miembros.html">Miembros</a></li>
             <li><a href="planificacion.html">Planificacion</a></li>
             <li><a href="contacto.html">Contacto</a></li>
-        </ul>
+        </ol>
 
-        <h1>Introducción</h1>
+        <h1 id="intro">Introducción</h1>
         <p>
             Nuestra idea consiste en una página web dedicada a llevar una vida saludable, a partir de
             unos pasos a seguir mediante diferentes medios como pueden ser páginas con contenido
@@ -33,8 +38,7 @@
             mediante interacción directa con el usuario registrado. Además, se podrán solicitar listas
             de suplementos personalizados que persiguen el objetivo de tener una vida saludable
             basándose en tres principios: descanso, alimentación y entrenamiento.
-        </p>
-        <p>
+        </p><p>
             ¿Quién no quiere estar en forma? Se proporcionarán consejos, mediante todo tipo de
             contenido, que permitirán guiar a los usuarios, y en especial a los que obtengan una
             suscripción, con el fin de obtener dichos objetivos. La temática principal de la web será la
@@ -48,77 +52,93 @@
             cualquier tipo de objetivo.
         </p>
 
-        <h1>Tipos de usuarios</h1>
+        <h1 id="users">Tipos de usuarios</h1>
             <ol>
                 <li>
-                    <strong>Aministrador:</strong> tiene acceso a diferentes pantallas en comparación
-                    al usuario. Entre las tareas que realiza encontramos: dar de alta o baja a creadores
-                    de contenido y nutricionistas.
+                    <strong>Aministrador:</strong> tiene acceso a una pantalla diferente en la que puede dar de
+                    alta o baja a creadores de contenido, moderadores y nutricionistas. También puede cerrar
+                    cuentas de usuarios registrados.
                 </li>
                 <li>
                     <strong>Moderador:</strong> se dedica a revisar que el contenido del foro no sea poco apropiado.
-                    Puede banear usuarios.
+                    Puede cerrar cuentas de usuarios registrados.
                 </li>
                 <li>
                     <strong>Creador de contenido:</strong> dados de alta por los administradores, desarrollan blogs,
-                    videos o cualquier forma de enseñar acerca de la alimentación o entrenamiento.
+                    videos o imágenes con contenido para enseñar acerca de la alimentación o entrenamiento.
                 </li>
                 <li>
                     <strong>Nutricionista:</strong> lleva a cabo un seguimiento de los usuarios registrados a través de
-                    una comunicación directa. También, crea planificaciones y realiza cambios sobre
-                    las mismas.
+                    una comunicación directa. También, crea planificaciones y realiza cambios sobre las planificaciones
+                    básicas.
                 </li>
                 <li>
-                    <strong>Usuario miembro:</strong> paga por tener acceso a contenido exclusivo.
+                    <strong>Usuario registrado:</strong> paga por tener acceso a contenido exclusivo, entre lo que se
+                    encuentra la planificacion de dietas o rutinas, y el nutricionista o entrenador personal.
                 </li>
                 <li>
-                    <strong>Usuario no registrado:</strong>  tiene acceso a contenido “público”.
+                    <strong>Usuario no registrado:</strong>  tiene acceso al contenido básico (recetas, blogs, noticias
+                    y foro).
                 </li>
             </ol>
-        <p>
 
-        </p>
-        <h1>Funcionalidades</h1>
+        <h1 id="funct">Funcionalidades</h1>
         <h2>Contenido</h2>
         <p>
-            (recetas, rutinas, noticias) disponible para cualquier usuario.
+            [...] (recetas, rutinas, noticias) disponible para cualquier usuario.
         </p>
         
         <h2>Foro de noticias</h2> 
         <p>
-            (incluida la moderación).
+            [...] (incluida la moderación).
         </p>
         
         <h2>Gestión de anuncios</h2>
         <p>
-            Alta, baja, modificaciones e integración en el portal.
+            [...] Alta, baja, modificaciones e integración en el portal.
         </p>
 
-        <h2>Planificación básica de rutinas o comidas para usuarios registrados</h2>
+        <h2>Planificación básica</h2>
         <p>
-            En primer lugar, se muestra por pantalla la página principal de "Planificación básica de rutinas o comidas para usuarios registrados". 
-            En esta página podremos acceder a dos seciones:
+            Disponible cuando te registras. En primer lugar, se muestra por pantalla la página principal de 
+            "<a href="bocetos.html#plani">Planificación básica</a>". En esta página vemos que la pantalla está
+            dividida por la mitad en dos seciones:
         </p>
         <h3> Dietas</h3>
         <p>
-            La primera sección, que se puede observar en la parte de la izquierda, consta de un menú desplegable con diversas dietas acorde a las necesidades específicas de cada usuario (conseguir volumen, bajar de peso,etc).
-            Una vez seleccionada el tipo de dieta, la página, automáticamente, te redirige a una nueva pantalla en la cual se muestra una ventana interactiva al estilo publicación de instagram. En esta publicación se muestra
-            la dieta que toca para hoy, incluyendo desayuno, almuerzo, comida, merienda y cena.
+            La primera sección, que se puede observar en la parte de la izquierda, contiene de una 
+            <a href="bocetos.html#selec"><em>lista de selección</em></a>  en la que poder seleccionar diversas 
+            dietas acorde a las necesidades específicas de cada usuario (conseguir volumen, bajar de peso, etc).
+            Una vez seleccionada el tipo de dieta la página automáticamente te redirige a una nueva pantalla.
+        </p><p>
+            En la <a href="bocetos.html#dieta">pantalla de dietas</a> se muestra una ventana interactiva (al 
+            estilo publicación de instagram). En esta publicación se muestra la dieta que toca para hoy, incluyendo
+            desayuno, almuerzo, comida, merienda y cena. El usuario puede usar las flechas para pasar de un día a
+            otro, y así adelantarse para comprar lo que crea oportuno. Además, algunas recetas tendrán un link a 
+            nuestro propio contenido de la sección de recetas.
         </p>
         <h3> Rutinas</h3>
         <p> 
-            La segunda sección, que se puede observar en la parte de la derecha, consta de un checkbox obligatorio del tipo de intensidad en la que se quiere realizar la rutina.
-            A continuación, se muestra otro menú desplegable para escoger el tipo de rutina (cardio, tonificación, etc).
-            Una vez seleccionado el tipo de rutina, la página, automáticamente, te redirige a una nueva pantalla en la cual se muestra una tabla de ejercicios. 
-            Además, en todas las pantallas de planifición se podrá acceder directamente al resto de páginas (contenido, foro de noticias, gestión del nutricionista, etc), como iniciar sesión en caso de no estar logueado, y en caso contrario, de gestionar o salir de tu cuenta.
+            La segunda sección, que se puede observar en la parte de la derecha, contiene un 
+            <a href="bocetos.html#selec"><em>radio button</em></a> obligatorio para poder elegir el nivel que tiene
+            el usuario. Después hay una <em>lista de selección</em> en la que poder escoger diferentes rutinas en 
+            función de la dificultad. Una vez seleccionado el tipo de rutina, la página, automáticamente, te redirige
+            a una nueva pantalla.
+        </p><p>    
+            En la <a href="bocetos.html#rutin">pantalla de rutinas</a> se muestra una tabla de ejercicios. Con todos
+            los días del mes en la que se especifica qué tipo de ejercicio toca hoy.
         </p>
 
         <h2>Gestión de nutricionista, entrenador personal</h2>
         <p>
-            La idea es que se pueda "comprar" el servicio y que el "profesional" pueda ver / interactuar con los clientes que tiene. Como parte de este proceso de interacción se tiene el chat como herramienta básica.
+            [...] La idea es que se pueda "comprar" el servicio y que el "profesional" pueda ver / interactuar con los 
+            clientes que tiene. Como parte de este proceso de interacción se tiene el chat como herramienta básica.
         </p>
 
         <h2>Gestión de productos externos y recomendaciones</h2>
-
+        <p>
+            [...] 
+        </p>
+        <img src="img/logo.jpg" alt="logo de lifety">
     </body>
 </html>
