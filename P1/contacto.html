@@ -1,42 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <meta charset="utf-8">
+        <!-- Titulo -->
         <title>Consulta</title>
+        <!-- UTF-8 -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
-        
+        <!-- Índice -->
         <h1>Navegación</h1>
-        <ul>
+        <ol id="index">
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="detalles.html">Detalles</a></li>
+            <li><a href="detalles.html">Detalles</a>
+                <ul>
+                    <li><a href="detalles.html#intro">Introducción</a></li>
+                    <li><a href="detalles.html#users">Tipos de usuarios</a></li>
+                    <li><a href="detalles.html#funct">Funcionalidades</a></li>
+                </ul>
+            </li>
             <li><a href="bocetos.html">Bocetos</a></li>
             <li><a href="miembros.html">Miembros</a></li>
             <li><a href="planificacion.html">Planificacion</a></li>
             <li><a href="contacto.html">Contacto</a></li>
-        </ul>
+        </ol>
 
         <h1>Formulario</h1>
         <form action="mailto:marcosdo@ucm.es" method="post">
-            <fieldset>
-            <legend>Datos personales</legend>
-            Nombre:<br> <input type="text" name="nom"></br>
-            E-mail:<br> <input type="text" name="mail"></br>
-            <fieldset>	
-            <legend>Consulta</legend>
-            <br><input type="radio" name="tipo" value="E">   Evaluación </br>
-            <br><input type="radio" name="tipo" value="S">   Sugerencias</br>
-            <br><input type="radio" name="tipo" value="C">   Críticas</br>
-            <br> Observaciones: </br>
-            <br><textarea name="obs"></textarea> </br>
-            <input type="checkbox" name="condi" value="ok">Marque esta casilla para verificar
-            que ha leído nuestros términos y condiciones del servicio
+            <p> <button type="reset">Borrar formulario</button> </p>
+            <fieldset><legend>Datos personales</legend>
+                <p>Nombre:</p>
+                <p><input type="text" name="nomb"></p>
+                <p>E-mail:</p>
+                <p><input type="text" name="mail"></p>
+                <fieldset><legend>Consulta</legend>
+                        <!-- Radio button -->
+                        <p><input type="radio" name="tipo" value="E"> Evaluación </p>
+                        <p><input type="radio" name="tipo" value="S"> Sugerencias</p>
+                        <p><input type="radio" name="tipo" value="C"> Críticas   </p>
+                        <!-- Cuadro de texto de varias líneas -->
+                        <p>Observaciones: </p>
+                        <p><textarea name="obs"></textarea></p>
+                        <!-- Términos y condiciones -->
+                        <input type="checkbox" name="cond" value="ok">Marque esta casilla para verificar
+                        que ha leído nuestros términos y condiciones del servicio
+                    </fieldset>
+                <p><button type="submit">Enviar</button></p>
             </fieldset>
-        </fieldset>
-        <input type="submit" name="aceptar">	
         </form>
 
-        <h1>Logo</h1>
-        <img src="img/logo.jpg" alt="Logo de la página">
+        <img src="img/logo.jpg" alt="logo de la página">
     </body>
 </html>
