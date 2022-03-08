@@ -1,0 +1,86 @@
+/* ========== CUERPO ========== */
+body {
+	background-color: #fde6e6;
+    margin: 0;
+}
+/* ========== CABECERA ========== */
+header {
+	padding: 30px;
+	height: 100px;
+	width: 97VW;
+	background-color: #303030;
+	color: white;
+}
+
+/* Login en negrita al clicar */
+header a, header a:visited {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+/* Login se subraya y cambia el color al pasar */
+header a:hover {
+	color: red;
+	font-weight: bold;
+	text-decoration: underline;
+}
+/* Posicion de login */
+div.saludo {
+	width: 100%;
+	text-align: right;
+}
+
+/* ==========  MENU ========== */
+nav {
+	padding: 10px;
+	float: left;
+	width: 170px;
+	min-height: 78vh;
+	background-color: #dddddd;
+}
+/* Menu en cursiva al clickar */
+nav a, nav a:visited {
+	color: red;
+	font-weight: bold;
+	text-decoration: none;
+} 
+/* Menu se subraya y cambia el color al pasar */
+nav a:hover {
+	color: red;
+	text-decoration: underline;
+} 
+
+/* ========== ANUNCIOS ========== */
+aside {
+	padding: 10px;
+	float: right;
+	width: 170px;
+	min-height: 78vh;
+	background-color: #dddddd;
+}
+
+/* ========== PARTE CENTRAL ========== */
+main {
+	padding: 10px;
+	float: left;
+	min-height: 600px;
+	width: 1400px;
+	background-color: rgb(255, 255, 255);
+}
+
+/* ========== PIE DE PÁGINA ========== */
+footer {
+    background-color: #000000;
+    position: absolute;
+	text-align: center;
+    padding: 20px;
+    bottom: 0;
+    height: 40px;
+    color: white;
+	margin: 0px;
+	width: 100%;
+}
+
+h1.TituloPlanificacion {
+    position: center
+}
