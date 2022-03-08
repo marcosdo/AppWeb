@@ -1,14 +1,12 @@
 #contenedor img {
 	max-width: 300px;
-	max-height: 300px;
+	max-height: 500px;
 }
 
-.form {
-	float:left;
-}
-
-.imagen {
-	float:right;
+div#tabla {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap : 20px;
 }
 
 body {
@@ -16,13 +14,11 @@ body {
 }
 
 div#contenedor {
-	width: 900px;
+	width: 1000px;
 	margin: auto;
 	border: 1px solid black;
 	background-color: #aaaaaa;
 	margin-top: 30px;
-	grid-template-columns: 1fr 1fr;
-
 }
 
 header {
@@ -50,7 +46,7 @@ nav {
 	padding: 10px;
 	float: left;
 	width: 170px;
-	height: 400px;
+	min-height: 400px;
 	background-color: #dddddd;
 }
 
@@ -77,8 +73,8 @@ aside {
 main {
 	padding: 10px;
 	float: left;
-	min-height: 600px;
-	width: 500px;
+	min-height: 400px;
+	width: 600px;
 	background-color: white;
 }
 

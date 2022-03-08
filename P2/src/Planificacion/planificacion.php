@@ -17,60 +17,61 @@
             ?>
             <main>
                 <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
-                
-                <fieldset> 
-                    <legend id = "DietasPlanificacion">Dietas</legend>
-                    <p>
-                        <select name="Elige tu dieta">
-                            <option selected value="0"> Elige una opción </option>
-                            <option value="1">Pérdida de peso</option> 
-                            <option value="2">Ganancia de peso</option> 
-                            <option value="3">Mantener peso</option>
-                        </select>
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
-                        elit, pretium at condimentum in, elementum vitae lorem. 
-                        Quisque eget vulputate nunc. Donec lobortis at justo in 
-                        ornare. Duis lobortis magna justo, in finibus ipsum 
-                        ultricies nec. Donec efficitur purus quis venenatis 
-                        interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
-                        blandit nec. Sed vitae maximus elit. Cras commodo magna 
-                        tortor, ut lobortis magna iaculis eget. 
-                    </p>
-                </fieldset>
-                <fieldset> 
-                    <legend id = "RutinasPlanificacion">Rutinas</legend>
-                    <p> Selecciona tu nivel: </p>
-                    <p>
-                        <input type= "radio" name="nivel" value="P">Principiante
-                        <input type= "radio" name="nivel" value="M">Medio
-                        <input type= "radio" name="nivel" value="A">Avanzada
-                    </p>
-                    <p>
-                        <select name="Elige tu rutina">
-                            <option selected value="0"> Elige una opción</option>
-                            <option value="1">Fuerza</option>
-                            <option value="2">Hipertrofia</option>
-                            <option value="3">Cardio</option>
-                        </select>
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
-                        elit, pretium at condimentum in, elementum vitae lorem. 
-                        Quisque eget vulputate nunc. Donec lobortis at justo in 
-                        ornare. Duis lobortis magna justo, in finibus ipsum 
-                        ultricies nec. Donec efficitur purus quis venenatis 
-                        interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
-                        blandit nec. Sed vitae maximus elit. Cras commodo magna 
-                        tortor, ut lobortis magna iaculis eget. 
-                    </p>
-                    <p>
-                        <button type="submit">Enviar</button>
-                    </p>
-                </fieldset>
+                <div id="tabla">
+                    <fieldset> 
+                        <legend id = "DietasPlanificacion">Dietas</legend>
+                        <p>
+                            <select name="Elige tu dieta">
+                                <option selected value="0"> Elige una opción </option>
+                                <option value="1">Pérdida de peso</option> 
+                                <option value="2">Ganancia de peso</option> 
+                                <option value="3">Mantener peso</option>
+                            </select>
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
+                            elit, pretium at condimentum in, elementum vitae lorem. 
+                            Quisque eget vulputate nunc. Donec lobortis at justo in 
+                            ornare. Duis lobortis magna justo, in finibus ipsum 
+                            ultricies nec. Donec efficitur purus quis venenatis 
+                            interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
+                            blandit nec. Sed vitae maximus elit. Cras commodo magna 
+                            tortor, ut lobortis magna iaculis eget. 
+                        </p>
+                    </fieldset>
+                    <fieldset> 
+                        <legend id = "RutinasPlanificacion">Rutinas</legend>
+                        <p> Selecciona tu nivel: </p>
+                        <p>
+                            <input type= "radio" name="nivel" value="P">Principiante
+                            <input type= "radio" name="nivel" value="M">Medio
+                            <input type= "radio" name="nivel" value="A">Avanzada
+                        </p>
+                        <p>
+                            <select name="Elige tu rutina">
+                                <option selected value="0"> Elige una opción</option>
+                                <option value="1">Fuerza</option>
+                                <option value="2">Hipertrofia</option>
+                                <option value="3">Cardio</option>
+                            </select>
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                            Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
+                            elit, pretium at condimentum in, elementum vitae lorem. 
+                            Quisque eget vulputate nunc. Donec lobortis at justo in 
+                            ornare. Duis lobortis magna justo, in finibus ipsum 
+                            ultricies nec. Donec efficitur purus quis venenatis 
+                            interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
+                            blandit nec. Sed vitae maximus elit. Cras commodo magna 
+                            tortor, ut lobortis magna iaculis eget. 
+                        </p>
+                        <p>
+                            <button type="submit">Enviar</button>
+                        </p>
+                    </fieldset>
+                </div>
             </main>
             <?php 
                 require '../layout/anuncios.php';
