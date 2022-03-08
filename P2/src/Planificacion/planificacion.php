@@ -1,21 +1,20 @@
-<?php 
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="css/estilo.css" />
+        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estilo.css" />
 
         <title>Planificación</title>
 
-        <?php  require '../cabecera.php'; ?>
+        <?php?>
     </head>
     <body>
-        <?php require 'menu.php'; ?>
         <div id="contenedor">
+            <?php 
+                require '../layout/cabecera.php'; 
+                require '../layout/menu.php';
+            ?>
             <main>
                 <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
                 
@@ -73,11 +72,10 @@
                     </p>
                 </fieldset>
             </main>
+            <?php 
+                require '../layout/anuncios.php';
+                require '../layout/pie.php';
+            ?>
         </div>
-        <?php 
-            require 'pie.php';
-            require 'anuncios.php';
-        ?>
     </body>
-    
 </html>

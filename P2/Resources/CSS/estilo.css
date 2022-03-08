@@ -1,7 +1,29 @@
+#contenedor img {
+	max-width: 300px;
+	max-height: 300px;
+}
+
+.form {
+	float:left;
+}
+
+.imagen {
+	float:right;
+}
+
 /* ========== CUERPO ========== */
 body {
 	background-color: #fde6e6;
     margin: 0;
+}
+div#contenedor {
+	width: 900px;
+	margin: auto;
+	border: 1px solid black;
+	background-color: #aaaaaa;
+	margin-top: 30px;
+	grid-template-columns: 1fr 1fr;
+
 }
 /* ========== CABECERA ========== */
 header {
@@ -64,7 +86,7 @@ main {
 	padding: 10px;
 	float: left;
 	min-height: 600px;
-	width: 1400px;
+	width: 500px;
 	background-color: rgb(255, 255, 255);
 }
 

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link rel="stylesheet" type="text/css" href="../estilo.css" />
+        <link rel="stylesheet" type="text/css" href="../../estilo.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Planificacion</title>
     </head>
     <body>
         <div id="contenedor">
             <?php
-                require '../cabecera.php';
-                require '../sidebarIzq.php';
+                require '../layout/cabecera.php';
+                require '../layout/sidebarIzq.php';
             ?>
             <main>
             <div id="form">
@@ -29,8 +29,8 @@
             </div>
             </main>
             <?php
-                require '../sidebarDer.php';
-                require '../pie.php';
+                require '../layout/sidebarDer.php';
+                require '../layout/pie.php';
             ?>
         </div>
     </body>
