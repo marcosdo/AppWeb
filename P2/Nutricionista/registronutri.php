@@ -6,14 +6,32 @@
         <title>Planificacion</title>
     </head>
     <body>
-        <?php
-            require '../cabecera.php';
-            require '../sidebarIzq.php';
-        ?>
-        <img src="../Imagenes/nutricionista.jpg" alt="Tu nutri de confianza">
-        <?php
-            require '../sidebarDer.php';
-            require '../pie.php';
-        ?>
+        <div id="contenedor">
+            <?php
+                require '../cabecera.php';
+                require '../sidebarIzq.php';
+            ?>
+            <main>
+            <div id="form">
+            <form method="get" action="procesaform.php">
+                    <fieldset>
+                        <legend> Por favor, introduzca sus datos:</legend>
+                        Peso:<br><input type="text" name="peso"/><br>
+                        Altura:<br><input type="text" name="altura" /><br>
+                        Alergias:<br><input type="text" name="alergias"/><br>
+                        Observaciones adicionales:<br><input type="text" name="observaciones"/><br>
+                        <br><input type="submit" value="Pagar" /></br>
+                    </fieldset>
+                </form>
+            </div>  
+            <div id="imagen">
+                <img src="../Imagenes/nutricionista.jpg" alt="Tu nutri de confianza" >
+            </div>
+            </main>
+            <?php
+                require '../sidebarDer.php';
+                require '../pie.php';
+            ?>
+        </div>
     </body>
 </html>
