@@ -106,12 +106,3 @@ footer {
 h1.TituloPlanificacion {
     position: center
 }
-
-button {
-	margin-left: 100px;
-	width: 110px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
-  margin-left: 50%;
-  transform: translateX(-50%);
-  background: #4CAF50;
-  display: inline-block;
-} 

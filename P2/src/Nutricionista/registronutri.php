@@ -8,16 +8,17 @@
     <body>
         <div id="contenedor">
             <?php
+                session_start();
                 require '../layout/cabecera.php';
                 require '../layout/sidebarIzq.php';
             ?>
             <main>
                 <div id="tabla">
-                    <form method="get" action="procesaform.php">
+                    <form method="get" action="pago.php">
                         <fieldset>
                             <legend> Por favor, introduzca sus datos:</legend>
-                            Peso:<br><input type="text" name="peso"/><br>
-                            Altura:<br><input type="text" name="altura" /><br>
+                            Peso:<br><input type="text" name="peso" required/><br>
+                            Altura:<br><input type="text" name="altura" required/><br>
                             Alergias:<br><input type="text" name="alergias"/><br>
                             Observaciones adicionales:<br><input type="text" name="observaciones"/><br>
                             <br><input type="submit" value="Pagar" /></br>

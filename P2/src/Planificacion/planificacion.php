@@ -27,8 +27,8 @@
                                 <option value="2">Ganancia de peso</option> 
                                 <option value="3">Mantener peso</option>
                             </select>
-                        </p> 
-                        <p>  
+                        </p>
+                        <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                             Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
                             elit, pretium at condimentum in, elementum vitae lorem. 
@@ -44,9 +44,9 @@
                         <legend id = "RutinasPlanificacion">Rutinas</legend>
                         <p> Selecciona tu nivel: </p>
                         <p>
-                        <br><input type= "radio" name="nivel" value="P">Principiante</br>
-                        <br><input type= "radio" name="nivel" value="M">Medio</br>
-                        <br><input type= "radio" name="nivel" value="A">Avanzada</br>
+                            <input type= "radio" name="nivel" value="P">Principiante
+                            <input type= "radio" name="nivel" value="M">Medio
+                            <input type= "radio" name="nivel" value="A">Avanzada
                         </p>
                         <p>
                             <select name="Elige tu rutina">
@@ -67,14 +67,11 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
+                        <p>
+                            <button type="submit">Enviar</button>
+                        </p>
                     </fieldset>
-                    
                 </div>
-                      
-                <p>
-                    <button style="text-align:center"; type ="submit"; id="Benvio">Enviar</button> 
-                </p>
-            
             </main>
             <?php 
                 require '../layout/anuncios.php';

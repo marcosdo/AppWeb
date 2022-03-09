@@ -1,6 +1,6 @@
-#contenedor img {
+#tabla img {
 	max-width: 300px;
-	max-height: 500px;
+	max-height: 400px;
 }
 
 div#tabla {
@@ -115,6 +115,3 @@ label {
 button {
 	margin-left: 100px;
 } 
-button#Benvio{
-    margin-left: 275px;
-}
