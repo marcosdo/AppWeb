@@ -44,9 +44,9 @@
                         <legend id = "RutinasPlanificacion">Rutinas</legend>
                         <p> Selecciona tu nivel: </p>
                         <p>
-                            <input type= "radio" name="nivel" value="P">Principiante
-                            <input type= "radio" name="nivel" value="M">Medio
-                            <input type= "radio" name="nivel" value="A">Avanzada
+                        <br><input type= "radio" name="nivel" value="P">Principiante</br>
+                        <br><input type= "radio" name="nivel" value="M">Medio</br>
+                        <br><input type= "radio" name="nivel" value="A">Avanzada</br>
                         </p>
                         <p>
                             <select name="Elige tu rutina">
