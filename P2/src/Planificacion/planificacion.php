@@ -27,8 +27,8 @@
                                 <option value="2">Ganancia de peso</option> 
                                 <option value="3">Mantener peso</option>
                             </select>
-                        </p>
-                        <p>
+                        </p> 
+                        <p>  
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                             Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
                             elit, pretium at condimentum in, elementum vitae lorem. 
@@ -38,9 +38,6 @@
                             interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
-                        </p>
-                        <p>
-                            <button type="submit">Enviar</button>
                         </p>
                     </fieldset>
                     <fieldset> 
@@ -70,11 +67,14 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
-                        <p>
-                            <button type="submit">Enviar</button>
-                        </p>
                     </fieldset>
+                    
                 </div>
+                      
+                <p>
+                    <button style="text-align:center"; type ="submit"; id="Benvio">Enviar</button> 
+                </p>
+            
             </main>
             <?php 
                 require '../layout/anuncios.php';
