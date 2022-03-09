@@ -39,6 +39,9 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
+                        <p>
+                            <button type="submit">Enviar</button>
+                        </p>
                     </fieldset>
                     <fieldset> 
                         <legend id = "RutinasPlanificacion">Rutinas</legend>
