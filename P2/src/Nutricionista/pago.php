@@ -9,10 +9,7 @@
             session_start();
             $_SESSION['id_usuario'] = isset($_POST["nom"]) ? $_POST["nom"] : null;
 
-            $servername = "localhost";
-            $username = "root";//recordatorio: hay que crear un usuario que no sea root
-            //$password = "password";
-            $conn = new mysqli($servername, $username, ''/*$password*/, $dbname);
+            $conn = new mysqli('localhost', 'root', '', 'lifety');
             // Comprobar conexion
             if ($conn->connect_error) {
                 die("fallo de conexion:" . $conn->connect_error);
@@ -30,13 +27,16 @@
             $sql = "SELECT Id_profesional FROM profesional WHERE MIN(Num_usuarios)";
             
             $resultado=$conn->query($sql);
+            $row = $result->fetch_assoc();
 
-            $sql = "INSERT INTO premium (Alergias, Altura, Id_profesional, Id_usuario, Logros, Num_logros, Observaciones Adicionales, Peso) ; VALUES ('$alergias', '$altura', '0 ', '$_SESSION['id_usuario']', '0', '0', '$observaciones', '$peso')";
-            
+            $sql = "INSERT INTO premium (Alergias, Altura, Id_profesional, Id_usuario, Logros, Num_logros, Observaciones_adicionales, Peso) ; VALUES ('$alergias', '$altura', '$row[Id_profesional]', '$_SESSION[id_usuario]', '0', '0', '$observaciones', '$peso')";
+            $resultado->free();
             if ($conn->query($sql) === TRUE) ;
             else echo "Error: " . $sql . "<br>" . $conn->error;
 
             $conn->close();
+            header('Location: EntrenadorPersonalUsu.php');
+			exit();
         ?>
     </body>
 
