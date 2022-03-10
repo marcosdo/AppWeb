@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux.css" />
+        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux3.css" />
 
         <title>Planificación</title>
 
         <?php?>
     </head>
     <body>
+    <form method = "post" action = "planificaciontablas.php">
         <div id="contenedor">
             <?php 
                 require '../layout/cabecera.php'; 
@@ -31,11 +32,10 @@
                     echo $BDLogros["Musculo"] ;
                     echo $BDLogros["Nombre"];
                 }*/
-               /* if(isset($_POST['quitarLogro'])){
+                if(isset($_POST['enviar'])){
                     include  'planificaciontablas.php';
                     
                 }
-                echo " <input type='submit' style = 'background-color:#c47e7e' class = 'selectA' name='quitarLogro' value='Quitar Logro'/>";*/
 				
                /* INSERT INTO usuario (nif, nombre, direccion, email, telefono)
                 VALUES ("M3885337J", "Empresa Uno", "Calle Uno, Madrid",
@@ -67,7 +67,6 @@
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
                     </fieldset>
-                    <form method = "post" action = "planificaciontablas.php">
 
                     <fieldset> 
                         <legend id = "RutinasPlanificacion">Rutinas</legend>
@@ -96,13 +95,14 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
-                        <p>
-                            <input type="submit" value = "Enviarrr">
-                        </p>
 
                     </fieldset>
-                    </form>
+                    
                 </div>
+                <p>
+                            <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
+                 </p>
+                </form>
             </main>
             <?php 
                 require '../layout/anuncios.php';
