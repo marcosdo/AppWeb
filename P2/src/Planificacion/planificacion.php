@@ -53,8 +53,15 @@
                             <input type= "radio" name="nivel" value="A">Avanzada
                         </p>
                         <p>
+                            <select name="Dias">
+                                <option selected value="0"> Elige el número de días</option>
+                                <option value="3">3 Días</option>
+                                <option value="5">5 Días</option>
+                            </select >
+                        </p>
+                        <p>
                             <select name="Rutina">
-                                <option selected value="0"> Elige una opción</option>
+                                <option selected value="0"> Elige un tipo de rutina</option>
                                 <option value="1">Fuerza</option>
                                 <option value="2">Hipertrofia</option>
                                 <option value="3">Resistencia</option>
@@ -76,8 +83,8 @@
                     
                 </div>
                 <p>
-                            <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
-                 </p>
+                    <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
+                </p>
                 </form>
             </main>
             <?php 
