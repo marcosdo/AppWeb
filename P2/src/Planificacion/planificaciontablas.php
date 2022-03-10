@@ -28,26 +28,24 @@
               
                 $nivel = isset($_POST["nivel"]) ? $_POST["nivel"] : null;
                 $objetivo = isset($_POST["Rutina"]) ? $_POST["Rutina"] : null;
-                $ndias = isset($_POST["Dias"]) ? $_POST["Dias"] : null;
-                
+                $dias = isset($_POST["Dias"]) ? $_POST["Dias"] : null;
+                //$sql = "SELECT * FROM usuario";
                 $consulta = mysqli_query($BD,"SELECT * FROM usuario");
                 $fila = mysqli_fetch_assoc($consulta);
-                echo $fila["Nombre"];
-                echo $objetivo;
-                echo $nivel;
-                $sql = "UPDATE usuario SET Nivel = '$nivel',  Eobjetivo = '$objetivo', Dias = '$ndias' WHERE Nombre = '$fila[Nombre]'";
+                $sql = "UPDATE usuario SET Nivel = '$nivel', Dias = '$dias',  Eobjetivo = '$objetivo' WHERE Nombre = '$fila[Nombre]'";
 
-                /*
-                $consulta = mysqli_query($BD,$sql); 
-                mysqli_query($BD,$sql);  
-                while($fila = mysqli_fetch_assoc($consulta)){
+               // $consulta = mysqli_query($BD,$sql); 
+                mysqli_query($BD,$sql); 
+                
+              /*  while($fila = mysqli_fetch_assoc($consulta)){
                   // if($fila['Nombre'] ==  "Alex"){ 
                         //INSERT INTO usuario (Nombre, Apellido 1, Apellido 2, DNI, Correo, Contraseña, Id_usuario, Premium, Nivel, Dias, Eobjetivo)
                         $fila["Nivel"] = $nivel;
                         $fila["Eobjetivo"] = $objetivo;
                         UPDATE usuario SET Nivel = $nivel,  Eobjetivo = $objetivo WHERE $fila["Nombre"] = "Alex";
-                }
-                }*/
+                
+                // }
+                 }*/
              
             ?>
              <?php 
