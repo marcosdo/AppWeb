@@ -15,11 +15,38 @@
                 require '../layout/cabecera.php'; 
                 require '../layout/menu.php';
             ?>
+            <?php
+                /*session_start();*/
+				function conectar ($host, $usuario, $contraseña,$nombreBD){
+					$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
+					if ($mysqli->connect_errno) {
+						echo "ERROR Conexion";
+					}
+					return $mysqli;     
+                }
+                $BD = conectar("localhost","root","","practica 2 aw");
+                $consulta = mysqli_query($BD,"SELECT * FROM ejercicios"); 
+                
+                /*while($BDLogros =  mysqli_fetch_array($consulta)){
+                    echo $BDLogros["Musculo"] ;
+                    echo $BDLogros["Nombre"];
+                }*/
+               /* if(isset($_POST['quitarLogro'])){
+                    include  'planificaciontablas.php';
+                    
+                }
+                echo " <input type='submit' style = 'background-color:#c47e7e' class = 'selectA' name='quitarLogro' value='Quitar Logro'/>";*/
+				
+               /* INSERT INTO usuario (nif, nombre, direccion, email, telefono)
+                VALUES ("M3885337J", "Empresa Uno", "Calle Uno, Madrid",
+                "jefe@empresauno.com", "91 2347898");*/
+            ?> 
             <main>
                 <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
                 <div id="tabla">
                     <fieldset> 
                         <legend id = "DietasPlanificacion">Dietas</legend>
+                        <form method="post">
                         <p>
                             <select name="Elige tu dieta">
                                 <option selected value="0"> Elige una opción </option>
@@ -40,6 +67,8 @@
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
                     </fieldset>
+                    <form method = "post" action = "planificaciontablas.php">
+
                     <fieldset> 
                         <legend id = "RutinasPlanificacion">Rutinas</legend>
                         <p> Selecciona tu nivel: </p>
@@ -53,7 +82,7 @@
                                 <option selected value="0"> Elige una opción</option>
                                 <option value="1">Fuerza</option>
                                 <option value="2">Hipertrofia</option>
-                                <option value="3">Cardio</option>
+                                <option value="3">Resistencia</option>
                             </select>
                         </p>
                         <p>
@@ -68,9 +97,11 @@
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
                         <p>
-                            <button type="submit">Enviar</button>
+                            <input type="submit" value = "Enviarrr">
                         </p>
+
                     </fieldset>
+                    </form>
                 </div>
             </main>
             <?php 
