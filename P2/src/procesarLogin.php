@@ -31,7 +31,11 @@
 			if (!password_verify($password, $fila[''])) {
                 //rellenar
             }
-			else $_SESSION["nombre"] = "Usuario";
+			else{
+                $_SESSION["nombre"] = "Usuario";
+                // habria que guardar id del usuario (puede haber nombres repetidos) como asignamos id?
+                // -->Pos sol sumar 1 cada vez que creamos un usuario jiji :)
+            } 
 		}
 		$rs->free();
 	} else {

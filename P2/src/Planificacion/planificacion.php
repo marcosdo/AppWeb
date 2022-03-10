@@ -16,31 +16,7 @@
                 require '../layout/cabecera.php'; 
                 require '../layout/menu.php';
             ?>
-            <?php
-                /*session_start();*/
-				function conectar ($host, $usuario, $contraseña,$nombreBD){
-					$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
-					if ($mysqli->connect_errno) {
-						echo "ERROR Conexion";
-					}
-					return $mysqli;     
-                }
-                $BD = conectar("localhost","root","","practica 2 aw");
-                $consulta = mysqli_query($BD,"SELECT * FROM ejercicios"); 
-                
-                /*while($BDLogros =  mysqli_fetch_array($consulta)){
-                    echo $BDLogros["Musculo"] ;
-                    echo $BDLogros["Nombre"];
-                }*/
-                if(isset($_POST['enviar'])){
-                    include  'planificaciontablas.php';
-                    
-                }
-				
-               /* INSERT INTO usuario (nif, nombre, direccion, email, telefono)
-                VALUES ("M3885337J", "Empresa Uno", "Calle Uno, Madrid",
-                "jefe@empresauno.com", "91 2347898");*/
-            ?> 
+           
             <main>
                 <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
                 <div id="tabla">
@@ -48,7 +24,7 @@
                         <legend id = "DietasPlanificacion">Dietas</legend>
                         <form method="post">
                         <p>
-                            <select name="Elige tu dieta">
+                            <select name="Elige tu dieta" id= "Elige tu dieta">
                                 <option selected value="0"> Elige una opción </option>
                                 <option value="1">Pérdida de peso</option> 
                                 <option value="2">Ganancia de peso</option> 
@@ -77,12 +53,12 @@
                             <input type= "radio" name="nivel" value="A">Avanzada
                         </p>
                         <p>
-                            <select name="Elige tu rutina">
+                            <select name="Rutina">
                                 <option selected value="0"> Elige una opción</option>
                                 <option value="1">Fuerza</option>
                                 <option value="2">Hipertrofia</option>
                                 <option value="3">Resistencia</option>
-                            </select>
+                            </select >
                         </p>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
