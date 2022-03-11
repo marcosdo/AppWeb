@@ -1,8 +1,6 @@
 <?php
     session_start();
-
-    $formEnviado = isset($_POST['login']);
-    if (!$formEnviado) {
+    if (!isset($_POST['login'])) {
         header('Location: login.php');
         exit();
     }
