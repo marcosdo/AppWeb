@@ -36,16 +36,20 @@
 				$rs->free();
 			}
 			else {
-				$sql = "INSERT INTO usuario ( Apellidos, contraseña, correo, dni, Id_usuario, nombre, premium) VALUES('$apellidos', '$password, '$mail', '$dni', '$id', '$nombre', '0')";
-				if ( $conn->query($sql) ) {
-					$_SESSION["id_usuario"] = $fila["Id_usuario"];
-					$_SESSION["nombre"] = $fila["Nombre"];
-					$_SESSION["login"] = true; 
-					header('Location: index.php');
-					exit();
-				} else {
-					echo "Error SQL ({$conn->errno}):  {$conn->error}";
-					exit();
+				$sql = "SELECT Id_usuario FROM usuario HAVING Max(Id_usuario)";
+				$rs = $conn->query($sql);
+				if ($rs) {
+					if ($rs->num_rows != 0){
+						$fila = $rs->fetch_assoc();
+						$sql = "INSERT INTO usuario ( Apellidos, contraseña, correo, dni, Id_usuario, nombre, premium) VALUES('$apellidos', '$password, '$mail', '$dni', '$fila[Id_usuario] + 1', '$nombre', '0')";
+						if ( $conn->query($sql) ) {
+							$_SESSION["id_usuario"] = $fila["Id_usuario"];
+							$_SESSION["nombre"] = $nombre;
+							$_SESSION["login"] = true; 
+						} else {
+							echo "Error SQL ({$conn->errno}):  {$conn->error}";
+						}
+					}
 				}
 			}
 			
