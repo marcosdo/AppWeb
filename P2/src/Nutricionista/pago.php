@@ -16,18 +16,17 @@
             }
             
             // Obtenemos los valores del formulario
-            
             $peso=htmlspecialchars(trim(strip_tags($_POST["peso"])));
             $altura=htmlspecialchars(trim(strip_tags($_POST["altura"])));
             $alergias=htmlspecialchars(trim(strip_tags($_POST["alergias"])));
-            $observaciones==htmlspecialchars(trim(strip_tags($_POST["observaciones"])));
+            $observaciones=htmlspecialchars(trim(strip_tags($_POST["observaciones"])));
             
             //cambiar tabla usuario premium a premium
             //falta id profesional
-            $sql = "SELECT Id_profesional FROM profesional WHERE MIN(Num_usuarios)";
+            $sql = "SELECT Id_profesional FROM profesional HAVING MIN(Num_usuarios)";
             
             $resultado=$conn->query($sql);
-            $row = $result->fetch_assoc();
+            $row = $resultado->fetch_assoc();
 
             $sql = "INSERT INTO premium (Alergias, Altura, Id_profesional, Id_usuario, Logros, Num_logros, Observaciones_adicionales, Peso) ; VALUES ('$alergias', '$altura', '$row[Id_profesional]', '$_SESSION[id_usuario]', '0', '0', '$observaciones', '$peso')";
             $resultado->free();
@@ -36,7 +35,6 @@
 
             $conn->close();
             header('Location: EntrenadorPersonalUsu.php');
-			exit();
         ?>
     </body>
 

@@ -14,7 +14,7 @@
             ?>
             <main>
                 <div id="tabla">
-                    <form method="get" action="pago.php">
+                    <form method="POST" action="pago.php">
                         <fieldset>
                             <legend> Por favor, introduzca sus datos:</legend>
                             Peso:<br><input type="text" name="peso" required/><br>

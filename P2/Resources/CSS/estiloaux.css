@@ -9,6 +9,28 @@ div#tabla {
 	grid-column-gap : 20px;
 }
 
+fieldset {
+	border: 1px solid black;
+	margin: auto;
+}
+
+fieldset div {
+	justify-content: center;
+	margin: 5px auto;
+}
+
+legend {
+	color: #fff;
+	background: #303030;
+	border: 1px solid black;
+	padding: 2px 6px;
+} 
+
+label {
+	margin-right: 0.5em;
+	display: block;
+}
+
 body {
 	background-color: #CDCDCD;
 }
