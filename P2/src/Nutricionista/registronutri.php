@@ -10,7 +10,7 @@
             <?php
                 session_start();
                 require '../layout/cabecera.php';
-                require '../layout/sidebarIzq.php';
+                require '../layout/menu.php';
             ?>
             <main>
                 <div id="tabla">
@@ -28,7 +28,7 @@
                 </div>
             </main>
             <?php
-                require '../layout/sidebarDer.php';
+                require '../layout/anuncios.php';
                 require '../layout/pie.php';
             ?>
         </div>

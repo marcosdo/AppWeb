@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    unset($_SESSION["login"]);
-    unset($_SESSION["nombre"]);
-    if(isset($_SESSION["esAdmin"])) unset($_SESSION["esAdmin"]);
-    session_destroy();
+  session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,13 +14,9 @@
         require 'layout/cabecera.php';
         require 'layout/menu.php';
       ?>
-      <main>
-        <article>
-          <h1>Página Logout</h1>
-          <p>Gracias por visitar nuestra web. ¡Hasta pronto!</p>
-        </article>
+      <main id = "contenido">
+          <h1> Bienvenido a nuestra web </h1>
       </main>
-
       <?php
         require 'layout/anuncios.php';
         require 'layout/pie.php';

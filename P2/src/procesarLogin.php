@@ -1,6 +1,7 @@
 <?php
     session_start();
-    if (!isset($_POST['login'])) {
+    $formEnviado = isset($_POST['login']);
+    if (! $formEnviado ) {
         header('Location: login.php');
         exit();
     }
@@ -23,18 +24,19 @@
 	if ($rs) {
 		if ($rs->num_rows != 0){
 			$fila = $rs->fetch_assoc();
-			if (password_verify($password, $fila['Contraseña'])) {
+			if ($password === $fila['Password']) {
                 $_SESSION["id_usuario"] = $fila["Id_usuario"];
-                $_SESSION["nombre"] = $fila["Nombre"];
+                $_SESSION["nombre"] = $username;
                 $_SESSION["login"] = true; 
             }
-            else $_SESSION["login"] = false; 
+            else $_SESSION["login"] = false;
+
 		}
 		$rs->free();
 	} else {
 		echo "Error SQL ({$conn->errno}):  {$conn->error}";
 	}
-
+    $conn->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +49,7 @@
         <div id="contenedor">
             <?php
                 require 'layout/cabecera.php';
-                require 'layout/sidebarIzq.php';
+                require 'layout/menu.php';
             ?>
             <main id = "contenido">
                 <?php
@@ -55,7 +57,7 @@
                 ?>
             </main>
             <?php
-                require 'layout/sidebarDer.php';
+                require 'layout/anuncios.php';
                 require 'layout/pie.php';
             ?>
         </div>

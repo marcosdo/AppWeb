@@ -12,7 +12,7 @@
     <div id="contenedor">
       <?php
         require 'layout/cabecera.php';
-        require 'layout/sidebarIzq.php';
+        require 'layout/menu.php';
       ?>
       <main id = "contenido">
         <form action ="procesarLogin.php" method = "post">
@@ -33,7 +33,7 @@
         </form>
       </main>
       <?php
-        require 'layout/sidebarDer.php';
+        require 'layout/anuncios.php';
         require 'layout/pie.php';
       ?>
     </div> <!-- Fin del contenedor -->

@@ -12,7 +12,7 @@
 		<div id="contenedor">
 			<?php
 				require('layout/cabecera.php');
-				require('layout/sidebarIzq.php');
+				require('layout/menu.php');
 			?>
 			<main>
 				<h1>Registro de usuario</h1>
@@ -50,7 +50,7 @@
 				</form>
 			</main>
 			<?php
-				require('layout/sidebarDer.php');
+				require('layout/anuncios.php');
 				require('layout/pie.php');
 			?>
 		</div>

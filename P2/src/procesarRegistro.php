@@ -1,12 +1,12 @@
 <?php
 	session_start();
 
-	session_start();
-    if (!isset($_POST['login'])) {
-        header('Location: login.php');
-        exit();
-    }
-
+	$formEnviado = isset($_POST['login']);
+	if (!$formEnviado ) {
+		header('Location: login.php');
+		exit();
+	}
+	
 	$nombre = htmlspecialchars(trim(strip_tags($_POST["nombre"])));
 	$apellidos = htmlspecialchars(trim(strip_tags($_POST["apellidos"])));
 	$dni = htmlspecialchars(trim(strip_tags($_POST["dni"])));
@@ -41,7 +41,7 @@
 				if ($rs) {
 					if ($rs->num_rows != 0){
 						$fila = $rs->fetch_assoc();
-						$sql = "INSERT INTO usuario ( Apellidos, contraseña, correo, dni, Id_usuario, nombre, premium) VALUES('$apellidos', '$password, '$mail', '$dni', '$fila[Id_usuario] + 1', '$nombre', '0')";
+						$sql = "INSERT INTO usuario ( Apellidos, Password, correo, dni, Id_usuario, nombre, premium) VALUES('$apellidos', '$password, '$mail', '$dni', '$fila[Id_usuario] + 1', '$nombre', '0')";
 						if ( $conn->query($sql) ) {
 							$_SESSION["id_usuario"] = $fila["Id_usuario"];
 							$_SESSION["nombre"] = $nombre;
@@ -58,6 +58,7 @@
 		echo "Error SQL ({$conn->errno}):  {$conn->error}";
 		exit();
 	}
+	$conn->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,14 +71,14 @@
 		<div id="contenedor">
 			<?php
 				require('cabecera.php');
-				require('sidebarIzq.php');
+				require('menu.php');
 			?>
 			<main>
 				
 			</main>
 
 			<?php
-				require('sidebarDer.php');
+				require('anuncios.php');
 				require('pie.php');
 			?>
 		</div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2022 a las 17:14:58
--- Versión del servidor: 10.4.19-MariaDB
--- Versión de PHP: 8.0.6
+-- Tiempo de generación: 12-03-2022 a las 09:27:46
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `practica 2 aw`
+-- Base de datos: `lifety`
 --
 
 -- --------------------------------------------------------
@@ -67,8 +67,8 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 CREATE TABLE `premium` (
   `Peso` float NOT NULL,
   `Altura` float NOT NULL,
-  `Alergias` text NOT NULL,
-  `Observaciones_adicionales` text NOT NULL,
+  `Alergias` text DEFAULT NULL,
+  `Observaciones_adicionales` text DEFAULT NULL,
   `Num_logros` int(20) NOT NULL,
   `Logros` int(2) DEFAULT NULL,
   `Id_usuario` int(5) NOT NULL,
@@ -101,11 +101,10 @@ CREATE TABLE `profesional` (
 
 CREATE TABLE `usuario` (
   `Nombre` text NOT NULL,
-  `Apellido 1` text NOT NULL,
-  `Apellido 2` text NOT NULL,
+  `Apellidos` text NOT NULL,
   `DNI` varchar(9) NOT NULL,
   `Correo` varchar(50) NOT NULL,
-  `Contraseña` varchar(25) NOT NULL,
+  `Password` varchar(25) NOT NULL,
   `Id_usuario` int(5) NOT NULL,
   `Premium` tinyint(1) NOT NULL,
   `Nivel` char(1) DEFAULT NULL,
@@ -117,8 +116,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Nombre`, `Apellido 1`, `Apellido 2`, `DNI`, `Correo`, `Contraseña`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`) VALUES
-('Alex', '', '', '', '', '', 0, 0, 'P', NULL, 1);
+INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`) VALUES
+('Alex', '', '', '', '1', 0, 0, 'P', NULL, 1);
 
 --
 -- Índices para tablas volcadas
