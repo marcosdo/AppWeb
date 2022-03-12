@@ -13,6 +13,13 @@ body {
 	background-color: #CDCDCD;
 }
 
+table{
+    border-collapse:collapse;
+}
+td {
+    border: rgb(255, 198, 151) 3px solid;
+    
+}
 div#contenedor {
 	width: 1000px;
 	margin: auto;
