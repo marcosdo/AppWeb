@@ -9,8 +9,8 @@
 <body>
 <div id="contenedor">
     <?php 
-		include("../layout/cabecera.php");
-		include("../layout/sidebarIzq.php");
+		include("includes/vistas/cabecera.php");
+		include("includes/vistas/menu.php");
 	?>
     <main>
 		<header><h1>Tu nutricionista/entrenador personal</h1></header>
@@ -40,8 +40,8 @@
 
 	</main>
     <?php 
-		include("../layout/sidebarDer.php");
-		include("../layout/pie.php");
+		include("includes/vistas/anuncios.php");
+		include("includes/vistas/pie.php");
 	?>
     </div> <!-- Fin del contenedor -->
 </body>

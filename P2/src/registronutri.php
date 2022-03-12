@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux.css" />
+        <link rel="stylesheet" type="text/css" href="   ../resources/CSS/estiloaux.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Planificacion</title>
     </head>
@@ -9,8 +9,8 @@
         <div id="contenedor">
             <?php
                 session_start();
-                require '../layout/cabecera.php';
-                require '../layout/menu.php';
+                require 'includes/vistas/cabecera.php';
+                require 'includes/vistas/menu.php';
             ?>
             <main>
                 <div id="tabla">
@@ -24,12 +24,12 @@
                             <br><input type="submit" value="Pagar" /></br>
                         </fieldset>
                     </form>
-                    <img src="../../resources/Imagenes/nutricionista.jpg" alt="Tu nutri de confianza" >
+                    <img src="../resources/Imagenes/nutricionista.jpg" alt="Tu nutri de confianza" >
                 </div>
             </main>
             <?php
-                require '../layout/anuncios.php';
-                require '../layout/pie.php';
+                require 'includes/vistas/anuncios.php';
+                require 'includes/vistas/pie.php';
             ?>
         </div>
     </body>

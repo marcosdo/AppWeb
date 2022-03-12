@@ -1,7 +1,7 @@
 <?php	
 	function mostrarSaludo($log){
-		if($log) echo"Bienvenido, {$_SESSION['nombre']} <a href='/AppWeb/P2/src/logout.php'>(salir)</a>";
-		else echo "Usuario desconocido. <a href='/AppWeb/P2/src/login.php'>Login</a>";
+		if($log) echo"Bienvenido, {$_SESSION['nombre']} <a href='logout.php'>(salir)</a>";
+		else echo "Usuario desconocido. <a href='login.php'>Login</a>";
 	}
 ?>
 <!DOCTYPE html>
