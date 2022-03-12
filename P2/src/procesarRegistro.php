@@ -36,7 +36,7 @@
 				$rs->free();
 			}
 			else {
-				$sql = "SELECT Id_usuario FROM usuario HAVING Max(Id_usuario)";
+				$sql = "SELECT Id_usuario FROM usuario HAVING MAX(Id_usuario) > -1";
 				$rs = $conn->query($sql);
 				if ($rs) {
 					if ($rs->num_rows != 0){
@@ -70,16 +70,16 @@
 	<body>
 		<div id="contenedor">
 			<?php
-				require('cabecera.php');
-				require('menu.php');
+				require('includes/vistas/cabecera.php');
+				require('includes/vistas/menu.php');
 			?>
 			<main>
 				
 			</main>
 
 			<?php
-				require('anuncios.php');
-				require('pie.php');
+				require('includes/vistas/anuncios.php');
+				require('includes/vistas/pie.php');
 			?>
 		</div>
 	</body>
