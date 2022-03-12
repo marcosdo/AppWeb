@@ -1,9 +1,12 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux.css" />
+        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux4.css" />
 
         <title>Planificación</title>
 
@@ -15,8 +18,10 @@
                 require '../layout/cabecera.php'; 
                 require '../layout/menu.php';
             ?>
+            <main>
+           
                 <?php
-                session_start();
+
 				function conectar ($host, $usuario, $contraseña,$nombreBD){
 					$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
 					if ($mysqli->connect_errno) {
@@ -25,7 +30,7 @@
 					return $mysqli;     
                 }
                 $BD = conectar("localhost","root","","practica 2 aw");
-
+               
 
                 htmlspecialchars(trim(strip_tags($_POST["nivel"])));
                 htmlspecialchars(trim(strip_tags($_POST["Rutina"])));
@@ -60,11 +65,21 @@
                     $ejerciciosdia = 4;                        
                     break;
             }
+           /*$contador_ejercicio = 0;
+           $contador_musculo = 1;
+           echo "<table>";
+           echo "<tr>";
+           for( $dia_actual = 1; $dia_actual <= $dias; $dia_actual++){
+               echo "<td> Dia $dia_actual:  </td>";
+           }
+           echo "</tr>";*/
+           
+            
             $cont = 1;
             echo "<table>";
             for($i = 1; $i < $dias +1; $i++){
                 echo "<tr>";
-                echo "<td> Dia $i</td>";
+                echo "<td> Dia $i:  </td>";
                 if($i == 4) {
                     $cont = 1;
                     $ejerciciosdia--;
@@ -84,9 +99,12 @@
                         $j++;
                     }
                     $cont++;
-                 }
+                 } 
             }
-            
+            ?>
+           
+            </main>
+            <?php 
                 require '../layout/anuncios.php';
                 require '../layout/pie.php';
             ?>
