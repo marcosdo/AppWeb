@@ -82,6 +82,13 @@
                     }
                 }
                 mostrar($ejerciciosdia, $dias, $dia1, $dia2, $dia3, $dia4, $dia5);
+                $idusuario = 123;
+                $sqlu = "UPDATE usuario
+                SET Nivel = $nivel, Dias = $dias, Eobjetivo = $objetivo
+                WHERE Id_usuario = $idusuario";
+                mysqli_query($BD, $sqlu); // Tratar error en caso de que no se actualice.
+                mysqli_close($BD);
+
 
                 function rellenar(&$cont, $ejerciciosdia, $muscs, $BD, $nveces , &$arrayaux){
                     for($i = 0; $i < $nveces; $i++){
