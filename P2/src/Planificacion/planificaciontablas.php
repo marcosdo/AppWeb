@@ -21,17 +21,6 @@
             <main>
            
                 <?php
-
-				function conectar ($host, $usuario, $contraseña,$nombreBD){
-					$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
-					if ($mysqli->connect_errno) {
-						echo "ERROR Conexion";
-					}
-					return $mysqli;     
-                }
-                $BD = conectar("localhost","root","","practica 2 aw");
-               
-
                 htmlspecialchars(trim(strip_tags($_POST["nivel"])));
                 htmlspecialchars(trim(strip_tags($_POST["Rutina"])));
                 htmlspecialchars(trim(strip_tags($_POST["Dias"])));
@@ -39,14 +28,20 @@
                 $nivel = isset($_POST["nivel"]) ? $_POST["nivel"] : null;
                 $objetivo = isset($_POST["Rutina"]) ? $_POST["Rutina"] : null;
                 $dias = isset($_POST["Dias"]) ? $_POST["Dias"] : null;
+
+                $BD = conectar("localhost","root","","practica 2 aw");
                 $consulta = mysqli_query($BD,"SELECT * FROM usuario");
                 $fila = mysqli_fetch_assoc($consulta);
                 $sql = "UPDATE usuario SET Nivel = '$nivel', Dias = '$dias',  Eobjetivo = '$objetivo' WHERE Nombre = '$fila[Nombre]'";
 
-                 // -->Nivel principiante: 2 +2
-                 // -->Nivel medio: 3 +3
-                 // -->Nivel avanzado:4 + 4
-               $muscs = array(
+                /* 
+                Ejercicios x musculo
+                  -->Nivel principiante: 2 + 2
+                  -->Nivel medio: 3 + 3
+                  -->Nivel avanzado: 4 + 4
+                */
+
+                $muscs = array(
                     1 => "Pecho",
                     2 => "Hombro",
                     3 => "Espalda",
@@ -54,168 +49,96 @@
                     5 => "Pierna",
                     6 => "Triceps",
                 );
-            switch ($nivel) {
-                case "P":
-                    $ejerciciosdia = 2;
-                    break;
-                case "M":
-                    $ejerciciosdia = 3;
-                    break;
-                case "A":
-                    $ejerciciosdia = 4;                        
-                    break;
-            }
-           $arraydia1 = array();
-         /*  $contador_musculo = 1;
-           echo "<table>";
-           echo "<tr>";
-           for( $dia_actual = 1; $dia_actual <= $dias; $dia_actual++){
-               echo "<td> Dia $dia_actual:  </td>";
-           }
-           echo "</tr>";
-           if($dias == 3) $aux = $ejerciciosdia*2;
-           else if ($dias == 5)  $aux = $ejerciciosdia*3;
-           for($i = 0; $i < $aux; $i++){
-               echo "<tr>";
-               for($dia_actual = 1; $dia_actual <= $dias; $dia_actual++){
-                echo "<td>";
-                switch($dia_actual){
-                    case 1:
-                        if($dias == 5 && $i >= ($ejerciciosdia*2)) break;
-                        if($i == $ejerciciosdia) $contador_musculo = 2;
-                        else $contador_musculo = 1;
-                        mostrar($contador_musculo,$muscs, $BD);
-
-                    break;
-                    case 2:
-                        if($dias == 5 && $i >= ($ejerciciosdia*2)) break;
-                        if($i == $ejerciciosdia) $contador_musculo = 3; 
-                        else $contador_musculo = 4;
-                        mostrar($contador_musculo,$muscs, $BD);
-                    break;
-                    case 3: 
-                        if($dias == 5 && $i >= ($ejerciciosdia*2)) break;
-                        if($i == $ejerciciosdia) $contador_musculo = 6;
-                        else $contador_musculo = 5;
-                        mostrar($contador_musculo,$muscs, $BD);
-                    break;
-                    case 4:
-                        if($i == $ejerciciosdia) $contador_musculo = 2;
-                        else if ($i == $ejerciciosdia*2) $contador_musculo = 3;
-                        else $contador_musculo = 1;
-                        mostrar($contador_musculo,$muscs, $BD);
-                    break; 
-                    case 5:
-                        if($i == $ejerciciosdia) $contador_musculo = 5;
-                        else if ($i == $ejerciciosdia*2) $contador_musculo = 6;
-                        else $contador_musculo = 4;
-                        mostrar($contador_musculo,$muscs, $BD);
-                    break;
-                    }
-                    echo "</td>";
+                switch ($nivel) {
+                    case "P":
+                        $ejerciciosdia = 2;
+                        break;
+                    case "M":
+                        $ejerciciosdia = 3;
+                        break;
+                    case "A":
+                        $ejerciciosdia = 4;                        
+                        break;
                 }
-                echo "</tr>";
-           }
-           function mostrar($cont, $muscs, $BD){
-                    $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE Musculo = '$muscs[$cont]'");
-                    $fila = mysqli_fetch_assoc($consulta);
-                    echo  $fila['Nombre']; 
-            }
-             $cont = 1;
-            echo "<table>";
-            for($i = 1; $i < $dias +1; $i++){
-                echo "<tr>";
-                echo "<td> Dia $i:  </td>";
-                if($i == 4) {
-                    $cont = 1;
-                    $ejerciciosdia--;
-                }
-                if($i >= 1 && $i <= 3) mostrar($cont, $ejerciciosdia, $muscs, $BD, 2);
-                else mostrar($cont, $ejerciciosdia, $muscs, $BD, 3);
-                echo "</tr>";
-            }
-            echo "</table>";
-
-            function mostrar(&$cont, $ejerciciosdia, $muscs, $BD, $nveces){
-                for($i = 0; $i < $nveces; $i++){
-                    $j = 0;
-                    $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE Musculo = '$muscs[$cont]'");
-                    while ($fila = mysqli_fetch_assoc($consulta)){
-                        if($j < $ejerciciosdia) echo "<td> $fila[Nombre]</td>";  
-                        $j++;
+                $dia4 = array(); 
+                $dia5 = array(); 
+                $cont = 1;
+                for($i = 1; $i < $dias +1; $i++){
+                    $arrayaux = array();
+                    if($i == 4) {
+                        $cont = 1;
+                        $ejerciciosdia--;
                     }
-                    $cont++;
-                 } 
-            }
-            */
-           
-            $cont = 1;
-            $arraydias = array (
-                0 => array(), 
-                1 => array(),
-                2 => array(), 
-                3 => array(),
-                4 => array()
-              );
-            for($i = 1; $i < $dias +1; $i++){
-                $arrayaux = array();
+                    if($i >= 1 && $i <= 3) {
+                        rellenar($cont, $ejerciciosdia, $muscs, $BD, 2, $arrayaux);
+                        if($i == 1) $dia1 = $arrayaux; 
+                        else if($i == 2) $dia2 = $arrayaux;
+                        else $dia3 = $arrayaux;
+                    }
+                    else{
+                        rellenar($cont, $ejerciciosdia, $muscs, $BD, 3, $arrayaux);
+                        if($i == 4) $dia4 = $arrayaux; 
+                        else $dia5 = $arrayaux;
+                    }
+                }
+                mostrar($ejerciciosdia, $dias, $dia1, $dia2, $dia3, $dia4, $dia5);
+
+                function rellenar(&$cont, $ejerciciosdia, $muscs, $BD, $nveces , &$arrayaux){
+                    for($i = 0; $i < $nveces; $i++){
+                        $j = 0;
+                        $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE Musculo = '$muscs[$cont]'");
+                        while ($fila = mysqli_fetch_assoc($consulta)){
+                            if($j < $ejerciciosdia) array_push($arrayaux, $fila['Nombre']);  
+                            $j++;
+                        }
+                        $cont++;
+                    } 
+                }
                 
-                if($i == 4) {
-                    $cont = 1;
-                    $ejerciciosdia--;
-                }
-                if($i >= 1 && $i <= 3) rellenar($cont, $ejerciciosdia, $muscs, $BD, 2, $arrayaux);
-                else rellenar($cont, $ejerciciosdia, $muscs, $BD, 3, $arrayaux);
-                array_push($arraydias[$i], $arrayaux);
-            }
-           
-
-              //echo $cars[0][0].": In stock: ".$cars[0][1].", sold: ".$cars[0][2].".<br>";
-        
-            function rellenar(&$cont, $ejerciciosdia, $muscs, $BD, $nveces , &$arrayaux){
-                for($i = 0; $i < $nveces; $i++){
-                    $j = 0;
-                    $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE Musculo = '$muscs[$cont]'");
-                    while ($fila = mysqli_fetch_assoc($consulta)){
-                        if($j < $ejerciciosdia) array_push($arrayaux, $fila['Nombre']);  
-                        $j++;
+                function mostrar($ejerciciosdia, $dias, $dia1, $dia2, $dia3, $dia4, $dia5){
+                    if($dias == 3) $ejerciciostotales = $ejerciciosdia * 2;
+                    else if ($dias == 5)  $ejerciciostotales = $ejerciciosdia * 3;
+                    echo "<table><tr>";
+                    for( $dia_actual = 1; $dia_actual <= $dias; $dia_actual++)
+                        echo "<td> Dia $dia_actual:  </td>";
+                    echo "</tr>";
+                    for ($i = 0; $i < $ejerciciostotales; $i++){
+                        echo "<tr>";
+                        for($j = 1; $j < $dias+1; $j++){
+                            switch ($j) {
+                                case 1: 
+                                    print "<td> $dia1[$i] </td>";
+                                    break;
+                                case 2:
+                                    print "<td> $dia2[$i] </td>";
+                                    break;
+                                case 3:
+                                    print "<td> $dia3[$i] </td>";
+                                    break;
+                                case 4:
+                                    print "<td> $dia4[$i] </td>";
+                                    break;
+                                case 5:
+                                    print "<td> $dia5[$i] </td>";
+                                    break;
+                                default:
+                                    break;
+                            }   
+                        }
+                        echo "</tr>";
                     }
-                    $cont++;
-                 } 
-            }
-            
-            if($dias == 3) $aux = $ejerciciosdia*2;
-            else if ($dias == 5)  $aux = $ejerciciosdia*3;
-            echo "<table>";
-            echo "<tr>";
-            for( $dia_actual = 1; $dia_actual <= $dias; $dia_actual++){
-                echo "<td> Dia $dia_actual:  </td>";
-            }
-            /*foreach ($arraydias as $i => $valor) {
-                foreach ($valor as $desc) {
-                    print "el pais es $i, la moneda  descr $desc.<br />\n";
+                    echo "</table>";
                 }
-             }*/
-             
-             
-    foreach ($dias as $arraydias => $valor) {
-        echo "El almuno tiene $arraydias: ".$valor[0]."</br>";
-        echo "El almuno tiene $arraydias: ".$valor[1]."</br>";
-        echo "El almuno tiene $arraydias: ".$valor[2]."</br>";
-        }
 
-            echo "</tr>";
-            
-            for ($i = 0; $i < $dias; $i++){
-                echo "<tr>";
-                
-                for($j = 0; $j < $aux; $j++){
-                  print "<td> $arraydias[$i][$j]  </td>";
+                function conectar ($host, $usuario, $contraseña,$nombreBD){
+					$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
+					if ($mysqli->connect_errno) {
+						echo "ERROR Conexion";
+					}
+					return $mysqli;     
                 }
-                echo "</tr>";
-            }
-            echo "</table>";
-            ?>
+                
+                ?>
            
             </main>
             <?php 
