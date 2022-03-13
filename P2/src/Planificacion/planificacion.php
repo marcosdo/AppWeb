@@ -23,9 +23,8 @@
                         <form method="post" action="planificaciondietas.php">
                         <p>
                             <select name="dieta" id="choose-diet">
-                                <option selected value="0"> Elige una opción </option>
-                                <option value="1">Pérdida de peso</option> 
-                                <option value="2">Ganancia de peso</option> 
+                                <option value="1">Pérdida de peso</option>
+                                <option value="2">Ganancia de peso</option>
                                 <option value="3">Mantener peso</option>
                             </select>
                         </p>
@@ -51,20 +50,18 @@
                         <form method="post" action="planificacionrutinas.php">
                         <p> Selecciona tu nivel: </p>
                         <p>
-                            <input type= "radio" name="nivel" value="P">Principiante
+                            <input type= "radio" name="nivel" value="P" checked>Principiante
                             <input type= "radio" name="nivel" value="M">Medio
                             <input type= "radio" name="nivel" value="A">Avanzada
                         </p>
                         <p>
-                            <select name="dias">
-                                <option selected value="0"> Elige el número de días</option>
+                            <select name="dias" id="choose-days">
                                 <option value="3">3 Días</option>
                                 <option value="5">5 Días</option>
                             </select >
                         </p>
                         <p>
-                            <select name="rutina">
-                                <option selected value="0"> Elige un tipo de rutina</option>
+                            <select name="rutina" id="choose-routine">
                                 <option value="1">Fuerza</option>
                                 <option value="2">Hipertrofia</option>
                                 <option value="3">Resistencia</option>
