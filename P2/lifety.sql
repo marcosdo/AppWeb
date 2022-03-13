@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2022 a las 14:03:15
--- Versión del servidor: 10.4.19-MariaDB
--- Versión de PHP: 8.0.6
+-- Tiempo de generación: 13-03-2022 a las 20:48:58
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,17 +29,50 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `dietas` (
   `Objetivo` int(1) NOT NULL,
-  `Nombre` varchar(40) NOT NULL,
-  `Tipo` varchar(10) NOT NULL
+  `descripcion` varchar(100) NOT NULL,
+  `Tipo` enum('Desayuno','Comida','Cena') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `dietas`
 --
 
-INSERT INTO `dietas` (`Objetivo`, `Nombre`, `Tipo`) VALUES
+INSERT INTO `dietas` (`Objetivo`, `descripcion`, `Tipo`) VALUES
+(1, 'Copos de avena con leche', 'Desayuno'),
+(1, 'Yogur con copos de avena', 'Desayuno'),
+(1, 'Tortitas de avena', 'Desayuno'),
 (2, 'Porridge de avena y frutos secos', 'Desayuno'),
-(2, 'Requesón con fruta', 'Desayuno');
+(2, 'Requesón con fruta', 'Desayuno'),
+(2, 'Sándwich de queso gouda con huevo duro', 'Desayuno'),
+(2, 'Batido de platano y avena', 'Desayuno'),
+(3, 'Smoothie Bowls', 'Desayuno'),
+(3, 'Hotcakes de avena y quinoa', 'Desayuno'),
+(3, 'Pudín', 'Desayuno'),
+(3, 'Wrap de pavo', 'Desayuno'),
+(1, 'Ensalada de calabacín a la plancha con q', 'Comida'),
+(1, 'Albondigas de merluza y brocoli', 'Comida'),
+(1, 'Pechuga de pollo con soja y verduras salteadas', 'Comida'),
+(1, 'Caldo de verduras con tortilla francesa', 'Comida'),
+(2, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Comida'),
+(2, 'Wok de verduras al curry con tiras de pollo', 'Comida'),
+(2, '.Berenjena y calabacín asado con pimentón dulce', 'Comida'),
+(2, 'Puré de calabaza con patata hervida', 'Comida'),
+(2, 'Tomates rellenos de lentejas', 'Comida'),
+(2, 'Revuelto de gambas y champiñones', 'Comida'),
+(3, 'Pollo con verduras y queso batido al papillote', 'Cena'),
+(3, 'Salmón al horno con salsa de yogur', 'Cena'),
+(3, 'Sopa de pasta y hamburguesa con naranja picada', 'Cena'),
+(3, 'Crema de verduras y pechuga de pollo con manzana', 'Cena'),
+(3, 'Croquetas de pescado con pure de patata', 'Cena'),
+(3, 'Pollo a la naranja', 'Cena'),
+(3, 'Garbanzos con espinacas', 'Cena'),
+(3, 'Arroz tres delicias', 'Cena'),
+(1, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Cena'),
+(1, 'Wok de verduras al curry con tiras de pollo', 'Cena'),
+(2, 'Hamburguesa de jamón york con mayonesa y queso', 'Cena'),
+(2, 'Minipizza cuatro quesos con naranja troceada', 'Cena'),
+(3, 'Pollo con almendras chino', 'Comida'),
+(3, 'Atún a la plancha con ajo y perejil', 'Comida');
 
 -- --------------------------------------------------------
 
@@ -81,6 +114,19 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 ('Espalda', 'Remo en T'),
 ('Espalda', 'Remo con barra'),
 ('Espalda', 'Renegade row');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `planificacion`
+--
+
+CREATE TABLE `planificacion` (
+  `id_usuario` int(5) NOT NULL,
+  `desayunos` text NOT NULL,
+  `comidas` text NOT NULL,
+  `cenas` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -170,7 +216,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`, `Dobjetivo`) VALUES
-('Alex', '', '', '', '1', 0, 1, 'A', 3, 1, 2),
+('Alex', '', '', '', '1', 0, 1, 'P', 5, 3, 1),
 ('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL, 0);
 
 --

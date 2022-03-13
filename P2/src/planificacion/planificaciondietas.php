@@ -36,10 +36,27 @@ $desayunos = array();
 $comidas = array(); 
 $cenas = array();
 
-// Rellena los arrays con comidas aleatorias
-fill_random($desayunos, $desayunos_aux);
-fill_random($comidas, $comidas_aux);
-fill_random($cenas, $cenas_aux);
+/*
+$des = "";
+
+//https://www.php.net/manual/es/function.explode.php
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$info = mysqli_fetch_array($query);
+if(is_null($info['desayunos'])){ // Nueva tabla
+    // Rellena los arrays con comidas aleatorias   */
+    fill_random($desayunos, $desayunos_aux, $des);
+    fill_random($comidas, $comidas_aux, $des);
+    fill_random($cenas, $cenas_aux, $des);
+
+    /*
+    $query = "UPDATE planificiacion SET planificacion.desayunos = $des WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+    mysqli_query($BD, $query)
+
+}
+else {
+    fill_frombd()
+}
+*/
 
 ?>
 
@@ -55,7 +72,7 @@ function fill_array(&$dest, $tipo, $objetivo, $BD) {
 }
 
 // Inserta siete (7) elementos en el array destino
-function fill_random(&$dest, $src) {
+function fill_random(&$dest, $src, &$string) {
     // Si esta vacio no hace nada
     if (empty($src)) {
         return;
@@ -64,6 +81,15 @@ function fill_random(&$dest, $src) {
     for ($i = 0; $i < 7; $i++) {
         $clave = array_rand($src, 1); 
         $dest[] =  $src[$clave];
+        //$string = $src[$clave] + " | ";
+    }
+}
+
+function fill_frombd(&$dest, $string){
+    for ($i = 0; $i < 7; $i++) {
+        $clave = array_rand($src, 1); 
+        $dest[] =  $src[$clave];
+        $string = $src[$clave] + " | ";
     }
 }
 
