@@ -12,20 +12,20 @@ class Usuario
         return false;
     }
     
-    public static function crea($nombre, $password)
+    public static function crea($apellidos, $correo, $dni, $nombre, $password, $premium)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $nombre);
+        $user = new Usuario($apellidos, $correo, $dni, $nombre, self::hashPassword($password), $premium);
         return $user->inserta($user);
     }
 
     public static function buscaUsuario($nombreUsuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario='%s'", $conn->real_escape_string($nombreUsuario));
+        $query = sprintf("SELECT * FROM usuarios WHERE nombre='%s'", $conn->real_escape_string($nombreUsuario));
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['nombre'], $fila['id']);
+            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
             $rs->free();
 
             return $user;
@@ -38,11 +38,11 @@ class Usuario
     public static function buscaPorId($idUsuario)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Usuarios WHERE id=%d", $idUsuario);
+        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $idUsuario);
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['nombre'], $fila['id']);
+            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
             $rs->free();
             return $user;
         } else {
@@ -56,11 +56,18 @@ class Usuario
     private static function inserta($usuario) {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario (nombre, password) VALUES ('%s', '%s')", $conn->real_escape_string($usuario->nombre), $conn->real_escape_string($usuario->password));
+        $query=sprintf("INSERT INTO usuario (apellidos, correo, dni, nombre, password, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
+        $conn->real_escape_string($usuario->apellidos), 
+        $conn->real_escape_string($usuario->correo), 
+        $conn->real_escape_string($usuario->dni), 
+        $conn->real_escape_string($usuario->nombre),
+        $conn->real_escape_string($usuario->password),
+        $conn->real_escape_string($usuario->premium));
+
         if ( $conn->query($query) ) {
             $usuario->id = $conn->insert_id;
-            $result = self::insertaRoles($usuario);
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        } 
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return $result;
     }
     
