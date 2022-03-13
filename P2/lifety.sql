@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2022 a las 20:48:58
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 13-03-2022 a las 22:45:23
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,7 @@ INSERT INTO `dietas` (`Objetivo`, `descripcion`, `Tipo`) VALUES
 (3, 'Hotcakes de avena y quinoa', 'Desayuno'),
 (3, 'Pudín', 'Desayuno'),
 (3, 'Wrap de pavo', 'Desayuno'),
-(1, 'Ensalada de calabacín a la plancha con q', 'Comida'),
+(1, 'Ensalada de calabacín a la plancha con queso', 'Comida'),
 (1, 'Albondigas de merluza y brocoli', 'Comida'),
 (1, 'Pechuga de pollo con soja y verduras salteadas', 'Comida'),
 (1, 'Caldo de verduras con tortilla francesa', 'Comida'),
@@ -122,11 +122,21 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 --
 
 CREATE TABLE `planificacion` (
-  `id_usuario` int(5) NOT NULL,
-  `desayunos` text NOT NULL,
-  `comidas` text NOT NULL,
-  `cenas` text NOT NULL
+  `Id_usuario` int(5) NOT NULL,
+  `desayunos` text DEFAULT NULL,
+  `comidas` text DEFAULT NULL,
+  `cenas` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `planificacion`
+--
+
+INSERT INTO `planificacion` (`Id_usuario`, `desayunos`, `comidas`, `cenas`) VALUES
+(0, '', '', ''),
+(23, 'Comida A, Comida B', 'Comida C', 'Comida D'),
+(25, 'Porridge de avena y frutos secos | Batido de platano y avena | Requesón con fruta | Porridge de avena y frutos secos | Requesón con fruta | Requesón con fruta | Sándwich de queso gouda con huevo duro', 'Puré de calabaza con patata hervida | Revuelto de gambas y champiñones | Tomates rellenos de lentejas | Revuelto de gambas y champiñones | Tomates rellenos de lentejas | Wok de verduras al curry con tiras de pollo | Revuelto de gambas y champiñones', 'Minipizza cuatro quesos con naranja troceada | Minipizza cuatro quesos con naranja troceada | Hamburguesa de jamón york con mayonesa y queso | Minipizza cuatro quesos con naranja troceada | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso | Minipizza cuatro quesos con naranja troceada'),
+(77, 'Batido de platano y avena | Batido de platano y avena | Sándwich de queso gouda con huevo duro | Batido de platano y avena | Porridge de avena y frutos secos | Requesón con fruta | Batido de platano y avena\r\n', 'Revuelto de gambas y champiñones | Ensalada de patata hervida, tomate, pepino y huevo duro | Revuelto de gambas y champiñones | Puré de calabaza con patata hervida | Puré de calabaza con patata hervida | Wok de verduras al curry con tiras de pollo | .Berenjena y calabacín asado con pimentón dulce\r\n', 'Hamburguesa de jamón york con mayonesa y queso | Minipizza cuatro quesos con naranja troceada | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso\r\n');
 
 -- --------------------------------------------------------
 
@@ -217,11 +227,20 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`, `Dobjetivo`) VALUES
 ('Alex', '', '', '', '1', 0, 1, 'P', 5, 3, 1),
-('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL, 0);
+('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL, 0),
+('Prueba', 'A', '', '', '', 23, 0, NULL, NULL, NULL, NULL),
+('Vacio', 'B', '', '', '', 25, 0, NULL, NULL, NULL, NULL),
+('Kylian', 'Mbappe', '', '', '', 77, 0, NULL, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `planificacion`
+--
+ALTER TABLE `planificacion`
+  ADD KEY `Id_FK` (`Id_usuario`);
 
 --
 -- Indices de la tabla `premium`
@@ -245,6 +264,12 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `planificacion`
+--
+ALTER TABLE `planificacion`
+  ADD CONSTRAINT `Id_FK` FOREIGN KEY (`Id_usuario`) REFERENCES `usuario` (`Id_usuario`);
 
 --
 -- Filtros para la tabla `premium`
