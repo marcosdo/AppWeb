@@ -19,9 +19,16 @@ table {
 	width: 90%; /* 90% del tamano de main */
 }
 
+table#tabla-dietas{
+	position: inherit;
+}
 /* Titulo de las tablas */
 caption {
 	text-align: center;
+}
+
+td#table-diets {
+	font-weight: bold;
 }
 
 /* Celdas de las tablas */

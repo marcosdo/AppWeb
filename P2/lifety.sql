@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2022 a las 11:44:47
+-- Tiempo de generación: 13-03-2022 a las 14:03:15
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `lifety`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dietas`
+--
+
+CREATE TABLE `dietas` (
+  `Objetivo` int(1) NOT NULL,
+  `Nombre` varchar(40) NOT NULL,
+  `Tipo` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `dietas`
+--
+
+INSERT INTO `dietas` (`Objetivo`, `Nombre`, `Tipo`) VALUES
+(2, 'Porridge de avena y frutos secos', 'Desayuno'),
+(2, 'Requesón con fruta', 'Desayuno');
 
 -- --------------------------------------------------------
 
@@ -141,16 +161,17 @@ CREATE TABLE `usuario` (
   `Premium` tinyint(1) NOT NULL,
   `Nivel` char(1) DEFAULT NULL,
   `Dias` int(1) DEFAULT NULL,
-  `Eobjetivo` int(1) DEFAULT NULL
+  `Eobjetivo` int(1) DEFAULT NULL,
+  `Dobjetivo` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`) VALUES
-('Alex', '', '', '', '1', 0, 1, 'P', NULL, 1),
-('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL);
+INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`, `Dobjetivo`) VALUES
+('Alex', '', '', '', '1', 0, 1, 'A', 3, 1, 2),
+('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL, 0);
 
 --
 -- Índices para tablas volcadas
