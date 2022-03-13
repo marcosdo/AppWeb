@@ -16,8 +16,8 @@
     <form method = "post" action = "planificaciontablas.php">
         <div id="contenedor">
             <?php 
-                require '../layout/cabecera.php'; 
-                require '../layout/menu.php';
+                require '../includes/vistas/cabecera.php'; 
+                require '../includes/vistas/menu.php';
             ?>
            
             <main>
@@ -91,8 +91,8 @@
                 </form>
             </main>
             <?php 
-                require '../layout/anuncios.php';
-                require '../layout/pie.php';
+                require '../includes/vistas/anuncios.php';
+                require '../includes/vistas/pie.php';
             ?>
         </div>
     </body>

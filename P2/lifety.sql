@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-03-2022 a las 09:27:46
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 13-03-2022 a las 11:44:47
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ejercicios` (
-  `Musculo` varchar(20) DEFAULT NULL,
-  `Nombre` varchar(30) DEFAULT NULL
+  `Musculo` varchar(40) DEFAULT NULL,
+  `Nombre` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -37,26 +37,30 @@ CREATE TABLE `ejercicios` (
 --
 
 INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
+('Hombro', 'Elevación lateral'),
+('Hombro', 'Press hombro'),
+('Hombro', 'Remo al mentón'),
+('Hombro', 'Press militar'),
 ('Pierna', 'Sentadilla'),
 ('Pierna', 'Prensa'),
-('Pecho', 'Press banca'),
-('Pecho', 'Aperturas con mancue'),
-('Pecho', 'Press banca inclinad'),
-('Pecho', 'Maquina de empuje'),
-('Pierna', 'Extension de cruadri'),
+('Pierna', 'Extensión de cuadriceps'),
 ('Pierna', 'Hip thrust'),
-('Hombro', 'Elevacion lateral'),
-('Hombro', 'Press hombro'),
-('Hombro', 'Remo al menton'),
+('Pecho', 'Press banca'),
+('Pecho', 'Aperturas con mancuernas'),
+('Pecho', 'Press banca inclinado'),
+('Pecho', 'Máquina de empuje'),
 ('Triceps', 'Fondos'),
-('Triceps', 'Press frances'),
+('Triceps', 'Press francés'),
 ('Triceps', 'Extensiones'),
+('Triceps', 'Barras paralelas'),
 ('Biceps', 'Curl araña'),
 ('Biceps', 'Predicador'),
 ('Biceps', 'Martillo'),
+('Biceps', 'Chin-ups'),
 ('Espalda', 'Jalon'),
-('Espalda', 'Remo T'),
-('Espalda', 'Remo con barra');
+('Espalda', 'Remo en T'),
+('Espalda', 'Remo con barra'),
+('Espalda', 'Renegade row');
 
 -- --------------------------------------------------------
 
@@ -67,13 +71,34 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 CREATE TABLE `premium` (
   `Peso` float NOT NULL,
   `Altura` float NOT NULL,
-  `Alergias` text DEFAULT NULL,
-  `Observaciones_adicionales` text DEFAULT NULL,
+  `Alergias` text NOT NULL,
+  `Observaciones_adicionales` text NOT NULL,
   `Num_logros` int(20) NOT NULL,
-  `Logros` int(2) DEFAULT NULL,
+  `Logros` int(2) NOT NULL,
   `Id_usuario` int(5) NOT NULL,
   `Id_profesional` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `premium`
+--
+
+INSERT INTO `premium` (`Peso`, `Altura`, `Alergias`, `Observaciones_adicionales`, `Num_logros`, `Logros`, `Id_usuario`, `Id_profesional`) VALUES
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0),
+(75, 170, '', '', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -83,15 +108,22 @@ CREATE TABLE `premium` (
 
 CREATE TABLE `profesional` (
   `Nombre` text NOT NULL,
-  `Apellido 1` text NOT NULL,
-  `Apellido 2` text NOT NULL,
+  `Apellidos` text NOT NULL,
   `Contraseña` varchar(25) NOT NULL,
   `Correo` varchar(50) NOT NULL,
-  `DNI` int(9) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
   `Id_profesional` int(5) NOT NULL,
   `Usuarios` text NOT NULL,
   `Num_usuarios` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `profesional`
+--
+
+INSERT INTO `profesional` (`Nombre`, `Apellidos`, `Contraseña`, `Correo`, `DNI`, `Id_profesional`, `Usuarios`, `Num_usuarios`) VALUES
+('Sandra', 'Ramos Ramos', '1234', 'sandra@lifety', '45678923P', 0, 'Alex ', 1),
+('Ivan', 'Ledesma Casado', '123', 'ivan@lifety', '45678923E', 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -117,7 +149,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`) VALUES
-('Alex', '', '', '', '1', 0, 0, 'P', NULL, 1);
+('Alex', '', '', '', '1', 0, 1, 'P', NULL, 1),
+('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
