@@ -19,8 +19,8 @@ $BD = conectar_bd("localhost","root","","lifety");
 SI LA BASE DE DATOS NO EXISTE ERROR AQUI
 ===================================== */
 
-$query = "UPDATE usuario SET usuario.Dobjetivo = $objetivo WHERE usuario.Id_usuario = '$_SESSION[id_usuario]'";
-mysqli_query($BD, $query);
+/*$query = "UPDATE usuario SET usuario.Dobjetivo = $objetivo WHERE usuario.Id_usuario = '$_SESSION[id_usuario]'";
+mysqli_query($BD, $query);*/
 
 // Arrays con todos las comidas de un tipo y un objetivo
 $desayunos_aux = array(); 
@@ -36,27 +36,37 @@ $desayunos = array();
 $comidas = array(); 
 $cenas = array();
 
-/*
 $des = "";
+$coms = "";
+$cens = "";
 
-//https://www.php.net/manual/es/function.explode.php
-$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
-$info = mysqli_fetch_array($query);
-if(is_null($info['desayunos'])){ // Nueva tabla
-    // Rellena los arrays con comidas aleatorias   */
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = 25";
+//'$_SESSION[id_usuario]'";
+
+$resultado = $BD->query($sqlselect); 
+$fila = mysqli_fetch_assoc($resultado);
+if(is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])){ // Nueva tabla
+    // Rellena los arrays con comidas aleatorias   
     fill_random($desayunos, $desayunos_aux, $des);
-    fill_random($comidas, $comidas_aux, $des);
-    fill_random($cenas, $cenas_aux, $des);
+    fill_random($comidas, $comidas_aux, $coms);
+    fill_random($cenas, $cenas_aux, $cens);
 
-    /*
-    $query = "UPDATE planificiacion SET planificacion.desayunos = $des WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
-    mysqli_query($BD, $query)
+    $query = "UPDATE planificacion SET planificacion.desayunos = '$des', planificacion.comidas = '$coms', 
+    planificacion.cenas = '$cens' WHERE planificacion.Id_usuario = 25";
+    //'$_SESSION[id_usuario]'";
+    mysqli_query($BD, $query);
 
 }
 else {
-    fill_frombd()
+    $des = $fila["desayunos"];
+    $coms = $fila["comidas"];
+    $cens = $fila["cenas"];
+
+    fill_frombd($desayunos, $des);
+    fill_frombd($comidas, $coms);
+    fill_frombd($cenas, $cens);
 }
-*/
+
 
 ?>
 
@@ -81,16 +91,13 @@ function fill_random(&$dest, $src, &$string) {
     for ($i = 0; $i < 7; $i++) {
         $clave = array_rand($src, 1); 
         $dest[] =  $src[$clave];
-        //$string = $src[$clave] + " | ";
+        $string .= $src[$clave];
+        if($i != 6) $string .=  " | ";
     }
 }
 
 function fill_frombd(&$dest, $string){
-    for ($i = 0; $i < 7; $i++) {
-        $clave = array_rand($src, 1); 
-        $dest[] =  $src[$clave];
-        $string = $src[$clave] + " | ";
-    }
+    $dest = explode(" | ", $string);
 }
 
 /**
