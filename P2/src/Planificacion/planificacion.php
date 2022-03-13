@@ -1,36 +1,30 @@
-<?php
-    session_start();
-?>
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux4.css" />
-
         <title>Planificación</title>
-
-        <?php?>
     </head>
     <body>
-    <form method = "post" action = "planificaciontablas.php">
         <div id="contenedor">
             <?php 
-                require '../layout/cabecera.php'; 
-                require '../layout/menu.php';
+                require '../includes/vistas/cabecera.php'; 
+                require '../includes/vistas/menu.php';
             ?>
-           
+
             <main>
-                <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
-                <div id="tabla">
+                <h1 id="title-plan">¿Cuál es tu planificación ideal?</h1>
+                <div id="select-plan">
                     <fieldset> 
-                        <legend id = "DietasPlanificacion">Dietas</legend>
-                        <form method="post">
+                        <legend id="diet-plan">Dietas</legend>
+                        <form method="post" action="planificaciondietas.php">
                         <p>
-                            <select name="Elige tu dieta" id= "Elige tu dieta">
-                                <option selected value="0"> Elige una opción </option>
-                                <option value="1">Pérdida de peso</option> 
-                                <option value="2">Ganancia de peso</option> 
+                            <select name="dieta" id="choose-diet">
+                                <option value="1">Pérdida de peso</option>
+                                <option value="2">Ganancia de peso</option>
                                 <option value="3">Mantener peso</option>
                             </select>
                         </p>
@@ -45,26 +39,29 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
+                        <p>
+                            <input type="submit" name="enviar" value="Quiero esta dieta" class="send-button">
+                        </p>
+                        </form>
                     </fieldset>
 
                     <fieldset> 
-                        <legend id = "RutinasPlanificacion">Rutinas</legend>
+                        <legend id="routine-plan">Rutinas</legend>
+                        <form method="post" action="planificacionrutinas.php">
                         <p> Selecciona tu nivel: </p>
                         <p>
-                            <input type= "radio" name="nivel" value="P">Principiante
+                            <input type= "radio" name="nivel" value="P" checked>Principiante
                             <input type= "radio" name="nivel" value="M">Medio
                             <input type= "radio" name="nivel" value="A">Avanzada
                         </p>
                         <p>
-                            <select name="Dias">
-                                <option selected value="0"> Elige el número de días</option>
+                            <select name="dias" id="choose-days">
                                 <option value="3">3 Días</option>
                                 <option value="5">5 Días</option>
                             </select >
                         </p>
                         <p>
-                            <select name="Rutina">
-                                <option selected value="0"> Elige un tipo de rutina</option>
+                            <select name="rutina" id="choose-routine">
                                 <option value="1">Fuerza</option>
                                 <option value="2">Hipertrofia</option>
                                 <option value="3">Resistencia</option>
@@ -81,18 +78,16 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
-
+                        <p>
+                            <input type="submit" name="enviar" value ="Quiero esta rutina" class="send-button">
+                        </p>
+                        </form>
                     </fieldset>
-                    
                 </div>
-                <p>
-                    <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
-                </p>
-                </form>
             </main>
             <?php 
-                require '../layout/anuncios.php';
-                require '../layout/pie.php';
+                require '../includes/vistas/anuncios.php';
+                require '../includes/vistas/pie.php';
             ?>
         </div>
     </body>

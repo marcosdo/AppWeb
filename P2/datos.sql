@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2022 a las 20:48:58
+-- Tiempo de generación: 13-03-2022 a las 17:24:12
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -20,18 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `lifety`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `dietas`
---
-
-CREATE TABLE `dietas` (
-  `Objetivo` int(1) NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
-  `Tipo` enum('Desayuno','Comida','Cena') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `dietas`
@@ -74,17 +62,6 @@ INSERT INTO `dietas` (`Objetivo`, `descripcion`, `Tipo`) VALUES
 (3, 'Pollo con almendras chino', 'Comida'),
 (3, 'Atún a la plancha con ajo y perejil', 'Comida');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ejercicios`
---
-
-CREATE TABLE `ejercicios` (
-  `Musculo` varchar(40) DEFAULT NULL,
-  `Nombre` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
@@ -115,36 +92,6 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 ('Espalda', 'Remo con barra'),
 ('Espalda', 'Renegade row');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `planificacion`
---
-
-CREATE TABLE `planificacion` (
-  `id_usuario` int(5) NOT NULL,
-  `desayunos` text NOT NULL,
-  `comidas` text NOT NULL,
-  `cenas` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `premium`
---
-
-CREATE TABLE `premium` (
-  `Peso` float NOT NULL,
-  `Altura` float NOT NULL,
-  `Alergias` text NOT NULL,
-  `Observaciones_adicionales` text NOT NULL,
-  `Num_logros` int(20) NOT NULL,
-  `Logros` int(2) NOT NULL,
-  `Id_usuario` int(5) NOT NULL,
-  `Id_profesional` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Volcado de datos para la tabla `premium`
 --
@@ -166,23 +113,6 @@ INSERT INTO `premium` (`Peso`, `Altura`, `Alergias`, `Observaciones_adicionales`
 (75, 170, '', '', 0, 0, 0, 0),
 (75, 170, '', '', 0, 0, 0, 0);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `profesional`
---
-
-CREATE TABLE `profesional` (
-  `Nombre` text NOT NULL,
-  `Apellidos` text NOT NULL,
-  `Contraseña` varchar(25) NOT NULL,
-  `Correo` varchar(50) NOT NULL,
-  `DNI` varchar(9) NOT NULL,
-  `Id_profesional` int(5) NOT NULL,
-  `Usuarios` text NOT NULL,
-  `Num_usuarios` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Volcado de datos para la tabla `profesional`
 --
@@ -191,66 +121,13 @@ INSERT INTO `profesional` (`Nombre`, `Apellidos`, `Contraseña`, `Correo`, `DNI`
 ('Sandra', 'Ramos Ramos', '1234', 'sandra@lifety', '45678923P', 0, 'Alex ', 1),
 ('Ivan', 'Ledesma Casado', '123', 'ivan@lifety', '45678923E', 1, '', 0);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
-
-CREATE TABLE `usuario` (
-  `Nombre` text NOT NULL,
-  `Apellidos` text NOT NULL,
-  `DNI` varchar(9) NOT NULL,
-  `Correo` varchar(50) NOT NULL,
-  `Password` varchar(25) NOT NULL,
-  `Id_usuario` int(5) NOT NULL,
-  `Premium` tinyint(1) NOT NULL,
-  `Nivel` char(1) DEFAULT NULL,
-  `Dias` int(1) DEFAULT NULL,
-  `Eobjetivo` int(1) DEFAULT NULL,
-  `Dobjetivo` int(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`, `Nivel`, `Dias`, `Eobjetivo`, `Dobjetivo`) VALUES
-('Alex', '', '', '', '1', 0, 1, 'P', 5, 3, 1),
+('Alex', '', '', '', '1', 0, 1, 'P', 3, 1, 2),
 ('Sandra', 'Ramos', '444444O', '', '2', 1, 0, NULL, NULL, NULL, 0);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `premium`
---
-ALTER TABLE `premium`
-  ADD KEY `Id_FK` (`Id_usuario`),
-  ADD KEY `Profesional_FK` (`Id_profesional`);
-
---
--- Indices de la tabla `profesional`
---
-ALTER TABLE `profesional`
-  ADD PRIMARY KEY (`Id_profesional`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`Id_usuario`);
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `premium`
---
-ALTER TABLE `premium`
-  ADD CONSTRAINT `Profesional_FK` FOREIGN KEY (`Id_profesional`) REFERENCES `profesional` (`Id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
