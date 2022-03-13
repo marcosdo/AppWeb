@@ -169,7 +169,7 @@
                                     break;
                             }   
                         }
-                        // Fin de liona
+                        // Fin de linea
                         echo "</tr>";
                     }
                     // Fin de tabla

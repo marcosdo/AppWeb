@@ -3,10 +3,11 @@
 	max-height: 500px;
 }
 
-div#tabla {
+div#select-plan {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap : 20px;
+	max-width: 100%;
 }
 
 body {
@@ -18,11 +19,19 @@ table {
 	width: 90%; /* 90% del tamano de main */
 }
 
-td, th {
-    border: rgb(255, 198, 151) 3px solid;
-	max-width: 33.3%; /* MAX-SIZE 1/3 del tamano de la tabla */
-    
+/* Titulo de las tablas */
+caption {
+	text-align: center;
 }
+
+/* Celdas de las tablas */
+td, th {
+	text-align: center;
+	width: 20%;
+    border: rgb(255, 198, 151) 3px solid;
+	/*max-width: 33.3%; /* MAX-SIZE 1/3 del tamano de la tabla */
+}
+
 div#contenedor {
 	width: 1000px;
 	margin: auto;
@@ -126,5 +135,5 @@ button {
 	margin-left: 100px;
 } 
 .Benvio{
-    margin-left: 275px;
+    margin-left: 100px;
 }

@@ -13,7 +13,6 @@
         <?php?>
     </head>
     <body>
-    <form method = "post" action = "planificaciontablas.php">
         <div id="contenedor">
             <?php 
                 require '../includes/vistas/cabecera.php'; 
@@ -21,13 +20,13 @@
             ?>
            
             <main>
-                <h1 id = "TituloPlanificacion">¿Cuál es tu planificación ideal?</h1>
-                <div id="tabla">
+                <h1 id = "title-plan">¿Cuál es tu planificación ideal?</h1>
+                <div id = "select-plan">
                     <fieldset> 
-                        <legend id = "DietasPlanificacion">Dietas</legend>
-                        <form method="post">
+                        <legend id = "diet-plan">Dietas</legend>
+                        <form method="post" action = "planificaciondietas.php">
                         <p>
-                            <select name="Elige tu dieta" id= "Elige tu dieta">
+                            <select name="Dieta" id= "choose-diet">
                                 <option selected value="0"> Elige una opción </option>
                                 <option value="1">Pérdida de peso</option> 
                                 <option value="2">Ganancia de peso</option> 
@@ -45,10 +44,15 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
+                        <p>
+                            <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
+                        </p>
+                        </form>
                     </fieldset>
 
                     <fieldset> 
-                        <legend id = "RutinasPlanificacion">Rutinas</legend>
+                        <legend id = "routine-plan">Rutinas</legend>
+                        <form method="post" action = "planificacionrutinas.php">
                         <p> Selecciona tu nivel: </p>
                         <p>
                             <input type= "radio" name="nivel" value="P">Principiante
@@ -81,14 +85,14 @@
                             blandit nec. Sed vitae maximus elit. Cras commodo magna 
                             tortor, ut lobortis magna iaculis eget. 
                         </p>
+                        <p>
+                            <input type="submit" name='enviar' value ="Enviar" class ='Benvio'>
+                        </p>
+                        </form>
 
                     </fieldset>
                     
                 </div>
-                <p>
-                    <input type="submit" name='enviar'value = "Enviar" class = 'Benvio'>
-                </p>
-                </form>
             </main>
             <?php 
                 require '../includes/vistas/anuncios.php';
