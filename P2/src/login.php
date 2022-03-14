@@ -19,12 +19,12 @@
           <fieldset>
             <legend>Login</legend>
             <div>
-              <label for="username">Usuario:</label>
-              <input id="username" type="text" name="username" required/>
+              <label for="nombre">Usuario:</label>
+              <input id="nombre" type="text" name="nombre"/>
             </div>
             <div>
               <label for="password">Password:</label>
-              <input id="password" type="password" name="password" required/>
+              <input id="password" type="password" name="password"/>
             </div>
             <div>
               <button type="submit" name="login">Entrar</button>

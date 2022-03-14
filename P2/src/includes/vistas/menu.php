@@ -5,7 +5,7 @@
         <li><a href="Planificacion/planificacion.php">Planificacion</a></li>
         <?php
             if(isset($_SESSION['login'])){
-                if(isset($_SESSION['nutricionista'])) echo "<li><a href='EntrenadorPersonalEnt.php'>Nutricionista</a></li>";
+                if(isset($_SESSION['nutri'])) echo "<li><a href='EntrenadorPersonalEnt.php'>Nutricionista</a></li>";
                 else {
                     $conn = new mysqli('localhost', 'root', '', 'lifety');
                     if ( $conn->connect_errno ) {
