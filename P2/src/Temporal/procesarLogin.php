@@ -13,12 +13,12 @@ require_once __DIR__.'/includes/utils.php';
 $erroresFormulario = [];
 
 $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-if ( ! $nombre || empty($nombre=trim($nombre)) ) {
-	$erroresFormulario['nombre'] = 'El nombre de usuario no puede estar vacío';
+if (!$nombre || empty($nombre=trim($nombre))) {
+	$erroresFormulario['nombre'] = 'El nombre de usuario no puede estar vacío.';
 }
 
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-if ( ! $password || empty($password=trim($password)) ) {
+if (!$password || empty($password=trim($password))) {
 	$erroresFormulario['password'] = 'El password no puede estar vacío.';
 }
         

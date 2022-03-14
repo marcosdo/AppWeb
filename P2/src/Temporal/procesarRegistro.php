@@ -13,8 +13,23 @@ require_once __DIR__.'/includes/utils.php';
 $erroresFormulario = [];
 
 $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-if ( ! $nombre || empty($nombre=trim($nombre)) || mb_strlen($nombre) < 5) {
-	$erroresFormulario['nombre'] = 'El nombre tiene que tener una longitud de al menos 5 caracteres.';
+if (!$nombre || empty($nombre=trim($nombre))) {
+	$erroresFormulario['nombre'] = 'El nombre no puede estar vacío.';
+}
+
+$apellidos = filter_input(INPUT_POST, 'apellidos', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if (!$apellidos || empty($apellidos=trim($apellidos))) {
+	$erroresFormulario['apellidos'] = 'Los apellidos no pueden estar vacios.';
+}
+
+$dni = filter_input(INPUT_POST, 'dni', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $dni || empty($dni=trim($dni)) || mb_strlen($dni) == 9) {
+	$erroresFormulario['dni'] = 'El dni tiene que tener una longitud de 9 caracteres.';
+}
+
+$mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $mail || empty($mail=trim($mail))) {
+	$erroresFormulario['mail'] = 'El mail no puede estar vacio.';
 }
 
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -28,7 +43,7 @@ if ( ! $password2 || empty($password2=trim($password2)) || $password != $passwor
 }
 
 if (count($erroresFormulario) === 0) {
-	$usuario = Usuario::crea($nombreUsuario, $password, $nombre, Usuario::USER_ROLE);
+	$usuario = Usuario::crea($apellidos, $mail, $dni, $nombre, $password, 0);
 	
 	if (! $usuario ) {
     	$erroresFormulario[] = "El usuario ya existe";
