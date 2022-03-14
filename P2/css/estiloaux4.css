@@ -20,6 +20,8 @@ table {
 }
 
 table#tabla-dietas{
+	table-layout: auto;
+	width: 100%;
 	position: inherit;
 }
 /* Titulo de las tablas */
@@ -27,14 +29,14 @@ caption {
 	text-align: center;
 }
 
-td#table-diets {
+td#tabla-diets {
 	font-weight: bold;
 }
 
 /* Celdas de las tablas */
 td, th {
 	text-align: center;
-	width: 20%;
+	width: 25%;
     border: rgb(255, 198, 151) 3px solid;
 	/*max-width: 33.3%; /* MAX-SIZE 1/3 del tamano de la tabla */
 }
