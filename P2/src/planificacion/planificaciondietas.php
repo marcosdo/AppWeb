@@ -1,7 +1,6 @@
 <?php session_start(); ?>
 
 <?php
-
 // Coger los datos del formulario
 // dieta = int: [1, 2, 3] 1-->Perdida de peso. 2-->Ganancia de peso. 3--> Mantener el peso.
 htmlspecialchars(trim(strip_tags($_POST["dieta"])));
@@ -18,9 +17,6 @@ $BD = conectar_bd("localhost","root","","lifety");
 /* ====================================
 SI LA BASE DE DATOS NO EXISTE ERROR AQUI
 ===================================== */
-
-/*$query = "UPDATE usuario SET usuario.Dobjetivo = $objetivo WHERE usuario.Id_usuario = '$_SESSION[id_usuario]'";
-mysqli_query($BD, $query);*/
 
 // Arrays con todos las comidas de un tipo y un objetivo
 $desayunos_aux = array(); 
@@ -40,23 +36,22 @@ $des = "";
 $coms = "";
 $cens = "";
 
-$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = 25";
-//'$_SESSION[id_usuario]'";
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
 
 $resultado = $BD->query($sqlselect); 
 $fila = mysqli_fetch_assoc($resultado);
-if(is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])){ // Nueva tabla
+if(is_null($fila["Dobjetivo"]) || $fila["Dobjetivo"] != $objetivo || is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])){ // Nueva tabla
     // Rellena los arrays con comidas aleatorias   
     fill_random($desayunos, $desayunos_aux, $des);
     fill_random($comidas, $comidas_aux, $coms);
     fill_random($cenas, $cenas_aux, $cens);
 
     $query = "UPDATE planificacion SET planificacion.desayunos = '$des', planificacion.comidas = '$coms', 
-    planificacion.cenas = '$cens' WHERE planificacion.Id_usuario = 25";
-    //'$_SESSION[id_usuario]'";
+    planificacion.cenas = '$cens' WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
     mysqli_query($BD, $query);
 
 }
+
 else {
     $des = $fila["desayunos"];
     $coms = $fila["comidas"];
@@ -67,6 +62,8 @@ else {
     fill_frombd($cenas, $cens);
 }
 
+$query = "UPDATE planificacion SET planificacion.Dobjetivo = $objetivo WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+mysqli_query($BD, $query);
 
 ?>
 
@@ -178,7 +175,7 @@ function muestra_tabla($desayunos, $comidas, $cenas) {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux4.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/estiloaux4.css" />
 
         <title>Planificación</title>
 

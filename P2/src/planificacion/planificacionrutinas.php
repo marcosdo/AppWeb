@@ -25,7 +25,8 @@ $BD = conectar_bd("localhost", "root", "", "lifety");
 SI LA BASE DE DATOS NO EXISTE ERROR AQUI
 ===================================== */
 
-$query = "UPDATE usuario SET Nivel = '$nivel', Dias = $dias,  Eobjetivo = $objetivo WHERE Id_usuario = '$_SESSION[id_usuario]'";
+$query = "UPDATE planificacion SET  
+WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
 mysqli_query($BD, $query);
 
 
@@ -55,28 +56,62 @@ switch ($nivel) {
     case "A": $ejerciciosdia = 4; break;
 }
 
+
+
+
 $dia4 = array(); 
 $dia5 = array(); 
 $cont = 1;
-for ($i = 1; $i < $dias +1; $i++) {
-    $arrayaux = array();
-    if ($i == 4) {
-        $cont = 1;
+$string = "";
+
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$resultado = $BD->query($sqlselect); 
+$fila = mysqli_fetch_assoc($resultado);
+if(is_null($fila["Eobjetivo"]) || is_null($fila["Dias"])|| is_null($fila["Nivel"]) || is_null($fila["rutina"])
+ || $dias != $fila["Dias"] || $objetivo != $fila["Eobjetivo"] || $nivel != $fila["Nivel"]){
+    for ($i = 1; $i < $dias +1; $i++) {
+        $arrayaux = array();
+        $stringaux = "";
+
+        if ($i == 4) {
+            $cont = 1;
+        }
+        if ($i >= 1 && $i <= 3) {
+            llenar_array($cont, $ejerciciosdia, $muscs, $BD, 2, $arrayaux, $stringaux);
+            if ($i == 1) $dia1 = $arrayaux; 
+            else if ($i == 2) $dia2 = $arrayaux;
+            else $dia3 = $arrayaux;
+        }
+        else {
+            llenar_array($cont, $ejerciciosdia, $muscs, $BD, 3, $arrayaux, $stringaux);
+            if($i == 4) $dia4 = $arrayaux; 
+            else $dia5 = $arrayaux;
+        }
+        $string .= $stringaux;
+        if ($i < $dias) $string .= " - ";
     }
-    if ($i >= 1 && $i <= 3) {
-        llenar_array($cont, $ejerciciosdia, $muscs, $BD, 2, $arrayaux);
-        if ($i == 1)
-            $dia1 = $arrayaux; 
-        else if ($i == 2) 
-            $dia2 = $arrayaux;
-        else $dia3 = $arrayaux;
-    }
-    else {
-        llenar_array($cont, $ejerciciosdia, $muscs, $BD, 3, $arrayaux);
-        if($i == 4) $dia4 = $arrayaux; 
-        else $dia5 = $arrayaux;
-    }
+    
 }
+else {
+    $string = $fila["rutina"];
+    echo "<br>";
+    $stringauxiliar = $string;
+    for($i = 1; $i < $dias+1; $i++){
+        if ($dias == 3) $ejerciciostotales = $ejerciciosdia * 2;
+        else if ($dias == 5)  $ejerciciostotales = $ejerciciosdia * 3;
+        fill_frombd($dest, $string, $ejerciciostotales);
+        if ($i == 1) $dia1 = $dest; 
+        else if ($i == 2) $dia2 = $dest;
+        else if ($i == 3) $dia3 = $dest;
+        else if ($i == 4) $dia4 = $dest;
+        else $dia5 = $dest;
+    }
+    $string = $stringauxiliar;
+}
+
+$query = "UPDATE planificacion SET planificacion.rutina = '$string', planificacion.Nivel = '$nivel', planificacion.Dias = $dias,  planificacion.Eobjetivo = $objetivo
+        WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+    mysqli_query($BD, $query);
 
 // Desconectar de la base de datos
 mysqli_close($BD);
@@ -111,17 +146,36 @@ function conectar_bd($host, $user, $pass, $DB_name) {
     return $DB;
 }
 // Funcion que rellena los arrays de cada dia
-function llenar_array(&$cont, $ejerciciosdia, $muscs, $BD, $nveces , &$arrayaux) {
+function llenar_array(&$cont, $ejerciciosdia, $muscs, $BD, $nveces , &$arrayaux, &$stringaux) {
     for ($i = 0; $i < $nveces; $i++){
         $j = 0;
         $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE Musculo = '$muscs[$cont]'"); 
         while ($fila = mysqli_fetch_assoc($consulta)){
-            if($j < $ejerciciosdia) array_push($arrayaux, $fila['Nombre']);  
+            if($j < $ejerciciosdia){
+                array_push($arrayaux, $fila['Nombre']); 
+                if($j+1 == $ejerciciosdia && $i+1 == $nveces) $stringaux .= $fila['Nombre'];
+                else {
+                    $stringaux .= $fila['Nombre'];
+                    $stringaux .= " | ";
+                }
+            } 
             $j++;
         }
         $cont++;
     } 
 }
+// Funcion que rellena arrays desde la BD
+function fill_frombd(&$dest, &$string, $ejerciciostotales){
+    $auxiliar = explode(" - ", $string);
+    $nuevostring = "";
+    for($i = 1; $i < sizeof($auxiliar); $i++){
+        $nuevostring .= $auxiliar[$i];
+        if($i < sizeof($auxiliar)-1) $nuevostring .= " - ";
+    }
+    $dest = explode(" | ", $auxiliar[0], $ejerciciostotales);
+    $string = $nuevostring;
+}
+
 /**
  * Muestra una tabla con el contenido de la BD
  * 
@@ -193,7 +247,7 @@ function muestra_tabla($ejerciciosdia, $dias, $dia1, $dia2, $dia3, $dia4, $dia5)
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../../resources/CSS/estiloaux4.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/estiloaux4.css" />
 
         <title>Planificación</title>
 
