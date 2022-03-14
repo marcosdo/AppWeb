@@ -53,22 +53,22 @@ $contenidoPrincipal= <<<EOS
 <h1>Acceso al sistema</h1>
 $erroresGlobalesFormulario
 <form action="procesarLogin.php" method="POST">
-<fieldset>
-	<legend>Usuario y contraseña</legend>
-	<div>
-		<label for="nombre">Usuario:</label>
-		<input id="nombre" type="text" name="nombre" value="$nombre" />
-		{$erroresCampos['nombre']}
-	</div>
-	<div>
-		<label for="password">Password:</label>
-		<input id="password" type="password" name="password" value="$password" />
-		{$erroresCampos['password']}
-	</div>
-	<div>
-		<button type="submit" name="login">Entrar</button>
-	</div>
-</fieldset>
+	<fieldset>
+		<legend>Usuario y contraseña</legend>
+		<div>
+			<label for="nombre">Usuario:</label>
+			<input id="nombre" type="text" name="nombre" value="$nombre" />
+			{$erroresCampos['nombre']}
+		</div>
+		<div>
+			<label for="password">Password:</label>
+			<input id="password" type="password" name="password" value="$password" />
+			{$erroresCampos['password']}
+		</div>
+		<div>
+			<button type="submit" name="login">Entrar</button>
+		</div>
+	</fieldset>
 </form>
 EOS;
 

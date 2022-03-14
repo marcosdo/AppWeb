@@ -15,9 +15,9 @@
         require 'includes/vistas/menu.php';
       ?>
       <main id = "contenido">
-        <form action ="procesarLogin.php" method = "post">
+        <form action ="procesarLogin.php" method = "POST">
           <fieldset>
-            <legend>Login</legend>
+            <legend>Usuario y contraseña</legend>
             <div>
               <label for="nombre">Usuario:</label>
               <input id="nombre" type="text" name="nombre"/>

@@ -12,11 +12,6 @@ require_once __DIR__.'/includes/utils.php';
 
 $erroresFormulario = [];
 
-$nombreUsuario = filter_input(INPUT_POST, 'nombreUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-if ( ! $nombreUsuario || empty($nombreUsuario=trim($nombreUsuario)) || mb_strlen($nombreUsuario) < 5) {
-	$erroresFormulario['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
-}
-
 $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if ( ! $nombre || empty($nombre=trim($nombre)) || mb_strlen($nombre) < 5) {
 	$erroresFormulario['nombre'] = 'El nombre tiene que tener una longitud de al menos 5 caracteres.';
@@ -48,7 +43,7 @@ if (count($erroresFormulario) === 0) {
 $tituloPagina = 'Registro';
 
 $erroresGlobalesFormulario = generaErroresGlobalesFormulario($erroresFormulario);
-$erroresCampos = generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $erroresFormulario);
+$erroresCampos = generaErroresCampos(['nombre', 'password', 'password2'], $erroresFormulario);
 $contenidoPrincipal = <<<EOS
 <h1>Registro de usuario</h1>
 $erroresGlobalesFormulario
