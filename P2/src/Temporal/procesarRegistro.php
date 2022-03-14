@@ -50,6 +50,7 @@ if (count($erroresFormulario) === 0) {
 	} else {
 		$_SESSION['login'] = true;
 		$_SESSION['nombre'] = $usuario->getNombre();
+		$_SESSION['id'] = $usuario->getId();
 		header('Location: index.php');
 		exit();
 	}
@@ -58,7 +59,7 @@ if (count($erroresFormulario) === 0) {
 $tituloPagina = 'Registro';
 
 $erroresGlobalesFormulario = generaErroresGlobalesFormulario($erroresFormulario);
-$erroresCampos = generaErroresCampos(['nombre', 'password', 'password2'], $erroresFormulario);
+$erroresCampos = generaErroresCampos(['apellidos', 'mail', 'dni', 'nombre', 'password', 'password2'], $erroresFormulario);
 $contenidoPrincipal = <<<EOS
 <h1>Registro de usuario</h1>
 $erroresGlobalesFormulario
@@ -66,14 +67,24 @@ $erroresGlobalesFormulario
 <fieldset>
 	<legend>Datos para el registro</legend>
 	<div>
-		<label for="nombreUsuario">Nombre de usuario:</label>
-		<input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
-		{$erroresCampos['nombreUsuario']}
-	</div>
-	<div>
 		<label for="nombre">Nombre:</label>
 		<input id="nombre" type="text" name="nombre" value="$nombre" />
 		{$erroresCampos['nombre']}
+	</div>
+	<div>
+		<label for="apellidos">Apellidos:</label>
+		<input id="apellidos" type="text" name="apellidos" value="$apellidos" />
+		{$erroresCampos['apellidos']}
+	</div>
+	<div>
+		<label for="dni">DNI:</label>
+		<input id="dni" type="text" name="dni" value="$dni" />
+		{$erroresCampos['dni']}
+	</div>
+	<div>
+		<label for="mail">>Direccion de correo:</label>
+		<input id="mail" type="text" name="mail" value="$mail" />
+		{$erroresCampos['mail']}
 	</div>
 	<div>
 		<label for="password">Password:</label>
