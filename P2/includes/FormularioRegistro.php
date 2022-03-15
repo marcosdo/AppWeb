@@ -8,6 +8,7 @@ class FormularioRegistro extends Formulario {
     }
     
     protected function generaCamposFormulario(&$datos) {
+        $id = $datos['id'] ?? '';
         $nombre = $datos['nombre'] ?? '';
         $apellidos = $datos['apellidos'] ?? '';
         $mail = $datos['mail'] ?? '';
@@ -15,7 +16,7 @@ class FormularioRegistro extends Formulario {
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'apellidos', 'mail', 'id', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -32,7 +33,12 @@ class FormularioRegistro extends Formulario {
                 {$erroresCampos['apellidos']}
             </div>
             <div>
-                <label for="mail">>Direccion de correo:</label>
+                <label for="id">Nombre de usuario:</label>
+                <input id="id" type="text" name="id" value="$id" />
+                {$erroresCampos['id']}
+            </div>
+            <div>
+                <label for="mail">Direccion de correo:</label>
                 <input id="mail" type="text" name="mail" value="$mail" />
                 {$erroresCampos['mail']}
             </div>
@@ -55,44 +61,38 @@ class FormularioRegistro extends Formulario {
     }
     
 
-    protected function procesaFormulario(&$datos)
-    {
+    protected function procesaFormulario(&$datos) {
         $this->errores = [];
 
         $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$nombre || empty($nombre=trim($nombre))) {
-            $this->errores['nombre'] = 'El nombre no puede estar vacío.';
-        }
+        if (!$nombre || empty($nombre=trim($nombre))) $this->errores['nombre'] = 'El nombre no puede estar vacío.';
 
         $apellidos = filter_input(INPUT_POST, 'apellidos', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$apellidos || empty($apellidos=trim($apellidos))) {
-            $this->errores['apellidos'] = 'Los apellidos no pueden estar vacios.';
+        if (!$apellidos || empty($apellidos=trim($apellidos))) $this->errores['apellidos'] = 'Los apellidos no pueden estar vacios.';
+
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$id || empty($id=trim($id))) {
+            if(Usuario::buscaPorId($id) || Nutri::buscaPorId($id)) $this->errores['id'] = 'El nombre de usuario no puede estar repetido.';
+            else $this->errores['id'] = 'El nombre de usuario no puede estar vacio.';
         }
 
         $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $mail || empty($mail=trim($mail))) {
-            $this->errores['mail'] = 'El mail no puede estar vacio.';
-        }
+        if (!$mail || empty($mail=trim($mail))) $this->errores['mail'] = 'El mail no puede estar vacio.';
 
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $password || empty($password=trim($password)) || mb_strlen($password) < 5 ) {
-            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
-        }
+        if (!$password || empty($password=trim($password)) || mb_strlen($password) < 5 ) $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
 
         $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $password2 || empty($password2=trim($password2)) || $password != $password2 ) {
-            $this->errores['password2'] = 'Los passwords deben coincidir';
-        }
+        if (!$password2 || empty($password2=trim($password2)) || $password != $password2 ) $this->errores['password2'] = 'Los passwords deben coincidir';
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::crea($apellidos, $mail, $nombre, $password, 0);
-            
-            if (! $usuario ) {
-                $this->errores[] = "El usuario ya existe";
-            } else {
+            $usuario = Usuario::buscaPorId($id);
+            if ($usuario) $this->errores[] = "El usuario ya existe";
+            else {
+                $usuario = Usuario::crea($nombre, $apellidos, $mail, $password, $id, 0);
                 $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['id'] = $usuario->getId();
+                $_SESSION['nombre'] = $nombre;
+                $_SESSION['id'] = $id;
                 header('Location: index.php');
                 exit();
             }

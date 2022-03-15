@@ -1,4 +1,5 @@
 <?php
+namespace es\ucm\fdi\aw;
 
 class Usuario {
 
@@ -7,51 +8,59 @@ class Usuario {
         return ($usuario && $usuario->compruebaPassword($password));
     }
     
-    public static function crea($apellidos, $correo, $nombre, $password, $premium) {
-        $user = new Usuario($apellidos, $correo, $nombre, self::hashPassword($password), $premium);
+    public static function crea($nombre, $apellidos, $correo, $password, $id, $premium) {
+        $user = new Usuario($nombre, $apellidos, $correo, self::hashPassword($password), $id, $premium);
         return $user->inserta($user);
     }
 
     public static function buscaUsuario($nombreUsuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuarios WHERE nombre='%s'", $conn->real_escape_string($nombreUsuario));
+        $query = sprintf("SELECT * FROM usuario WHERE nombre='%s'", $conn->real_escape_string($nombreUsuario));
         $rs = $conn->query($query);
         if ($rs) {
-            $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
-            $rs->free();
-            return $user;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+            if($rs->num_rows > 0){
+                $fila = $rs->fetch_assoc();
+                $user = new Usuario($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['id_usuario'], $fila['premium']);
+                $rs->free();
+                return $user;
+            }
+            else return false;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
     }
 
     public static function buscaPorId($idUsuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $idUsuario);
+        $query = sprintf("SELECT * FROM usuario WHERE id_usuario=%d", $idUsuario);
         $rs = $conn->query($query);
         if ($rs) {
-            $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
-            $rs->free();
-            return $user;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+            if($rs->num_rows > 0){
+                $fila = $rs->fetch_assoc();
+                $user = new Usuario($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['id_usuario'], $fila['premium']);
+                $rs->free();
+                return $user;
+            }
+            else return false;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
     }
     
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
    
     private static function inserta($usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario (apellidos, correo, nombre, password, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
-        $conn->real_escape_string($usuario->apellidos), 
-        $conn->real_escape_string($usuario->correo), 
+        $query=sprintf("INSERT INTO usuario (nombre, apellidos, correo, password, id_usuario, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
         $conn->real_escape_string($usuario->nombre),
-        $conn->real_escape_string($usuario->password),
+        $conn->real_escape_string($usuario->apellidos),
+        $conn->real_escape_string($usuario->correo), 
+        $conn->real_escape_string($usuario->password), 
+        $conn->real_escape_string($usuario->id),
         $conn->real_escape_string($usuario->premium));
-        if ($conn->query($query)) {
-            $usuario->id = $conn->insert_id;
-            return true;
-        }
+        if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
     }
@@ -73,16 +82,7 @@ class Usuario {
 
     private $correo;
 
-    private $dias;
-
-
-    private $eobjetivo;
-
-    private $dobjetivo;
-
     private $id;
-
-    private $nivel;
 
     private $nombre;
 
@@ -90,14 +90,10 @@ class Usuario {
 
     private $premium;
 
-    private function __construct($apellidos, $correo, $dias = null, $eobjetivo = null, $dobjetivo = null,  $id = null, $nivel = null, $nombre, $password, $premium = 0) {
+    private function __construct( $nombre, $apellidos, $correo, $password, $id, $premium = 0) {
         $this->apellidos = $apellidos;
         $this->correo = $correo;
-        $this->dias = $dias;
-        $this->eobjetivo = $eobjetivo;
-        $this->dobjetivo = $dobjetivo;
         $this->id = $id;
-        $this->nivel = $nivel;
         $this->nombre = $nombre;
         $this->password = $password;
         $this->premium = $premium;
@@ -107,15 +103,7 @@ class Usuario {
 
     public function getCorreo() {return $this->correo;}
 
-    public function getDias() {return $this->dias;}
-
-    public function getEobjetivo() {return $this->eobjetivo;}
-
-    public function getDobjetivo() {return $this->dobjetivo;}
-
     public function getId() {return $this->id;}
-
-    public function getNivel() {return $this->nivel;}
 
     public function getNombre() {return $this->nombre;}
 

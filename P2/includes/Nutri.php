@@ -1,4 +1,5 @@
 <?php
+namespace es\ucm\fdi\aw;
 
 class Nutri {
 
@@ -7,8 +8,8 @@ class Nutri {
         return ($nutri && $nutri->compruebaPassword($password));
     }
     
-    public static function crea($apellidos, $correo, $nombre, $num_usuarios, $password, $usuarios) {
-        $nutri = new Nutri($apellidos, $correo, $nombre, $num_usuarios, self::hashPassword($password), $usuarios);
+    public static function crea($nombre, $apellidos, $correo,  $password, $id, $usuarios, $num_usuarios) {
+        $nutri = new Nutri($nombre, $apellidos, $correo, self::hashPassword($password), $id, $usuarios, $num_usuarios);
         return $nutri->inserta($nutri);
     }
 
@@ -17,44 +18,51 @@ class Nutri {
         $query = sprintf("SELECT * FROM profesional WHERE nombre='%s'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         if ($rs) {
-            $fila = $rs->fetch_assoc();
-            $user = new Nutri ($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
-            $rs->free();
-            return $user;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+            if($rs->num_rows > 0){
+                $fila = $rs->fetch_assoc();
+                $user = new Nutri ($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['id_profesional'], $fila['usuarios'], $fila['num_usuarios']);
+                $rs->free();
+                return $user;
+            }
+            else return false;
+            //apellidos, contraseña, correo,  id_profesional, nombre, num_usuarios y usuarios
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
     }
 
-    public static function buscaPorId($id)
-    {
+    public static function buscaPorId($id) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $id);
+        $query = sprintf("SELECT * FROM profesional WHERE id_profesional=%d", $id);
         $rs = $conn->query($query);
         if ($rs) {
-            $fila = $rs->fetch_assoc();
-            $nutri = new Usuario($fila['apellidos'], $fila['correo'], $fila['id_profesional'], $fila['nombre'], $fila['num_usuarios'], $fila['password'], $fila['usuarios']);
-            $rs->free();
-            return $nutri;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+            if($rs->num_rows > 0) {
+                $fila = $rs->fetch_assoc();
+                $nutri = new Nutri ($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['id_profesional'], $fila['usuarios'], $fila['num_usuarios']);
+                $rs->free();
+                return $nutri;
+            }
+            else return false;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
     }
     
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
    
     private static function inserta($nutri) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO profesional (apellidos, correo, nombre, num_usuarios, password, usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
-        $conn->real_escape_string($nutri->apellidos), 
-        $conn->real_escape_string($nutri->correo), 
+        $query=sprintf("INSERT INTO profesional (nombre, apellidos, correo, password, id_profesional, usuarios, num_usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
         $conn->real_escape_string($nutri->nombre),
-        $conn->real_escape_string($nutri->num_usuarios),
-        $conn->real_escape_string($nutri->password),
-        $conn->real_escape_string($nutri->premium),
-        $conn->real_escape_string($nutri->usuarios));
-        if ($conn->query($query)) {
-            $nutri->id = $conn->insert_id;
-            return true;
-        }
+        $conn->real_escape_string($nutri->apellidos), 
+        $conn->real_escape_string($nutri->correo),
+        $conn->real_escape_string($nutri->password), 
+        $conn->real_escape_string($nutri->id), 
+        $conn->real_escape_string($nutri->usuarios),
+        $conn->real_escape_string($nutri->num_usuarios));
+        if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
     }
@@ -86,7 +94,7 @@ class Nutri {
 
     private $usuarios;
 
-    private function __construct($apellidos, $correo,  $id = null, $nombre, $num_usuarios = 0, $password, $usuarios = "") {
+    private function __construct($nombre, $apellidos, $correo, $id, $password, $usuarios, $num_usuarios) {
         $this->apellidos = $apellidos;
         $this->correo = $correo;
         $this->id = $id;
