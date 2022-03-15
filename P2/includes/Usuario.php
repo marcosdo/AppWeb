@@ -3,8 +3,8 @@ namespace es\ucm\fdi\aw;
 
 class Usuario {
 
-    public static function login($nombre, $password) {
-        $usuario = self::buscaUsuario($nombre);
+    public static function login($id, $password) {
+        $usuario = self::buscaPorId($id);
         return ($usuario && $usuario->compruebaPassword($password));
     }
     

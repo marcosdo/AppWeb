@@ -3,8 +3,8 @@ namespace es\ucm\fdi\aw;
 
 class Nutri {
 
-    public static function login($nombre, $password) {
-        $nutri = self::buscaNutri($nombre);
+    public static function login($id, $password) {
+        $nutri = self::buscaPorId($id);
         return ($nutri && $nutri->compruebaPassword($password));
     }
     

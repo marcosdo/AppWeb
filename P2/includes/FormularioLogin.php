@@ -54,15 +54,15 @@ class FormularioLogin extends Formulario {
             if (!$usuario && !$nutri) $this->errores[] = "El usuario o el password no coinciden";
             else if($usuario) {
                 $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['id'] = $usuario->getId();
+                //$_SESSION['nombre'] = $nombre;
+                $_SESSION['id'] = $id;
                 header('Location: index.php');
                 exit();
             }
             else{
                 $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $nutri->getNombre();
-                $_SESSION['id'] = $nutri->getId();
+                //$_SESSION['nombre'] = $nombre;
+                $_SESSION['id'] = $id;
                 $_SESSION['nutri'] = true;
                 header('Location: index.php');
                 exit();
