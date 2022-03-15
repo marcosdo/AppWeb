@@ -122,7 +122,7 @@ INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 --
 
 CREATE TABLE `planificacion` (
-  `id_usuario` int(5) NOT NULL,
+  `id_usuario` varchar(20) NOT NULL,
   `desayunos` text DEFAULT NULL,
   `comidas` text DEFAULT NULL,
   `cenas` text DEFAULT NULL,
@@ -157,8 +157,8 @@ CREATE TABLE `premium` (
   `observaciones_adicionales` text NOT NULL,
   `num_logros` int(20) NOT NULL,
   `logros` int(2) NOT NULL,
-  `id_usuario` int(5) NOT NULL,
-  `id_profesional` int(5) NOT NULL
+  `id_usuario` varchar(20) NOT NULL,
+  `id_profesional` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `profesional` (
   `contraseña` varchar(25) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `dni` varchar(9) NOT NULL,
-  `id_profesional` int(5) NOT NULL,
+  `id_profesional` varchar(20) NOT NULL,
   `usuarios` text NOT NULL,
   `num_usuarios` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -219,7 +219,7 @@ CREATE TABLE `usuario` (
   `dni` varchar(9) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `password` varchar(25) NOT NULL,
-  `id_usuario` int(5) NOT NULL,
+  `id_usuario` varchar(20) NOT NULL,
   `premium` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
