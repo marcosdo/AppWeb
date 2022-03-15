@@ -80,6 +80,21 @@ class Nutri {
         return true;
     }
 
+    public static function buscaPorMenosUsuarios(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM profesional HAVING MIN(Num_usuarios) > %d)", -1);
+        $rs = $conn->query($query);
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            $nutri = new Nutri ($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['id_profesional'], $fila['usuarios'], $fila['num_usuarios']);
+            $rs->free();
+            return $nutri;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+    }
+    
     private $apellidos;
 
     private $correo;

@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$tituloPagina = 'Pago nutricionista';
+$tituloPagina = 'Planificacion';
 
 $contenidoPrincipal = <<<EOS
 <h1 id="title-plan">¿Cuál es tu planificación ideal?</h1>
