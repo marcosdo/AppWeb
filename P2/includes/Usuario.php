@@ -5,12 +5,12 @@ class Usuario {
 
     public static function login($id, $password) {
         $usuario = self::buscaPorId($id);
-        return ($usuario && $usuario->compruebaPassword($password));
+        return ($usuario && $usuario->compruebaPassword($password)) ? $usuario : false;
     }
     
     public static function crea($nombre, $apellidos, $correo, $password, $id, $premium) {
         $user = new Usuario($nombre, $apellidos, $correo, self::hashPassword($password), $id, $premium);
-        return $user->inserta($user);
+        return $user->inserta($user) ? $user : false;
     }
 
     public static function buscaUsuario($nombreUsuario) {
@@ -24,11 +24,8 @@ class Usuario {
                 $rs->free();
                 return $user;
             }
-            else return false;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
     }
 
     public static function buscaPorId($idUsuario) {
@@ -42,11 +39,8 @@ class Usuario {
                 $rs->free();
                 return $user;
             }
-            else return false;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
     }
     
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}

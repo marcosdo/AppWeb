@@ -5,12 +5,12 @@ class Nutri {
 
     public static function login($id, $password) {
         $nutri = self::buscaPorId($id);
-        return ($nutri && $nutri->compruebaPassword($password));
+        return ($nutri && $nutri->compruebaPassword($password)) ? $nutri : false;
     }
     
     public static function crea($nombre, $apellidos, $correo,  $password, $id, $usuarios, $num_usuarios) {
         $nutri = new Nutri($nombre, $apellidos, $correo, self::hashPassword($password), $id, $usuarios, $num_usuarios);
-        return $nutri->inserta($nutri);
+        return $nutri->inserta($nutri) ? $nutri : false;
     }
 
     public static function buscaNutri($nombre) {
@@ -24,12 +24,8 @@ class Nutri {
                 $rs->free();
                 return $user;
             }
-            else return false;
-            //apellidos, contraseña, correo,  id_profesional, nombre, num_usuarios y usuarios
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
     }
 
     public static function buscaPorId($id) {
@@ -43,11 +39,8 @@ class Nutri {
                 $rs->free();
                 return $nutri;
             }
-            else return false;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
     }
     
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
