@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2022 a las 13:11:33
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 15-03-2022 a las 17:23:35
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `lifety`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chat`
+--
+
+CREATE TABLE `chat` (
+  `Receptor` text NOT NULL,
+  `Origen` text NOT NULL,
+  `Contenido` mediumtext NOT NULL,
+  `Tiempo` datetime NOT NULL,
+  `Tipo` enum('U-E','E-U') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `chat`
+--
+
+INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
+('Entrenador1', 'Usuario1', 'hola', '2022-03-15 16:48:53', 'U-E'),
+('Usuario1', 'Entrenador1', 'asda', '2022-03-15 17:12:41', 'E-U');
 
 -- --------------------------------------------------------
 
@@ -145,10 +167,18 @@ CREATE TABLE `premium` (
   `alergias` text NOT NULL,
   `observaciones_adicionales` text NOT NULL,
   `num_logros` int(20) NOT NULL,
-  `logros` int(2) NOT NULL,
+  `logros` set('5logros','AccesoTodos','ComenzarChat','Completa1Plan','Completa5Plan','ContrataNutri','Permanencia','Permanencia1m','Foro') NOT NULL,
   `id_usuario` varchar(20) NOT NULL,
   `id_profesional` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `premium`
+--
+
+INSERT INTO `premium` (`peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`, `id_usuario`, `id_profesional`) VALUES
+(90, 90, '', '', 0, '', 'Usuario1', 'Entrenador1'),
+(90, 90, '', '', 0, '', 'Usuario2', 'Entrenador1');
 
 -- --------------------------------------------------------
 
@@ -165,6 +195,13 @@ CREATE TABLE `profesional` (
   `usuarios` text NOT NULL,
   `num_usuarios` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `profesional`
+--
+
+INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `id_profesional`, `usuarios`, `num_usuarios`) VALUES
+('Entrenador1', 'A A', 'a@gmail.com', '1234', 'Entrenador1', 'Usuario1,Usuario2', 2);
 
 -- --------------------------------------------------------
 
@@ -186,7 +223,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `id_usuario`, `premium`) VALUES
-('Kylian', 'Mbappe', 'rmcf', '$2y$10$zjPioMG1srKQlgRrh4Ixd.EU/.wmMuLbPXl/VZCfrPYAMSO8CcyTG', 'titofloren', 0);
+('Kylian', 'Mbappe', 'rmcf', '$2y$10$zjPioMG1srKQlgRrh4Ixd.EU/.wmMuLbPXl/VZCfrPYAMSO8CcyTG', 'titofloren', 0),
+('Usuario1', 'A A', 'a2@gmail.com', '1234', 'Usuario1', 1),
+('Usuario2', 'A A', 'a3@gmail.com', '1234', 'Usuario2', 1);
 
 --
 -- Índices para tablas volcadas
