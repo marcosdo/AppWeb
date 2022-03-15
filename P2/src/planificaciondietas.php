@@ -36,18 +36,18 @@ $des = "";
 $coms = "";
 $cens = "";
 
-$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
 
 $resultado = $BD->query($sqlselect); 
 $fila = mysqli_fetch_assoc($resultado);
-if(is_null($fila["Dobjetivo"]) || $fila["Dobjetivo"] != $objetivo || is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])){ // Nueva tabla
+if(is_null($fila["dobjetivo"]) || $fila["dobjetivo"] != $objetivo || is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])){ // Nueva tabla
     // Rellena los arrays con comidas aleatorias   
     fill_random($desayunos, $desayunos_aux, $des);
     fill_random($comidas, $comidas_aux, $coms);
     fill_random($cenas, $cenas_aux, $cens);
 
     $query = "UPDATE planificacion SET planificacion.desayunos = '$des', planificacion.comidas = '$coms', 
-    planificacion.cenas = '$cens' WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+    planificacion.cenas = '$cens' WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
     mysqli_query($BD, $query);
 
 }
@@ -62,7 +62,7 @@ else {
     fill_frombd($cenas, $cens);
 }
 
-$query = "UPDATE planificacion SET planificacion.Dobjetivo = $objetivo WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$query = "UPDATE planificacion SET planificacion.dobjetivo = $objetivo WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
 mysqli_query($BD, $query);
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2022 a las 10:21:18
+-- Tiempo de generación: 15-03-2022 a las 10:37:52
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.2
 
@@ -28,16 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `dietas` (
-  `Objetivo` int(1) NOT NULL,
+  `objetivo` int(1) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
-  `Tipo` enum('Desayuno','Comida','Cena') NOT NULL
+  `tipo` enum('Desayuno','Comida','Cena') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `dietas`
 --
 
-INSERT INTO `dietas` (`Objetivo`, `descripcion`, `Tipo`) VALUES
+INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (1, 'Copos de avena con leche', 'Desayuno'),
 (1, 'Yogur con copos de avena', 'Desayuno'),
 (1, 'Tortitas de avena', 'Desayuno'),
@@ -81,15 +81,15 @@ INSERT INTO `dietas` (`Objetivo`, `descripcion`, `Tipo`) VALUES
 --
 
 CREATE TABLE `ejercicios` (
-  `Musculo` varchar(40) DEFAULT NULL,
-  `Nombre` varchar(40) DEFAULT NULL
+  `musculo` varchar(40) DEFAULT NULL,
+  `nombre` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
 
-INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
+INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 ('Hombro', 'Elevación lateral'),
 ('Hombro', 'Press hombro'),
 ('Hombro', 'Remo al mentón'),
@@ -122,22 +122,22 @@ INSERT INTO `ejercicios` (`Musculo`, `Nombre`) VALUES
 --
 
 CREATE TABLE `planificacion` (
-  `Id_usuario` int(5) NOT NULL,
+  `id_usuario` int(5) NOT NULL,
   `desayunos` text DEFAULT NULL,
   `comidas` text DEFAULT NULL,
   `cenas` text DEFAULT NULL,
   `rutina` text DEFAULT NULL,
-  `Dobjetivo` int(1) DEFAULT NULL,
-  `Eobjetivo` int(1) DEFAULT NULL,
-  `Dias` int(1) DEFAULT NULL,
-  `Nivel` char(1) DEFAULT NULL
+  `dobjetivo` int(1) DEFAULT NULL,
+  `eobjetivo` int(1) DEFAULT NULL,
+  `dias` int(1) DEFAULT NULL,
+  `nivel` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `planificacion`
 --
 
-INSERT INTO `planificacion` (`Id_usuario`, `desayunos`, `comidas`, `cenas`, `rutina`, `Dobjetivo`, `Eobjetivo`, `Dias`, `Nivel`) VALUES
+INSERT INTO `planificacion` (`id_usuario`, `desayunos`, `comidas`, `cenas`, `rutina`, `dobjetivo`, `eobjetivo`, `dias`, `nivel`) VALUES
 (0, 'Tortitas de avena | Copos de avena con leche | Yogur con copos de avena | Copos de avena con leche | Yogur con copos de avena | Tortitas de avena | Tortitas de avena', 'Ensalada de calabacín a la plancha con q | Albondigas de merluza y brocoli | Ensalada de calabacín a la plancha con q | Pechuga de pollo con soja y verduras salteadas | Pechuga de pollo con soja y verduras salteadas | Albondigas de merluza y brocoli | Caldo de verduras con tortilla francesa', 'Wok de verduras al curry con tiras de pollo | Wok de verduras al curry con tiras de pollo | Ensalada de patata hervida, tomate, pepino y huevo duro | Wok de verduras al curry con tiras de pollo | Wok de verduras al curry con tiras de pollo | Wok de verduras al curry con tiras de pollo | Ensalada de patata hervida, tomate, pepino y huevo duro', NULL, NULL, NULL, NULL, NULL),
 (23, 'Comida A, Comida B', 'Comida C', 'Comida D', 'Press banca | Aperturas con mancuernas | Elevación lateral | Press hombro - Jalon | Remo en T | Curl araña | Predicador - Sentadilla | Prensa | Fondos | Press francés', NULL, NULL, NULL, NULL),
 (25, 'Porridge de avena y frutos secos | Batido de platano y avena | Requesón con fruta | Porridge de avena y frutos secos | Requesón con fruta | Requesón con fruta | Sándwich de queso gouda con huevo duro', 'Puré de calabaza con patata hervida | Revuelto de gambas y champiñones | Tomates rellenos de lentejas | Revuelto de gambas y champiñones | Tomates rellenos de lentejas | Wok de verduras al curry con tiras de pollo | Revuelto de gambas y champiñones', 'Minipizza cuatro quesos con naranja troceada | Minipizza cuatro quesos con naranja troceada | Hamburguesa de jamón york con mayonesa y queso | Minipizza cuatro quesos con naranja troceada | Hamburguesa de jamón york con mayonesa y queso | Hamburguesa de jamón york con mayonesa y queso | Minipizza cuatro quesos con naranja troceada', 'Press banca | Aperturas con mancuernas | Elevación lateral | Press hombro - Jalon | Remo en T | Curl araña | Predicador - Sentadilla | Prensa | Fondos | Press francés', NULL, NULL, NULL, NULL),
@@ -151,21 +151,21 @@ INSERT INTO `planificacion` (`Id_usuario`, `desayunos`, `comidas`, `cenas`, `rut
 --
 
 CREATE TABLE `premium` (
-  `Peso` float NOT NULL,
-  `Altura` float NOT NULL,
-  `Alergias` text NOT NULL,
-  `Observaciones_adicionales` text NOT NULL,
-  `Num_logros` int(20) NOT NULL,
-  `Logros` int(2) NOT NULL,
-  `Id_usuario` int(5) NOT NULL,
-  `Id_profesional` int(5) NOT NULL
+  `peso` float NOT NULL,
+  `altura` float NOT NULL,
+  `alergias` text NOT NULL,
+  `observaciones_adicionales` text NOT NULL,
+  `num_logros` int(20) NOT NULL,
+  `logros` int(2) NOT NULL,
+  `id_usuario` int(5) NOT NULL,
+  `id_profesional` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `premium`
 --
 
-INSERT INTO `premium` (`Peso`, `Altura`, `Alergias`, `Observaciones_adicionales`, `Num_logros`, `Logros`, `Id_usuario`, `Id_profesional`) VALUES
+INSERT INTO `premium` (`peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`, `id_usuario`, `id_profesional`) VALUES
 (75, 170, '', '', 0, 0, 0, 0),
 (75, 170, '', '', 0, 0, 0, 0),
 (75, 170, '', '', 0, 0, 0, 0),
@@ -189,21 +189,21 @@ INSERT INTO `premium` (`Peso`, `Altura`, `Alergias`, `Observaciones_adicionales`
 --
 
 CREATE TABLE `profesional` (
-  `Nombre` text NOT NULL,
-  `Apellidos` text NOT NULL,
-  `Contraseña` varchar(25) NOT NULL,
-  `Correo` varchar(50) NOT NULL,
-  `DNI` varchar(9) NOT NULL,
-  `Id_profesional` int(5) NOT NULL,
-  `Usuarios` text NOT NULL,
-  `Num_usuarios` int(3) NOT NULL
+  `nombre` text NOT NULL,
+  `apellidos` text NOT NULL,
+  `contraseña` varchar(25) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `dni` varchar(9) NOT NULL,
+  `id_profesional` int(5) NOT NULL,
+  `usuarios` text NOT NULL,
+  `num_usuarios` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `profesional`
 --
 
-INSERT INTO `profesional` (`Nombre`, `Apellidos`, `Contraseña`, `Correo`, `DNI`, `Id_profesional`, `Usuarios`, `Num_usuarios`) VALUES
+INSERT INTO `profesional` (`nombre`, `apellidos`, `contraseña`, `correo`, `dni`, `id_profesional`, `usuarios`, `num_usuarios`) VALUES
 ('Sandra', 'Ramos Ramos', '1234', 'sandra@lifety', '45678923P', 0, 'Alex ', 1),
 ('Ivan', 'Ledesma Casado', '123', 'ivan@lifety', '45678923E', 1, '', 0);
 
@@ -214,20 +214,20 @@ INSERT INTO `profesional` (`Nombre`, `Apellidos`, `Contraseña`, `Correo`, `DNI`
 --
 
 CREATE TABLE `usuario` (
-  `Nombre` text NOT NULL,
-  `Apellidos` text NOT NULL,
-  `DNI` varchar(9) NOT NULL,
-  `Correo` varchar(50) NOT NULL,
-  `Password` varchar(25) NOT NULL,
-  `Id_usuario` int(5) NOT NULL,
-  `Premium` tinyint(1) NOT NULL
+  `nombre` text NOT NULL,
+  `apellidos` text NOT NULL,
+  `dni` varchar(9) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `password` varchar(25) NOT NULL,
+  `id_usuario` int(5) NOT NULL,
+  `premium` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_usuario`, `Premium`) VALUES
+INSERT INTO `usuario` (`nombre`, `apellidos`, `dni`, `correo`, `password`, `id_usuario`, `premium`) VALUES
 ('Alex', '', '', '', '1', 0, 1),
 ('Sandra', 'Ramos', '444444O', '', '2', 1, 0),
 ('Prueba', 'A', '', '', '', 23, 0),
@@ -243,26 +243,26 @@ INSERT INTO `usuario` (`Nombre`, `Apellidos`, `DNI`, `Correo`, `Password`, `Id_u
 -- Indices de la tabla `planificacion`
 --
 ALTER TABLE `planificacion`
-  ADD KEY `Id_FK` (`Id_usuario`);
+  ADD KEY `Id_FK` (`id_usuario`);
 
 --
 -- Indices de la tabla `premium`
 --
 ALTER TABLE `premium`
-  ADD KEY `Id_FK` (`Id_usuario`),
-  ADD KEY `Profesional_FK` (`Id_profesional`);
+  ADD KEY `Id_FK` (`id_usuario`),
+  ADD KEY `Profesional_FK` (`id_profesional`);
 
 --
 -- Indices de la tabla `profesional`
 --
 ALTER TABLE `profesional`
-  ADD PRIMARY KEY (`Id_profesional`);
+  ADD PRIMARY KEY (`id_profesional`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`Id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- Restricciones para tablas volcadas

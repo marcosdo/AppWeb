@@ -26,7 +26,7 @@ SI LA BASE DE DATOS NO EXISTE ERROR AQUI
 ===================================== */
 
 $query = "UPDATE planificacion SET  
-WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
 mysqli_query($BD, $query);
 
 
@@ -64,11 +64,11 @@ $dia5 = array();
 $cont = 1;
 $string = "";
 
-$sqlselect = "SELECT * FROM planificacion WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
 $resultado = $BD->query($sqlselect); 
 $fila = mysqli_fetch_assoc($resultado);
-if(is_null($fila["Eobjetivo"]) || is_null($fila["Dias"])|| is_null($fila["Nivel"]) || is_null($fila["rutina"])
- || $dias != $fila["Dias"] || $objetivo != $fila["Eobjetivo"] || $nivel != $fila["Nivel"]){
+if(is_null($fila["eobjetivo"]) || is_null($fila["dias"])|| is_null($fila["nivel"]) || is_null($fila["rutina"])
+ || $dias != $fila["dias"] || $objetivo != $fila["eobjetivo"] || $nivel != $fila["nivel"]){
     for ($i = 1; $i < $dias +1; $i++) {
         $arrayaux = array();
         $stringaux = "";
@@ -109,8 +109,8 @@ else {
     $string = $stringauxiliar;
 }
 
-$query = "UPDATE planificacion SET planificacion.rutina = '$string', planificacion.Nivel = '$nivel', planificacion.Dias = $dias,  planificacion.Eobjetivo = $objetivo
-        WHERE planificacion.Id_usuario = '$_SESSION[id_usuario]'";
+$query = "UPDATE planificacion SET planificacion.rutina = '$string', planificacion.nivel = '$nivel', planificacion.dias = $dias,  planificacion.eobjetivo = $objetivo
+        WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
     mysqli_query($BD, $query);
 
 // Desconectar de la base de datos
