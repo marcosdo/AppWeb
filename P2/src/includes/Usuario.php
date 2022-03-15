@@ -7,8 +7,8 @@ class Usuario {
         return ($usuario && $usuario->compruebaPassword($password));
     }
     
-    public static function crea($apellidos, $correo, $dni, $nombre, $password, $premium) {
-        $user = new Usuario($apellidos, $correo, $dni, $nombre, self::hashPassword($password), $premium);
+    public static function crea($apellidos, $correo, $nombre, $password, $premium) {
+        $user = new Usuario($apellidos, $correo, $nombre, self::hashPassword($password), $premium);
         return $user->inserta($user);
     }
 
@@ -18,7 +18,7 @@ class Usuario {
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
+            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
             $rs->free();
             return $user;
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -31,7 +31,7 @@ class Usuario {
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
+            $user = new Usuario($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['dobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
             $rs->free();
             return $user;
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -42,10 +42,9 @@ class Usuario {
    
     private static function inserta($usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario (apellidos, correo, dni, nombre, password, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
+        $query=sprintf("INSERT INTO usuario (apellidos, correo, nombre, password, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')",
         $conn->real_escape_string($usuario->apellidos), 
         $conn->real_escape_string($usuario->correo), 
-        $conn->real_escape_string($usuario->dni), 
         $conn->real_escape_string($usuario->nombre),
         $conn->real_escape_string($usuario->password),
         $conn->real_escape_string($usuario->premium));
@@ -76,7 +75,6 @@ class Usuario {
 
     private $dias;
 
-    private $dni;
 
     private $eobjetivo;
 
@@ -92,11 +90,10 @@ class Usuario {
 
     private $premium;
 
-    private function __construct($apellidos, $correo, $dias = null, $dni, $eobjetivo = null, $dobjetivo = null,  $id = null, $nivel = null, $nombre, $password, $premium = 0) {
+    private function __construct($apellidos, $correo, $dias = null, $eobjetivo = null, $dobjetivo = null,  $id = null, $nivel = null, $nombre, $password, $premium = 0) {
         $this->apellidos = $apellidos;
         $this->correo = $correo;
         $this->dias = $dias;
-        $this->dni = $dni;
         $this->eobjetivo = $eobjetivo;
         $this->dobjetivo = $dobjetivo;
         $this->id = $id;
@@ -111,8 +108,6 @@ class Usuario {
     public function getCorreo() {return $this->correo;}
 
     public function getDias() {return $this->dias;}
-
-    public function getDni() {return $this->dni;}
 
     public function getEobjetivo() {return $this->eobjetivo;}
 

@@ -1,24 +1,24 @@
 <?php
 
-class Nutri {
+class Premium {
 
     public static function login($nombre, $password) {
-        $nutri = self::buscaNutri($nombre);
-        return ($nutri && $nutri->compruebaPassword($password));
+        $premium = self::buscaPremium($nombre);
+        return ($premium && $premium->compruebaPassword($password));
     }
     
-    public static function crea($apellidos, $correo, $nombre, $num_usuarios, $password, $usuarios) {
-        $nutri = new Nutri($apellidos, $correo, $nombre, $num_usuarios, self::hashPassword($password), $usuarios);
-        return $nutri->inserta($nutri);
+    public static function crea($apellidos, $correo, $dni, $nombre, $num_usuarios, $password, $usuarios) {
+        $premium = new Premium($apellidos, $correo, $dni, $nombre, $num_usuarios, self::hashPassword($password), $usuarios);
+        return $premium->inserta($premium);
     }
 
-    public static function buscaNutri($nombre) {
+    public static function buscaPremium($nombre) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM profesional WHERE nombre='%s'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Nutri ($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
+            $user = new Premium ($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
             $rs->free();
             return $user;
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -32,34 +32,35 @@ class Nutri {
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $nutri = new Usuario($fila['apellidos'], $fila['correo'], $fila['id_profesional'], $fila['nombre'], $fila['num_usuarios'], $fila['password'], $fila['usuarios']);
+            $premium = new Usuario($fila['apellidos'], $fila['correo'], $fila['dni'], $fila['id_profesional'], $fila['nombre'], $fila['num_usuarios'], $fila['password'], $fila['usuarios']);
             $rs->free();
-            return $nutri;
+            return $premium;
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
     }
     
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
    
-    private static function inserta($nutri) {
+    private static function inserta($premium) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO profesional (apellidos, correo, nombre, num_usuarios, password, usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
-        $conn->real_escape_string($nutri->apellidos), 
-        $conn->real_escape_string($nutri->correo), 
-        $conn->real_escape_string($nutri->nombre),
-        $conn->real_escape_string($nutri->num_usuarios),
-        $conn->real_escape_string($nutri->password),
-        $conn->real_escape_string($nutri->premium),
-        $conn->real_escape_string($nutri->usuarios));
+        $query=sprintf("INSERT INTO profesional (apellidos, correo, dni, nombre, num_usuarios, password, usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
+        $conn->real_escape_string($premium->apellidos), 
+        $conn->real_escape_string($premium->correo), 
+        $conn->real_escape_string($premium->dni), 
+        $conn->real_escape_string($premium->nombre),
+        $conn->real_escape_string($premium->num_usuarios),
+        $conn->real_escape_string($premium->password),
+        $conn->real_escape_string($premium->premium),
+        $conn->real_escape_string($premium->usuarios));
         if ($conn->query($query)) {
-            $nutri->id = $conn->insert_id;
+            $premium->id = $conn->insert_id;
             return true;
         }
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
     }
     
-    private static function borra($nutri) {return self::borraPorId($nutri->id);}
+    private static function borra($premium) {return self::borraPorId($premium->id);}
     
     private static function borraPorId($id) {
         if (!$id) return false;
@@ -76,6 +77,8 @@ class Nutri {
 
     private $correo;
 
+    private $dni;
+
     private $id;
 
     private $nombre;
@@ -86,9 +89,10 @@ class Nutri {
 
     private $usuarios;
 
-    private function __construct($apellidos, $correo,  $id = null, $nombre, $num_usuarios = 0, $password, $usuarios = "") {
+    private function __construct($apellidos, $correo, $dni,  $id = null, $nombre, $num_usuarios = 0, $password, $usuarios = "") {
         $this->apellidos = $apellidos;
         $this->correo = $correo;
+        $this->dni = $dni;
         $this->id = $id;
         $this->nombre = $nombre;
         $this->num_usuarios = $num_usuarios;
@@ -99,6 +103,8 @@ class Nutri {
     public function getApellidos() {return $this->apellidos;}
 
     public function getCorreo() {return $this->correo;}
+
+    public function getDni() {return $this->dni;}
 
     public function getId() {return $this->id;}
 

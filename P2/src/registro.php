@@ -18,10 +18,6 @@ $contenidoPrincipal = <<<EOS
 		<input id="apellidos" type="text" name="apellidos" />
 	</div>
 	<div>
-		<label for="dni">DNI:</label>
-		<input id="dni" type="text" name="dni" />
-	</div>
-	<div>
 		<label for="mail">Direccion de correo:</label>
 		<input id="mail" type="text" name="mail" />
 	</div>

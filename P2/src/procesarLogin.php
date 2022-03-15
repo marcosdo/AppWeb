@@ -43,6 +43,7 @@ if (count($erroresFormulario) === 0) {
 		header('Location: index.php');
 		exit();
 	}
+	
 }
 
 $tituloPagina = 'Login';
