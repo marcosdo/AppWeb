@@ -25,9 +25,10 @@ class Planificacion {
             }
             $contenido .= "</tr>";
         }
-        //$contenido .= "</table>";
+        //$contenido .= "</table>"; <table>$contenido</table>
         $html = <<<EOF
         <table>$contenido</table>
         EOF;
+        return $html;
     }
 }
