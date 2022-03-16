@@ -1,9 +1,9 @@
 <?php
 namespace es\ucm\fdi\aw;
 
-class FromularioDietas extends Formulario {
+class FormularioDietas extends Formulario {
     public function __construct() {
-        parent::__construct('formDietas', ['urlRedireccion' => 'Dieta.php']);
+        parent::__construct('formDietas', ['urlRedireccion' => 'planificaciondietas.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
@@ -46,22 +46,30 @@ class FromularioDietas extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-        /* === ERRORES ===
-        dieta != [1, 2, 3]
-        =============== */
+        // Errores posibles
         $this->errores = [];
+        // Comprueba que los datos no sean malignos
+        $tipo_dieta = htmlspecialchars(trim(strip_tags($datos['dieta'] ?? '')));
+        $tipo_dieta = filter_var($tipo_dieta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // Lanza un error si hay datos malignos
+        if (!$tipo_dieta || empty($tipo_dieta))
+            $this->errores['dieta'] = 'ERROR: procesa formulario de dietas. Caracteres malignos';
 
-        htmlspecialchars(trim(strip_tags($_POST["dieta"])));
-        $objetivo = isset($_POST["dieta"]) ? $_POST["dieta"] : null;
+        /* === ERRORES ===
+        dieta != {1, 2, 3}
+        =============== */
+        if ($tipo_dieta == '1' || $tipo_dieta == '2' || $tipo_dieta == '3') 
+            $this->errores['objetivo-dieta'] = 'ERROR: procesa formulario de dietas. Caracteres no esperados';
 
-        if ($objetivo == '1' || $objetivo == '2' || $objetivo == '3') 
-            $this->errores['objetivo'] = 'El objetivo no es válido.';
-
+        // Si todo ha ido bien, 
         if (count($this->errores) === 0) {
-            $BD = conectar_bd("localhost","root","","lifety");
-            $desayunos_aux = array(); 
-            $comidas_aux = array(); 
-            $cenas_aux = array();
+            $comidas = Dieta::exists_type($tipo_dieta);
+            // Si comidas devuelve false
+            if (!$comidas) {
+                // Hay que crear una dieta nueva
+                exit();
+            }
+            // Si no, hay que mostrar la que ya existe
         }
     }
 }
