@@ -47,14 +47,14 @@ class Nutri {
    
     private static function inserta($nutri) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO profesional (nombre, apellidos, correo, password, id_profesional, usuarios, num_usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
+        $query=sprintf("INSERT INTO profesional (nombre, apellidos, correo, password, id_profesional, usuarios, num_usuarios) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%d')",
         $conn->real_escape_string($nutri->nombre),
         $conn->real_escape_string($nutri->apellidos), 
         $conn->real_escape_string($nutri->correo),
         $conn->real_escape_string($nutri->password), 
         $conn->real_escape_string($nutri->id), 
         $conn->real_escape_string($nutri->usuarios),
-        $conn->real_escape_string($nutri->num_usuarios));
+        $nutri->num_usuarios);
         if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
@@ -75,7 +75,7 @@ class Nutri {
 
     public static function buscaPorMenosUsuarios(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM profesional HAVING MIN(Num_usuarios) > %d)", -1);
+        $query = sprintf("SELECT * FROM profesional HAVING MIN(Num_usuarios) > %d", -1);
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
@@ -88,6 +88,14 @@ class Nutri {
         }
     }
     
+    public static function nuevoCliente($usuarios, $num_usuarios, $id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = "UPDATE profesional SET usuarios = '$usuarios' , num_usuarios = '$num_usuarios' WHERE id_profesional = '$id'";
+        if ($conn->query($query)) return true;
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
+    }
+
     private $apellidos;
 
     private $correo;
@@ -102,7 +110,7 @@ class Nutri {
 
     private $usuarios;
 
-    private function __construct($nombre, $apellidos, $correo, $id, $password, $usuarios, $num_usuarios) {
+    private function __construct($nombre, $apellidos, $correo, $password, $id, $usuarios, $num_usuarios) {
         $this->apellidos = $apellidos;
         $this->correo = $correo;
         $this->id = $id;

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
     <title><?= $tituloPagina ?></title>
-    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estiloaux.css" />
+    <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilonutri.css" />
 </head>
 <body>
 <div id="contenedor">

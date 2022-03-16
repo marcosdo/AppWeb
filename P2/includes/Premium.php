@@ -1,38 +1,20 @@
 <?php
+namespace es\ucm\fdi\aw;
 
 class Premium {
 
-    public static function login($nombre, $password) {
-        $premium = self::buscaPremium($nombre);
-        return ($premium && $premium->compruebaPassword($password));
-    }
-    
-    public static function crea($apellidos, $correo, $dni, $nombre, $num_usuarios, $password, $usuarios) {
-        $premium = new Premium($apellidos, $correo, $dni, $nombre, $num_usuarios, self::hashPassword($password), $usuarios);
-        return $premium->inserta($premium);
+    public static function crea($peso, $altura, $alergias, $observaciones, $num_logros, $logros, $id_usuario, $id_profesional) {
+        $premium = new Premium($peso, $altura, $alergias, $observaciones, $num_logros, $logros, $id_usuario, $id_profesional);
+        return $premium->inserta($premium) ? $premium : false;
     }
 
-    public static function buscaPremium($nombre) {
+    public static function buscaPorId($id_usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM profesional WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM premium WHERE id_usuario=%d", $id_usuario);
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
-            $user = new Premium ($fila['apellidos'], $fila['correo'], $fila['dias'], $fila['dni'], $fila['eobjetivo'], $fila['id_usuario'], $fila['nivel'], $fila['nombre'], $fila['password'], $fila['premium']);
-            $rs->free();
-            return $user;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
-    }
-
-    public static function buscaPorId($id)
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id=%d", $id);
-        $rs = $conn->query($query);
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            $premium = new Usuario($fila['apellidos'], $fila['correo'], $fila['dni'], $fila['id_profesional'], $fila['nombre'], $fila['num_usuarios'], $fila['password'], $fila['usuarios']);
+            $premium = new Usuario($fila['peso'], $fila['altura'], $fila['alergias'], $fila['observaciones'], $fila['num_logros'], $fila['logros'], $fila['id_usuario'], $fila['id_profesional']);
             $rs->free();
             return $premium;
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -43,29 +25,18 @@ class Premium {
    
     private static function inserta($premium) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO profesional (apellidos, correo, dni, nombre, num_usuarios, password, usuarios) VALUES ('%s', '%s', '%s', '%s', '%d', '%s', '%s')",
-        $conn->real_escape_string($premium->apellidos), 
-        $conn->real_escape_string($premium->correo), 
-        $conn->real_escape_string($premium->dni), 
-        $conn->real_escape_string($premium->nombre),
-        $conn->real_escape_string($premium->num_usuarios),
-        $conn->real_escape_string($premium->password),
-        $conn->real_escape_string($premium->premium),
-        $conn->real_escape_string($premium->usuarios));
-        if ($conn->query($query)) {
-            $premium->id = $conn->insert_id;
-            return true;
-        }
+        $query= "INSERT INTO premium (peso, altura, alergias, observaciones_adicionales, num_logros, logros, id_usuario, id_profesional) VALUES ('$premium->peso', '$premium->altura', '$premium->alergias', '$premium->observaciones', '$premium->num_logros', '$premium->logros', '$premium->id_usuario', '$premium->id_profesional')";
+        if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
     }
     
     private static function borra($premium) {return self::borraPorId($premium->id);}
     
-    private static function borraPorId($id) {
-        if (!$id) return false;
+    private static function borraPorId($id_usuario) {
+        if (!$id_usuario) return false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM profesional WHERE id_profesional = %d", $id);
+        $query = sprintf("DELETE FROM premium WHERE id_usuario = %d", $id_usuario);
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
@@ -73,54 +44,49 @@ class Premium {
         return true;
     }
 
-    private $apellidos;
+    private $peso;
 
-    private $correo;
+    private $altura;
 
-    private $dni;
+    private $alergias;
 
-    private $id;
+    private $observaciones;
 
-    private $nombre;
+    private $num_logros;
 
-    private $num_usuarios;
+    private $logros;
 
-    private $password;
+    private $id_usuario;
 
-    private $usuarios;
+    private $id_profesional;
 
-    private function __construct($apellidos, $correo, $dni,  $id = null, $nombre, $num_usuarios = 0, $password, $usuarios = "") {
-        $this->apellidos = $apellidos;
-        $this->correo = $correo;
-        $this->dni = $dni;
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->num_usuarios = $num_usuarios;
-        $this->password = $password;
-        $this->usuarios = $usuarios;
+    private function __construct($peso, $altura, $alergias, $observaciones, $num_logros, $logros, $id_usuario, $id_profesional) {
+        $this->peso = $peso;
+        $this->altura = $altura;
+        $this->alergias = $alergias;
+        $this->observaciones = $observaciones;
+        $this->num_logros = $num_logros;
+        $this->logros = $logros;
+        $this->id_usuario = $id_usuario;
+        $this->id_profesional = $id_profesional;
     }
 
-    public function getApellidos() {return $this->apellidos;}
+    public function getPeso() {return $this->peso;}
 
-    public function getCorreo() {return $this->correo;}
+    public function getAltura() {return $this->altura;}
 
-    public function getDni() {return $this->dni;}
+    public function getAlergias() {return $this->alergias;}
 
-    public function getId() {return $this->id;}
+    public function getObservaciones() {return $this->observaciones;}
 
-    public function getNum_usuarios() {return $this->num_usuarios;}
+    public function getNum_logros() {return $this->num_logros;}
 
-    public function getNombre() {return $this->nombre;}
+    public function getLogros() {return $this->logros;}
 
-    public function getUsuarios() {return $this->usuarios;}
+    public function getId_usuario() {return $this->id_usuario;}
 
-    public function compruebaPassword($password) {return password_verify($password, $this->password);}
-    /*
-    public function cambiaPassword($nuevoPassword)
-    {
-        $this->password = self::hashPassword($nuevoPassword);
-    }*/
-    
+    public function getId_profesional() {return $this->id_profesional;}
+ 
     public function borrate() {
         if ($this->id !== null) return self::borra($this);
         return false;

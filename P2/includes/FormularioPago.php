@@ -62,30 +62,29 @@ class FormularioPago extends Formulario {
 
         $altura = filter_var($altura, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$altura || empty($altura)) $this->errores['altura'] = 'La altura debe rellenarse';
-
+        /*
         $alergias = filter_var($alergias, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$alergias) $this->errores['alergias'] = 'Introduzca un valor valido en alergias';
 
         $observaciones = filter_var($observaciones, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$observaciones) $this->errores['observaciones'] = 'Introduzca un valor valido en observaciones adicionales';
-        
+        */
         if (count($this->errores) === 0) {
             $nutri = Nutri::buscaPorMenosUsuarios();
             if (!$nutri) $this->errores[] = "Ha ocurrido un problema al asignarle nutricionista";
             else {
-                
+                if(!Premium::crea($peso, $altura, $alergias, $observaciones, 0, "", $_SESSION['id'], $nutri->getId()))  $this->errores[] = "No se ha añadido al usuario a premium";
+                else {
+                    if(!Nutri::nuevoCliente($nutri->getUsuarios().$_SESSION['nombre'], $nutri->getNum_usuarios() + 1, $nutri->getId())) $this->errores[] = "No se ha añadido al usuario al profesional";
+                    else {
+                        if(!Usuario::setPremium($_SESSION['id'])) $this->errores[] = "No se ha actualizado a premium al usuario";
+                        else {
+                            header('Location: EntrenadorPersonalUsu.php');
+                            exit();
+                        }
+                    }
+                }
             }
-            $row = $resultado->fetch_assoc();
-        $usuarios = $row['Usuarios'].$_SESSION['nombre']." ";
-        $sql = "INSERT INTO premium (Alergias, Altura, Id_profesional, Id_usuario, Logros, Num_logros, Observaciones_adicionales, Peso) VALUES ('$alergias', '$altura', '$row[Id_profesional]', '$_SESSION[id_usuario]', '0', '0', '$observaciones', '$peso')";
-        if ($conn->query($sql) === TRUE) ;
-        else echo "Error: " . $sql . "<br>" . $conn->error;
-        $sql = "UPDATE profesional SET Usuarios = '$usuarios' , Num_usuarios = $row[Num_usuarios]+1 WHERE Id_profesional = $row[Id_profesional]";
-        if ($conn->query($sql) === TRUE) ;
-        else echo "Error: " . $sql . "<br>" . $conn->error;
-        $sql = "UPDATE usuario SET Premium = 1 WHERE Id_usuario = $_SESSION[id_usuario]";
-        if ($conn->query($sql) === TRUE) ;
-        else echo "Error: " . $sql . "<br>" . $conn->error;
-        }        
+        }    
     }
 }

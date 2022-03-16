@@ -53,7 +53,7 @@ class Usuario {
         $conn->real_escape_string($usuario->correo), 
         $conn->real_escape_string($usuario->password), 
         $conn->real_escape_string($usuario->id),
-        $conn->real_escape_string($usuario->premium));
+        $usuario->premium);
         if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
@@ -70,6 +70,14 @@ class Usuario {
             return false;
         }
         return true;
+    }
+
+    public static function setPremium($id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query=sprintf("UPDATE usuario SET premium = 1 WHERE id_usuario = '%s'", $conn->real_escape_string($id));
+        if ($conn->query($query)) return true;
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
     }
 
     private $apellidos;
