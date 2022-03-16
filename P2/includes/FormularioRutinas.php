@@ -81,7 +81,8 @@ class FormularioRutinas extends Formulario {
             $this->errores['dias'] = 'El dia no es válido.';
                 
         if (count($this->errores) === 0) {
-            Rutina:: comprobarRutina($_SESSION['id'], $objetivo, $nivel, $dias);
+            //$rutina = new Rutina ("titofloren", $objetivo, $nivel, $dias);
+         Rutina::comprobarRutina("titofloren", $objetivo, $nivel, $dias);
         }
     }
 }

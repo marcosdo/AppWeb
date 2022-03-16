@@ -29,14 +29,13 @@ class Rutina {
         $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$id'";
         $resultado = $BD->query($sqlselect); 
         if($resultado){
-            $fila = $resultado->fetch_assoc();
-            if (is_null($fila["dias"]) || $dias != $fila["dias"] || is_null($fila["nivel"]) || $nivel != $fila["nivel"]
-                || is_null($fila["eobjetivo"]) || $fila["eobjetivo"] != $objetivo){  //cuando no existe rutina o ha cambiado parametros
-                    self::crearRutina($id, $objetivo, $nivel, $dias); 
+            if($resultado->num_rows > 0){
+                $fila = $resultado->fetch_assoc();
+                //cuando existe rutina
+                self::cargarRutina($fila);    //cuando no existe rutina o ha cambiado parametros
             }
-            
-            else { //cuando existe rutina
-                self::cargarRutina($fila);
+            else { 
+                self::crearRutina($id, $objetivo, $nivel, $dias); 
             }
             self::mostrar();
         }
@@ -64,18 +63,36 @@ class Rutina {
     private static function crearRutina($id, $objetivo, $nivel, $dias){
         $rutina = new Rutina($id, $objetivo, $nivel, $dias);
         $cont = 1;  
-        for ($i = 1; $i < $_dias +1; $i++) {
+        for ($i = 1; $i < $dias +1; $i++) {
             $arrayaux = array();
             $stringaux = "";
             if ($i == 4) $cont = 1;
             if ($i >= 1 && $i <= 3) {
-                fill_array($cont, 2, $arrayaux, $stringaux);
+               // $rutina->fill_array($cont, 2, $arrayaux, $stringaux);
+               $BD = Aplicacion::getInstance()->getConexionBd();
+               for ($i = 0; $i < 2; $i++){
+                   $j = 0;
+                   $consulta = "SELECT * FROM ejercicios WHERE musculo = '$rutina->$_muscs[$cont]'"; 
+                   $resultado = $BD->query($consulta);
+                   while ($fila = $resultado->fetch_assoc()){
+                       if($j < $_ejerciciosdia){
+                           array_push($arrayaux, $fila['nombre']); 
+                           if($j+1 == $_ejerciciosdia && $i+1 == $nveces) $stringaux .= $fila['nombre'];
+                           else {
+                               $stringaux .= $fila['nombre'];
+                               $stringaux .= " | ";
+                           }
+                       } 
+                       $j++;
+                   }
+                   $cont++;
+               } 
                 if ($i == 1) $_dia1 = $arrayaux; 
                 else if ($i == 2) $_dia2 = $arrayaux;
                 else $_dia3 = $arrayaux;
             }
             else {
-                fill_array($cont, 3, $arrayaux, $stringaux);
+                $rutina->fill_array($cont, 3, $arrayaux, $stringaux);
                 if($i == 4) $_dia4 = $arrayaux; 
                 else $_dia5 = $arrayaux;
             }
@@ -146,12 +163,14 @@ class Rutina {
 
     }
 */
-    private static function fill_arrray(&$cont, $nveces , &$arrayaux, &$stringaux) {
-        $BD = Aplicacion::getInstance()->getConnectionBd();
+    private static function fill_array(&$cont, $nveces , &$arrayaux, &$stringaux) {
+        
+        $BD = Aplicacion::getInstance()->getConexionBd();
         for ($i = 0; $i < $nveces; $i++){
             $j = 0;
-            $consulta = mysqli_query($BD,"SELECT * FROM ejercicios WHERE musculo = '$_muscs[$cont]'"); 
-            while ($fila = mysqli_fetch_assoc($consulta)){
+            $consulta = "SELECT * FROM ejercicios WHERE musculo = '$_muscs[$cont]'"; 
+            $resultado = $BD->query($consulta);
+            while ($fila = $resultado->fetch_assoc()){
                 if($j < $_ejerciciosdia){
                     array_push($arrayaux, $fila['nombre']); 
                     if($j+1 == $_ejerciciosdia && $i+1 == $nveces) $stringaux .= $fila['nombre'];
@@ -171,7 +190,7 @@ class Rutina {
     }
 
     private function __construct($id, $objetivo, $nivel, $dias) {
-        $array = array()
+        $array = array();
         $_dia1 = array(); 
         $_dia2 = array(); 
         $_dia3 = array(); 
