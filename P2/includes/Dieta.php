@@ -50,8 +50,38 @@ class Dieta {
         return array($query_desayunos, $query_comidas, $query_cenas);
     }
     /**
-     * @var 
+     * Método para crear una dieta. Devuelve una dieta nueva
+     * 
+     * @var int $tipo 
+     * 
+     * @return Dieta|false 
      */
+    public static function create_dieta($tipo) {
+        $bd = Aplicacion::getInstance()->getConexionBd();
+
+        // Trae de la base de datos los desayunos y los mete
+        $desayunos_aux = self::llenar_array($bd, $tipo, "Desayuno");
+        $comidas_aux = self::llenar_array($bd, $tipo, "Comida");
+        $cenas_aux = self::llenar_array($bd, $tipo, "Cena");
+
+        if (!$desayunos_aux || !$comidas_aux || !$cenas_aux)
+            return false;
+
+        // Rellena los arrays con comidas aleatorias
+        $desayunos = self::llenar_random($desayunos_aux);
+        $comidas = self::llenar_random($comidas_aux);
+        $cenas = self::llenar_random($cenas_aux);
+
+        if (!$desayunos || !$comidas || !$cenas)
+            return false;
+
+        return new Dieta($desayunos, $comidas, $cenas, "", "", "");
+    }
+
+    public function muestra_dieta() {
+        
+    }
+/*
     public function crear($id, $objetivo) { 
         $BD = Aplicacion::getInstance()->getConexionBd();
         $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$_SESSION[id]'";
@@ -63,13 +93,8 @@ class Dieta {
             $desayunos_aux = array(); 
             $comidas_aux = array(); 
             $cenas_aux = array();
-            
-            
-            fill_array($desayunos_aux, "desayuno", $objetivo, $BD);
-            fill_array($comidas_aux, "comida", $objetivo, $BD);
-            fill_array($cenas_aux, "cena", $objetivo, $BD);
-                        
-            
+
+
             // Rellena los arrays con comidas aleatorias   
             fill_random($desayunos, $desayunos_aux, $des);
             fill_random($comidas, $comidas_aux, $coms);
@@ -90,7 +115,7 @@ class Dieta {
             fill_frombd($cenas, $cens);
         }
 
-    }
+    }*/
 
     // ==================== PRIVATE ====================
 
@@ -131,31 +156,55 @@ class Dieta {
 
      }
 
-    private function fill_array(&$dest, $tipo, $objetivo, $BD) {
+    // ~~~~~~~~~~~~~~~~~~~~ FUNCIONES AUXILIARES ~~~~~~~~~~~~~~~~~~~~
+    /**
+     * Metodo que rellena el un array con informacion de la base de datos
+     * 
+     * @var mysqli $bd instancia de la base de datos
+     * @var int $tipo valores posibles: {1, 2, 3}
+     * @var string $horario valores posibles: {desayuno, comida, cena}
+     * 
+     * @return string[]|false 
+     */
+    private function llenar_array($bd, $tipo, $horario) {
         // Consulta que te devuelve el numero de elementos que hay de ese tipo 
-        $consulta = mysqli_query($BD, "SELECT dietas.descripcion FROM dietas WHERE dietas.tipo = '$tipo' AND dietas.Objetivo = $objetivo"); 
-        while ($fila = mysqli_fetch_assoc($consulta)){
-            array_push($dest, $fila['descripcion']);
+        $query = sprintf(
+            "SELECT dietas.descripcion FROM dietas WHERE dietas.tipo = %s AND dietas.objetivo = %d",
+            $horario, $tipo
+        );
+
+        $result = $bd->query($query);
+        if (!$result)
+            return false;
+
+        $ret = array();
+        while ($fila = mysqli_fetch_assoc($result)) {
+            array_push($ret, $fila['descripcion']);
         }
+        return $ret;
     }
 
-    // Inserta siete (7) elementos en el array destino
-    private function fill_random(&$dest, $src, &$string) {
+    /**
+     * Metodo que llena un array de 7 elementos con informacion aleatoria de $src
+     * @var array $src
+     * 
+     * @return string[]|false 
+     */
+    function llenar_random($src) {
         // Si esta vacio no hace nada
         if (empty($src)) {
-            return;
+            return false;
         }
+
+        $ret = array();
         // Por cada dia de la semana
         for ($i = 0; $i < 7; $i++) {
-            $clave = array_rand($src, 1); 
-            $dest[] =  $src[$clave];
-            $string .= $src[$clave];
-            if($i != 6) $string .=  " | ";
+            // Coge una clave aleatoria del array
+            $clave = array_rand($src, 1);
+            // En c++ sería: ret.push_back($src.at($clave))
+            $ret[] =  $src[$clave];
         }
-    }
-
-    function fill_frombd(&$dest, $string){
-        $dest = explode(" | ", $string);
+        return $ret;
     }
 
     private static function inserta() {

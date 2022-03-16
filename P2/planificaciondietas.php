@@ -106,21 +106,21 @@ function fill_frombd(&$dest, $string){
  * @param string $DB_name nombre de la BD.
  * 
  * @return mysqli|null Devuelve la base de datos si existe o null en otro caso.
- *//*
+ */
 function conectar_bd($host, $user, $pass, $DB_name) {
     $DB = new mysqli($host, $user, $pass, $DB_name);
     if ($DB->connect_errno) {
-        error_log("Error de conexión a la BD: ({$conn->connect_errno }) {$conn->connect_error}");
-        paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
+        error_log("Error de conexión a la BD: ({$DB->connect_errno }) {$DB->connect_error}");
+        //paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
         return null;
     }
     if (!$DB->set_charset("utf8mb4")) {
-        error_log("Error al configurar la codificación de la BD: ({$conn->errno }) {$conn->error}");
-        paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
+        error_log("Error al configurar la codificación de la BD: ({$DB->errno }) {$DB->error}");
+        //paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
         return null;
     }
     return $DB;
-}*/
+}
 
 // Funcion que muestra la tabla
 function muestra_tabla($desayunos, $comidas, $cenas) {
