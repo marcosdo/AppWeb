@@ -94,7 +94,7 @@ class Dieta {
     }
     }
 
-function fill_frombd(&$dest, $string){
+ffunction fill_frombd(&$dest, $string){
             $dest = explode(" | ", $string);
         }
 

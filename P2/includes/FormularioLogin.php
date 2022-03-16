@@ -55,7 +55,7 @@ class FormularioLogin extends Formulario {
             else if($usuario) {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['id'] = $id->getId();
+                $_SESSION['id'] = $usuario->getId();
                 header('Location: index.php');
                 exit();
             }
