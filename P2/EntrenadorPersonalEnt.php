@@ -1,5 +1,5 @@
 <?php
-function conectar ($host, $usuario, $contraseña,$nombreBD){
+/*function conectar ($host, $usuario, $contraseña,$nombreBD){
 	$mysqli = new mysqli($host,$usuario,$contraseña,$nombreBD);
 	if ($mysqli->connect_errno) {
 		echo "ERROR Conexion";
@@ -19,8 +19,8 @@ function Usuarios($BD , $entNombre){
 	}
 	return $rts;
 }
-$SelectUsuarios = Usuarios($BD , $entNombre);
-
+$SelectUsuarios = Usuarios($BD , $entNombre);*/
+/*
 $alert = "";
 
 if(isset($_POST['buttonLogro'])) {
@@ -54,50 +54,18 @@ if(isset($_POST['quitarLogro'])) {
 	}
 	else $alert = "<span class='text2'>No posee este logro</span>";
 }
-
-
-
-
-
-
-/*
-if(isset($_POST['idE3'])) {
-	if(isset($_POST['submitmsg'])) {
-		$fecha = date_create()->format('Y-m-d H:i:s');
-		mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$_SESSION[login]','$_POST[idE3]','$_POST[usermsg]','$fecha','E-U') ");
-	}
-}
-
-$dataChat = ""; 
-function dataChat($entNombre,$nombreUsu,$BD){
-	$rts = "";
-	$data = "";
-	$data =  "[". $data . $entNombre . " 🡺 " .$nombreUsu . "]";
-	$consulta = mysqli_query($BD,"SELECT * FROM chat WHERE (Origen = '$entNombre' AND Receptor = '$nombreUsu') OR (Origen = '$nombreUsu' AND Receptor = '$entNombre') ORDER BY Tiempo ASC ");
-	while($chats = mysqli_fetch_array($consulta)){
-		if($chats["Tipo"] == "E-U")$data = $data . "\n". "🡺 (" . $chats["Tiempo"] . ") " . $chats["Origen"] . ": " . $chats["Contenido"];
-		else $data = $data . "\n". "🡸 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
-	}
-	$rts = $rts . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
-	$rts = $rts . $data;
-	$rts = $rts ."</textarea>";
-	return $rts;
-}
-if(isset($_POST['idE2'])) {
-	$dataChat = dataChat($entNombre ,$_POST['idE2'],$BD);
-}
-else{
-	$dataChat = $dataChat . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
-	$dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
-	$dataChat = $dataChat ."</textarea>";
-} 
-
 */
+
 
 require_once __DIR__.'/includes/config.php';
 
 $chatUsuario = new es\ucm\fdi\aw\ChatEntrenador();
 $MostrarChat = $chatUsuario->mostrarChat();
+
+require_once __DIR__ .'/includes/FormularioLogros.php';
+
+$FormularioLogros = new es\ucm\fdi\aw\FormularioLogros();
+$MostrarLogros = $FormularioLogros->mostrarFormulario();
 
 $tituloPagina = 'Entrenador';
 
@@ -105,34 +73,7 @@ $contenidoPrincipal = <<<EOS
 <header><h1>Tu  nutricionista/entrenador personal ENTRENADOR </h1></header>
 <form method='post'>
 <div id = "logros" >
-	<h1><span class = 'text'>L O G R O S</span></h1>
-	<div id = 'selectA'>
-		<h3><span class = 'textD'>Seleccione el Logro :</span></h3>
-		<h3><span class = 'textI' >Seleccione al Usuario :</span></h3>
-	</div>
-	<div id = 'select' >
-		<select name = 'logrosE' id = 'logrosE' type = 'text' class = 'selectA'>
-			<option value='5logros'>Completar 5 Logros</option>
-			<option value='AccesoTodos'>Acceso a todas las areas</option>
-			<option value='ComenzarChat'>Comenzar chat</option>
-			<option value='Completa1Plan'>Completar 1 plan</option>
-			<option value='Completa5Plan'>Completar 5 plan</option>
-			<option value='ContrataNutri'>Contratar un Nutricionista</option>
-			<option value='Foro'>Entrar en el foro</option>
-			<option value='Permanencia'>Sesión 5 dias seguidos</option>
-			<option value='Permanencia1m'>Sesión 1 mes seguidos</option>
-		</select>
-		<select name = 'idE' id = 'idE' type = 'text' class = 'selectB'>
-			$SelectUsuarios
-		</select>
-	</div>
-	<div id = 'select'><h3>
-		$alert
-	</h3></div>
-	<div id = 'select'>
-		<input type='submit' class = 'ButtonD' name='quitarLogro' value='Quitar Logro'/>
-		<input type='submit' class = 'ButtonI' name='buttonLogro' value='Añadir Logro'/>
-	</div>
+	$MostrarLogros
 </div>
 	$MostrarChat
 </form>

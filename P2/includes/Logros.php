@@ -32,7 +32,7 @@ class  Logros {
          
         $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$usuactual'"); 
         $usu =  mysqli_fetch_array($consulta);
-        $usuLogros = $usu["num_logros"];
+        $numLogros = $usu["num_logros"];
 	    $EnumLogros = $usu["logros"];
 
         
@@ -40,7 +40,7 @@ class  Logros {
         $contenidoPrincipal = <<<EOF
         <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
         <div id = 'selectA'>
-        <h3><span class = 'text'>Número de logros : &nbsp<b>$usuactual</b></span></h3>
+        <h3><span class = 'text'>Número de logros : &nbsp<b>$numLogros</b></span></h3>
         </div>
         <div id = 'selectA'>
         $imaginesLogros
