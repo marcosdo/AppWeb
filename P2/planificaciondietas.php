@@ -106,7 +106,7 @@ function fill_frombd(&$dest, $string){
  * @param string $DB_name nombre de la BD.
  * 
  * @return mysqli|null Devuelve la base de datos si existe o null en otro caso.
- */
+ *//*
 function conectar_bd($host, $user, $pass, $DB_name) {
     $DB = new mysqli($host, $user, $pass, $DB_name);
     if ($DB->connect_errno) {
@@ -120,7 +120,7 @@ function conectar_bd($host, $user, $pass, $DB_name) {
         return null;
     }
     return $DB;
-}
+}*/
 
 // Funcion que muestra la tabla
 function muestra_tabla($desayunos, $comidas, $cenas) {
@@ -176,10 +176,7 @@ function muestra_tabla($desayunos, $comidas, $cenas) {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="../../css/estiloaux4.css" />
-
         <title>Planificación</title>
-
-        <?php?>
     </head>
     <body>
         <div id="contenedor">
