@@ -22,24 +22,10 @@ class Rutina {
     private $_dias;
       
     private $_muscs;
-    private function conectar_bd($host, $user, $pass, $DB_name) {
-        $DB = new mysqli($host, $user, $pass, $DB_name);
-        if ($DB->connect_errno) {
-            error_log("Error de conexión a la BD: ({$conn->connect_errno }) {$conn->connect_error}");
-            paginaError(502, 'Error', 'Oops', 'No ha sido posible conectarse a la base de datos.');
-            return null;
-        }
-        if (!$DB->set_charset("utf8mb4")) {
-            error_log("Error al configurar la codificación de la BD: ({$conn->errno }) {$conn->error}");
-            paginaError(502, 'Error', 'Oops', 'No ha sido posible configurar la base de datos.');
-            return null;
-        }
-        return $DB;
-    }
+    
 
     public static function comprobarRutina($id, $objetivo, $nivel, $dias) { 
-        //$BD = Aplicacion::getInstance()->getConnectionBd();
-        $BD = new mysqli("localhost", "root", "", "lifety");
+        $BD = Aplicacion::getInstance()->getConnectionBd();
 
         $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$id'";
         $resultado = $BD->query($sqlselect); 
