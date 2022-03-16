@@ -67,6 +67,10 @@ class FormularioDietas extends Formulario {
             // Si comidas devuelve false
             if (!$comidas) {
                 // Hay que crear una dieta nueva
+                $class_dieta = Dieta::create_dieta($tipo_dieta);
+
+                $class_dieta->muestra_dieta();
+
                 exit();
             }
             // Si no, hay que mostrar la que ya existe
