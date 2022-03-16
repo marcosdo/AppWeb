@@ -5,7 +5,7 @@
     <h3>Navegación</h3>
     <ul>
         <li><a href="<?= RUTA_APP ?>/index.php">Inicio</a></li>
-        <li><a href="<?= RUTA_APP ?>/planificacion.php">Planificacion</a></li>
+        <li><a href="<?= RUTA_APP ?>/rutinas_dietas.php">Planificacion</a></li>
         <?php
         	$rutaApp = RUTA_APP;
             if(isset($_SESSION['login']) && ($_SESSION["login"]===true)){

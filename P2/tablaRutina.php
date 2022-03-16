@@ -2,9 +2,8 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$tabla = new es\ucm\fdi\aw\Rutina();
-$htmlRutina = $tabla->mostrar();
-
+$plani = new es\ucm\fdi\aw\Planificacion();
+$htmlRutina = $plani->mostrar();
 $tituloPagina = 'Rutina';
 
 $contenidoPrincipal = <<<EOS
