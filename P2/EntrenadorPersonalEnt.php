@@ -54,6 +54,13 @@ if(isset($_POST['quitarLogro'])) {
 	}
 	else $alert = "<span class='text2'>No posee este logro</span>";
 }
+
+
+
+
+
+
+/*
 if(isset($_POST['idE3'])) {
 	if(isset($_POST['submitmsg'])) {
 		$fecha = date_create()->format('Y-m-d H:i:s');
@@ -85,10 +92,12 @@ else{
 	$dataChat = $dataChat ."</textarea>";
 } 
 
-
-
+*/
 
 require_once __DIR__.'/includes/config.php';
+
+$chatUsuario = new es\ucm\fdi\aw\ChatEntrenador();
+$MostrarChat = $chatUsuario->mostrarChat();
 
 $tituloPagina = 'Entrenador';
 
@@ -125,25 +134,7 @@ $contenidoPrincipal = <<<EOS
 		<input type='submit' class = 'ButtonI' name='buttonLogro' value='Añadir Logro'/>
 	</div>
 </div>
-<div id="wrapper">
-	<div id="menu">
-		<h1><span class = 'text'>C H A T &nbsp C O N &nbsp U S U A R I O</span></h1>
-        <span class="welcome" >&nbsp&nbsp Welcome, $entNombre </span>
-		<span class = 'text'> Elige usuario: </span>
-		<select name = 'idE2' id = 'idE2' type = 'text'>
-				$SelectUsuarios
-		</select>
-		<input name='actua' type='submit'  id='actua' value='Actualizar Chat' />
-	</div>
-	<div id="chatbox"></div>
-		$dataChat
-	<input name="usermsg" type="text" id="usermsg" size="63" />
-	<span class = 'text'>D: </span>
-	<select name = 'idE3' id = 'idE3' type = 'text'>
-		$SelectUsuarios
-	</select>
-	<input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-</div>
+	$MostrarChat
 </form>
 EOS;
 
