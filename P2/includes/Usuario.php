@@ -15,7 +15,7 @@ class Usuario {
 
     public static function buscaUsuario($nombreUsuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE nombre='%s'", $conn->real_escape_string($nombreUsuario));
+        $query = sprintf("SELECT * FROM usuario WHERE nombre = '%s'", $conn->real_escape_string($nombreUsuario));
         $rs = $conn->query($query);
         if ($rs) {
             if($rs->num_rows > 0){
@@ -30,7 +30,7 @@ class Usuario {
 
     public static function buscaPorId($idUsuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE id_usuario=%d", $idUsuario);
+        $query = sprintf("SELECT * FROM usuario WHERE id_usuario = '%s'", $idUsuario);
         $rs = $conn->query($query);
         if ($rs) {
             if($rs->num_rows > 0){
