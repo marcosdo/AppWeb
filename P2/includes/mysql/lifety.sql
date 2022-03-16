@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-03-2022 a las 17:23:35
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.2
+-- Tiempo de generación: 16-03-2022 a las 23:42:23
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -144,7 +144,7 @@ INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 --
 
 CREATE TABLE `planificacion` (
-  `id_usuario` varchar(20) NOT NULL,
+  `id_usuario` int(5) NOT NULL,
   `desayunos` text DEFAULT NULL,
   `comidas` text DEFAULT NULL,
   `cenas` text DEFAULT NULL,
@@ -168,17 +168,9 @@ CREATE TABLE `premium` (
   `observaciones_adicionales` text NOT NULL,
   `num_logros` int(20) NOT NULL,
   `logros` set('5logros','AccesoTodos','ComenzarChat','Completa1Plan','Completa5Plan','ContrataNutri','Permanencia','Permanencia1m','Foro') NOT NULL,
-  `id_usuario` varchar(20) NOT NULL,
-  `id_profesional` varchar(20) NOT NULL
+  `id_usuario` int(5) NOT NULL,
+  `id_profesional` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `premium`
---
-
-INSERT INTO `premium` (`peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`, `id_usuario`, `id_profesional`) VALUES
-(90, 90, '', '', 0, '', 'Usuario1', 'Entrenador1'),
-(90, 90, '', '', 0, '', 'Usuario2', 'Entrenador1');
 
 -- --------------------------------------------------------
 
@@ -191,17 +183,11 @@ CREATE TABLE `profesional` (
   `apellidos` text NOT NULL,
   `correo` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `id_profesional` varchar(20) NOT NULL,
+  `nutri` varchar(20) NOT NULL,
   `usuarios` text NOT NULL,
-  `num_usuarios` int(3) NOT NULL
+  `num_usuarios` int(3) NOT NULL,
+  `id_profesional` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `profesional`
---
-
-INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `id_profesional`, `usuarios`, `num_usuarios`) VALUES
-('Entrenador1', 'A A', 'a@gmail.com', '1234', 'Entrenador1', 'Usuario1,Usuario2', 2);
 
 -- --------------------------------------------------------
 
@@ -214,18 +200,10 @@ CREATE TABLE `usuario` (
   `apellidos` text NOT NULL,
   `correo` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `id_usuario` varchar(20) NOT NULL,
-  `premium` tinyint(1) NOT NULL
+  `usuario` varchar(20) NOT NULL,
+  `premium` tinyint(1) NOT NULL,
+  `id_usuario` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `id_usuario`, `premium`) VALUES
-('Kylian', 'Mbappe', 'rmcf', '$2y$10$zjPioMG1srKQlgRrh4Ixd.EU/.wmMuLbPXl/VZCfrPYAMSO8CcyTG', 'titofloren', 0),
-('Usuario1', 'A A', 'a2@gmail.com', '1234', 'Usuario1', 1),
-('Usuario2', 'A A', 'a3@gmail.com', '1234', 'Usuario2', 1);
 
 --
 -- Índices para tablas volcadas
@@ -235,16 +213,14 @@ INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `id_usuario`
 -- Indices de la tabla `planificacion`
 --
 ALTER TABLE `planificacion`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `Id_FK` (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`) USING BTREE;
 
 --
 -- Indices de la tabla `premium`
 --
 ALTER TABLE `premium`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `Profesional_FK` (`id_profesional`),
-  ADD KEY `Usuario_FK` (`id_usuario`) USING BTREE;
+  ADD KEY `Profesional_FK` (`id_profesional`);
 
 --
 -- Indices de la tabla `profesional`
@@ -259,6 +235,22 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `profesional`
+--
+ALTER TABLE `profesional`
+  MODIFY `id_profesional` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(5) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -266,13 +258,14 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `planificacion`
 --
 ALTER TABLE `planificacion`
-  ADD CONSTRAINT `Id_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `Usuari_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `premium`
 --
 ALTER TABLE `premium`
-  ADD CONSTRAINT `Profesional_FK` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Profesional_FK` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Usuario_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
