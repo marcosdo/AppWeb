@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-$tituloPagina = 'EntrenadorUsu';
+$tituloPagina = 'Tu nutricionista';
 
 $chatUsuario = new es\ucm\fdi\aw\ChatUsuario();
 $MostrarChat = $chatUsuario->mostrarChat();
@@ -10,7 +10,7 @@ $MostarLogros = $Logros->mostrarLogros();
 
 
 $contenidoPrincipal = <<<EOS
-<header><h1>Tu nutricionista/entrenador personal</h1></header>
+<header><h1>Tu nutricionista</h1></header>
 	<div id = "logros">
 		$MostarLogros
 	</div>
