@@ -23,26 +23,28 @@ class Rutina {
       
     private $_muscs;
     
-
+    private $array;
     public static function comprobarRutina($id, $objetivo, $nivel, $dias) { 
-        $BD = Aplicacion::getInstance()->getConnectionBd();
-
+        $BD = Aplicacion::getInstance()->getConexionBd();
         $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$id'";
         $resultado = $BD->query($sqlselect); 
-        $fila = mysqli_fetch_assoc($resultado);
-        
-        if (is_null($fila["dias"]) || $dias != $fila["dias"] || is_null($fila["nivel"]) || $nivel != $fila["nivel"]
-            || is_null($fila["eobjetivo"]) || $fila["eobjetivo"] != $objetivo){  //cuando no existe rutina o ha cambiado parametros
-            crearRutina($id, $objetivo, $nivel, $dias); 
+        if($resultado){
+            $fila = $resultado->fetch_assoc();
+            if (is_null($fila["dias"]) || $dias != $fila["dias"] || is_null($fila["nivel"]) || $nivel != $fila["nivel"]
+                || is_null($fila["eobjetivo"]) || $fila["eobjetivo"] != $objetivo){  //cuando no existe rutina o ha cambiado parametros
+                    self::crearRutina($id, $objetivo, $nivel, $dias); 
+            }
+            
+            else { //cuando existe rutina
+                self::cargarRutina($fila);
+            }
+            self::mostrar();
         }
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
         
-        else { //cuando existe rutina
-            cargarRutina($fila);
-        }
-        mostrar();
     }
 
-    private function cargarRutina(){
+    private static function cargarRutina($fila){
         $_rutinastring = $fila["rutina"];
         $stringauxiliar = $_rutinastr;
         for($i = 1; $i < $_dias+1; $i++){
@@ -59,13 +61,12 @@ class Rutina {
     }
 
 
-    private function crearRutina ($id, $objetivo, $nivel, $dias){
+    private static function crearRutina($id, $objetivo, $nivel, $dias){
         $rutina = new Rutina($id, $objetivo, $nivel, $dias);
         $cont = 1;  
         for ($i = 1; $i < $_dias +1; $i++) {
             $arrayaux = array();
             $stringaux = "";
-    
             if ($i == 4) $cont = 1;
             if ($i >= 1 && $i <= 3) {
                 fill_array($cont, 2, $arrayaux, $stringaux);
@@ -78,16 +79,17 @@ class Rutina {
                 if($i == 4) $_dia4 = $arrayaux; 
                 else $_dia5 = $arrayaux;
             }
-            $_rutinastring .= $stringaux;
-            if ($i < $_dias) $_rutinastring .= " - ";
+
+            array_push($array, $arrayaux);
         }
+
 
         $query = "UPDATE planificacion SET planificacion.rutina = '$_rutinastring', planificacion.nivel = '$_nivel', planificacion.dias = $_dias,  planificacion.eobjetivo = $_objetivo
         WHERE planificacion.id_usuario = '$_id'";
 
     }
-
-    private function mostrar(){
+/*
+    private static function mostrar(){
         if ($_dias == 3) 
             $ejerciciostotales = $_ejerciciosdia * 2;
         else if ($_dias == 5)  
@@ -143,8 +145,8 @@ class Rutina {
         }
 
     }
-
-    private function fill_arrray(&$cont, $nveces , &$arrayaux, &$stringaux) {
+*/
+    private static function fill_arrray(&$cont, $nveces , &$arrayaux, &$stringaux) {
         $BD = Aplicacion::getInstance()->getConnectionBd();
         for ($i = 0; $i < $nveces; $i++){
             $j = 0;
@@ -164,18 +166,12 @@ class Rutina {
         } 
     }
 
-    private function fill_frombd(&$dest, &$string, $ejerciciostotales){
-        $auxiliar = explode(" - ", $string);
-        $nuevostring = "";
-        for($i = 1; $i < sizeof($auxiliar); $i++){
-            $nuevostring .= $auxiliar[$i];
-            if($i < sizeof($auxiliar)-1) $nuevostring .= " - ";
-        }
-        $dest = explode(" | ", $auxiliar[0], $ejerciciostotales);
-        $string = $nuevostring;
+    private static function fill_frombd(&$dest, &$string, $ejerciciostotales){
+        $array = json_decode($string); //json_encode($string)
     }
 
     private function __construct($id, $objetivo, $nivel, $dias) {
+        $array = array()
         $_dia1 = array(); 
         $_dia2 = array(); 
         $_dia3 = array(); 
