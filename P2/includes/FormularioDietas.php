@@ -3,13 +3,14 @@ namespace es\ucm\fdi\aw;
 
 class FromularioDietas extends Formulario {
     public function __construct() {
-        parent::__construct('formDietas', ['urlRedireccion' => 'planificaciondietas.php']);
+        parent::__construct('formDietas', ['urlRedireccion' => 'Dieta.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['objetivo'], $this->errores, 'span', array('class' => 'error'));
+
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
