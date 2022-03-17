@@ -50,38 +50,35 @@ class PlanificacionDietas {
         $html .= "<caption>Planificacion de tu dieta:</caption>";
         $html .= "<tr>";
         // Dias de la semana 
-        for ($i = 0; $i < 7; $i++) { 
+        for ($i = 0; $i < 8; $i++) { 
             switch ($i) {
-                case 0: { $html .= "<th>LUNES</th>";    } break;
-                case 1: { $html .= "<th>MARTES</th>";   } break;
-                case 2: { $html .= "<th>MIÉRCOLES</th>";} break;
-                case 3: { $html .= "<th>JUEVES</th>";   } break;
-                case 4: { $html .= "<th>VIERNES</th>";  } break;
-                case 5: { $html .= "<th>SÁBADO</th>";   } break;
-                case 6: { $html .= "<th>DOMINGO</th>";  } break;
+                case 0: { $html .= "<th></th>";     } break;
+                case 1: { $html .= "<th>L</th>";    } break;
+                case 2: { $html .= "<th>M</th>";    } break;
+                case 3: { $html .= "<th>X</th>";    } break;
+                case 4: { $html .= "<th>J</th>";    } break;
+                case 5: { $html .= "<th>V</th>";    } break;
+                case 6: { $html .= "<th>S</th>";    } break;
+                case 7: { $html .= "<th>D</th>";    } break;
                 default: break;
             }
         }
       
         $html .= "</tr>";
 
-        for ($j = 0; $j < 6; $j++) {
+        for ($i = 0; $i < 3; $i++) {
             $html .= "<tr>";
-            if (($j % 2) != 0) {
-                for ($i = 0; $i < 7; $i++) {
-                    switch ($j) {
-                        case 1: $html .= "<td>" . $this->_desayunos[$i] . "</td>";   break;
-                        case 3: $html .= "<td>" . $this->_comidas[$i] . "</td>";     break;
-                        case 5: $html .= "<td>" . $this->_cenas[$i] . "</td>";       break;
-                        default: break;
-                    }
-                }
-           }
-           else  {
-                switch ($j) {
-                    case 0: $html .= "<td colspan=\"7\" id=\"table-diets\">Desayuno</td>";  break;
-                    case 2: $html .= "<td colspan=\"7\" id=\"table-diets\">Comida</td>";    break;
-                    case 4: $html .= "<td colspan=\"7\" id=\"table-diets\">Cena</td>";      break;
+            switch ($i) {
+                case 0: $html .= "<td id=\"table-diets\">Desayuno</td>";  break;
+                case 1: $html .= "<td id=\"table-diets\">Comida</td>";    break;
+                case 2: $html .= "<td id=\"table-diets\">Cena</td>";      break;
+                default: break;
+            }
+            for ($j = 0; $j < 7; $j++) {
+                switch ($i) {
+                    case 0: $html .= "<td>" . $this->_desayunos[$j] . "</td>";   break;
+                    case 1: $html .= "<td>" . $this->_comidas[$j] . "</td>";     break;
+                    case 2: $html .= "<td>" . $this->_cenas[$j] . "</td>";       break;
                     default: break;
                 }
             }
