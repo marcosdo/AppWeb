@@ -36,7 +36,7 @@ class  ChatUsuario {
         $entre =  mysqli_fetch_array($consulta);
         $nombreEnt = $entre["nombre"];
        
-        $dataChat = self::dataChat($usuactual,$usuEntrenador,$BD);
+        $dataChat = self::dataChat($usuactual,$nombreEnt,$BD);
 
         if(isset($_POST['submitmsg'])) {
             $fecha = date_create()->format('Y-m-d H:i:s');
