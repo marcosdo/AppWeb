@@ -135,9 +135,9 @@ class Dieta {
             error_log("Error BD ({$bd->errno}): {$bd->error}");
             exit();
         }
-        $result = mysqli_fetch_assoc($result);
-        $array = json_decode($result[$horario]);
-        return $array;
+        $str = mysqli_fetch_assoc($result);
+        $result->free();
+        return json_decode($str[$horario]);
     }
     /**
      * Metodo que devuelve si existe el id en la tabla
@@ -154,7 +154,10 @@ class Dieta {
             error_log("Error BD ({$bd->errno}): {$bd->error}");
             exit();
         }
-        return $result->num_rows != 0;
+        $ret = $result->num_rows;
+        $result->free();
+        // Devuelve true si hay alguna fila con esas caracteristicas
+        return $ret != 0;
     }
 
     /** 
@@ -174,8 +177,10 @@ class Dieta {
             error_log("Error BD ({$bd->errno}): {$bd->error}");
             exit();
         }
+        $ret = $result->num_rows;
+        $result->free();
         // Devuelve true si hay alguna fila con esas caracteristicas
-        return $result->num_rows != 0;
+        return $ret != 0;
     }
     /**
      * Metodo que actualiza el campo de la tabla 'modificacion' con el parametro que le metas
@@ -218,6 +223,7 @@ class Dieta {
         while ($fila = mysqli_fetch_assoc($result)) {
             array_push($ret, $fila['descripcion']);
         }
+        $result->free();
         // Si no hay elementos en el array devuelve false
         if (empty($ret))
             return false;
