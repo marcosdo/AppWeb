@@ -1,13 +1,106 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-03-2022 a las 15:26:57
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `lifety`
+--
+
+--
+-- Truncar tablas antes de insertar `chat`
+--
+
 TRUNCATE TABLE `chat`;
+--
+-- Volcado de datos para la tabla `chat`
+--
+
 INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 ('Entrenador1', 'Usuario1', 'hola', '2022-03-15 16:48:53', 'U-E'),
 ('Usuario1', 'Entrenador1', 'asda', '2022-03-15 17:12:41', 'E-U');
 
+--
+-- Truncar tablas antes de insertar `comidas`
+--
+
+TRUNCATE TABLE `comidas`;
+--
+-- Volcado de datos para la tabla `comidas`
+--
+
+INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
+(1, 1, 'Desayuno', 'Copos de avena con leche'),
+(2, 1, 'Desayuno', 'Yogur con copos de avena'),
+(3, 1, 'Desayuno', 'Tortitas de avena'),
+(4, 2, 'Desayuno', 'Porridge de avena y frutos secos'),
+(5, 2, 'Desayuno', 'Requesón con fruta'),
+(6, 2, 'Desayuno', 'Sándwich de queso gouda con huevo duro'),
+(7, 2, 'Desayuno', 'Batido de platano y avena'),
+(8, 3, 'Desayuno', 'Smoothie Bowls'),
+(9, 3, 'Desayuno', 'Hotcakes de avena y quinoa'),
+(10, 3, 'Desayuno', 'Pudín'),
+(11, 3, 'Desayuno', 'Wrap de pavo'),
+(12, 1, 'Comida', 'Ensalada de calabacín a la plancha con q'),
+(13, 1, 'Comida', 'Albondigas de merluza y brocoli'),
+(14, 1, 'Comida', 'Pechuga de pollo con soja y verduras salteadas'),
+(15, 1, 'Comida', 'Caldo de verduras con tortilla francesa'),
+(16, 2, 'Comida', 'Ensalada de patata hervida, tomate, pepino y huevo duro'),
+(17, 2, 'Comida', 'Wok de verduras al curry con tiras de pollo'),
+(18, 2, 'Comida', '.Berenjena y calabacín asado con pimentón dulce'),
+(19, 2, 'Comida', 'Puré de calabaza con patata hervida'),
+(20, 2, 'Comida', 'Tomates rellenos de lentejas'),
+(21, 2, 'Comida', 'Revuelto de gambas y champiñones'),
+(22, 3, 'Cena', 'Pollo con verduras y queso batido al papillote'),
+(23, 3, 'Cena', 'Salmón al horno con salsa de yogur'),
+(24, 3, 'Cena', 'Sopa de pasta y hamburguesa con naranja picada'),
+(25, 3, 'Cena', 'Crema de verduras y pechuga de pollo con manzana'),
+(26, 3, 'Cena', 'Croquetas de pescado con pure de patata'),
+(27, 3, 'Cena', 'Pollo a la naranja'),
+(28, 3, 'Cena', 'Garbanzos con espinacas'),
+(29, 3, 'Cena', 'Arroz tres delicias'),
+(30, 1, 'Cena', 'Ensalada de patata hervida, tomate, pepino y huevo duro'),
+(31, 1, 'Cena', 'Wok de verduras al curry con tiras de pollo'),
+(32, 2, 'Cena', 'Hamburguesa de jamón york con mayonesa y queso'),
+(33, 2, 'Cena', 'Minipizza cuatro quesos con naranja troceada'),
+(34, 3, 'Comida', 'Pollo con almendras chino'),
+(35, 3, 'Comida', 'Atún a la plancha con ajo y perejil');
+
+--
+-- Truncar tablas antes de insertar `dieta`
+--
+
+TRUNCATE TABLE `dieta`;
+--
+-- Volcado de datos para la tabla `dieta`
+--
+
+INSERT INTO `dieta` (`id_usuario`, `objetivo`, `desayunos`, `comidas`, `cenas`) VALUES
+(1, 1, '[\"Pudu00edn\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\",\"Pudu00edn\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\"]', '[\"Pollo con almendras chino\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Pollo con almendras chino\"]', '[\"Croquetas de pescado con pure de patata\",\"Arroz tres delicias\",\"Garbanzos con espinacas\",\"Crema de verduras y pechuga de pollo con manzana\",\"Sopa de pasta y hamburguesa con naranja picada\",\"Salmu00f3n al horno con salsa de yogur\",\"Sopa de pasta y hamburguesa con naranja picada\"]');
+
+--
+-- Truncar tablas antes de insertar `dietas`
+--
+
 TRUNCATE TABLE `dietas`;
+--
+-- Volcado de datos para la tabla `dietas`
+--
+
 INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (1, 'Copos de avena con leche', 'Desayuno'),
 (1, 'Espinacas con pollo plancha', 'Comida'),
@@ -56,38 +149,28 @@ INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (3, 'Pollo con almendras chino', 'Comida'),
 (3, 'Atún a la plancha con ajo y perejil', 'Comida');
 
+--
+-- Truncar tablas antes de insertar `ejercicios`
+--
+
 TRUNCATE TABLE `ejercicios`;
+--
+-- Volcado de datos para la tabla `ejercicios`
+--
+
 INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 ('Hombro', 'Elevacion lateral'),
-('Hombro', 'Press hombro con mancuerna'),
-('Hombro', 'Elevaciones laterales'),
+('Hombro', 'Press hombro'),
 ('Hombro', 'Remo al menton'),
 ('Hombro', 'Press militar'),
-('Hombro', 'Trasnuca con barra en maquina multipower'),
-('Hombro', 'Elevaciones frontales'),
-('Hombro', 'Press arnold'),
 ('Pierna', 'Sentadilla'),
 ('Pierna', 'Prensa'),
 ('Pierna', 'Extension de cuadriceps'),
 ('Pierna', 'Hip thrust'),
-('Pierna', 'Peso muerto'),
-('Pierna', 'Zacandas'),
-('Pierna', 'Curl femoral tumbado'),
-('Pierna', 'Gemelos con carga de pie'),
-('Pierna', 'Gemelos en prensa'),
-('Pierna', 'Peso muerto rumano'),
-('Pierna', 'Patadas (polea gluteos)'),
-
-
 ('Pecho', 'Press banca'),
 ('Pecho', 'Aperturas con mancuernas'),
 ('Pecho', 'Press banca inclinado'),
 ('Pecho', 'Maquina de empuje'),
-('Pecho', 'Press banca declinado'),
-('Pecho', 'Poleas plano'),
-('Pecho', 'Poleas pectoral superior'),
-('Pecho', 'Poleas pectoral inferior'),
-
 ('Triceps', 'Fondos'),
 ('Triceps', 'Press frances'),
 ('Triceps', 'Extensiones'),
@@ -101,19 +184,57 @@ INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 ('Espalda', 'Remo con barra'),
 ('Espalda', 'Renegade row');
 
+--
+-- Truncar tablas antes de insertar `planificacion`
+--
+
 TRUNCATE TABLE `planificacion`;
+--
+-- Volcado de datos para la tabla `planificacion`
+--
+
+INSERT INTO `planificacion` (`id_usuario`, `desayunos`, `comidas`, `cenas`, `rutina`, `dobjetivo`, `eobjetivo`, `dias`, `nivel`) VALUES
+(1, NULL, NULL, NULL, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P'),
+(2, NULL, NULL, NULL, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P');
+
+--
+-- Truncar tablas antes de insertar `premium`
+--
+
 TRUNCATE TABLE `premium`;
+--
+-- Volcado de datos para la tabla `premium`
+--
+
 INSERT INTO `premium` (`peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`, `id_usuario`, `id_profesional`) VALUES
-(90, 90, '', '', 0, '', 'Usuario1', 'Entrenador1'),
-(90, 90, '', '', 0, '', 'Usuario2', 'Entrenador1');
+(75, 170, '', '', 0, '', 1, 1);
+
+--
+-- Truncar tablas antes de insertar `profesional`
+--
 
 TRUNCATE TABLE `profesional`;
-INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `id_profesional`, `usuarios`, `num_usuarios`) VALUES
-('Entrenador1', 'A A', 'a@gmail.com', '1234', 'Entrenador1', 'Usuario1,Usuario2', 2);
+--
+-- Volcado de datos para la tabla `profesional`
+--
+
+INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`, `usuarios`, `num_usuarios`, `id_profesional`) VALUES
+('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', 'Kylian', 1, 1);
+
+--
+-- Truncar tablas antes de insertar `usuario`
+--
 
 TRUNCATE TABLE `usuario`;
-INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `id_usuario`, `premium`) VALUES
-('Kylian', 'Mbappe', 'rmcf', '$2y$10$zjPioMG1srKQlgRrh4Ixd.EU/.wmMuLbPXl/VZCfrPYAMSO8CcyTG', 'titofloren', 0),
-('Usuario1', 'A A', 'a2@gmail.com', '1234', 'Usuario1', 1),
-('Usuario2', 'A A', 'a3@gmail.com', '1234', 'Usuario2', 1);
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `usuario`, `premium`, `id_usuario`) VALUES
+('Kylian', 'Mbappe', 'rmcf', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Floren', 1, 1),
+('Erling', 'Halland', 'halland@lifety', '$2y$10$ZBoj.Ov4LQDcEBhTVhIso.x7y9SW3Visgbd6NFRC1g.JOBfj8wMGO', 'P$G', 0, 2);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
