@@ -64,10 +64,10 @@ class FormularioPago extends Formulario {
         if (!$altura || empty($altura)) $this->errores['altura'] = 'La altura debe rellenarse';
         
         $alergias = filter_var($alergias, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$alergias) $this->errores['alergias'] = 'Introduzca un valor valido en alergias';
+        if (!$alergias && $alergias != "") $this->errores['alergias'] = 'Introduzca un valor valido en alergias';
 
         $observaciones = filter_var($observaciones, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$observaciones) $this->errores['observaciones'] = 'Introduzca un valor valido en observaciones adicionales';
+        if (!$observaciones && $observaciones != "") $this->errores['observaciones'] = 'Introduzca un valor valido en observaciones adicionales';
 
         if (count($this->errores) === 0) {
             $nutri = Nutri::buscaPorMenosUsuarios();
