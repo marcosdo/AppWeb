@@ -25,9 +25,10 @@ class  ChatUsuario {
     function mostrarChat(){
         $BD = Aplicacion::getInstance()->getConexionBd();
         $usuactual = $_SESSION["alias"];
+        $id_usuario =  $_SESSION["id_usuario"];
         //$usuactual = "Usuario1";
 
-        $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$usuactual'"); 
+        $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
         $usu =  mysqli_fetch_array($consulta);
         $usuEntrenador = $usu["id_profesional"];
        
