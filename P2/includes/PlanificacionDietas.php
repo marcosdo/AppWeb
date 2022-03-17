@@ -40,6 +40,11 @@ class PlanificacionDietas {
         $this->_cenas = json_decode($this->_strcena);
     }
 
+    /**
+     * Metodo que devuelve una tabla con el contenido de las comidas de la base de datos
+     * La tabla tiene una columna por dia de la semana, y dos filas por cada comida { desayuno, comida, cena }
+     * @return string $html Código en html de una tabla
+     */
     public function muestra_tabla() {
         $html = "<table id=\"tabla-dietas\">";
         $html .= "<caption>Planificacion de tu dieta:</caption>";

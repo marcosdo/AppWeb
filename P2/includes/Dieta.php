@@ -70,9 +70,9 @@ class Dieta {
                 $json_comidas = json_encode($comidas);
                 $json_cenas = json_encode($cenas);
                 // Actualiza los valores de las comidas
-                self::update_comida($bd, "desayunos", $json_desayunos);
-                self::update_comida($bd, "comidas", $json_comidas);
-                self::update_comida($bd, "cenas", $json_cenas);
+                self::update_comida($bd, "desayunos", $tipo, $json_desayunos);
+                self::update_comida($bd, "comidas", $tipo, $json_comidas);
+                self::update_comida($bd, "cenas", $tipo, $json_cenas);
             }
         } 
         // Si no, crea una dieta a partir de las comidas de la base de datos, y crea la entrada
@@ -183,11 +183,11 @@ class Dieta {
      * @var string $horario valores posibles: { desayuno, comida, cena }
      * @var string $json datos a meter en la BD
      */
-    private static function update_comida($bd, $horario, $json) {
+    private static function update_comida($bd, $horario, $tipo, $json) {
         // Consulta para modificar los datos de la BD
         $query = sprintf(
-            "UPDATE dieta SET dieta.%s = '%s' WHERE dieta.id_usuario = %d",
-            $horario, $json, $_SESSION['id']
+            "UPDATE dieta SET dieta.%s = '%s', dieta.objetivo = %d WHERE dieta.id_usuario = %d",
+            $horario, $json, $tipo, $_SESSION['id']
         );
         // Si la consulta da error tratar el error
         if (!$bd->query($query)) {
