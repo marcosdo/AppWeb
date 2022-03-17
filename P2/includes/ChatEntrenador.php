@@ -29,12 +29,7 @@ class  ChatEntrenador {
         $BDLogros =  mysqli_fetch_array($consulta);
         $cadena = explode(",",$BDLogros["usuarios"]);
         foreach($cadena as $usuario){
-            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$usuario'");
-            $usuN =  mysqli_fetch_array($consulta);
-            $NICKusu = $usuN["usuario"];
-
-
-            $rts = $rts ."<option value='$NICKusu'>$NICKusu</option>";
+            $rts = $rts ."<option value='$usuario'>$usuario</option>";
         }
         return $rts;
     }
@@ -48,6 +43,9 @@ class  ChatEntrenador {
         $dataChat = "";
 
         if(isset($_POST['idE2'])) {
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+            $usuN =  mysqli_fetch_array($consulta);
+            $NICKusu = $usuN["usuario"];
             $dataChat = self::dataChat($NICKusu, $usuactual,$BD);
         }
         else{
@@ -59,6 +57,10 @@ class  ChatEntrenador {
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
+                $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+                $usuN =  mysqli_fetch_array($consulta);
+                $NICKusu = $usuN["usuario"];
+
                 $fecha = date_create()->format('Y-m-d H:i:s');
                 mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$NICKusu','$_POST[usermsg]','$fecha','E-U') ");
             }
