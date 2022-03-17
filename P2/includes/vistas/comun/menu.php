@@ -5,10 +5,10 @@
     <h3>Navegación</h3>
     <ul>
         <li><a href="<?= RUTA_APP ?>/index.php">Inicio</a></li>
-        <li><a href="<?= RUTA_APP ?>/rutinas_dietas.php">Planificacion</a></li>
         <?php
         	$rutaApp = RUTA_APP;
             if(isset($_SESSION['login']) && ($_SESSION["login"]===true)){
+                echo "<li><a href='rutinas_dietas.php'>Planificacion</a></li>";
                 if(isset($_SESSION['nutri']) && ($_SESSION["nutri"]===true)) echo "<li><a href='EntrenadorPersonalEnt.php'>Nutricionista</a></li>";
                 else {
                     $user = Usuario::buscaPorId($_SESSION['id']);
