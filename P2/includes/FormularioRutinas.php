@@ -15,42 +15,38 @@ class FormularioRutinas extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset> 
+        <fieldset id ="formrutina"> 
             <legend id="routine-plan">Rutinas</legend>
             <form method="post" action="planificacionrutinas.php">
-            <p> Selecciona tu nivel: </p>
-            <p>
-                <input type= "radio" name="nivel" value="P" checked>Principiante
-                <input type= "radio" name="nivel" value="M">Medio
-                <input type= "radio" name="nivel" value="A">Avanzada
-            </p>
-            <p>
-                <select name="dias" id="choose-days">
-                    <option value="3">3 Días</option>
-                    <option value="5">5 Días</option>
-                </select >
-            </p>
-            <p>
-                <select name="rutina" id="choose-routine">
-                    <option value="1">Fuerza</option>
-                    <option value="2">Hipertrofia</option>
-                    <option value="3">Resistencia</option>
-                </select >
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
-                elit, pretium at condimentum in, elementum vitae lorem. 
-                Quisque eget vulputate nunc. Donec lobortis at justo in 
-                ornare. Duis lobortis magna justo, in finibus ipsum 
-                ultricies nec. Donec efficitur purus quis venenatis 
-                interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
-                blandit nec. Sed vitae maximus elit. Cras commodo magna 
-                tortor, ut lobortis magna iaculis eget. 
-            </p>
-            <p>
+            <div>
+                <p> Selecciona tu nivel: </p>
+                    <div>
+                        <input type= "radio" name="nivel" value="P" checked> <label for="principiante"> Principiante </label>
+                    </div>
+                    <div>
+                        <input type= "radio" name="nivel" value="M"> <label for="medio"> Medio </label>
+                    </div>
+                    <div>
+                        <input type= "radio" name="nivel" value="A"> <label for="avanzado"> Avanzado </label>
+                    </div>
+                <div>
+                    <p> Selecciona el numero de dias: <p>
+                    <select name="dias" id="choose-days">
+                        <option value="3">3 Días</option>
+                        <option value="5">5 Días</option>
+                    </select >
+                </div>
+                <div>
+                    <p> Selecciona tu objetivo de entrenamiento: <p>
+                    <select name="rutina" id="choose-routine">
+                        <option value="1">Fuerza</option>
+                        <option value="2">Hipertrofia</option>
+                        <option value="3">Resistencia</option>
+                    </select>
+                </div>
+                Aqui va texto.
                 <input type="submit" name="enviar" value ="Quiero esta rutina" class="send-button">
-            </p>
+            </div>
             </form>
         </fieldset>
         EOF;
@@ -81,7 +77,7 @@ class FormularioRutinas extends Formulario {
             $this->errores['dias'] = 'El dia no es válido.';
                 
         if (count($this->errores) === 0) {
-            $rutina = new Rutina ("titofloren", $objetivo, $nivel, $dias);
+            $rutina = new Rutina ($_SESSION['id'], $objetivo, $nivel, $dias);
             $rutina->comprobarRutina();
          //Rutina::comprobarRutina("titofloren", $objetivo, $nivel, $dias);
         }

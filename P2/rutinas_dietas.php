@@ -14,8 +14,10 @@ $tituloPagina = 'Planificacion';
  
 $contenidoPrincipal = <<<EOS
 <h1>Acceso al sistema</h1>
+<div id="tabla">
 $htmlFormRutinas
 $htmlFormDietas
+</div>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
