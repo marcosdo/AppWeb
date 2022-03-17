@@ -60,7 +60,7 @@ class FormularioLogin extends Formulario {
                 header('Location: index.php');
                 exit();
             }
-            else{
+            else if($nutri) {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nutri->getNombre();
                 $_SESSION['alias'] = $nutri->getAlias();
@@ -68,7 +68,7 @@ class FormularioLogin extends Formulario {
                 $_SESSION['nutri'] = true;
                 header('Location: index.php');
                 exit();
-            }            
+            }
         }
     }
 }

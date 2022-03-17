@@ -1,30 +1,29 @@
 body {
-	background-color: #CDCDCD;
+	background-color: #ffffff;
 }
 
 div#contenedor {
 	width: 900px;
 	margin: auto;
-	border: 1px solid black;
-	background-color: #aaaaaa;
+	background-color: #ffffff;
 	margin-top: 30px;
 }
-
+/*#E7E9EB;*/
 header {
 	padding: 30px;
 	height: 100px;
-	background-color: #303030;
-	color: white;
+	background-color: #04AA6D;
+	color: #282A35;;
 }
 
 header a, header a:visited {
-	color: white;
+	color: #282A35;
 	font-weight: bold;
 	text-decoration: none;
 } 
 
 header a:hover {
-	color: red;
+	color: rgb(255, 255, 255);
 	font-weight: bold;
 	text-decoration: underline;
 } 
