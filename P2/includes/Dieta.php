@@ -44,6 +44,10 @@ class Dieta {
                 $desayunos = self::get_from_data($bd, "desayunos");
                 $comidas = self::get_from_data($bd, "comidas");
                 $cenas = self::get_from_data($bd, "cenas");
+                // Meter info en jsons
+                $json_desayunos = json_encode($desayunos);
+                $json_comidas = json_encode($comidas);
+                $json_cenas = json_encode($cenas);
             }
             // Si no, actualiza su dieta
             else {
@@ -62,9 +66,9 @@ class Dieta {
                 if (!$desayunos || !$comidas || !$cenas)
                     return false;
                 // Meter info en jsons
-                $json_desayunos = str_replace("\"", "'",json_encode($desayunos));
-                $json_comidas = str_replace("\"", "'",json_encode($comidas));
-                $json_cenas = str_replace("\"", "'",json_encode($cenas));
+                $json_desayunos = json_encode($desayunos);
+                $json_comidas = json_encode($comidas);
+                $json_cenas = json_encode($cenas);
                 // Actualiza los valores de las comidas
                 self::update_comida($bd, "desayunos", $json_desayunos);
                 self::update_comida($bd, "comidas", $json_comidas);
@@ -88,9 +92,9 @@ class Dieta {
             if (!$desayunos || !$comidas || !$cenas)
                 return false;
             // Meter info en jsons
-            $json_desayunos = str_replace("\"", "'", json_encode($desayunos));
-            $json_comidas = str_replace("\"", "'", json_encode($comidas));
-            $json_cenas = str_replace("\"", "'", json_encode($cenas));
+            $json_desayunos = json_encode($desayunos);
+            $json_comidas = json_encode($comidas);
+            $json_cenas = json_encode($cenas);
             // Inserta en la tabla un nuevo id
             self::insert_row($bd, $tipo, $json_desayunos, $json_comidas, $json_cenas);
         }
@@ -108,11 +112,11 @@ class Dieta {
      */
     private static function insert_row($bd, $tipo, $desayunos, $comidas, $cenas) {
         $query = sprintf(
-            "INSERT INTO dietas (id_usuario, objetivo, desayunos, comidas, cenas) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\")",
+            "INSERT INTO dieta (id_usuario, objetivo, desayunos, comidas, cenas) VALUES (%d, '%s', '%s', '%s', '%s')",
             $_SESSION['id'], $tipo, $desayunos, $comidas, $cenas
         );
         // Si la consulta da error tratar el error
-        if (!($result = $bd->query($query))) {
+        if (!$bd->query($query)) {
             error_log("Error BD ({$bd->errno}): {$bd->error}");
             exit();
         }
@@ -123,8 +127,8 @@ class Dieta {
      */
     private static function get_from_data($bd, $horario) {
         $query = sprintf(
-            "SELECT dietas.%s FROM dietas WHERE dietas.id_usuario = %d",
-            $horario, 0
+            "SELECT dieta.%s FROM dieta WHERE dieta.id_usuario = %d",
+            $horario, $_SESSION['id']
         );
         // Si la consulta da error tratar el error
         if (!($result = $bd->query($query))) {
@@ -132,7 +136,6 @@ class Dieta {
             exit();
         }
         $result = mysqli_fetch_assoc($result);
-        $result = str_replace("'", "\"", $result);
         $array = json_decode($result[$horario]);
         return $array;
     }
@@ -143,7 +146,7 @@ class Dieta {
      */
     private static function exists_id($bd) {
         $query = sprintf(
-            "SELECT dietas.id_usuario FROM dietas WHERE dietas.id_usuario = \"%s\"",
+            "SELECT dieta.id_usuario FROM dieta WHERE dieta.id_usuario = %d",
             $_SESSION['id']
         );
         // Si la consulta da error tratar el error
@@ -163,15 +166,15 @@ class Dieta {
     private static function exists_type($bd, $tipo) {
         // Busca si ya existe en la tabla 'planificacion' el tipo
         $query = sprintf(
-            "SELECT dietas.objetivo FROM dietas WHERE dietas.id_usuario = \"%s\"",
-            $_SESSION['id']
+            "SELECT dieta.objetivo FROM dieta WHERE dieta.id_usuario = %d AND dieta.objetivo = %d",
+            $_SESSION['id'], $tipo
         );
         // Si la consulta da error tratar el error
         if (!($result = $bd->query($query))) {
             error_log("Error BD ({$bd->errno}): {$bd->error}");
             exit();
         }
-        // Devuelve true si rows != 0
+        // Devuelve true si hay alguna fila con esas caracteristicas
         return $result->num_rows != 0;
     }
     /**
@@ -183,7 +186,7 @@ class Dieta {
     private static function update_comida($bd, $horario, $json) {
         // Consulta para modificar los datos de la BD
         $query = sprintf(
-            "UPDATE dietas SET dietas.%s = %s WHERE dietas.id_usuario = %s",
+            "UPDATE dieta SET dieta.%s = '%s' WHERE dieta.id_usuario = %d",
             $horario, $json, $_SESSION['id']
         );
         // Si la consulta da error tratar el error
@@ -202,7 +205,7 @@ class Dieta {
     private static function llenar_array($bd, $tipo, $horario) {
         // Consulta que te devuelve descripciones de elementos que hay de ese tipo 
         $query = sprintf(
-            "SELECT comidas.descripcion FROM comidas WHERE comidas.tipo = \"%s\" AND comidas.objetivo = %d",
+            "SELECT comidas.descripcion FROM comidas WHERE comidas.tipo = '%s' AND comidas.objetivo = %d",
             $horario, $tipo
         );
         // Si la consulta da error tratar el error
