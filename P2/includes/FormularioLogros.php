@@ -18,10 +18,10 @@ class FormularioLogros extends Formulario {
     }
     function mostrarFormulario() {
         $BD = Aplicacion::getInstance()->getConexionBd();
-        //$usuactual = $_SESSION["id"];
-        $usuactual = "Entrenador1";
+        $usuactual = $_SESSION["usuario"];
+       // $usuactual = "Entrenador1";
         $SelectUsuarios = FormularioLogros::Usuarios($usuactual,$BD);
-        
+
         $alert ="";
         if(isset($_POST['buttonLogro'])) {
             $logroE = $_POST["logrosE"];
