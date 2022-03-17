@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2022 a las 11:00:12
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 17-03-2022 a las 12:07:58
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,28 +61,39 @@ CREATE TABLE `dietas` (
 
 INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (1, 'Copos de avena con leche', 'Desayuno'),
+(1, 'Espinacas con pollo plancha', 'Comida'),
+(1, 'Crema de calabaza y gallo', 'Cena'),
+(1, 'Pollo asado y judias verdes', 'Comida'),
+(1, 'Menestra de verduras y salmon', 'Cena'),
+(2, 'Tosta de huevos y tomate', 'Desayuno'),
+(2, 'Tortitas de arroz', 'Desayuno'),
+(2, 'Tosta de huevos y tomate', 'Desayuno'),
+(1, 'Leche desnatada con avena', 'Desayuno'),
 (1, 'Yogur con copos de avena', 'Desayuno'),
 (1, 'Tortitas de avena', 'Desayuno'),
 (2, 'Porridge de avena y frutos secos', 'Desayuno'),
-(2, 'Requesón con fruta', 'Desayuno'),
-(2, 'Sándwich de queso gouda con huevo duro', 'Desayuno'),
+(2, 'Requeson con fruta', 'Desayuno'),
+(2, 'Sandwich de queso gouda con huevo duro', 'Desayuno'),
 (2, 'Batido de platano y avena', 'Desayuno'),
 (3, 'Smoothie Bowls', 'Desayuno'),
 (3, 'Hotcakes de avena y quinoa', 'Desayuno'),
-(3, 'Pudín', 'Desayuno'),
+(3, 'Pudin', 'Desayuno'),
 (3, 'Wrap de pavo', 'Desayuno'),
-(1, 'Ensalada de calabacín a la plancha con q', 'Comida'),
+(1, 'Ensalada de calabacin a la plancha', 'Comida'),
 (1, 'Albondigas de merluza y brocoli', 'Comida'),
 (1, 'Pechuga de pollo con soja y verduras salteadas', 'Comida'),
 (1, 'Caldo de verduras con tortilla francesa', 'Comida'),
 (2, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Comida'),
 (2, 'Wok de verduras al curry con tiras de pollo', 'Comida'),
-(2, '.Berenjena y calabacín asado con pimentón dulce', 'Comida'),
-(2, 'Puré de calabaza con patata hervida', 'Comida'),
+(2, 'Berenjena y calabacin asado con pimenton dulce', 'Comida'),
+(2, 'Pure de calabaza con patata hervida', 'Comida'),
 (2, 'Tomates rellenos de lentejas', 'Comida'),
 (2, 'Revuelto de gambas y champiñones', 'Comida'),
+(2, 'Pollo picante con cuscus', 'Cena'),
+(2, 'Ensalada campera', 'Comida'),
+(2, 'Merluza a la plancha con ensalada', 'Cena'),
 (3, 'Pollo con verduras y queso batido al papillote', 'Cena'),
-(3, 'Salmón al horno con salsa de yogur', 'Cena'),
+(3, 'Salmon al horno con salsa de yogur', 'Cena'),
 (3, 'Sopa de pasta y hamburguesa con naranja picada', 'Cena'),
 (3, 'Crema de verduras y pechuga de pollo con manzana', 'Cena'),
 (3, 'Croquetas de pescado con pure de patata', 'Cena'),
@@ -91,7 +102,7 @@ INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (3, 'Arroz tres delicias', 'Cena'),
 (1, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Cena'),
 (1, 'Wok de verduras al curry con tiras de pollo', 'Cena'),
-(2, 'Hamburguesa de jamón york con mayonesa y queso', 'Cena'),
+(2, 'Hamburguesa de jamon york con mayonesa y queso', 'Cena'),
 (2, 'Minipizza cuatro quesos con naranja troceada', 'Cena'),
 (3, 'Pollo con almendras chino', 'Comida'),
 (3, 'Atún a la plancha con ajo y perejil', 'Comida');
@@ -112,23 +123,23 @@ CREATE TABLE `ejercicios` (
 --
 
 INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
-('Hombro', 'Elevación lateral'),
+('Hombro', 'Elevacion lateral'),
 ('Hombro', 'Press hombro'),
-('Hombro', 'Remo al mentón'),
+('Hombro', 'Remo al menton'),
 ('Hombro', 'Press militar'),
 ('Pierna', 'Sentadilla'),
 ('Pierna', 'Prensa'),
-('Pierna', 'Extensión de cuadriceps'),
+('Pierna', 'Extension de cuadriceps'),
 ('Pierna', 'Hip thrust'),
 ('Pecho', 'Press banca'),
 ('Pecho', 'Aperturas con mancuernas'),
 ('Pecho', 'Press banca inclinado'),
-('Pecho', 'Máquina de empuje'),
+('Pecho', 'Maquina de empuje'),
 ('Triceps', 'Fondos'),
-('Triceps', 'Press francés'),
+('Triceps', 'Press frances'),
 ('Triceps', 'Extensiones'),
 ('Triceps', 'Barras paralelas'),
-('Biceps', 'Curl araña'),
+('Biceps', 'Curl spider'),
 ('Biceps', 'Predicador'),
 ('Biceps', 'Martillo'),
 ('Biceps', 'Chin-ups'),
@@ -154,6 +165,14 @@ CREATE TABLE `planificacion` (
   `dias` int(1) DEFAULT NULL,
   `nivel` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `planificacion`
+--
+
+INSERT INTO `planificacion` (`id_usuario`, `desayunos`, `comidas`, `cenas`, `rutina`, `dobjetivo`, `eobjetivo`, `dias`, `nivel`) VALUES
+(1, NULL, NULL, NULL, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Press banca inclinado\",\"Elevacion lateral\",\"Press hombro\",\"Remo al menton\"],[\"Jalon\",\"Remo en T\",\"Remo con barra\",\"Curl spider\",\"Predicador\",\"Martillo\"],[\"Sentadilla\",\"Prensa\",\"Extension de cuadriceps\",\"Fondos\",\"Press frances\",\"Extensiones\"],[\"Press banca\",\"Aperturas con mancuernas\",\"Press banca inclinado\",\"Elevacion lateral\",\"Press hombro\",\"Remo al menton\",\"Jalon\",\"Remo en T\",\"Remo con barra\"],[\"Curl spider\",\"Predicador\",\"Martillo\",\"Sentadilla\",\"Prensa\",\"Extension de cuadriceps\",\"Fondos\",\"Press frances\",\"Extensiones\"]]', NULL, 1, 5, 'M'),
+(2, NULL, NULL, NULL, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Press banca inclinado\",\"Elevacion lateral\",\"Press hombro\",\"Remo al menton\"],[\"Jalon\",\"Remo en T\",\"Remo con barra\",\"Curl spider\",\"Predicador\",\"Martillo\"],[\"Sentadilla\",\"Prensa\",\"Extension de cuadriceps\",\"Fondos\",\"Press frances\",\"Extensiones\"],[\"Press banca\",\"Aperturas con mancuernas\",\"Press banca inclinado\",\"Elevacion lateral\",\"Press hombro\",\"Remo al menton\",\"Jalon\",\"Remo en T\",\"Remo con barra\"],[\"Curl spider\",\"Predicador\",\"Martillo\",\"Sentadilla\",\"Prensa\",\"Extension de cuadriceps\",\"Fondos\",\"Press frances\",\"Extensiones\"]]', NULL, 1, 5, 'M');
 
 -- --------------------------------------------------------
 
