@@ -50,7 +50,7 @@ class  ChatEntrenador {
             $dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
             $dataChat = $dataChat ."</textarea>";
         } 
-        $SelectUsuarios = self::Usuarios($usuactual, $BD);
+        $SelectUsuarios = self::Usuarios($id_usuario, $BD);
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
