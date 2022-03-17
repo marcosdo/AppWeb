@@ -8,7 +8,7 @@ class FormularioRegistro extends Formulario {
     }
     
     protected function generaCamposFormulario(&$datos) {
-        $id = $datos['id'] ?? '';
+        $alias = $datos['alias'] ?? '';
         $nombre = $datos['nombre'] ?? '';
         $apellidos = $datos['apellidos'] ?? '';
         $mail = $datos['mail'] ?? '';
@@ -16,7 +16,7 @@ class FormularioRegistro extends Formulario {
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre', 'apellidos', 'mail', 'id', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre', 'apellidos', 'mail', 'alias', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -33,9 +33,9 @@ class FormularioRegistro extends Formulario {
                 {$erroresCampos['apellidos']}
             </div>
             <div>
-                <label for="id">Nombre de usuario:</label>
-                <input id="id" type="text" name="id" value="$id" />
-                {$erroresCampos['id']}
+                <label for="alias">Nombre de usuario:</label>
+                <input id="alias" type="text" name="alias" value="$alias" />
+                {$erroresCampos['alias']}
             </div>
             <div>
                 <label for="mail">Direccion de correo:</label>
@@ -70,10 +70,10 @@ class FormularioRegistro extends Formulario {
         $apellidos = filter_input(INPUT_POST, 'apellidos', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$apellidos || empty($apellidos=trim($apellidos))) $this->errores['apellidos'] = 'Los apellidos no pueden estar vacios.';
 
-        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$id || empty($id=trim($id))) {
-            if(Usuario::buscaPorId($id) || Nutri::buscaPorId($id)) $this->errores['id'] = 'El nombre de usuario no puede estar repetido.';
-            else $this->errores['id'] = 'El nombre de usuario no puede estar vacio.';
+        $alias = filter_input(INPUT_POST, 'alias', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$alias || empty($alias=trim($alias))) {
+            if(Usuario::buscaPorAlias($alias) || Nutri::buscaPorAlias($alias)) $this->errores['alias'] = 'El nombre de usuario no puede estar repetido.';
+            else $this->errores['alias'] = 'El nombre de usuario no puede estar vacio.';
         }
 
         $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -86,13 +86,14 @@ class FormularioRegistro extends Formulario {
         if (!$password2 || empty($password2=trim($password2)) || $password != $password2 ) $this->errores['password2'] = 'Los passwords deben coincidir';
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::buscaPorId($id);
+            $usuario = Usuario::buscaPorAlias($Alias);
             if ($usuario) $this->errores[] = "El usuario ya existe";
             else {
-                $usuario = Usuario::crea($nombre, $apellidos, $mail, $password, $id, 0);
+                $usuario = Usuario::crea($nombre, $apellidos, $mail, $password, $alias, 0);
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['id'] = $usuario->getId();
+                $_SESSION['alias'] = $usuario->getAlias();
                 header('Location: index.php');
                 exit();
             }
