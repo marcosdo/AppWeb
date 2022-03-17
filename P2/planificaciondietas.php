@@ -1,4 +1,17 @@
-<?php session_start(); ?>
+<?php 
+
+require_once __DIR__.'/includes/config.php';
+
+
+$tituloPagina = 'Dietas';
+
+$contenidoPrincipal = <<<EOS
+<h1>Dietas</h1>
+EOS;
+
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+
+/* session_start(); ?>
 
 <?php
 // Coger los datos del formulario
@@ -9,14 +22,14 @@ $objetivo = isset($_POST["dieta"]) ? $_POST["dieta"] : null;
 
 /* ===============================
 SI LOS DATOS NO EXISTEN ERROR AQUI
-=============================== */
+=============================== 
 
 // Conenctar con la base de datos
 $BD = conectar_bd("localhost","root","","lifety");
 
 /* ====================================
 SI LA BASE DE DATOS NO EXISTE ERROR AQUI
-===================================== */
+===================================== 
 
 // Arrays con todos las comidas de un tipo y un objetivo
 $desayunos_aux = array(); 
@@ -106,7 +119,7 @@ function fill_frombd(&$dest, $string){
  * @param string $DB_name nombre de la BD.
  * 
  * @return mysqli|null Devuelve la base de datos si existe o null en otro caso.
- */
+ 
 function conectar_bd($host, $user, $pass, $DB_name) {
     $DB = new mysqli($host, $user, $pass, $DB_name);
     if ($DB->connect_errno) {
@@ -195,4 +208,4 @@ function muestra_tabla($desayunos, $comidas, $cenas) {
             ?>
         </div>
     </body>
-</html>
+</html>*/

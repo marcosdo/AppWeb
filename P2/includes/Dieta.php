@@ -10,11 +10,11 @@ class Dieta {
     private $_comidas;
     /** @var array Array con todas las cenas */
     private $_cenas;
-    /** @var string String que contiene todos los desayunos de la semana separados por '|' */
+    /** @var json String que contiene todos los desayunos */
     private $_strdesayuno;
-    /** @var string String que contiene todos las comidas de la semana separados por '|' */
+    /** @var json String que contiene todos las comidas */
     private $_strcomida;
-    /** @var string String que contiene todos las cenas de la semana separados por '|' */
+    /** @var json String que contiene todos las cenas */
     private $_strcena;
 
     // ==================== MÉTODOS ====================
@@ -29,173 +29,208 @@ class Dieta {
         $this->_strcena = $strcena;
     }
     // ==================== PUBLIC ====================
-    /** 
-     * Metodo pasa saber si el usuario ya tiene la dieta en la base de datos
-     * 
-     * @var int $tipo: tipo de dieta que se puede llevar {1 = Bajar peso, 2 = subir peso, 3 = mantener peso}
-     * 
-     * @return string[]|false
-     */
-    public static function exists_type($tipo) {
-        // Coge la instancia de la base de datos
-        $bd = Aplicacion::getInstance()->getConexionBd();
-        // Hace una consulta para coger los desayunos
-        $query_desayunos = self::query_comida($bd, $tipo, "desayuno");
-        $query_comidas = self::query_comida($bd, $tipo, "comida");
-        $query_cenas = self::query_comida($bd, $tipo, "cena");
-        // Si no devuelve nada, no existen
-        if (!$query_desayunos || !$query_comidas || !$query_cenas)
-            return false;
-        // Si existen, las devuelve en forma de arrah
-        return array($query_desayunos, $query_comidas, $query_cenas);
-    }
-    /**
+     /**
      * Método para crear una dieta. Devuelve una dieta nueva
-     * 
-     * @var int $tipo 
-     * 
+     * @var int $tipo valores posibles: { 1 = perder peso, 2 = ganar peso, 3 = mantener peso }
      * @return Dieta|false 
      */
-    public static function create_dieta($tipo) {
+    public static function Dieta_ConstructorFalso($tipo) {
         $bd = Aplicacion::getInstance()->getConexionBd();
-
-        // Trae de la base de datos los desayunos y los mete
-        $desayunos_aux = self::llenar_array($bd, $tipo, "Desayuno");
-        $comidas_aux = self::llenar_array($bd, $tipo, "Comida");
-        $cenas_aux = self::llenar_array($bd, $tipo, "Cena");
-
-        if (!$desayunos_aux || !$comidas_aux || !$cenas_aux)
-            return false;
-
-        // Rellena los arrays con comidas aleatorias
-        $desayunos = self::llenar_random($desayunos_aux);
-        $comidas = self::llenar_random($comidas_aux);
-        $cenas = self::llenar_random($cenas_aux);
-
-        if (!$desayunos || !$comidas || !$cenas)
-            return false;
-
-        return new Dieta($desayunos, $comidas, $cenas, "", "", "");
-    }
-
-    public function muestra_dieta() {
-        
-    }
-/*
-    public function crear($id, $objetivo) { 
-        $BD = Aplicacion::getInstance()->getConexionBd();
-        $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$_SESSION[id]'";
-        $resultado = $BD->query($sqlselect); 
-        $fila = mysqli_fetch_assoc($resultado);
-
-        
-        if (is_null($fila["dobjetivo"]) || $fila["dobjetivo"] != $objetivo || is_null($fila["desayunos"]) || is_null($fila["comidas"]) || is_null($fila["cenas"])) {
-            $desayunos_aux = array(); 
-            $comidas_aux = array(); 
-            $cenas_aux = array();
-
-
-            // Rellena los arrays con comidas aleatorias   
-            fill_random($desayunos, $desayunos_aux, $des);
-            fill_random($comidas, $comidas_aux, $coms);
-            fill_random($cenas, $cenas_aux, $cens);
-        
-            $query = "UPDATE planificacion SET planificacion.desayunos = '$des', planificacion.comidas = '$coms', 
-            planificacion.cenas = '$cens' WHERE planificacion.id_usuario = '$_SESSION[id_usuario]'";
-            mysqli_query($BD, $query);
-        }
-        
+        // Si la persona ya tiene una entrada en la tabla
+        if (self::exists_id($bd)) {
+            // Si su dieta es la que ha seleccionado
+            if (self::exists_type($bd, $tipo)) {
+                // Muestra la dieta ya disponible
+                $desayunos = self::get_from_data($bd, "desayunos");
+                $comidas = self::get_from_data($bd, "comidas");
+                $cenas = self::get_from_data($bd, "cenas");
+            }
+            // Si no, actualiza su dieta
+            else {
+                // Trae de la base de datos las descripciones de comidas y las mete en arrays
+                $desayunos_aux = self::llenar_array($bd, $tipo, "Desayuno");
+                $comidas_aux = self::llenar_array($bd, $tipo, "Comida");
+                $cenas_aux = self::llenar_array($bd, $tipo, "Cena");
+                // Si algun array no se ha llenado devuelve false
+                if (!$desayunos_aux || !$comidas_aux || !$cenas_aux)
+                    return false;
+                // Rellena los arrays con comidas aleatorias
+                $desayunos = self::llenar_random($desayunos_aux);
+                $comidas = self::llenar_random($comidas_aux);
+                $cenas = self::llenar_random($cenas_aux);
+                // Si algun array no se ha llenado devuelve false
+                if (!$desayunos || !$comidas || !$cenas)
+                    return false;
+                // Meter info en jsons
+                $json_desayunos = str_replace("\"", "'",json_encode($desayunos));
+                $json_comidas = str_replace("\"", "'",json_encode($comidas));
+                $json_cenas = str_replace("\"", "'",json_encode($cenas));
+                // Actualiza los valores de las comidas
+                self::update_comida($bd, "desayunos", $json_desayunos);
+                self::update_comida($bd, "comidas", $json_comidas);
+                self::update_comida($bd, "cenas", $json_cenas);
+            }
+        } 
+        // Si no, crea una dieta a partir de las comidas de la base de datos, y crea la entrada
         else {
-            $des = $fila["desayunos"];
-            $coms = $fila["comidas"];
-            $cens = $fila["cenas"];
-        
-            fill_frombd($desayunos, $des);
-            fill_frombd($comidas, $coms);
-            fill_frombd($cenas, $cens);
+            // Trae de la base de datos las descripciones de comidas y las mete en arrays
+            $desayunos_aux = self::llenar_array($bd, $tipo, "Desayuno");
+            $comidas_aux = self::llenar_array($bd, $tipo, "Comida");
+            $cenas_aux = self::llenar_array($bd, $tipo, "Cena");
+            // Si algun array no se ha llenado devuelve false
+            if (!$desayunos_aux || !$comidas_aux || !$cenas_aux)
+                return false;
+            // Rellena los arrays con comidas aleatorias
+            $desayunos = self::llenar_random($desayunos_aux);
+            $comidas = self::llenar_random($comidas_aux);
+            $cenas = self::llenar_random($cenas_aux);
+            // Si algun array no se ha llenado devuelve false
+            if (!$desayunos || !$comidas || !$cenas)
+                return false;
+            // Meter info en jsons
+            $json_desayunos = str_replace("\"", "'", json_encode($desayunos));
+            $json_comidas = str_replace("\"", "'", json_encode($comidas));
+            $json_cenas = str_replace("\"", "'", json_encode($cenas));
+            // Inserta en la tabla un nuevo id
+            self::insert_row($bd, $tipo, $json_desayunos, $json_comidas, $json_cenas);
         }
-
-    }*/
-
+        // Devuelve un usuario con sus nuevos atributos
+        return new Dieta($desayunos, $comidas, $cenas, $json_desayunos, $json_comidas, $json_cenas);
+    }
     // ==================== PRIVATE ====================
-
-    /** 
-     * Método que devuelve el string de comidas en funcion del horario que metas
-     * @var mysql $bd instancia de la base de datos
-     * @var int $tipo valores posibles: {1, 2, 3}
-     * @var string $horario valores posibles: {desayuno, comida, cena}
-     * 
-     * @return query|false 
-     */
-    private function query_comida($bd, $tipo, $horario) {
-        $query = sprintf(
-            "SELECT planificacion.%s FROM planificacion WHERE planificacion.id_usuario = %s AND dobjetivo = %s",
-            $horario, $_SESSION['id'], $tipo
-        );
-        $result = $bd->query($query);
-        if (!$result) {
-            error_log("Error BD ({$bd->errno}): {$bd->error}");
-            return false;
-        }
-        return $result;
-    }
-
-
-    /** Funcion que coge de la base de datos las comidas segun su $objetivo y las mete en el array $dest
-     * @var array $dest lista de comida de Lunes-Domingo
-     * @var int $objetivo = [1, 2, 3]
-     */
-    private function posibleComida (&$dest, $objetivo){
-
-    }
-
     /**
-     * @var
-     */
-    private function buscarDieta($id, $objetivo) {
-
-     }
-
-    // ~~~~~~~~~~~~~~~~~~~~ FUNCIONES AUXILIARES ~~~~~~~~~~~~~~~~~~~~
-    /**
-     * Metodo que rellena el un array con informacion de la base de datos
      * 
      * @var mysqli $bd instancia de la base de datos
-     * @var int $tipo valores posibles: {1, 2, 3}
-     * @var string $horario valores posibles: {desayuno, comida, cena}
-     * 
-     * @return string[]|false 
+     * @var int $tipo: tipo de dieta que se puede llevar {1 = Bajar peso, 2 = subir peso, 3 = mantener peso}
+     * @var string $desayunos
+     * @var string $comidas
+     * @var string $cenas
      */
-    private function llenar_array($bd, $tipo, $horario) {
-        // Consulta que te devuelve el numero de elementos que hay de ese tipo 
+    private static function insert_row($bd, $tipo, $desayunos, $comidas, $cenas) {
         $query = sprintf(
-            "SELECT dietas.descripcion FROM dietas WHERE dietas.tipo = %s AND dietas.objetivo = %d",
+            "INSERT INTO dietas (id_usuario, objetivo, desayunos, comidas, cenas) VALUES (\"%s\", \"%s\", \"%s\", \"%s\", \"%s\")",
+            $_SESSION['id'], $tipo, $desayunos, $comidas, $cenas
+        );
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+    }
+    /**
+     * 
+     * @var mysqli $bd instancia de la base de datos
+     */
+    private static function get_from_data($bd, $horario) {
+        $query = sprintf(
+            "SELECT dietas.%s FROM dietas WHERE dietas.id_usuario = %d",
+            $horario, 0
+        );
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+        $result = mysqli_fetch_assoc($result);
+        $result = str_replace("'", "\"", $result);
+        $array = json_decode($result[$horario]);
+        return $array;
+    }
+    /**
+     * Metodo que devuelve si existe el id en la tabla
+     * @var mysqli $bd instancia de la base de datos
+     * @return true|false
+     */
+    private static function exists_id($bd) {
+        $query = sprintf(
+            "SELECT dietas.id_usuario FROM dietas WHERE dietas.id_usuario = \"%s\"",
+            $_SESSION['id']
+        );
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+        return $result->num_rows != 0;
+    }
+
+    /** 
+     * Metodo pasa saber si el usuario ya tiene la dieta en la base de datos
+     * @var mysqli $bd instancia de la base de datos
+     * @var int $tipo: tipo de dieta que se puede llevar {1 = Bajar peso, 2 = subir peso, 3 = mantener peso}
+     * @return true|false
+     */
+    private static function exists_type($bd, $tipo) {
+        // Busca si ya existe en la tabla 'planificacion' el tipo
+        $query = sprintf(
+            "SELECT dietas.objetivo FROM dietas WHERE dietas.id_usuario = \"%s\"",
+            $_SESSION['id']
+        );
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+        // Devuelve true si rows != 0
+        return $result->num_rows != 0;
+    }
+    /**
+     * Metodo que actualiza el campo de la tabla 'modificacion' con el parametro que le metas
+     * @var mysqli $bd instancia de la base de datos
+     * @var string $horario valores posibles: { desayuno, comida, cena }
+     * @var string $json datos a meter en la BD
+     */
+    private static function update_comida($bd, $horario, $json) {
+        // Consulta para modificar los datos de la BD
+        $query = sprintf(
+            "UPDATE dietas SET dietas.%s = %s WHERE dietas.id_usuario = %s",
+            $horario, $json, $_SESSION['id']
+        );
+        // Si la consulta da error tratar el error
+        if (!$bd->query($query)) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+    }
+    /**
+     * Metodo que rellena el un array con nombres de comidas de la base de datos
+     * @var mysqli $bd instancia de la base de datos
+     * @var int $tipo valores posibles: { 1 = perder peso, 2 = ganar peso, 3 = mantener peso }
+     * @var string $horario valores posibles: { desayuno, comida, cena }
+     * @return array|false 
+     */
+    private static function llenar_array($bd, $tipo, $horario) {
+        // Consulta que te devuelve descripciones de elementos que hay de ese tipo 
+        $query = sprintf(
+            "SELECT comidas.descripcion FROM comidas WHERE comidas.tipo = \"%s\" AND comidas.objetivo = %d",
             $horario, $tipo
         );
-
-        $result = $bd->query($query);
-        if (!$result)
-            return false;
-
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+        // Si no, mete en un array todas las descripciones
         $ret = array();
         while ($fila = mysqli_fetch_assoc($result)) {
             array_push($ret, $fila['descripcion']);
         }
+        // Si no hay elementos en el array devuelve false
+        if (empty($ret))
+            return false;
+        // En caso contrario devuelve el array
         return $ret;
     }
-
     /**
      * Metodo que llena un array de 7 elementos con informacion aleatoria de $src
-     * @var array $src
-     * 
-     * @return string[]|false 
+     * @var array $src array de donde se cogen los elementos
+     * @return array|false 
      */
-    function llenar_random($src) {
+    private static function llenar_random($src) {
         // Si esta vacio no hace nada
-        if (empty($src)) {
+        if (empty($src))
             return false;
-        }
-
+        // Crea un array
         $ret = array();
         // Por cada dia de la semana
         for ($i = 0; $i < 7; $i++) {
@@ -205,12 +240,6 @@ class Dieta {
             $ret[] =  $src[$clave];
         }
         return $ret;
-    }
-
-    private static function inserta() {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO usuario (nombre, apellidos, correo, password, id_usuario, premium) VALUES ('%s', '%s', '%s', '%s', '%s', '%d')");
-       
     }
 }
 

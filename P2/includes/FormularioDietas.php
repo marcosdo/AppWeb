@@ -7,6 +7,7 @@ class FormularioDietas extends Formulario {
     }
     
     protected function generaCamposFormulario(&$datos) {
+        $objetivo = $datos['choose-diet'] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['objetivo'], $this->errores, 'span', array('class' => 'error'));
@@ -15,16 +16,17 @@ class FormularioDietas extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset> 
+        <fieldset>
             <legend id="diet-plan">Dietas</legend>
-            <form method="post" action="planificaciondietas.php">
-            <p>
-                <select name="dieta" id="choose-diet">
+            <div>
+                <label for="choose-diet">Selecciona tu dieta:</label>
+                <select name="choose-diet" id="choose-diet">
                     <option value="1">Pérdida de peso</option>
                     <option value="2">Ganancia de peso</option>
                     <option value="3">Mantener peso</option>
                 </select>
-            </p>
+                {$erroresCampos['objetivo']}
+            </div>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                 Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
@@ -39,7 +41,6 @@ class FormularioDietas extends Formulario {
             <p>
                 <input type="submit" name="enviar" value="Quiero esta dieta" class="send-button">
             </p>
-            </form>
         </fieldset>
         EOF;
         return $html;
@@ -49,7 +50,7 @@ class FormularioDietas extends Formulario {
         // Errores posibles
         $this->errores = [];
         // Comprueba que los datos no sean malignos
-        $tipo_dieta = htmlspecialchars(trim(strip_tags($datos['dieta'] ?? '')));
+        $tipo_dieta = trim($datos['choose-diet'] ?? '');
         $tipo_dieta = filter_var($tipo_dieta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Lanza un error si hay datos malignos
         if (!$tipo_dieta || empty($tipo_dieta))
@@ -58,22 +59,13 @@ class FormularioDietas extends Formulario {
         /* === ERRORES ===
         dieta != {1, 2, 3}
         =============== */
-        if ($tipo_dieta == '1' || $tipo_dieta == '2' || $tipo_dieta == '3') 
+        if (!$tipo_dieta == '1' || !$tipo_dieta == '2' || !$tipo_dieta == '3') 
             $this->errores['objetivo-dieta'] = 'ERROR: procesa formulario de dietas. Caracteres no esperados';
 
         // Si todo ha ido bien, 
         if (count($this->errores) === 0) {
-            $comidas = Dieta::exists_type($tipo_dieta);
-            // Si comidas devuelve false
-            if (!$comidas) {
-                // Hay que crear una dieta nueva
-                $class_dieta = Dieta::create_dieta($tipo_dieta);
-
-                $class_dieta->muestra_dieta();
-
-                exit();
-            }
-            // Si no, hay que mostrar la que ya existe
+            // Crea una instancia de dieta
+            $class_dieta = Dieta::Dieta_ConstructorFalso($tipo_dieta);
         }
     }
 }
