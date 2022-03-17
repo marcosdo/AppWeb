@@ -27,7 +27,7 @@ class  Logros {
     }
     function mostrarLogros(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        $usuactual = $_SESSION["id"];
+        $usuactual = $_SESSION["usuario"];
         //$usuactual = "Usuario1";
          
         $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$usuactual'"); 

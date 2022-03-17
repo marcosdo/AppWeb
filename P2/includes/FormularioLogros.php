@@ -18,7 +18,7 @@ class FormularioLogros extends Formulario {
     }
     function mostrarFormulario() {
         $BD = Aplicacion::getInstance()->getConexionBd();
-        $usuactual = $_SESSION["id"];
+        $usuactual = $_SESSION["usuario"];
        // $usuactual = "Entrenador1";
         $SelectUsuarios = FormularioLogros::Usuarios($usuactual,$BD);
 
