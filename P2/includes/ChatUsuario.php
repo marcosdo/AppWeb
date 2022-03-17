@@ -40,7 +40,7 @@ class  ChatUsuario {
 
         if(isset($_POST['submitmsg'])) {
             $fecha = date_create()->format('Y-m-d H:i:s');
-            mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual ','$usuEntrenador','$_POST[usermsg]','$fecha','U-E') ");
+            mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual ','$nombreEnt','$_POST[usermsg]','$fecha','U-E') ");
         }
         //<div id="wrapper">
 
