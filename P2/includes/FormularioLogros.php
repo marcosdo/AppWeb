@@ -18,22 +18,27 @@ class FormularioLogros extends Formulario {
     }
     function mostrarFormulario() {
         $BD = Aplicacion::getInstance()->getConexionBd();
-        //$usuactual = $_SESSION["id"];
-        $usuactual = "Entrenador1";
-        $SelectUsuarios = FormularioLogros::Usuarios($usuactual,$BD);
-        
+        $usuactual = $_SESSION["alias"];
+        $id_usuario =  $_SESSION["id"];
+       //$usuactual = "Entrenador1";
+        $SelectUsuarios = self::Usuarios($id_usuario,$BD);
+
         $alert ="";
         if(isset($_POST['buttonLogro'])) {
             $logroE = $_POST["logrosE"];
             $id = $_POST["idE"];
-            $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id'"); 
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$id'");
+            $nombreusu =  mysqli_fetch_array($consulta);
+            $idusuE = $nombreusu["id_usuario"];
+
+            $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
             $usu = mysqli_fetch_array($consulta);
             $EnumLogros = $usu["logros"];
             if(!preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogros = $EnumLogros . "," . $logroE;
                 $num = $usu["num_logros"];
                 $num++;
-                mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogros' WHERE id_usuario = '$id' ");
+                mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogros' WHERE id_usuario = '$idusuE' ");
                 $alert = "<span class ='text1'>Completado</span>";
             } 
             else $alert = "<span class='text2'>Ya tiene este logro</span>";
@@ -42,14 +47,18 @@ class FormularioLogros extends Formulario {
         if(isset($_POST['quitarLogro'])) {
             $logroE = $_POST["logrosE"];
             $id = $_POST["idE"];
-            $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id'"); 
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$id'");
+            $nombreusu =  mysqli_fetch_array($consulta);
+            $idusuE = $nombreusu["id_usuario"];
+
+            $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
             $usu = mysqli_fetch_array($consulta);
             $EnumLogros = $usu["logros"];
             if(preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogrosEliminado = str_replace($logroE ,'',$EnumLogros);
                 $num = $usu["num_logros"];
                 $num--;
-                mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogrosEliminado' WHERE id_usuario = '$id' ");
+                mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogrosEliminado' WHERE id_usuario = '$idusuE' ");
                 $alert = "<span class ='text1'>Completado</span>";
             }
             else $alert = "<span class='text2'>No posee este logro</span>";

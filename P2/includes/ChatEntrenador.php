@@ -36,35 +36,43 @@ class  ChatEntrenador {
 
     function mostrarChat(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        //$usuactual = $_SESSION["id"];
-        $usuactual = "Entrenador1";
+        //$usuactual = $_SESSION["alias"];
+        $id_usuario =  $_SESSION["id"];
+        $usuactual = "Pintus";
 
         $dataChat = "";
 
         if(isset($_POST['idE2'])) {
-            $dataChat = ChatEntrenador::dataChat($_POST['idE2'], $usuactual,$BD);
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+            $usuN =  mysqli_fetch_array($consulta);
+            $NICKusu = $usuN["usuario"];
+            $dataChat = self::dataChat($NICKusu, $usuactual,$BD);
         }
         else{
             $dataChat = $dataChat . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
             $dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
             $dataChat = $dataChat ."</textarea>";
         } 
-        $SelectUsuarios = ChatEntrenador::Usuarios($usuactual, $BD);
+        $SelectUsuarios = self::Usuarios($id_usuario, $BD);
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
+                $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+                $usuN =  mysqli_fetch_array($consulta);
+                $NICKusu = $usuN["usuario"];
+
                 $fecha = date_create()->format('Y-m-d H:i:s');
-                mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$_POST[idE3]','$_POST[usermsg]','$fecha','E-U') ");
+                mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$NICKusu','$_POST[usermsg]','$fecha','E-U') ");
             }
         }
 
         $contenidoPrincipal = <<<EOF
         <div id="wrapper"><div id="menu">
         <h1><span class = 'text'>C H A T &nbsp C O N &nbsp U S U A R I O</span></h1>
-        <span class="welcome" >&nbsp&nbsp Welcome, $usuactual</span>
+        <span class="welcome" >&nbsp&nbsp Bienvenido, $usuactual</span>
         <span class = 'text'>Elige usuario:</span>
         <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
-        <input name='actua' type='submit' id='actua' value='Actualizar Chat'/>
+        <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
         </div>
         <div id="chatbox"></div>$dataChat
         <input name="usermsg" type="text" id="usermsg" size="63" />
@@ -72,7 +80,7 @@ class  ChatEntrenador {
         <select name = 'idE3' id = 'idE3' type = 'text'>
         $SelectUsuarios
         </select>
-        <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+        <input class = "ButtonEnviar" name="submitmsg" type="submit"  id="submitmsg" value="Send" />
         </div>
         EOF;
         

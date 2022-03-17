@@ -27,16 +27,17 @@ class  Logros {
     }
     function mostrarLogros(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        //$usuactual = $_SESSION["id"];
-        $usuactual = "Usuario1";
+        $usuactual = $_SESSION["alias"];
+        $id_usuario =  $_SESSION["id"];
+        //$usuactual = "Usuario1";
          
-        $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$usuactual'"); 
+        $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
         $usu =  mysqli_fetch_array($consulta);
         $numLogros = $usu["num_logros"];
 	    $EnumLogros = $usu["logros"];
 
         
-        $imaginesLogros = Logros::LogrosImg($EnumLogros,$BD);
+        $imaginesLogros = self::LogrosImg($EnumLogros,$BD);
         $contenidoPrincipal = <<<EOF
         <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
         <div id = 'selectA'>
