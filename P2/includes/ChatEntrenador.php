@@ -42,14 +42,14 @@ class  ChatEntrenador {
         $dataChat = "";
 
         if(isset($_POST['idE2'])) {
-            $dataChat = ChatEntrenador::dataChat($_POST['idE2'], $usuactual,$BD);
+            $dataChat = self::dataChat($_POST['idE2'], $usuactual,$BD);
         }
         else{
             $dataChat = $dataChat . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
             $dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
             $dataChat = $dataChat ."</textarea>";
         } 
-        $SelectUsuarios = ChatEntrenador::Usuarios($usuactual, $BD);
+        $SelectUsuarios = self::Usuarios($usuactual, $BD);
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
@@ -61,10 +61,10 @@ class  ChatEntrenador {
         $contenidoPrincipal = <<<EOF
         <div id="wrapper"><div id="menu">
         <h1><span class = 'text'>C H A T &nbsp C O N &nbsp U S U A R I O</span></h1>
-        <span class="welcome" >&nbsp&nbsp Welcome, $usuactual</span>
+        <span class="welcome" >&nbsp&nbsp Bienvenido, $usuactual</span>
         <span class = 'text'>Elige usuario:</span>
         <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
-        <input name='actua' type='submit' id='actua' value='Actualizar Chat'/>
+        <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
         </div>
         <div id="chatbox"></div>$dataChat
         <input name="usermsg" type="text" id="usermsg" size="63" />
@@ -72,7 +72,7 @@ class  ChatEntrenador {
         <select name = 'idE3' id = 'idE3' type = 'text'>
         $SelectUsuarios
         </select>
-        <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+        <input class = "ButtonEnviar" name="submitmsg" type="submit"  id="submitmsg" value="Send" />
         </div>
         EOF;
         

@@ -27,28 +27,28 @@ class  ChatUsuario {
         //$usuactual = $_SESSION["id"];
         $usuactual = "Usuario1";
 
-
         $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$usuactual'"); 
         $usu =  mysqli_fetch_array($consulta);
         $usuEntrenador = $usu["id_profesional"];
        
-        $dataChat = ChatUsuario::dataChat($usuactual,$usuEntrenador,$BD);
+        $dataChat = self::dataChat($usuactual,$usuEntrenador,$BD);
 
         if(isset($_POST['submitmsg'])) {
             $fecha = date_create()->format('Y-m-d H:i:s');
             mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual ','$usuEntrenador','$_POST[usermsg]','$fecha','U-E') ");
         }
-
+        //<div id="wrapper">
 
         $contenidoPrincipal = <<<EOF
         <div id="wrapper">
         <h1><span class ="text">C H A T &nbsp E N T R E N A D O R</span></h1>
         <span class="welcome">&nbsp &nbspBienvenido,<b> $usuactual</b>
         &nbsp&nbsp Tu entrenador es,<b>$usuEntrenador</b></span>
+        <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
         <div id="chatbox"></div>
         $dataChat 
         <input name="usermsg" type="text" id="usermsg" size="63" />
-        <input type="submit"  name="submitmsg" value="send"/>
+        <input class = "ButtonEnviar"type="submit"  name="submitmsg" value="send"/>
         </div>  
         EOF;
         return $contenidoPrincipal;
