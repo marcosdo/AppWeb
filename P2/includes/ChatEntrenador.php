@@ -36,14 +36,17 @@ class  ChatEntrenador {
 
     function mostrarChat(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        $usuactual = $_SESSION["alias"];
+        //$usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
-       // $usuactual = "Entrenador1";
+        $usuactual = "Pintus";
 
         $dataChat = "";
 
         if(isset($_POST['idE2'])) {
-            $dataChat = self::dataChat($_POST['idE2'], $usuactual,$BD);
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+            $usuN =  mysqli_fetch_array($consulta);
+            $NICKusu = $usuN["usuario"];
+            $dataChat = self::dataChat($NICKusu, $usuactual,$BD);
         }
         else{
             $dataChat = $dataChat . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
@@ -54,8 +57,12 @@ class  ChatEntrenador {
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
+                $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+                $usuN =  mysqli_fetch_array($consulta);
+                $NICKusu = $usuN["usuario"];
+
                 $fecha = date_create()->format('Y-m-d H:i:s');
-                mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$_POST[idE3]','$_POST[usermsg]','$fecha','E-U') ");
+                mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$NICKusu','$_POST[usermsg]','$fecha','E-U') ");
             }
         }
 
