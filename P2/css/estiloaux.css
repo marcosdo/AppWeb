@@ -199,9 +199,8 @@ table {
 	width: 90%; /* 90% del tamano de main */
 }
 table#tabla-dietas{
-	table-layout: auto;
-	width: 100%;
-	position: inherit;
+	word-wrap: break-word;
+	table-layout: fixed;
 }
 caption {
 	text-align: center;
