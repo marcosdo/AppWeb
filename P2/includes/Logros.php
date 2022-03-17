@@ -36,7 +36,7 @@ class  Logros {
 	    $EnumLogros = $usu["logros"];
 
         
-        $imaginesLogros = Logros::LogrosImg($EnumLogros,$BD);
+        $imaginesLogros = self::LogrosImg($EnumLogros,$BD);
         $contenidoPrincipal = <<<EOF
         <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
         <div id = 'selectA'>
