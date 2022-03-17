@@ -36,7 +36,7 @@ class  ChatEntrenador {
 
     function mostrarChat(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        $usuactual = $_SESSION["nutri"];
+        $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
        // $usuactual = "Entrenador1";
 
