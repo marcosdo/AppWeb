@@ -31,6 +31,10 @@ class  ChatUsuario {
         $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
         $usu =  mysqli_fetch_array($consulta);
         $usuEntrenador = $usu["id_profesional"];
+
+        $consulta = mysqli_query($BD,"SELECT * FROM profesional WHERE id_profesional = '$usuEntrenador'"); 
+        $entre =  mysqli_fetch_array($consulta);
+        $nombreEnt = $entre["nombre"];
        
         $dataChat = self::dataChat($usuactual,$usuEntrenador,$BD);
 
@@ -44,7 +48,7 @@ class  ChatUsuario {
         <div id="wrapper">
         <h1><span class ="text">C H A T &nbsp E N T R E N A D O R</span></h1>
         <span class="welcome">&nbsp &nbspBienvenido,<b> $usuactual</b>
-        &nbsp&nbsp Tu entrenador es,<b>$usuEntrenador</b></span>
+        &nbsp&nbsp Tu entrenador es,<b>$nombreEnt</b></span>
         <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
         <div id="chatbox"></div>
         $dataChat 
