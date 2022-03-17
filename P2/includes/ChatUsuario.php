@@ -34,7 +34,7 @@ class  ChatUsuario {
 
         $consulta = mysqli_query($BD,"SELECT * FROM profesional WHERE id_profesional = '$usuEntrenador'"); 
         $entre =  mysqli_fetch_array($consulta);
-        $nombreEnt = $entre["nombre"];
+        $nombreEnt = $entre["nutri"];
        
         $dataChat = self::dataChat($usuactual,$nombreEnt,$BD);
 
