@@ -13,18 +13,20 @@ class Rutina {
 
 
     public function comprobarRutina() { 
-        $BD = Aplicacion::getInstance()->getConexionBd();
-        $sqlselect = "SELECT * FROM planificacion WHERE planificacion.id_usuario = '$this->_id'";
-        $resultado = $BD->query($sqlselect); 
-        if($resultado){
-            if($resultado->num_rows > 0){
-                $fila = $resultado->fetch_assoc();
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM planificacion WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+        $rs = $conn->query($query); 
+        if($rs){
+            if($rs->num_rows > 0){
+                $fila = $rs->fetch_assoc();
                 if($fila['eobjetivo'] != $this->_objetivo || $fila['nivel'] != $this->_nivel || 
                     $fila['dias'] != $this->_dias)
                     $this->crearRutina(true);
+                    $rs->free();
             }
             else {
                 $this->crearRutina(false); 
+                $rs->free();
             }
         }
         else error_log("Error BD ({$this->conn->errno}): {$this->conn->error}");
@@ -32,7 +34,7 @@ class Rutina {
     }
 
     private function crearRutina($update){
-        $BD = Aplicacion::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $cont = 1;  
         for ($i = 1; $i < $this->_dias+1; $i++) {
             $arrayaux = array();
@@ -46,32 +48,33 @@ class Rutina {
            array_push($this->_array, $arrayaux);
         }
         $guardar = json_encode($this->_array);
-        $BD = Aplicacion::getInstance()->getConexionBd();
         if(!$update) {
-            $query = "INSERT INTO planificacion (id_usuario, rutina, eobjetivo, dias, nivel) VALUES ('$this->_id', '$guardar', '$this->_objetivo', '$this->_dias', '$this->_nivel')";
+            $query = sprintf("INSERT INTO planificacion (id_usuario, rutina, eobjetivo, dias, nivel) VALUES ('%d', '%s', '%d', 
+            '%d', '%s')", $this->_id, $conn->real_escape_string($guardar), $this->_objetivo, $this->_dias, $conn->real_escape_string($this->_nivel));
         }
         else{
-            $query = "UPDATE planificacion SET planificacion.rutina = '$guardar', planificacion.nivel = '$this->_nivel', planificacion.dias = '$this->_dias',  planificacion.eobjetivo = '$this->_objetivo'";
+            $query = sprintf("UPDATE planificacion SET planificacion.rutina = '%s', planificacion.nivel = '%s' , planificacion.dias = '%d',  
+            planificacion.eobjetivo = '%d'", $conn->real_escape_string($guardar), $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
         }
-        if ($BD->query($query)) return true;
+        if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
 
     private function fill_array(&$cont, $nveces , &$arrayaux) {
-
-        $BD = Aplicacion::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         for ($i = 0; $i < $nveces; $i++){
             $j = 0;
             $musculo = $this->_muscs[$cont];
-            $consulta = "SELECT * FROM ejercicios WHERE musculo = '$musculo'"; 
-            $resultado = $BD->query($consulta);
-            while ($fila = $resultado->fetch_assoc()){
+            $query = sprintf("SELECT * FROM ejercicios WHERE musculo = '%s'", $conn->real_escape_string($musculo)); 
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()){
                 if($j < $this->_ejerciciosdia){
                     array_push($arrayaux, $fila['nombre']); 
                 } 
                 $j++;
             }
+            $rs->free();
             $cont++;
         } 
     }

@@ -11,12 +11,13 @@ Nº series: 3
  */
     public function __construct() {}
     public function mostrar(){
-        $BD = Aplicacion::getInstance()->getConexionBd();
-        $sqlselect = sprintf("SELECT * FROM planificacion WHERE planificacion.id_usuario = '%d'", $_SESSION['id']);
-        $resultado = $BD->query($sqlselect); 
-        $fila = $resultado->fetch_assoc();
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM planificacion WHERE planificacion.id_usuario = '%d'", $_SESSION['id']);
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
         $objetivo = $fila['eobjetivo'];
         $arrayaux = json_decode($fila['rutina']);
+        $rs->free();
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $contenido = "<caption>Rutina de entrenamiento:</caption><tr>";
         for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
