@@ -27,7 +27,8 @@ class FormularioLogros extends Formulario {
         if(isset($_POST['buttonLogro'])) {
             $logroE = $_POST["logrosE"];
             $id = $_POST["idE"];
-            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$id'");
+
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
             $nombreusu =  mysqli_fetch_array($consulta);
             $idusuE = $nombreusu["id_usuario"];
 
@@ -47,7 +48,7 @@ class FormularioLogros extends Formulario {
         if(isset($_POST['quitarLogro'])) {
             $logroE = $_POST["logrosE"];
             $id = $_POST["idE"];
-            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$id'");
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
             $nombreusu =  mysqli_fetch_array($consulta);
             $idusuE = $nombreusu["id_usuario"];
 

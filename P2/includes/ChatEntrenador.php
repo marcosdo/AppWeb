@@ -43,7 +43,7 @@ class  ChatEntrenador {
         $dataChat = "";
 
         if(isset($_POST['idE2'])) {
-            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+            $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$_POST[idE2]'");
             $usuN =  mysqli_fetch_array($consulta);
             $NICKusu = $usuN["usuario"];
             $dataChat = self::dataChat($NICKusu, $usuactual,$BD);
@@ -57,7 +57,7 @@ class  ChatEntrenador {
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
-                $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE nombre = '$_POST[idE2]'");
+                $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$_POST[idE2]'");
                 $usuN =  mysqli_fetch_array($consulta);
                 $NICKusu = $usuN["usuario"];
 
