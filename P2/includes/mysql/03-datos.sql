@@ -163,12 +163,6 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 TRUNCATE TABLE `dieta`;
 
 --
--- Truncar tablas antes de insertar `dietas`
---
-
-TRUNCATE TABLE `dietas`;
-
---
 -- Truncar tablas antes de insertar `ejercicios`
 --
 
@@ -212,9 +206,9 @@ TRUNCATE TABLE `planificacion`;
 -- Volcado de datos para la tabla `planificacion`
 --
 
-INSERT INTO `planificacion` (`id_usuario`, `rutina`, `dobjetivo`, `eobjetivo`, `dias`, `nivel`) VALUES
-(1, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P'),
-(2, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P');
+INSERT INTO `planificacion` (`id_usuario`, `rutina`, `eobjetivo`, `dias`, `nivel`) VALUES
+(1, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', 1, 3, 'P'),
+(2, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', 1, 3, 'P');
 
 --
 -- Truncar tablas antes de insertar `premium`

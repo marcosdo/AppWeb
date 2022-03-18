@@ -70,19 +70,6 @@ CREATE TABLE IF NOT EXISTS `dieta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dietas`
---
-
-DROP TABLE IF EXISTS `dietas`;
-CREATE TABLE IF NOT EXISTS `dietas` (
-  `objetivo` int(1) NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
-  `tipo` enum('Desayuno','Comida','Cena') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `ejercicios`
 --
 
