@@ -63,27 +63,33 @@ class FormularioRegistro extends Formulario {
 
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-
-        $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$nombre || empty($nombre=trim($nombre))) $this->errores['nombre'] = 'El nombre no puede estar vacío.';
-
-        $apellidos = filter_input(INPUT_POST, 'apellidos', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$apellidos || empty($apellidos=trim($apellidos))) $this->errores['apellidos'] = 'Los apellidos no pueden estar vacios.';
-
-        $alias = filter_input(INPUT_POST, 'alias', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$alias || empty($alias=trim($alias))) {
+        
+        $nombre = trim($datos['nombre'] ?? '');
+        $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$nombre || empty($nombre)) $this->errores['nombre'] = 'El nombre no puede estar vacío.';
+        
+        $apellidos = trim($datos['apellidos'] ?? '');
+        $apellidos = filter_var($apellidos, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$apellidos || empty($apellidos)) $this->errores['apellidos'] = 'Los apellidos no pueden estar vacios.';
+        
+        $alias = trim($datos['alias'] ?? '');
+        $alias = filter_var($alias, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$alias || empty($alias)) {
             if(Usuario::buscaPorAlias($alias) || Nutri::buscaPorAlias($alias)) $this->errores['alias'] = 'El nombre de usuario no puede estar repetido.';
             else $this->errores['alias'] = 'El nombre de usuario no puede estar vacio.';
         }
 
-        $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$mail || empty($mail=trim($mail))) $this->errores['mail'] = 'El mail no puede estar vacio.';
+        $mail = trim($datos['mail'] ?? '');
+        $mail = filter_var($mail, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$mail || empty($mail)) $this->errores['mail'] = 'El mail no puede estar vacio.';
 
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$password || empty($password=trim($password)) || mb_strlen($password) < 5 ) $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+        $password = trim($datos['password'] ?? '');
+        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$password || empty($password) || mb_strlen($password) < 5) $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
 
-        $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$password2 || empty($password2=trim($password2)) || $password != $password2 ) $this->errores['password2'] = 'Los passwords deben coincidir';
+        $password2 = trim($datos['password2'] ?? '');
+        $password2 = filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$password2 || empty($password2) || $password != $password2) $this->errores['password2'] = 'Los passwords deben coincidir.';
 
         if (count($this->errores) === 0) {
             $usuario = Usuario::buscaPorAlias($Alias);

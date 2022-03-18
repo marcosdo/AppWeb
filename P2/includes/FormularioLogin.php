@@ -59,13 +59,12 @@ class FormularioLogin extends Formulario {
                 $_SESSION['id'] = $usuario->getId();
                 $_SESSION['premium'] = $usuario->getPremium();
             }
-            else{
+            else if($nutri) {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nutri->getNombre();
                 $_SESSION['alias'] = $nutri->getAlias();
                 $_SESSION['id'] = $nutri->getId();
                 $_SESSION['nutri'] = true;
-            }            
         }
     }
 }

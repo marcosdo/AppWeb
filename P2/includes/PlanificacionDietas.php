@@ -29,11 +29,12 @@ class PlanificacionDietas {
         );
 
         $result = $bd->query($query);
-        $result = $result->fetch_assoc();
-
-        $this->_strdesayuno = $result['desayunos'];
-        $this->_strcomida = $result['comidas'];
-        $this->_strcena = $result['cenas'];
+        $array = $result->fetch_assoc();
+        $result->free();
+        
+        $this->_strdesayuno = $array['desayunos'];
+        $this->_strcomida = $array['comidas'];
+        $this->_strcena = $array['cenas'];
 
         $this->_desayunos = json_decode($this->_strdesayuno);
         $this->_comidas = json_decode($this->_strcomida);

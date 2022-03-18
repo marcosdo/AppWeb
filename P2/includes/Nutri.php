@@ -138,7 +138,7 @@ class Nutri {
 
     public function getUsuarios() {return $this->usuarios;}
 
-    public function getAlias() {return $this->alias = $alias;}
+    public function getAlias() {return $this->alias;}
 
     public function compruebaPassword($password) {return password_verify($password, $this->password);}
     /*
