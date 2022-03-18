@@ -11,8 +11,7 @@
                 echo "<li><a href='rutinas_dietas.php'>Planificacion</a></li>";
                 if(isset($_SESSION['nutri']) && ($_SESSION["nutri"]===true)) echo "<li><a href='EntrenadorPersonalEnt.php'>Nutricionista</a></li>";
                 else {
-                    $user = Usuario::buscaPorId($_SESSION['id']);
-                    if($user->getPremium()) echo "<li><a href='EntrenadorPersonalUsu.php'>Nutricionista</a></li>";
+                    if(isset($_SESSION['premium']) && $_SESSION['premium'] == 1) echo "<li><a href='EntrenadorPersonalUsu.php'>Nutricionista</a></li>";
                     else echo "<li><a href='registronutri.php'>Nutricionista</a></li>";
                 }
             }
