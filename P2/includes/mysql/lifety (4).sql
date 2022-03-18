@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-03-2022 a las 15:26:57
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 18-03-2022 a las 11:45:24
+-- Versión del servidor: 10.4.19-MariaDB
+-- Versión de PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,36 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `lifety`
 --
---
--- Truncar tablas antes de insertar `profesional`
---
 
-TRUNCATE TABLE `profesional`;
---
--- Volcado de datos para la tabla `profesional`
---
-
-INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`, `usuarios`, `num_usuarios`, `id_profesional`) VALUES
-('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', 'Kylian', 1, 1);
-
---
--- Truncar tablas antes de insertar `usuario`
---
-
-TRUNCATE TABLE `usuario`;
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `usuario`, `premium`, `id_usuario`) VALUES
-('Kylian', 'Mbappe', 'rmcf', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Floren', 1, 1),
-('Erling', 'Halland', 'halland@lifety', '$2y$10$ZBoj.Ov4LQDcEBhTVhIso.x7y9SW3Visgbd6NFRC1g.JOBfj8wMGO', 'P$G', 0, 2);
-COMMIT;
---
--- Truncar tablas antes de insertar `chat`
---
-
-TRUNCATE TABLE `chat`;
 --
 -- Volcado de datos para la tabla `chat`
 --
@@ -58,11 +29,6 @@ INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 ('Entrenador1', 'Usuario1', 'hola', '2022-03-15 16:48:53', 'U-E'),
 ('Usuario1', 'Entrenador1', 'asda', '2022-03-15 17:12:41', 'E-U');
 
---
--- Truncar tablas antes de insertar `comidas`
---
-
-TRUNCATE TABLE `comidas`;
 --
 -- Volcado de datos para la tabla `comidas`
 --
@@ -105,22 +71,12 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 (35, 3, 'Comida', 'Atún a la plancha con ajo y perejil');
 
 --
--- Truncar tablas antes de insertar `dieta`
---
-
-TRUNCATE TABLE `dieta`;
---
 -- Volcado de datos para la tabla `dieta`
 --
 
 INSERT INTO `dieta` (`id_usuario`, `objetivo`, `desayunos`, `comidas`, `cenas`) VALUES
-(1, 1, '[\"Pudu00edn\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\",\"Pudu00edn\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\",\"Hotcakes de avena y quinoa\"]', '[\"Pollo con almendras chino\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Pollo con almendras chino\"]', '[\"Croquetas de pescado con pure de patata\",\"Arroz tres delicias\",\"Garbanzos con espinacas\",\"Crema de verduras y pechuga de pollo con manzana\",\"Sopa de pasta y hamburguesa con naranja picada\",\"Salmu00f3n al horno con salsa de yogur\",\"Sopa de pasta y hamburguesa con naranja picada\"]');
+(1, 3, '[\"Pudu00edn\",\"Smoothie Bowls\",\"Wrap de pavo\",\"Wrap de pavo\",\"Hotcakes de avena y quinoa\",\"Smoothie Bowls\",\"Hotcakes de avena y quinoa\"]', '[\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\"]', '[\"Pollo a la naranja\",\"Pollo a la naranja\",\"Pollo con verduras y queso batido al papillote\",\"Pollo con verduras y queso batido al papillote\",\"Arroz tres delicias\",\"Pollo con verduras y queso batido al papillote\",\"Salmu00f3n al horno con salsa de yogur\"]');
 
---
--- Truncar tablas antes de insertar `dietas`
---
-
-TRUNCATE TABLE `dietas`;
 --
 -- Volcado de datos para la tabla `dietas`
 --
@@ -174,11 +130,6 @@ INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
 (3, 'Atún a la plancha con ajo y perejil', 'Comida');
 
 --
--- Truncar tablas antes de insertar `ejercicios`
---
-
-TRUNCATE TABLE `ejercicios`;
---
 -- Volcado de datos para la tabla `ejercicios`
 --
 
@@ -209,31 +160,19 @@ INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 ('Espalda', 'Renegade row');
 
 --
--- Truncar tablas antes de insertar `planificacion`
---
-
-TRUNCATE TABLE `planificacion`;
---
 -- Volcado de datos para la tabla `planificacion`
 --
 
-INSERT INTO `planificacion` (`id_usuario`, `rutina`, `dobjetivo`, `eobjetivo`, `dias`, `nivel`) VALUES
-(1, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P'),
-(2, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', NULL, 1, 3, 'P');
+INSERT INTO `planificacion` (`id_usuario`, `rutina`, `eobjetivo`, `dias`, `nivel`) VALUES
+(1, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"],[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\",\"Jalon\",\"Remo en T\"],[\"Curl spider\",\"Predicador\",\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', 1, 5, 'P');
 
 --
--- Truncar tablas antes de insertar `premium`
+-- Volcado de datos para la tabla `usuario`
 --
 
-TRUNCATE TABLE `premium`;
---
--- Volcado de datos para la tabla `premium`
---
-
-INSERT INTO `premium` (`peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`, `id_usuario`, `id_profesional`) VALUES
-(75, 170, '', '', 0, '', 1, 1);
-
-
+INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `usuario`, `premium`, `id_usuario`) VALUES
+('Alexin', 'Magarzo', 'amagarzo@ucm.es', '$2y$10$N4nhU68Ap/9gclz95Q416eiFSDw2Pb71oqlTDgX9Rw3XKFL96WuNq', 'Alexin', 0, 1);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
