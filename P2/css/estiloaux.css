@@ -1,7 +1,6 @@
 body {
 	background-color: #ffffff;
 	background-color: #CDCDCD;
-	text-align:center;
     padding:35px; 
 }
 
@@ -10,6 +9,9 @@ div#contenedor {
 	margin: auto;
 	background-color: #ffffff;
 	margin-top: 30px;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	width: 100% !important;
 }
 /*#E7E9EB;*/
 header {
