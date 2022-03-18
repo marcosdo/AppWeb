@@ -28,15 +28,8 @@ class FormularioDietas extends Formulario {
                 {$erroresCampos['objetivo']}
             </div>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Quisque rutrum sit amet ipsum sed mollis. Praesent lectus 
-                elit, pretium at condimentum in, elementum vitae lorem. 
-                Quisque eget vulputate nunc. Donec lobortis at justo in 
-                ornare. Duis lobortis magna justo, in finibus ipsum 
-                ultricies nec. Donec efficitur purus quis venenatis 
-                interdum. Aliquam cursus accumsan lacus, eget commodo nisi 
-                blandit nec. Sed vitae maximus elit. Cras commodo magna 
-                tortor, ut lobortis magna iaculis eget. 
+            Según la mayoría de los dietistas, no existen alimentos “malos”, sino dietas “poco sanas”. Una dieta saludable se consigue comiendo la cantidad correcta de alimentos en la proporción adecuada, con continuidad.
+            Comer una proporción adecuada de alimentos de los principales grupos constituye la base del bienestar cotidiano, y reducirá el riesgo de enfermedades a largo plazo. 
             </p>
             <p>
                 <input type="submit" name="enviar" value="Quiero esta dieta" class="send-button">

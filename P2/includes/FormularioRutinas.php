@@ -44,7 +44,12 @@ class FormularioRutinas extends Formulario {
                         <option value="3">Resistencia</option>
                     </select>
                 </div>
-                Aqui va texto.
+               <div>
+                La actividad física regular puede mejorar la fuerza muscular y 
+                aumentar la resistencia. El ejercicio suministra oxígeno y nutrientes a 
+                los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
+                pulmonar mejora, tienes más energía para hacer las tareas diarias.
+                </div>
                 <input type="submit" name="enviar" value ="Quiero esta rutina" class="send-button">
             </div>
             </form>

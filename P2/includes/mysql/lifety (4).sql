@@ -20,7 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `lifety`
 --
+--
+-- Truncar tablas antes de insertar `chat`
+--
 
+TRUNCATE TABLE `chat`;
 --
 -- Volcado de datos para la tabla `chat`
 --
@@ -28,7 +32,11 @@ SET time_zone = "+00:00";
 INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 ('Entrenador1', 'Usuario1', 'hola', '2022-03-15 16:48:53', 'U-E'),
 ('Usuario1', 'Entrenador1', 'asda', '2022-03-15 17:12:41', 'E-U');
+--
+-- Truncar tablas antes de insertar `comidas`
+--
 
+TRUNCATE TABLE `comidas`;
 --
 -- Volcado de datos para la tabla `comidas`
 --
@@ -38,25 +46,25 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 (2, 1, 'Desayuno', 'Yogur con copos de avena'),
 (3, 1, 'Desayuno', 'Tortitas de avena'),
 (4, 2, 'Desayuno', 'Porridge de avena y frutos secos'),
-(5, 2, 'Desayuno', 'Requesón con fruta'),
-(6, 2, 'Desayuno', 'Sándwich de queso gouda con huevo duro'),
+(5, 2, 'Desayuno', 'Requeson con fruta'),
+(6, 2, 'Desayuno', 'Sandwich de queso gouda con huevo duro'),
 (7, 2, 'Desayuno', 'Batido de platano y avena'),
 (8, 3, 'Desayuno', 'Smoothie Bowls'),
 (9, 3, 'Desayuno', 'Hotcakes de avena y quinoa'),
-(10, 3, 'Desayuno', 'Pudín'),
+(10, 3, 'Desayuno', 'Pudin'),
 (11, 3, 'Desayuno', 'Wrap de pavo'),
-(12, 1, 'Comida', 'Ensalada de calabacín a la plancha con q'),
+(12, 1, 'Comida', 'Ensalada de calabacin a la plancha con queso feta'),
 (13, 1, 'Comida', 'Albondigas de merluza y brocoli'),
 (14, 1, 'Comida', 'Pechuga de pollo con soja y verduras salteadas'),
 (15, 1, 'Comida', 'Caldo de verduras con tortilla francesa'),
 (16, 2, 'Comida', 'Ensalada de patata hervida, tomate, pepino y huevo duro'),
 (17, 2, 'Comida', 'Wok de verduras al curry con tiras de pollo'),
-(18, 2, 'Comida', '.Berenjena y calabacín asado con pimentón dulce'),
-(19, 2, 'Comida', 'Puré de calabaza con patata hervida'),
+(18, 2, 'Comida', '.Berenjena y calabacin asado con pimenton dulce'),
+(19, 2, 'Comida', 'Pure de calabaza con patata hervida'),
 (20, 2, 'Comida', 'Tomates rellenos de lentejas'),
-(21, 2, 'Comida', 'Revuelto de gambas y champiñones'),
+(21, 2, 'Comida', 'Revuelto de gambas y champinones'),
 (22, 3, 'Cena', 'Pollo con verduras y queso batido al papillote'),
-(23, 3, 'Cena', 'Salmón al horno con salsa de yogur'),
+(23, 3, 'Cena', 'Salmon al horno con salsa de yogur'),
 (24, 3, 'Cena', 'Sopa de pasta y hamburguesa con naranja picada'),
 (25, 3, 'Cena', 'Crema de verduras y pechuga de pollo con manzana'),
 (26, 3, 'Cena', 'Croquetas de pescado con pure de patata'),
@@ -65,10 +73,68 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 (29, 3, 'Cena', 'Arroz tres delicias'),
 (30, 1, 'Cena', 'Ensalada de patata hervida, tomate, pepino y huevo duro'),
 (31, 1, 'Cena', 'Wok de verduras al curry con tiras de pollo'),
-(32, 2, 'Cena', 'Hamburguesa de jamón york con mayonesa y queso'),
+(32, 2, 'Cena', 'Hamburguesa de jamon york con mayonesa y queso'),
 (33, 2, 'Cena', 'Minipizza cuatro quesos con naranja troceada'),
-(34, 3, 'Comida', 'Pollo con almendras chino'),
-(35, 3, 'Comida', 'Atún a la plancha con ajo y perejil');
+(34, 1, 'Comida', 'Pescado blanco a la plancha con ensalada de lechuga'),
+(35, 1, 'Comida', 'Revuelto de dos huevos con verduras'),
+(36, 1, 'Comida', 'Menestra de acelgas, zanahoria y patata'),
+(37, 1, 'Comida', 'Alcachofas al horno y muslo de pollo a la plancha'),
+(38, 1, 'Comida', 'Kinoa con verduras'),
+(39, 1, 'Comida', 'Berenjena rellena de verduras y arroz integral'),
+(40, 2, 'Comida', 'Pasta con setas salteadas'),
+(41, 2, 'Comida', 'Arroz con pollo a la plancha'),
+(42, 2, 'Comida', 'Cocido'),
+(43, 2, 'Comida', 'Lentejas'),
+(44, 2, 'Comida', 'Pollo con almendras chino'),
+(45, 2, 'Comida', 'Fingers de pollo casero con salsa picante'),
+(46, 2, 'Comida', 'Arroz integral con pasas y almendras'),
+(47, 2, 'Comida', 'Pollo picante con cuscus'),
+(48, 2, 'Comida', 'Pasta cremosa con pollo cajun'),
+(49, 2, 'Comida', 'Paella de pollo y chorizo'),
+(50, 2, 'Comida', 'Hamburguesa de pollo zingy'),
+(51, 2, 'Comida', 'Quesadilla de pavo y aguacate'),
+(52, 3, 'Comida', 'Pollo a la naranja'),
+(53, 3, 'Comida', 'Garbanzos con espinacas'),
+(54, 3, 'Comida', 'Arroz tres delicias'),
+(55, 3, 'Comida', 'Conejo al horno con verduras'),
+(56, 3, 'Comida', 'Salteado de verduras con pollo a la plancha'),
+(57, 3, 'Comida', 'Tortilla de patatas con mayonesa'),
+(58, 3, 'Comida', 'Lasana de verduras'),
+(59, 3, 'Comida', 'Tallarines chinos con gambas'),
+(60, 3, 'Comida', 'Merluza al horno con verduras'),
+(61, 3, 'Comida', 'Revuelto de bacalao'),
+(62, 3, 'Comida', 'Atun a la plancha con ajo y perejil'),
+(63, 1, 'Desayuno', 'Tostada de pan integral con aguacate'),
+(64, 2, 'Desayuno', 'Gofres proteicos'),
+(65, 2, 'Desayuno', 'Brownie proteico'),
+(66, 2, 'Desayuno', 'Gachas de avena proteicas'),
+(67, 2, 'Desayuno', 'Muffins proteicos de yogurt helado'),
+(68, 2, 'Desayuno', 'Vasitos de cheescake'),
+(69, 2, 'Desayuno', 'Bocaditos proteicos de masa de galleta'),
+(70, 3, 'Desayuno', 'Pudding'),
+(71, 3, 'Desayuno', 'Wrap de pavo'),
+(72, 3, 'Desayuno', 'Pan de platano relleno de cheesecake'),
+(73, 3, 'Desayuno', 'Tortitas proteicas de platano'),
+(74, 1, 'Cena', 'Berenjena y calabacin asado con pimenton dulce'),
+(75, 1, 'Cena', 'Pure de calabaza con patata hervida'),
+(76, 1, 'Cena', 'Tomates rellenos de lentejas'),
+(77, 1, 'Cena', 'Revuelto de gambas con champinones'),
+(78, 1, 'Cena', 'Pate de humus'),
+(79, 2, 'Cena', 'Filete de buey con patata al horno y verduras'),
+(80, 2, 'Cena', 'Macarrones con pisto'),
+(81, 2, 'Cena', 'Ravioli con jamon york y tomate fresco'),
+(82, 2, 'Cena', 'Ensalada de arroz con atun y mayonesa'),
+(83, 2, 'Cena', 'Tagliatelle con salmon y nata'),
+(84, 3, 'Cena', 'Conejo al horno con verduras'),
+(85, 3, 'Cena', 'Salteado de verduras con pollo a la plancha'),
+(86, 3, 'Cena', 'Tortilla de patatas con mayonesa'),
+(87, 3, 'Cena', 'Lasana de verduras');
+
+--
+-- Truncar tablas antes de insertar `profesional`
+--
+
+TRUNCATE TABLE `profesional`;
 --
 --
 -- Volcado de datos para la tabla `profesional`
@@ -78,65 +144,15 @@ INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`,
 ('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', '', 1, 1);
 
 --
---
--- Volcado de datos para la tabla `dieta`
---
-
-INSERT INTO `dieta` (`id_usuario`, `objetivo`, `desayunos`, `comidas`, `cenas`) VALUES
-(1, 3, '[\"Pudu00edn\",\"Smoothie Bowls\",\"Wrap de pavo\",\"Wrap de pavo\",\"Hotcakes de avena y quinoa\",\"Smoothie Bowls\",\"Hotcakes de avena y quinoa\"]', '[\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\",\"Atu00fan a la plancha con ajo y perejil\",\"Pollo con almendras chino\"]', '[\"Pollo a la naranja\",\"Pollo a la naranja\",\"Pollo con verduras y queso batido al papillote\",\"Pollo con verduras y queso batido al papillote\",\"Arroz tres delicias\",\"Pollo con verduras y queso batido al papillote\",\"Salmu00f3n al horno con salsa de yogur\"]');
-
---
--- Volcado de datos para la tabla `dietas`
+-- Truncar tablas antes de insertar `dieta`
 --
 
-INSERT INTO `dietas` (`objetivo`, `descripcion`, `tipo`) VALUES
-(1, 'Copos de avena con leche', 'Desayuno'),
-(1, 'Espinacas con pollo plancha', 'Comida'),
-(1, 'Crema de calabaza y gallo', 'Cena'),
-(1, 'Pollo asado y judias verdes', 'Comida'),
-(1, 'Menestra de verduras y salmon', 'Cena'),
-(2, 'Tosta de huevos y tomate', 'Desayuno'),
-(2, 'Tortitas de arroz', 'Desayuno'),
-(2, 'Tosta de huevos y tomate', 'Desayuno'),
-(1, 'Leche desnatada con avena', 'Desayuno'),
-(1, 'Yogur con copos de avena', 'Desayuno'),
-(1, 'Tortitas de avena', 'Desayuno'),
-(2, 'Porridge de avena y frutos secos', 'Desayuno'),
-(2, 'Requeson con fruta', 'Desayuno'),
-(2, 'Sandwich de queso gouda con huevo duro', 'Desayuno'),
-(2, 'Batido de platano y avena', 'Desayuno'),
-(3, 'Smoothie Bowls', 'Desayuno'),
-(3, 'Hotcakes de avena y quinoa', 'Desayuno'),
-(3, 'Pudin', 'Desayuno'),
-(3, 'Wrap de pavo', 'Desayuno'),
-(1, 'Ensalada de calabacin a la plancha', 'Comida'),
-(1, 'Albondigas de merluza y brocoli', 'Comida'),
-(1, 'Pechuga de pollo con soja y verduras salteadas', 'Comida'),
-(1, 'Caldo de verduras con tortilla francesa', 'Comida'),
-(2, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Comida'),
-(2, 'Wok de verduras al curry con tiras de pollo', 'Comida'),
-(2, 'Berenjena y calabacin asado con pimenton dulce', 'Comida'),
-(2, 'Pure de calabaza con patata hervida', 'Comida'),
-(2, 'Tomates rellenos de lentejas', 'Comida'),
-(2, 'Revuelto de gambas y champiñones', 'Comida'),
-(2, 'Pollo picante con cuscus', 'Cena'),
-(2, 'Ensalada campera', 'Comida'),
-(2, 'Merluza a la plancha con ensalada', 'Cena'),
-(3, 'Pollo con verduras y queso batido al papillote', 'Cena'),
-(3, 'Salmon al horno con salsa de yogur', 'Cena'),
-(3, 'Sopa de pasta y hamburguesa con naranja picada', 'Cena'),
-(3, 'Crema de verduras y pechuga de pollo con manzana', 'Cena'),
-(3, 'Croquetas de pescado con pure de patata', 'Cena'),
-(3, 'Pollo a la naranja', 'Cena'),
-(3, 'Garbanzos con espinacas', 'Cena'),
-(3, 'Arroz tres delicias', 'Cena'),
-(1, 'Ensalada de patata hervida, tomate, pepino y huevo duro', 'Cena'),
-(1, 'Wok de verduras al curry con tiras de pollo', 'Cena'),
-(2, 'Hamburguesa de jamon york con mayonesa y queso', 'Cena'),
-(2, 'Minipizza cuatro quesos con naranja troceada', 'Cena'),
-(3, 'Pollo con almendras chino', 'Comida'),
-(3, 'Atún a la plancha con ajo y perejil', 'Comida');
+TRUNCATE TABLE `dieta`;
+--
+-- Truncar tablas antes de insertar `ejercicios`
+--
 
+TRUNCATE TABLE `ejercicios`;
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
@@ -166,14 +182,22 @@ INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
 ('Espalda', 'Remo en T'),
 ('Espalda', 'Remo con barra'),
 ('Espalda', 'Renegade row');
+--
+-- Truncar tablas antes de insertar `planificacion`
+--
 
+TRUNCATE TABLE `planificacion`;
 --
 -- Volcado de datos para la tabla `planificacion`
 --
 
 INSERT INTO `planificacion` (`id_usuario`, `rutina`, `eobjetivo`, `dias`, `nivel`) VALUES
 (1, '[[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\"],[\"Jalon\",\"Remo en T\",\"Curl spider\",\"Predicador\"],[\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"],[\"Press banca\",\"Aperturas con mancuernas\",\"Elevacion lateral\",\"Press hombro\",\"Jalon\",\"Remo en T\"],[\"Curl spider\",\"Predicador\",\"Sentadilla\",\"Prensa\",\"Fondos\",\"Press frances\"]]', 1, 5, 'P');
+--
+-- Truncar tablas antes de insertar `usuario`
+--
 
+TRUNCATE TABLE `usuario`;
 --
 -- Volcado de datos para la tabla `usuario`
 --
