@@ -29,16 +29,16 @@ class  ChatEntrenador {
         $BDLogros =  mysqli_fetch_array($consulta);
         $cadena = explode(",",$BDLogros["usuarios"]);
         foreach($cadena as $usuario){
-            $rts = $rts ."<option value='$usuario'>$usuario</option>";
+            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
         }
         return $rts;
     }
 
     function mostrarChat(){
         $BD = Aplicacion::getInstance()->getConexionBd();
-        //$usuactual = $_SESSION["alias"];
+        $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
-        $usuactual = "Pintus";
+       
 
         $dataChat = "";
 

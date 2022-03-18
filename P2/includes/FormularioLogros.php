@@ -12,7 +12,7 @@ class FormularioLogros extends Formulario {
         $BDLogros =  mysqli_fetch_array($consulta);
         $cadena = explode(",",$BDLogros["usuarios"]);
         foreach($cadena as $usuario){
-            $rts = $rts ."<option value='$usuario'>$usuario</option>";
+            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
         }
         return $rts;
     }
