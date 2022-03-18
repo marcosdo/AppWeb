@@ -65,6 +65,7 @@ class FormularioLogin extends Formulario {
                 $_SESSION['alias'] = $nutri->getAlias();
                 $_SESSION['id'] = $nutri->getId();
                 $_SESSION['nutri'] = true;
+            }
         }
     }
 }
