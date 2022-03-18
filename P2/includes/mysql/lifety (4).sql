@@ -75,7 +75,7 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 --
 
 INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`, `usuarios`, `num_usuarios`, `id_profesional`) VALUES
-('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', 'Kylian', 1, 1);
+('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', '', 1, 1);
 
 --
 --
@@ -179,7 +179,8 @@ INSERT INTO `planificacion` (`id_usuario`, `rutina`, `eobjetivo`, `dias`, `nivel
 --
 
 INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `usuario`, `premium`, `id_usuario`) VALUES
-('Alexin', 'Magarzo', 'amagarzo@ucm.es', '$2y$10$N4nhU68Ap/9gclz95Q416eiFSDw2Pb71oqlTDgX9Rw3XKFL96WuNq', 'Alexin', 0, 1);
+('Kylian', 'Mbappe', 'rmcf', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Floren', 0, 1),
+('Alexin', 'Magarzo', 'amagarzo@ucm.es', '$2y$10$N4nhU68Ap/9gclz95Q416eiFSDw2Pb71oqlTDgX9Rw3XKFL96WuNq', 'Alexin', 0, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
