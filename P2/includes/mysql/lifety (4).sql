@@ -69,7 +69,15 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`) VALUES
 (33, 2, 'Cena', 'Minipizza cuatro quesos con naranja troceada'),
 (34, 3, 'Comida', 'Pollo con almendras chino'),
 (35, 3, 'Comida', 'Atún a la plancha con ajo y perejil');
+--
+--
+-- Volcado de datos para la tabla `profesional`
+--
 
+INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`, `usuarios`, `num_usuarios`, `id_profesional`) VALUES
+('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', 'Kylian', 1, 1);
+
+--
 --
 -- Volcado de datos para la tabla `dieta`
 --
