@@ -64,11 +64,16 @@ class FormularioRutinas extends Formulario {
         htmlspecialchars(trim(strip_tags($_POST["rutina"])));
         // dias = INT: [3, 5]
         htmlspecialchars(trim(strip_tags($_POST["dias"])));
+
+        $nivel      = trim($datos["nivel"] ?? '');
+        $objetivo   = trim($datos["rutina"] ?? '');
+        $dias       = trim($datos["dias"] ?? '');
         // Si los datos existen los mete en variables
+        /*  
         $nivel      = isset($_POST["nivel"])    ? $_POST["nivel"]   : null;
         $objetivo   = isset($_POST["rutina"])   ? $_POST["rutina"]  : null;
         $dias       = isset($_POST["dias"])     ? $_POST["dias"]    : null;
-
+        */
         if ($objetivo != '1' && $objetivo != '2' && $objetivo != '3') 
             $this->errores['objetivo'] = 'El objetivo no es válido.';
         if($nivel != 'P' && $nivel != 'M' && $nivel != 'A')
@@ -79,7 +84,6 @@ class FormularioRutinas extends Formulario {
         if (count($this->errores) === 0) {
             $rutina = new Rutina ($_SESSION['id'], $objetivo, $nivel, $dias);
             $rutina->comprobarRutina();
-         //Rutina::comprobarRutina("titofloren", $objetivo, $nivel, $dias);
         }
     }
 }

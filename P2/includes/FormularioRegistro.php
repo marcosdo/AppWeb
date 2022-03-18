@@ -94,8 +94,7 @@ class FormularioRegistro extends Formulario {
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['id'] = $usuario->getId();
                 $_SESSION['alias'] = $usuario->getAlias();
-                header('Location: index.php');
-                exit();
+                $_SESSION['premium'] = $usuario->getPremium();
             }
         }
     }

@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioPago extends Formulario {
     public function __construct() {
-        parent::__construct('formPago', ['urlRedireccion' => 'entrenadorPersonalUsu.php']);
+        parent::__construct('formPago', ['urlRedireccion' => 'EntrenadorPersonalUsu.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
@@ -78,10 +78,6 @@ class FormularioPago extends Formulario {
                     if(!Nutri::nuevoCliente($nutri->getUsuarios().$_SESSION['nombre'], $nutri->getNum_usuarios() + 1, $nutri->getId())) $this->errores[] = "No se ha añadido al usuario al profesional";
                     else {
                         if(!Usuario::setPremium($_SESSION['id'])) $this->errores[] = "No se ha actualizado a premium al usuario";
-                        else {
-                            header('Location: EntrenadorPersonalUsu.php');
-                            exit();
-                        }
                     }
                 }
             }

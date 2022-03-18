@@ -25,7 +25,15 @@ class Premium {
    
     private static function inserta($premium) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query= "INSERT INTO premium (peso, altura, alergias, observaciones_adicionales, num_logros, logros, id_usuario, id_profesional) VALUES ('$premium->peso', '$premium->altura', '$premium->alergias', '$premium->observaciones', '$premium->num_logros', '$premium->logros', '$premium->id_usuario', '$premium->id_profesional')";
+        $query= sprintf("INSERT INTO premium (peso, altura, alergias, observaciones_adicionales, num_logros, logros, id_usuario, id_profesional) VALUES ('%d', '%d', '%s', '%s', '%d', '%s', '%d', '%d')",
+        $premium->peso,
+        $premium->altura,
+        $conn->real_escape_string($premium->alergias),
+        $conn->real_escape_string($premium->observaciones),
+        $premium->num_logros,
+        $conn->real_escape_string($premium->logros),
+        $premium->id_usuario,
+        $premium->id_profesional);
         if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         return false;
