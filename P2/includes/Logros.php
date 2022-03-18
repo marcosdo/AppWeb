@@ -7,7 +7,7 @@ class  Logros {
     function __construct() {
     }
     
-    function LogrosImg($EnumLogros,$BD){
+    function LogrosImg($EnumLogros){
         $rts = "";
 		$logro = "";
 		
@@ -26,18 +26,21 @@ class  Logros {
 		return $rts;
     }
     function mostrarLogros(){
-        $BD = Aplicacion::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
         //$usuactual = "Usuario1";
          
-        $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
-        $usu =  mysqli_fetch_array($consulta);
-        $numLogros = $usu["num_logros"];
-	    $EnumLogros = $usu["logros"];
-
+       /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
+        $usu =  mysqli_fetch_array($consulta);*/
+        $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
+        $numLogros = $fila["num_logros"];
+	    $EnumLogros = $fila["logros"];
+        $rs->free();
         
-        $imaginesLogros = self::LogrosImg($EnumLogros,$BD);
+        $imaginesLogros = self::LogrosImg($EnumLogros);
         $contenidoPrincipal = <<<EOF
         <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
         <div id = 'selectA'>
