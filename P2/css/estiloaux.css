@@ -205,7 +205,7 @@ table {
 }
 table#tabla-dietas{
 	word-wrap: break-word;
-	table-layout: fixed;
+	/*table-layout: fixed;*/
 }
 caption {
 	text-align: center;
