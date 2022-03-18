@@ -101,11 +101,7 @@ CREATE TABLE IF NOT EXISTS `ejercicios` (
 DROP TABLE IF EXISTS `planificacion`;
 CREATE TABLE IF NOT EXISTS `planificacion` (
   `id_usuario` int(5) NOT NULL,
-  `desayunos` text DEFAULT NULL,
-  `comidas` text DEFAULT NULL,
-  `cenas` text DEFAULT NULL,
   `rutina` text DEFAULT NULL,
-  `dobjetivo` int(1) DEFAULT NULL,
   `eobjetivo` int(1) DEFAULT NULL,
   `dias` int(1) DEFAULT NULL,
   `nivel` char(1) DEFAULT NULL,
