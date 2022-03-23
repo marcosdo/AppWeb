@@ -171,31 +171,31 @@ TRUNCATE TABLE `ejercicios`;
 -- Volcado de datos para la tabla `ejercicios`
 --
 
-INSERT INTO `ejercicios` (`musculo`, `nombre`) VALUES
-('Hombro', 'Elevacion lateral'),
-('Hombro', 'Press hombro'),
-('Hombro', 'Remo al menton'),
-('Hombro', 'Press militar'),
-('Pierna', 'Sentadilla'),
-('Pierna', 'Prensa'),
-('Pierna', 'Extension de cuadriceps'),
-('Pierna', 'Hip thrust'),
-('Pecho', 'Press banca'),
-('Pecho', 'Aperturas con mancuernas'),
-('Pecho', 'Press banca inclinado'),
-('Pecho', 'Maquina de empuje'),
-('Triceps', 'Fondos'),
-('Triceps', 'Press frances'),
-('Triceps', 'Extensiones'),
-('Triceps', 'Barras paralelas'),
-('Biceps', 'Curl spider'),
-('Biceps', 'Predicador'),
-('Biceps', 'Martillo'),
-('Biceps', 'Chin-ups'),
-('Espalda', 'Jalon'),
-('Espalda', 'Remo en T'),
-('Espalda', 'Remo con barra'),
-('Espalda', 'Renegade row');
+INSERT INTO `ejercicios` (`id_ejercicio`,`musculo`, `nombre`) VALUES
+(0,'Hombro', 'Elevacion lateral'),
+(1,'Hombro', 'Press hombro'),
+(2,'Hombro', 'Remo al menton'),
+(3,'Hombro', 'Press militar'),
+(4,'Pierna', 'Sentadilla'),
+(5,'Pierna', 'Prensa'),
+(6,'Pierna', 'Extension de cuadriceps'),
+(7,'Pierna', 'Hip thrust'),
+(8,'Pecho', 'Press banca'),
+(9,'Pecho', 'Aperturas con mancuernas'),
+(10,'Pecho', 'Press banca inclinado'),
+(11,'Pecho', 'Maquina de empuje'),
+(12,'Triceps', 'Fondos'),
+(13,'Triceps', 'Press frances'),
+(14,'Triceps', 'Extensiones'),
+(15,'Triceps', 'Barras paralelas'),
+(16,'Biceps', 'Curl spider'),
+(17,'Biceps', 'Predicador'),
+(18,'Biceps', 'Martillo'),
+(19,'Biceps', 'Chin-ups'),
+(20,'Espalda', 'Jalon'),
+(21,'Espalda', 'Remo en T'),
+(22,'Espalda', 'Remo con barra'),
+(23,'Espalda', 'Renegade row');
 
 --
 -- Truncar tablas antes de insertar `planificacion`

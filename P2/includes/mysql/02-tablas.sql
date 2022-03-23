@@ -75,8 +75,10 @@ CREATE TABLE IF NOT EXISTS `dieta` (
 
 DROP TABLE IF EXISTS `ejercicios`;
 CREATE TABLE IF NOT EXISTS `ejercicios` (
+  `id_ejercicio` int(5) NOT NULL,
   `musculo` varchar(40) DEFAULT NULL,
-  `nombre` varchar(40) DEFAULT NULL
+  `nombre` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_ejercicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -152,6 +154,34 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rutina`
+--
+
+DROP TABLE IF EXISTS `rutina`;
+CREATE TABLE IF NOT EXISTS `rutina` (
+  `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
+  `activa` int(1) NOT NULL,
+  `id_usuario` int(5) NOT NULL,
+  PRIMARY KEY (`id_rutina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estructura de tabla para la tabla `contiene`
+--
+
+CREATE TABLE `contiene` (
+  `id_rutina` int(5) NOT NULL,
+  `id_ejercicio` int(5) NOT NULL,
+  `dia` int(1) NOT NULL,
+  `repeticiones` int(2) NOT NULL,
+  PRIMARY KEY (`id_rutina`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -161,6 +191,19 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 ALTER TABLE `planificacion`
   ADD CONSTRAINT `Usu_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `rutina`
+--
+ALTER TABLE `rutina`
+  ADD CONSTRAINT `U_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `contiene`
+--
+ALTER TABLE `contiene`
+  ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Rutina_FK` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id_rutina`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `premium`
