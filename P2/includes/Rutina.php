@@ -10,58 +10,70 @@ class Rutina {
     private $_dias;
     private $_muscs;
     private $array;
-
+    private $_id_rutina;
 
     public function comprobarRutina() { 
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM planificacion WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+        $query = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
         $rs = $conn->query($query); 
         if($rs){
-            if($rs->num_rows > 0){
-                $fila = $rs->fetch_assoc();
-                if($fila['eobjetivo'] != $this->_objetivo || $fila['nivel'] != $this->_nivel || 
-                    $fila['dias'] != $this->_dias)
+            if($rs->num_rows > 0){ // el usuario esta en la tabla rutina
+                while($fila = $rs->fetch_assoc()){
+                    if($fila['activa']){
+                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina' = '%d",  false, $fila['id_rutina']); // desactivar la activa la rutina activa
+                        if ($conn->query($query)) return true;
+                    }
+                } 
+                $antigua = false;
+                while($fila = $rs->fetch_assoc()){
+                     if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias) {
+                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina' = '%d",  true, $fila['id_rutina']); // comprueba si la nueva rutina es igual que una antigua
+                        if ($conn->query($query)) return true;
+                        $antigua = true;
+                     }
+                }
+                if($antigua == false){
                     $this->crearRutina(true);
-                    $rs->free();
+    
+                }
+            }   
+            else{ // no esta el usuario y lo inserta
+                $this->_id_rutina = 1;
+                $query = sprintf("INSERT INTO rutina (id_rutina, activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', '%d', 
+                '%s', '%d','%d')",1, true, $this->_id,  $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
+        
+                 if ($conn->query($query)){
+                     $this->_id_rutina = $conn->insert_id;
+                 } return true;
+           
+                $this->crearRutina(true);
             }
-            else {
-                $this->crearRutina(false); 
-                $rs->free();
-            }
+           
+            $rs->free();
         }
         else error_log("Error BD ({$this->conn->errno}): {$this->conn->error}");
         
     }
 
     private function crearRutina($update){
-        $conn = Aplicacion::getInstance()->getConexionBd();
         $cont = 1;  
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
         for ($i = 1; $i < $this->_dias+1; $i++) {
+            
             $arrayaux = array();
             if ($i == 4) $cont = 1;
             if ($i >= 1 && $i <= 3) {
-               $this->fill_array($cont, 2, $arrayaux);
+               $this->fill_array($cont, 2, $i);
             }
             else {
-                $this->fill_array($cont, 3, $arrayaux);
+                $this->fill_array($cont, 3, $i);
             }
-           array_push($this->_array, $arrayaux);
         }
-        $guardar = json_encode($this->_array);
-        if(!$update) {
-            $query = sprintf("INSERT INTO planificacion (id_usuario, rutina, eobjetivo, dias, nivel) VALUES ('%d', '%s', '%d', 
-            '%d', '%s')", $this->_id, $conn->real_escape_string($guardar), $this->_objetivo, $this->_dias, $conn->real_escape_string($this->_nivel));
-        }
-        else{
-            $query = sprintf("UPDATE planificacion SET planificacion.rutina = '%s', planificacion.nivel = '%s' , planificacion.dias = '%d',  
-            planificacion.eobjetivo = '%d'", $conn->real_escape_string($guardar), $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
-        }
-        if ($conn->query($query)) return true;
-        else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
 
-    private function fill_array(&$cont, $nveces , &$arrayaux) {
+    private function fill_array(&$cont, $nveces, $dia) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         for ($i = 0; $i < $nveces; $i++){
             $j = 0;
@@ -70,7 +82,9 @@ class Rutina {
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()){
                 if($j < $this->_ejerciciosdia){
-                    array_push($arrayaux, $fila['nombre']); 
+                    $query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
+                    '%d',)", 1, $fila['id_ejercicio'], $dia, 10);
+                    if ($conn->query($query)) return true;
                 } 
                 $j++;
             }
