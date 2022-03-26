@@ -160,12 +160,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Estructura de tabla para la tabla `rutina`
 --
 
-DROP TABLE IF EXISTS `rutina`;
-CREATE TABLE IF NOT EXISTS `rutina` (
-  `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
-  `activa` int(1) NOT NULL,
+CREATE TABLE `rutina` (
+  `id_rutina` int(5) NOT NULL,
+  `activa` tinyint(1) NOT NULL,
   `id_usuario` int(5) NOT NULL,
-  PRIMARY KEY (`id_rutina`)
+  `nivel` char(1) DEFAULT NULL,
+  `dias` int(1) DEFAULT NULL,
+  `objetivo` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -176,8 +177,7 @@ CREATE TABLE `contiene` (
   `id_rutina` int(5) NOT NULL,
   `id_ejercicio` int(5) NOT NULL,
   `dia` int(1) NOT NULL,
-  `repeticiones` int(2) NOT NULL,
-  PRIMARY KEY (`id_rutina`)
+  `repeticiones` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
