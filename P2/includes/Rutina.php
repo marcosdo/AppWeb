@@ -20,14 +20,14 @@ class Rutina {
             if($rs->num_rows > 0){ // el usuario esta en la tabla rutina
                 while($fila = $rs->fetch_assoc()){
                     if($fila['activa']){
-                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina' = '%d",  false, $fila['id_rutina']); // desactivar la activa la rutina activa
+                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina = '%d'",  false, $fila['id_rutina']); // desactivar la activa la rutina activa
                         if ($conn->query($query)) return true;
                     }
                 } 
                 $antigua = false;
                 while($fila = $rs->fetch_assoc()){
                      if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias) {
-                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina' = '%d",  true, $fila['id_rutina']); // comprueba si la nueva rutina es igual que una antigua
+                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina = '%d'",  true, $fila['id_rutina']); // comprueba si la nueva rutina es igual que una antigua
                         if ($conn->query($query)) return true;
                         $antigua = true;
                      }
@@ -83,7 +83,7 @@ class Rutina {
             while ($fila = $rs->fetch_assoc()){
                 if($j < $this->_ejerciciosdia){
                     $query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
-                    '%d',)", 1, $fila['id_ejercicio'], $dia, 10);
+                    '%d')", 1, true, $this->_id,  $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
                     if ($conn->query($query)) return true;
                 } 
                 $j++;
