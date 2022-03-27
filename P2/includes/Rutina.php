@@ -42,16 +42,17 @@ class Rutina {
          
                 $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', 
                 '%s', '%d','%d')", true, $this->_id,  $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
-                $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
-                $rs = $conn->query($q);
-                $fila = $rs->fetch_assoc();
-                $this->_id_rutina = $fila['id_rutina'];
+                if ($conn->query($query)){} 
 
+                $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+                $rs = $conn->query($q); 
+                $fila = $rs->fetch_assoc();
+                if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias){
+                $this->_id_rutina = $fila['id_rutina'];
+                }
+            
                 $this->crearRutina(true);
-                if ($conn->query($query)){
-                    $this->_id_rutina = $conn->insert_id;
-                   
-                } return true;
+                return true;
 
             }
            
@@ -63,14 +64,13 @@ class Rutina {
 
     private function crearRutina($update){
         $cont = 1;  
-        $conn = Aplicacion::getInstance()->getConexionBd();
+      //  $conn = Aplicacion::getInstance()->getConexionBd();
         
         for ($i = 1; $i < $this->_dias+1; $i++) {
             
-            $arrayaux = array();
             if ($i == 4) $cont = 1;
             if ($i >= 1 && $i <= 3) {
-               $this->fill_array($cont, 2, $i);
+               $this->fill_array($cont, 2, $i); //1,2,1
                
             }
             else {
@@ -82,25 +82,17 @@ class Rutina {
 
     private function fill_array(&$cont, $nveces, $dia) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        
-        for ($i = 0; $i < $nveces; $i++){
-           
+        for ($i = 0; $i < $nveces; $i++){ //2
             $j = 0;
             $musculo = $this->_muscs[$cont];
             $query = sprintf("SELECT * FROM ejercicios WHERE musculo = '%s'", $conn->real_escape_string($musculo)); 
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()){
-                /*$aux ="2022-03-15 16:48:53";
-                $query= sprintf("INSERT INTO chat (Receptor, Origen, Contenido, Tiempo, Tipo) VALUES ('%s', '%s', '%s', 
-                '%s')", 1, 1, 2, $aux, "U-E");
-                if ($conn->query($query)) return true;*/
                 if($j < 2){
                     $query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
-                    '%d')", $this->_id_rutina, 1, 3, 10);
-                    if ($conn->query($query)) return true;
-                    
+                    '%d')",  $this->_id_rutina , $fila['id_ejercicio'], $dia, 10);
+                     if ($conn->query($query));
                 } 
-
                 $j++;
             }
             $rs->free();

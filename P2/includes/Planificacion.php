@@ -12,21 +12,67 @@ Nº series: 3
     public function __construct() {}
     public function mostrar(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d', rutina.activa = '%d'", $_SESSION['id'], 1);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $_SESSION['id']);
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $objetivo = $fila['objetivo'];
-        $rutinaid = $fila['id_rutina'];
-        $query = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
-        $rs = $conn->query($query); 
-        $arrayaux = [];
-        while($fila = $rs->fetch_assoc()){
+        while( $fila = $rs->fetch_assoc()){
+            if($fila['activa'] == true){
+                $objetivo = $fila['objetivo'];
+                $rutinaid = $fila['id_rutina'];
+            }
         }
+        $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
+        $t = $conn->query($q); 
+        $arrayaux = [];
+        $dia1 = array();
+        $dia2 = array();
+        $dia3 = array();
+        $dia4 = array();
+        $dia5 = array();
+    
+        while($fila = $t->fetch_assoc()){
+        
+            if($fila['dia'] == 1){
+                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                $rs = $conn->query($c);
+                $fila = $rs->fetch_assoc();
+                array_push($dia1, $fila['nombre']);
+            }
+            else if ($fila['dia'] == 2){
+                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                $rs = $conn->query($c);
+                $fila = $rs->fetch_assoc();
+                array_push($dia2, $fila['nombre']);
+            }
+            else if ($fila['dia'] == 3){
+                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                $rs = $conn->query($c);
+                $fila = $rs->fetch_assoc();
+                array_push($dia3, $fila['nombre']);
+            }
+            else if ($fila['dia'] == 4){
+                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                $rs = $conn->query($c);
+                $fila = $rs->fetch_assoc();
+                array_push($dia4, $fila['nombre']);
+            }
+            else{
+                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                $rs = $conn->query($c);
+                $fila = $rs->fetch_assoc();
+                array_push($dia5, $fila['nombre']);
+            }
+        }
+        if(!empty($dia1)) array_push($arrayaux, $dia1);
+        if(!empty($dia2)) array_push($arrayaux, $dia2);
+        if(!empty($dia3)) array_push($arrayaux, $dia3);
+        if(!empty($dia4)) array_push($arrayaux, $dia4);
+        if(!empty($dia5)) array_push($arrayaux, $dia5);
 
-       // $arrayaux = json_decode($fila['rutina']);
         $rs->free();
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $contenido = "<caption>Rutina de entrenamiento:</caption><tr>";
+
+
         for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
             $contenido .= "<th>Día $i </th>";
         }
