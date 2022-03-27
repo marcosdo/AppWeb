@@ -16,7 +16,7 @@ class Rutina {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
         $rs = $conn->query($query); 
-        
+       
         if($rs){
             if($rs->num_rows > 0){ // el usuario esta en la tabla rutina
                 while($fila = $rs->fetch_assoc()){
@@ -39,14 +39,20 @@ class Rutina {
                 }
             }   
             else{ // no esta el usuario y lo inserta
-                $this->_id_rutina = 1;
+         
                 $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', 
                 '%s', '%d','%d')", true, $this->_id,  $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
+                $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+                $rs = $conn->query($q);
+                $fila = $rs->fetch_assoc();
+                $this->_id_rutina = $fila['id_rutina'];
 
                 $this->crearRutina(true);
                 if ($conn->query($query)){
-                    $this->_id_rutina = mysqli_insert_id($conn);
+                    $this->_id_rutina = $conn->insert_id;
+                   
                 } return true;
+
             }
            
             $rs->free();
@@ -84,16 +90,15 @@ class Rutina {
             $query = sprintf("SELECT * FROM ejercicios WHERE musculo = '%s'", $conn->real_escape_string($musculo)); 
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()){
-                $query= sprintf("INSERT INTO mensajes (Receptor, Origen, Contenido, Tiempo, Tipo) VALUES ('%s', '%s', '%s', 
-                '%s')", $this->_id_rutina, 1, 2, '2022-03-15 16:48:53', 10);
-                if ($conn->query($query)) return true;
+                /*$aux ="2022-03-15 16:48:53";
+                $query= sprintf("INSERT INTO chat (Receptor, Origen, Contenido, Tiempo, Tipo) VALUES ('%s', '%s', '%s', 
+                '%s')", 1, 1, 2, $aux, "U-E");
+                if ($conn->query($query)) return true;*/
                 if($j < 2){
                     $query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
                     '%d')", $this->_id_rutina, 1, 3, 10);
                     if ($conn->query($query)) return true;
-                    /*$query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
-                    '%d')", $this->_id_rutina, $fila['id_ejercicio'], $dia, 10);*/
-                    //if ($conn->query($query))return true;
+                    
                 } 
 
                 $j++;
