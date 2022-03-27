@@ -12,11 +12,18 @@ Nº series: 3
     public function __construct() {}
     public function mostrar(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM planificacion WHERE planificacion.id_usuario = '%d'", $_SESSION['id']);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d', rutina.activa = '%d'", $_SESSION['id'], 1);
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
-        $objetivo = $fila['eobjetivo'];
-        $arrayaux = json_decode($fila['rutina']);
+        $objetivo = $fila['objetivo'];
+        $rutinaid = $fila['id_rutina'];
+        $query = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
+        $rs = $conn->query($query); 
+        $arrayaux = [];
+        while($fila = $rs->fetch_assoc()){
+        }
+
+       // $arrayaux = json_decode($fila['rutina']);
         $rs->free();
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $contenido = "<caption>Rutina de entrenamiento:</caption><tr>";
