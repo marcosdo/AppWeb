@@ -59,6 +59,8 @@ class FormularioDietas extends Formulario {
         if (count($this->errores) === 0) {
             // Crea una instancia de dieta
             $class_dieta = Dieta::Dieta_ConstructorFalso($tipo_dieta);
+            if (!$class_dieta)
+                $this->errores['class-dieta'] = 'ERROR: procesa formulario de dietas. No se ha podido crear una dieta';
         }
     }
 }
