@@ -11,30 +11,44 @@ class Rutina {
     private $_muscs;
     private $array;
     private $_id_rutina;
+    private $antigua;
 
     public function comprobarRutina() { 
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+        $query = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $this->_id);
         $rs = $conn->query($query); 
        
         if($rs){
             if($rs->num_rows > 0){ // el usuario esta en la tabla rutina
-                while($fila = $rs->fetch_assoc()){
-                    if($fila['activa']){
-                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina = '%d'",  false, $fila['id_rutina']); // desactivar la activa la rutina activa
-                        if ($conn->query($query)) return true;
-                    }
+                while($fila = $rs->fetch_assoc()){ //desactivar los activa
+                    $desactiva = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_usuario ='%d'",  false, $this->_id); // desactivar la activa la rutina activa
+                    $conn->query($desactiva);
                 } 
+               
                 $antigua = false;
-                while($fila = $rs->fetch_assoc()){
+                $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $this->_id);
+                $res = $conn->query($q);
+                while($fila = $res->fetch_assoc()){ //ya tiene una rutina igual
                      if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias) {
-                        $query = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina = '%d'",  true, $fila['id_rutina']); // comprueba si la nueva rutina es igual que una antigua
-                        if ($conn->query($query)) return true;
+                        $mismarutina = sprintf("UPDATE rutina SET rutina.activa = '%d' WHERE rutina.id_rutina = '%d'",  true, $fila['id_rutina']); // comprueba si la nueva rutina es igual que una antigua
+                        $this->_id_rutina = $fila['id_rutina'];
+                        if ($conn->query($mismarutina));
                         $antigua = true;
                      }
                 }
-                if($antigua == false){
-                    $this->crearRutina(true);
+                if($antigua == false){ //el usuario no tiene una rutina igual en la bd
+                    $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', 
+                    '%s', '%d','%d')", true, $this->_id,  $conn->real_escape_string($this->_nivel), $this->_dias, $this->_objetivo);
+                    if ($conn->query($query)){} 
+                    $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
+                    $rs = $conn->query($q); 
+                    while($fila = $rs->fetch_assoc()){
+                        if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias){
+                             $this->_id_rutina = $fila['id_rutina'];
+                    }
+                    
+                }
+                $this->crearRutina(true);
     
                 }
             }   
@@ -46,14 +60,12 @@ class Rutina {
 
                 $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($this->_id));
                 $rs = $conn->query($q); 
-                $fila = $rs->fetch_assoc();
-                if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias){
-                $this->_id_rutina = $fila['id_rutina'];
+                while($fila = $rs->fetch_assoc()){
+                    if($fila['objetivo'] == $this->_objetivo && $fila['nivel'] == $this->_nivel &&  $fila['dias'] == $this->_dias){
+                         $this->_id_rutina = $fila['id_rutina'];
                 }
-            
+             }
                 $this->crearRutina(true);
-                return true;
-
             }
            
             $rs->free();
