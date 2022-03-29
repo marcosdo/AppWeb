@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-03-2022 a las 17:01:38
+-- Tiempo de generación: 29-03-2022 a las 10:07:42
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -40,8 +41,8 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
-('Entrenador1', 'Usuario1', 'hola', '2022-03-15 16:48:53', 'U-E'),
-('Usuario1', 'Entrenador1', 'asda', '2022-03-15 17:12:41', 'E-U');
+('0', '12', 's', '2022-03-27 18:12:04', 'U-E'),
+('0', '13', 's', '2022-03-27 18:13:01', 'U-E');
 
 -- --------------------------------------------------------
 
@@ -161,6 +162,84 @@ CREATE TABLE `contiene` (
   `dia` int(1) NOT NULL,
   `repeticiones` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `contiene`
+--
+
+INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALUES
+(75, 8, 1, 10),
+(75, 9, 1, 10),
+(75, 0, 1, 10),
+(75, 1, 1, 10),
+(75, 20, 2, 10),
+(75, 21, 2, 10),
+(75, 16, 2, 10),
+(75, 17, 2, 10),
+(75, 4, 3, 10),
+(75, 5, 3, 10),
+(75, 12, 3, 10),
+(75, 13, 3, 10),
+(76, 8, 1, 10),
+(76, 9, 1, 10),
+(76, 0, 1, 10),
+(76, 1, 1, 10),
+(76, 20, 2, 10),
+(76, 21, 2, 10),
+(76, 16, 2, 10),
+(76, 17, 2, 10),
+(76, 4, 3, 10),
+(76, 5, 3, 10),
+(76, 12, 3, 10),
+(76, 13, 3, 10),
+(76, 8, 4, 10),
+(76, 9, 4, 10),
+(76, 0, 4, 10),
+(76, 1, 4, 10),
+(76, 20, 4, 10),
+(76, 21, 4, 10),
+(76, 16, 5, 10),
+(76, 17, 5, 10),
+(76, 4, 5, 10),
+(76, 5, 5, 10),
+(76, 12, 5, 10),
+(76, 13, 5, 10),
+(77, 8, 1, 10),
+(77, 9, 1, 10),
+(77, 0, 1, 10),
+(77, 1, 1, 10),
+(77, 20, 2, 10),
+(77, 21, 2, 10),
+(77, 16, 2, 10),
+(77, 17, 2, 10),
+(77, 4, 3, 10),
+(77, 5, 3, 10),
+(77, 12, 3, 10),
+(77, 13, 3, 10),
+(77, 8, 4, 10),
+(77, 9, 4, 10),
+(77, 0, 4, 10),
+(77, 1, 4, 10),
+(77, 20, 4, 10),
+(77, 21, 4, 10),
+(77, 16, 5, 10),
+(77, 17, 5, 10),
+(77, 4, 5, 10),
+(77, 5, 5, 10),
+(77, 12, 5, 10),
+(77, 13, 5, 10),
+(78, 8, 1, 10),
+(78, 9, 1, 10),
+(78, 0, 1, 10),
+(78, 1, 1, 10),
+(78, 20, 2, 10),
+(78, 21, 2, 10),
+(78, 16, 2, 10),
+(78, 17, 2, 10),
+(78, 4, 3, 10),
+(78, 5, 3, 10),
+(78, 12, 3, 10),
+(78, 13, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -308,7 +387,10 @@ CREATE TABLE `rutina` (
 --
 
 INSERT INTO `rutina` (`activa`, `id_usuario`, `nivel`, `dias`, `objetivo`, `id_rutina`) VALUES
-(1, 3, 'P', 3, 1, 6);
+(1, 3, 'P', 3, 1, 75),
+(0, 3, 'M', 5, 2, 76),
+(1, 4, 'A', 5, 3, 77),
+(0, 4, 'M', 3, 3, 78);
 
 -- --------------------------------------------------------
 
@@ -333,7 +415,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`nombre`, `apellidos`, `correo`, `password`, `usuario`, `premium`, `id_usuario`) VALUES
 ('Kylian', 'Mbappe', 'rmcf', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Floren', 1, 1),
 ('Erling', 'Halland', 'halland@lifety', '$2y$10$ZBoj.Ov4LQDcEBhTVhIso.x7y9SW3Visgbd6NFRC1g.JOBfj8wMGO', 'P$G', 0, 2),
-('Alba', 'Ramos', 'alba@ucm.es', '$2y$10$4NX/TP/xBl0g9xb04lJ5nO2ajL6wf2XMs1lVAFRVZhQzeFjic4q2i', 'alba', 0, 3);
+('Alba', 'Ramos', 'alba@ucm.es', '$2y$10$4NX/TP/xBl0g9xb04lJ5nO2ajL6wf2XMs1lVAFRVZhQzeFjic4q2i', 'alba', 0, 3),
+('Diego', 'Alvarez', 'diego@ucm.es', '$2y$10$/mtT29PXM55I1VXcDLsCDOzDnyIxkg5jUMtY.wYmwZKQua6FBiKkO', 'diego', 0, 4);
 
 --
 -- Índices para tablas volcadas
@@ -349,8 +432,8 @@ ALTER TABLE `comidas`
 -- Indices de la tabla `contiene`
 --
 ALTER TABLE `contiene`
-  ADD PRIMARY KEY (`id_rutina`),
-  ADD KEY `Ejercicio_FK` (`id_ejercicio`);
+  ADD KEY `Ejercicio_FK` (`id_ejercicio`),
+  ADD KEY `id_rutina` (`id_rutina`);
 
 --
 -- Indices de la tabla `dieta`
@@ -387,8 +470,8 @@ ALTER TABLE `profesional`
 -- Indices de la tabla `rutina`
 --
 ALTER TABLE `rutina`
-  ADD PRIMARY KEY (`id_rutina`),
-  ADD KEY `U_FK` (`id_usuario`);
+  ADD KEY `U_FK` (`id_usuario`),
+  ADD KEY `id_rutina` (`id_rutina`);
 
 --
 -- Indices de la tabla `usuario`
@@ -416,13 +499,13 @@ ALTER TABLE `profesional`
 -- AUTO_INCREMENT de la tabla `rutina`
 --
 ALTER TABLE `rutina`
-  MODIFY `id_rutina` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rutina` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -432,8 +515,7 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `contiene`
 --
 ALTER TABLE `contiene`
-  ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Rutina_FK` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id_rutina`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `planificacion`
@@ -453,6 +535,7 @@ ALTER TABLE `premium`
 --
 ALTER TABLE `rutina`
   ADD CONSTRAINT `U_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
