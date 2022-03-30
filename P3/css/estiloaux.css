@@ -1,0 +1,346 @@
+body {
+	background-color: #292a3a;
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	margin : 0;
+	padding : 0;
+}
+
+div#contenedor {
+	margin: auto;
+	background-color: #ffffff;
+}
+/*#E7E9EB;*/
+header {
+	padding: 30px;
+	height: 100px;
+	background-color: #292a3a;
+	color: #e1523d ;
+}
+
+header a, header a:visited {
+	color: #e1523d;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+header a:hover {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: underline;
+} 
+
+
+nav {
+	padding: 10px;
+	float: left;
+	width: 170px;
+	background-color: #ffffff;
+}
+
+nav a, nav a:visited {
+	color: #e1523d;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+nav a:hover {
+	color: #e1523d;
+	text-decoration: underline;
+} 
+
+nav a, nav li{
+	color: #e1523d;
+}
+
+nav a, nav h3{
+	color: #e1523d;
+}
+aside {
+	padding: 10px;
+	float: right;
+	width: 170px;
+	height: 400px;
+	background-color: #ffffff;
+}
+
+main {
+	padding: 10px;
+	float: left;
+	min-height: 600px;
+	width: 500px;
+	background-color: white;
+}
+
+footer {
+	clear: both;
+	padding: 20px;
+	background-color: #292a3a;
+	color: white;
+	text-align: center;
+}
+
+div.saludo {
+	width: 100%;
+	text-align: right;
+}
+
+fieldset {
+	border: 1px solid black;
+	margin: auto;
+}
+
+fieldset div {
+	justify-content: center;
+	margin: 5px auto;
+}
+
+legend {
+	color: #fff;
+	background: #303030;
+	border: 1px solid black;
+	padding: 2px 6px;
+} 	
+
+.form-field-error {
+	display: block;
+}
+
+.mensajes {
+	position: fixed;
+	width: 100%;
+  }
+  
+.mensaje {
+	border: 2px solid black;
+	border-radius: 5px;
+	width: 30%;
+	margin: 0.2em auto;
+	background-color: #b0f5f1;
+}
+
+.mensajes input {
+	display: none;
+}
+
+.mensaje .cabecera {
+	font-size: 2em;
+	line-height: 0.7em;
+	text-align: right;
+	padding: 0 0.1em;
+}
+
+.mensaje .contenido {
+	padding: 0.2em 1em;
+	text-align: center;
+}
+
+.mensajes input:checked + .mensaje {
+	display: none;
+}
+
+form.inline {
+	display: inline;
+}
+
+form button.enlace, form button.enlace:visited {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: inherit;
+	border: none;
+}
+
+form button.enlace:hover {
+	color: red;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+button, a.boton {
+	border: 1px solid black;
+	font-size: 0.9em;
+	font-family: Arial;
+	font-weight: 400;
+}
+
+a.boton {
+	color: inherit;
+	text-decoration: none;
+	background-color: rgb(239, 239, 239);
+	padding: 1px 6px;
+	margin: 1px 5px;
+}
+
+button, a.boton {
+	border: 1px solid black;
+	font-size: 0.9em;
+	font-family: Arial;
+	font-weight: 400;
+}
+
+.inline {
+	display: inline;
+}
+
+a.deshabilitado {
+	color: rgba(16, 16, 16, 0.3);
+}
+
+#tabla img {
+	max-width: 300px;
+	max-height: 400px;
+}
+
+div#tabla {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap : 20px;
+}
+
+table {
+    border-collapse:collapse;
+	width: 90%; /* 90% del tamano de main */
+}
+table#tabla-dietas{
+	word-wrap: break-word;
+	/*table-layout: fixed;*/
+}
+caption {
+	text-align: center;
+}
+
+td#tabla-diets {
+	font-weight: bold;
+}
+td, th {
+	text-align: center;
+	width: 25%;
+    border: rgb(255, 198, 151) 3px solid;
+	/*max-width: 33.3%; /* MAX-SIZE 1/3 del tamano de la tabla */
+}
+
+/*DIEGO*/
+
+#chat {
+	float: left;
+	width: 50%;
+	background-color: rgb(201, 0, 0);
+}
+.selectA { 
+	float: left;
+	width: 200px; 
+	height: 30px; }
+.selectB { 
+	float: right;
+	width: 200px; 
+	height: 30px; 
+}
+.buttonA { 
+	float: left;
+	width: 200px; 
+	height: 30px; 
+	background-color: #94d696;
+}
+.buttonB { 
+	float: right;
+	width: 200px; 
+	height: 30px; 
+	background-color: #c47e7e;
+}
+
+#logros {
+    margin:0 auto;
+    margin-bottom:25px;
+    padding:10px;
+    background:rgb(66, 66, 68);
+   height:270px;
+    width:430px;
+    border:1px solid #00ffe1;
+	border-width: thick;
+    overflow:auto;
+	text-align: center;
+}
+#select{
+    float: left;
+	height: 50px;
+	width: 420px;
+	text-align: center;
+}
+#selectA{
+    float: left;
+	height: 40px;
+	width: 420px;
+	text-align: left;
+}
+ 
+
+  
+form, p, span {
+    margin:0;
+    padding:0; 
+}
+ 
+#wrapper, #loginform {
+    margin:0 auto;
+    padding-bottom:25px;
+    background:rgb(66, 66, 68);
+	text-align: center;
+    width:504px;
+    border:1px solid #00ffe1;
+border-width: thick;}
+  
+
+  
+#chatbox {
+    text-align:left;
+    margin:0 auto;
+    margin-bottom:25px;
+    padding:10px;
+    overflow:auto; 
+}
+.chat{
+	background:#fff;
+    height:270px;
+    width:430px;
+    border:1px solid #ACD8F0;
+	margin-bottom:25px;
+	padding:10px;
+
+}
+#usermsg {
+    width:325px;
+    border:1px solid #ACD8F0; }
+#usermsgSelect {
+		width:60px;
+border:1px solid #ACD8F0; }
+  
+#submit { width: 60px; }
+.text {color:white;}
+.textD {color:white;
+	float: left;
+	width: 200px; 
+	height: 30px; }
+.textI {color:white;
+	float: right;
+	width: 200px; 
+	height: 30px;}
+.ButtonD {background-color:#c47e7e;
+	float: left;
+	width: 200px; 
+	height: 30px; }
+.ButtonI {background-color:#94d696;
+	float: right;
+	width: 200px; 
+	height: 30px;}
+
+.ButtonEnviar {background-color:#94d696;}
+.ButtonActua {background-color:#00ffe1;}
+.text1{
+	color:#4afb50;
+}
+.text2{
+	color:#ff5252;
+}
+.welcome { float:left;color:white }
