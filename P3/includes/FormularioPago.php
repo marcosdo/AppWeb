@@ -43,7 +43,7 @@ class FormularioPago extends Formulario {
                 {$erroresCampos['observaciones']}
             </div>
             <div>
-                <input type="submit" value="pagar" />
+                <button type="submit" name="pagar" value="pagar">Pagar</button>
             </div>
         </fieldset>
         EOF;
@@ -78,6 +78,7 @@ class FormularioPago extends Formulario {
                     if(!Nutri::nuevoCliente($nutri->getUsuarios().$_SESSION['alias'] . ",", $nutri->getNum_usuarios() + 1, $nutri->getId())) $this->errores[] = "No se ha añadido al usuario al profesional";
                     else {
                         if(!Usuario::setPremium($_SESSION['id'])) $this->errores[] = "No se ha actualizado a premium al usuario";
+                        else $_SESSION['premium'] = $usuario->getPremium();
                     }
                 }
             }

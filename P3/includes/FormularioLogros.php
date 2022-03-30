@@ -124,8 +124,8 @@ class FormularioLogros extends Formulario {
         $alert
         </h3></div>
         <div id = 'select'>
-        <input type='submit' class = 'ButtonD' name='quitarLogro' value='Quitar Logro'/>
-        <input type='submit' class = 'ButtonI' name='buttonLogro' value='Añadir Logro'/>
+        <button type="submit" name="quitarLogro">Quitar Logro</button>
+        <button type="submit" name="buttonLogro">Añadir Logro</button>
         </div>
         EOF;
 

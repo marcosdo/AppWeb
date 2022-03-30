@@ -32,7 +32,7 @@ class FormularioDietas extends Formulario {
             Comer una proporción adecuada de alimentos de los principales grupos constituye la base del bienestar cotidiano, y reducirá el riesgo de enfermedades a largo plazo. 
             </p>
             <p>
-                <input type="submit" name="enviar" value="Quiero esta dieta" class="send-button">
+                <button type="submit" name="enviar">Quiero esta dieta</button>
             </p>
         </fieldset>
         EOF;
