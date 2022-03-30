@@ -13,7 +13,7 @@ $MostrarLogros = $FormularioLogros->mostrarFormulario();
 $tituloPagina = 'Entrenador Personal';
 
 $contenidoPrincipal = <<<EOS
-<header><h1>Entrenador personal</h1></header>
+<h1>Entrenador personal</h1>
 <form method='post'>
 <div id = "logros" >
 	$MostrarLogros

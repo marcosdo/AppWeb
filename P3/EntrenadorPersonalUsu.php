@@ -10,7 +10,7 @@ $MostarLogros = $Logros->mostrarLogros();
 
 
 $contenidoPrincipal = <<<EOS
-<header><h1>Tu nutricionista</h1></header>
+<h1>Tu nutricionista</h1>
 	<div id = "logros">
 		$MostarLogros
 	</div>
