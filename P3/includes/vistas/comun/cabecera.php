@@ -10,17 +10,10 @@
 		return $html;
 	}
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	</head>
-	<body>
-		<header>
-			<h1>Bienvenido a Lifety</h1>
-			<div class="saludo">
-				<?= mostrarSaludo() ?>
-			</div>
-		</header>
-	</body>
-</html>
+
+<header>
+	<h1>Bienvenido a Lifety</h1>
+	<div class="saludo">
+		<?= mostrarSaludo() ?>
+	</div>
+</header>
