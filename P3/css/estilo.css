@@ -11,16 +11,18 @@ div#contenedor {
 	margin: auto;
 	background-color: #ffffff;
     display: grid;
-    grid-template-columns: 100%;
 	height : 100%;
-    grid-template-rows: 30% auto 10%;
+	width : 100%;
+    grid-template-rows: 180px auto 60px;
+	grid-template-columns: 10% 80% 10%;
+	grid-template-areas: "arriba arriba arriba"  "izq contenido anuncios" "abajo abajo abajo";
 }
 
 header {
 	padding: 30px;
 	background-color: #292a3a;
 	color: #e1523d ;
-	
+	grid-area: arriba;
 }
 
 header a, header a:visited {
@@ -37,8 +39,8 @@ header a:hover {
 
 nav {
 	padding: 10px;
-	float: left;
 	background-color: #ffffff;
+	grid-area: izq;
 }
 
 nav a, nav a:visited {
@@ -59,17 +61,18 @@ nav a, nav li{
 nav a, nav h3{
 	color: #e1523d;
 }
+
 aside {
 	padding: 10px;
-	float: right;
 	background-color: #ffffff;
+	grid-area: anuncios;
 }
 
 main {
 	padding: 10px;
-	margin: 50px;
-	float: left;
+	margin: 0 auto;
 	background-color: white;
+	grid-area: contenido;
 }
 
 footer {
@@ -78,6 +81,7 @@ footer {
 	background-color: #292a3a;
 	color: white;
 	text-align: center;
+	grid-area: abajo;
 }
 
 div.saludo {
@@ -126,7 +130,6 @@ div#tabla {
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
 }
-/*
 
 #tabla img {
 	max-width: 300px;
@@ -138,6 +141,8 @@ div#tabla {
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap : 20px;
 }
+
+/*
 
 table {
     border-collapse:collapse;
