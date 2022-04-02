@@ -9,20 +9,21 @@ body {
 
 div#contenedor {
 	margin: auto;
-	background-color: #ffffff;
+	background-color: #f8f9fa;
     display: grid;
 	height : 100%;
 	width : 100%;
     grid-template-rows: 180px auto 60px;
 	grid-template-columns: 10% 80% 10%;
-	grid-template-areas: "arriba arriba arriba"  "izq contenido anuncios" "abajo abajo abajo";
+	grid-template-areas: "cabecera cabecera cabecera"  "menu contenido anuncios" "pie pie pie";
 }
 
 header {
 	padding: 30px;
 	background-color: #292a3a;
 	color: #e1523d ;
-	grid-area: arriba;
+	grid-area: cabecera;
+	text-align: center;
 }
 
 header a, header a:visited {
@@ -37,10 +38,11 @@ header a:hover {
 	text-decoration: underline;
 } 
 
+
 nav {
 	padding: 10px;
-	background-color: #ffffff;
-	grid-area: izq;
+	background-color: #f8f9fa;
+	grid-area: menu;
 }
 
 nav a, nav a:visited {
@@ -64,28 +66,25 @@ nav a, nav h3{
 
 aside {
 	padding: 10px;
-	background-color: #ffffff;
+	background-color: #f8f9fa;
 	grid-area: anuncios;
 }
 
 main {
 	padding: 10px;
 	margin: 0 auto;
-	background-color: white;
+	background-color: #f8f9fa;
 	grid-area: contenido;
+	width: 80%;
 }
 
 footer {
 	clear: both;
 	padding: 20px;
 	background-color: #292a3a;
-	color: white;
+	color: #e1523d;
 	text-align: center;
-	grid-area: abajo;
-}
-
-div.saludo {
-	text-align: right;
+	grid-area: pie;
 }
 
 fieldset {
@@ -127,6 +126,57 @@ button {
 
 div#tabla {
 	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap : 20px;
+}
+
+caption{
+	color: #292a3a;
+	font-weight: bold;
+}
+
+table {
+	color: #292a3a;
+	width: 100%;
+    border: 1px solid;
+	table-layout: fixed;
+	background-color: #f8f9fa;
+	border-radius: 1em;
+}
+
+caption {
+	padding: 20px;
+	text-align: center;
+	font-size: 1.6em;
+}
+
+td, th {
+	text-align: center;
+	padding: 5px;
+	border-radius: 1em;
+}
+
+tr:hover {
+	background-color: #dddddd;
+}
+
+td:hover ,th:hover{
+	background-color: #292a3a;
+	color: #f2f2f2;
+	border-radius: 1em;
+}
+
+tr.head{
+	color:#e1523d;
+}
+
+div#repeticiones {
+	text-align: center;
+	color: #292a3a;
+}
+
+div#tabla {
+	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
 }
@@ -135,35 +185,7 @@ div#tabla {
 	max-width: 300px;
 	max-height: 400px;
 }
-
-div#tabla {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-column-gap : 20px;
-}
-
 /*
-
-table {
-    border-collapse:collapse;
-	width: 90%; 
-}
-table#tabla-dietas{
-	word-wrap: break-word;
-}
-caption {
-	text-align: center;
-}
-
-td#tabla-diets {
-	font-weight: bold;
-}
-td, th {
-	text-align: center;
-	width: 25%;
-    border: rgb(255, 198, 151) 3px solid;
-}
-
 #chat {
 	float: left;
 	width: 50%;

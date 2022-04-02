@@ -9,7 +9,7 @@ class FormularioRutinas extends Formulario {
     protected function generaCamposFormulario(&$datos) {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['dias', 'objetivo', 'rutina'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['dias', 'objetivo', 'nivel'], $this->errores, 'span', array('class' => 'error'));
 
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
@@ -17,7 +17,6 @@ class FormularioRutinas extends Formulario {
         $htmlErroresGlobales
         <fieldset id ="formrutina"> 
             <legend id="routine-plan">Rutinas</legend>
-            <form method="post" action="planificacionrutinas.php">
             <div>
                 <p> Selecciona tu nivel: </p>
                     <div>
@@ -29,30 +28,32 @@ class FormularioRutinas extends Formulario {
                     <div>
                         <input type= "radio" name="nivel" value="A"> <label for="avanzado"> Avanzado </label>
                     </div>
+                    {$erroresCampos['nivel']}
                 <div>
                     <p> Selecciona el numero de dias: <p>
                     <select name="dias" id="choose-days">
                         <option value="3">3 Días</option>
                         <option value="5">5 Días</option>
                     </select >
+                    {$erroresCampos['dias']}
                 </div>
                 <div>
                     <p> Selecciona tu objetivo de entrenamiento: <p>
-                    <select name="rutina" id="choose-routine">
+                    <select name="objetivo" id="choose-routine">
                         <option value="1">Fuerza</option>
                         <option value="2">Hipertrofia</option>
                         <option value="3">Resistencia</option>
                     </select>
+                    {$erroresCampos['objetivo']}
                 </div>
-               <div>
+                <p>
                 La actividad física regular puede mejorar la fuerza muscular y 
                 aumentar la resistencia. El ejercicio suministra oxígeno y nutrientes a 
                 los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
                 pulmonar mejora, tienes más energía para hacer las tareas diarias.
-                </div>
+                </p>
                 <button type="submit" name="enviar">Quiero esta rutina</button>
             </div>
-            </form>
         </fieldset>
         EOF;
         return $html;
@@ -65,20 +66,14 @@ class FormularioRutinas extends Formulario {
         $this->errores = [];
         // nivel = CHAR: ['P', 'M', 'A']
         htmlspecialchars(trim(strip_tags($_POST["nivel"])));
-        // rutina = INT: [1, 2, 3]
-        htmlspecialchars(trim(strip_tags($_POST["rutina"])));
+        // objetivo = INT: [1, 2, 3]
+        htmlspecialchars(trim(strip_tags($_POST["objetivo"])));
         // dias = INT: [3, 5]
         htmlspecialchars(trim(strip_tags($_POST["dias"])));
 
         $nivel      = trim($datos["nivel"] ?? '');
-        $objetivo   = trim($datos["rutina"] ?? '');
+        $objetivo   = trim($datos["objetivo"] ?? '');
         $dias       = trim($datos["dias"] ?? '');
-        // Si los datos existen los mete en variables
-        /*  
-        $nivel      = isset($_POST["nivel"])    ? $_POST["nivel"]   : null;
-        $objetivo   = isset($_POST["rutina"])   ? $_POST["rutina"]  : null;
-        $dias       = isset($_POST["dias"])     ? $_POST["dias"]    : null;
-        */
         if ($objetivo != '1' && $objetivo != '2' && $objetivo != '3') 
             $this->errores['objetivo'] = 'El objetivo no es válido.';
         if($nivel != 'P' && $nivel != 'M' && $nivel != 'A')

@@ -12,7 +12,7 @@
 ?>
 
 <header>
-	<h1>Bienvenido a Lifety</h1>
+	<h1>Lifety</h1>
 	<div class="saludo">
 		<?= mostrarSaludo() ?>
 	</div>

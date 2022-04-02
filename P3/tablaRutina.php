@@ -7,7 +7,6 @@ $htmlRutina = $plani->mostrar();
 $tituloPagina = 'Rutina';
 
 $contenidoPrincipal = <<<EOS
-<h1>Rutina de entrenamiento</h1>
 $htmlRutina
 EOS;
 

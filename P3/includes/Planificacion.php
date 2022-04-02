@@ -70,7 +70,7 @@ Nº series: 3
 
         $rs->free();
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
-        $contenido = "<caption>Rutina de entrenamiento:</caption><tr>";
+        $contenido = "<caption>Rutina de entrenamiento:</caption><tr class=head>";
 
 
         for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
@@ -85,15 +85,16 @@ Nº series: 3
             }
             $contenido .= "</tr>";
         }
+        $repeticiones = "<div id= repeticiones>";
         if($objetivo == 1){
-            $repeticiones = "Nº de repeticiones = 6.  ";
+            $repeticiones .= "<p> Nº de repeticiones = 6. </p>";
         }else if($objetivo == 2){
-            $repeticiones = "Nº de repeticiones = 10.  ";
+            $repeticiones .= "<p> Nº de repeticiones = 10. </p>";
         }
         else{
-            $repeticiones = "Nº de repeticiones = 16.  ";
+            $repeticiones .= "<p> Nº de repeticiones = 16. </p>";
         }
-        $repeticiones .= "Nº de series: 3";
+        $repeticiones .= "<p> Nº de series: 3 </p> </div>";
         $html = <<<EOF
         <table>$contenido</table>
         $repeticiones
