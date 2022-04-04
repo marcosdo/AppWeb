@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioLogros extends Formulario {
     public function __construct() {
-        parent::__construct('formLogros', ['urlRedireccion' => 'EntrenadorPersonalEnt.php']);
+        parent::__construct('formLogros', ['urlRedireccion' => 'chatprof.php']);
         
     }
     function Usuarios($entNombre){

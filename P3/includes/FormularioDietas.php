@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioDietas extends Formulario {
     public function __construct() {
-        parent::__construct('formDietas', ['urlRedireccion' => 'planificaciondietas.php']);
+        parent::__construct('formDietas', ['urlRedireccion' => 'plandieta.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {

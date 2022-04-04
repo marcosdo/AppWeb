@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioPago extends Formulario {
     public function __construct() {
-        parent::__construct('formPago', ['urlRedireccion' => 'EntrenadorPersonalUsu.php']);
+        parent::__construct('formPago', ['urlRedireccion' => 'chatusu.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {

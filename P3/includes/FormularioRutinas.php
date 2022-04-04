@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioRutinas extends Formulario {
     public function __construct() {
-        parent::__construct('formRutinas', ['urlRedireccion' => 'tablaRutina.php']);//cambiar
+        parent::__construct('formRutinas', ['urlRedireccion' => 'planrutina.php']);//cambiar
     }
     
     protected function generaCamposFormulario(&$datos) {
