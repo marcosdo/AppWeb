@@ -101,6 +101,10 @@ class FormularioRegistro extends Formulario {
                 $_SESSION['id'] = $usuario->getId();
                 $_SESSION['alias'] = $usuario->getAlias();
                 $_SESSION['premium'] = $usuario->getPremium();
+                // Mensaje POP UP ejercicio 3 anexo 1
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha registrado exitosamente', "Bienvenido $nombre"];
+                $app->putAtributoPeticion('mensajes', $mensajes);
             }
         }
     }
