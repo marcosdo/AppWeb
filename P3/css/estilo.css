@@ -135,7 +135,7 @@ caption{
 	font-weight: bold;
 }
 
-table {
+table#planificacion {
 	color: #292a3a;
 	width: 100%;
     border: 1px solid;
@@ -150,7 +150,7 @@ caption {
 	font-size: 1.6em;
 }
 
-td, th {
+#planificacion td, #planificacion th {
 	text-align: center;
 	padding: 5px;
 	border-radius: 1em;
@@ -160,19 +160,25 @@ tr:hover {
 	background-color: #dddddd;
 }
 
-td:hover ,th:hover{
+#planificacion td:hover ,#planificacion th:hover{
 	background-color: #292a3a;
 	color: #f2f2f2;
 	border-radius: 1em;
 }
 
-tr.head{
+th{
 	color:#e1523d;
 }
+
 
 div#repeticiones {
 	text-align: center;
 	color: #292a3a;
+}
+
+
+.column-hover {
+	background:#dddddd;
 }
 
 div#tabla {
