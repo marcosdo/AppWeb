@@ -95,7 +95,6 @@ Nº series: 3
             $repeticiones .= "<p> Nº de repeticiones = 16. </p>";
         }
         $repeticiones .= "<p> Nº de series: 3 </p> </div>";
-        $ruta = RUTA_JS;
         $html = <<<EOF
         <table id=planificacion>$contenido</table>
         $repeticiones

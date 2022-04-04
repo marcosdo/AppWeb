@@ -18,20 +18,12 @@ class FormularioLogin extends Formulario {
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
-            <legend>Usuario y contraseña</legend>
-            <div>
-                <label for="alias">Usuario:</label>
-                <input id="alias" type="text" name="alias" value="$alias" />
-                {$erroresCampos['alias']}
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password" />
-                {$erroresCampos['password']}
-            </div>
-            <div>
-                <button type="submit" name="login">Entrar</button>
-            </div>
+            <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
+            {$erroresCampos['alias']}
+            <input id="password" type="password" name="password" placeholder="password"/>
+            {$erroresCampos['password']}
+            <button type="submit" name="login">Entrar</button>
+            <p class="message">¿No estas registrado? <a href="">Crea una cuenta</a></p>
         </fieldset>
         EOF;
         return $html;

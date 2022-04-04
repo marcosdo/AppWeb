@@ -90,9 +90,9 @@ class PlanificacionDietas {
      */
     public function muestra_tabla() {
         $fecha = $this->_fecha;
-        $html = "<table id=\"tabla-dietas\">";
+        $html = "<table id=planificacion>";
         $html .= "<caption>Planificacion de tu dieta:</caption>";
-        $html .= "<tr>";
+        $html .= "<thead><tr>";
         // Dias de la semana 
         $html .= "<th></th>";
         for ($i = 0; $i < $this->_dias; $i++) { 
@@ -110,7 +110,7 @@ class PlanificacionDietas {
             }
             $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
         }
-        $html .= "</tr>";
+        $html .= "</tr></thead><tbody>";
         for ($i = 0; $i < 3; $i++) {
             $html .= "<tr>";
             switch ($i) {
@@ -129,7 +129,7 @@ class PlanificacionDietas {
             }
             $html .= "</tr>";
         }
-        $html .= "</table>";
+        $html .= "</tbody></table>";
         return $html;
     }
 }
