@@ -1,6 +1,8 @@
 <?php
 namespace es\ucm\fdi\aw;
 
+use Exception;
+
 class FormularioPago extends Formulario {
     public function __construct() {
         parent::__construct('formPago', ['urlRedireccion' => 'chatusu.php']);
@@ -77,8 +79,12 @@ class FormularioPago extends Formulario {
                 else {
                     if(!Nutri::nuevoCliente($nutri->getUsuarios().$_SESSION['alias'] . ",", $nutri->getNum_usuarios() + 1, $nutri->getId())) $this->errores[] = "No se ha añadido al usuario al profesional";
                     else {
-                        if(!Usuario::setPremium($_SESSION['id'])) $this->errores[] = "No se ha actualizado a premium al usuario";
-                        else $_SESSION['premium'] = $usuario->getPremium();
+                        try {
+                            Usuario::setPremium($_SESSION['id']);
+                            $_SESSION['premium'] = $usuario->getPremium();
+                        } catch (Exception $e) {
+                            $this->errores[] = "No se ha actualizado a premium al usuario";
+                        }
                     }
                 }
             }
