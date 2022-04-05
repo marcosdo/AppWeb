@@ -13,18 +13,23 @@ class FormularioLogin extends Formulario {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias', 'password'], $this->errores, 'span', array('class' => 'error'));
-
+        
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
+        $img = RUTA_IMGS;
+        $ruta = RUTA_APP;
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
+        <div class=form>
+            <div class="thumbnail">
+                <img src='$img/login.jpg' alt=thumbnail/>
+            </div>
+            <p class="error">{$erroresCampos['alias']}</p>
             <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
-            {$erroresCampos['alias']}
+            <p class="error">{$erroresCampos['password']}</p>
             <input id="password" type="password" name="password" placeholder="password"/>
-            {$erroresCampos['password']}
             <button type="submit" name="login">Entrar</button>
-            <p class="message">¿No estas registrado? <a href="">Crea una cuenta</a></p>
-        </fieldset>
+            <p class="message">¿No estas registrado? <a href='$ruta/registro.php'>Crea una cuenta</a></p>
+        </div>
         EOF;
         return $html;
     }

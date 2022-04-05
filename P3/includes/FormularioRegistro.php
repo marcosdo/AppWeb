@@ -17,45 +17,29 @@ class FormularioRegistro extends Formulario {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre', 'apellidos', 'mail', 'alias', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
-
+        $img = RUTA_IMGS;
+        $ruta = RUTA_APP;
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend>Datos para el registro</legend>
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" name="nombre" value="$nombre" />
-                {$erroresCampos['nombre']}
+        <div class=form>
+            <div class="thumbnail">
+                <img src='$img/login.jpg' alt=thumbnail/>
             </div>
-            <div>
-                <label for="apellidos">Apellidos:</label>
-                <input id="apellidos" type="text" name="apellidos" value="$apellidos" />
-                {$erroresCampos['apellidos']}
-            </div>
-            <div>
-                <label for="alias">Nombre de usuario:</label>
-                <input id="alias" type="text" name="alias" value="$alias" />
-                {$erroresCampos['alias']}
-            </div>
-            <div>
-                <label for="mail">Direccion de correo:</label>
-                <input id="mail" type="text" name="mail" value="$mail" />
-                {$erroresCampos['mail']}
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password" />
-                {$erroresCampos['password']}
-            </div>
-            <div>
-                <label for="password2">Reintroduce el password:</label>
-                <input id="password2" type="password" name="password2" />
-                {$erroresCampos['password2']}
-            </div>
-            <div>
-                <button type="submit" name="registro">Registrar</button>
-            </div>
-        </fieldset>
+            <p class="error">{$erroresCampos['nombre']}</p>
+            <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="nombre" />
+            <p class="error">{$erroresCampos['apellidos']}</p>
+            <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="apellidos" />
+            <p class="error">{$erroresCampos['alias']}</p>
+            <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
+            <p class="error">{$erroresCampos['mail']}</p>
+            <input id="mail" type="text" name="mail" value="$mail" placeholder="correo electronico" />
+            <p class="error">{$erroresCampos['password']}
+            <input id="password" type="password" name="password" placeholder="password" />
+            <p class="error">{$erroresCampos['password2']}</p>
+            <input id="password2" type="password" name="password2" placeholder="reintroduce la password" />
+            <button type="submit" name="registro">Registrar</button>
+            <p class="message">¿Ya estas registrado? <a href='$ruta/login.php'>Logeate.</a></p>
+        </div>
         EOF;
         return $html;
     }
