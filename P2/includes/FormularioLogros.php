@@ -37,9 +37,7 @@ class FormularioLogros extends Formulario {
             $idusuE = $fila["id_usuario"];
             $rs->free();
 
-           /* $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
-            $nombreusu =  mysqli_fetch_array($consulta);
-            $idusuE = $nombreusu["id_usuario"];*/
+           
 
 
             $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%s'",$idusuE);
@@ -47,9 +45,7 @@ class FormularioLogros extends Formulario {
             $fila = $rs->fetch_assoc();
             $EnumLogros = $fila["logros"];
             $rs->free();
-           /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
-            $usu = mysqli_fetch_array($consulta);
-            $EnumLogros = $usu["logros"];*/
+           
 
             if(!preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogros = $EnumLogros . "," . $logroE;
@@ -58,7 +54,7 @@ class FormularioLogros extends Formulario {
 
                 $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogros,$idusuE);
                 $rs = $conn->query($query);
-                //mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogros' WHERE id_usuario = '$idusuE' ");
+                
                 $alert = "<span class ='text1'>Completado</span>";
             } 
             else $alert = "<span class='text2'>Ya tiene este logro</span>";
@@ -73,27 +69,20 @@ class FormularioLogros extends Formulario {
             $fila = $rs->fetch_assoc();
             $idusuE = $fila["id_usuario"];
             $rs->free();
-            /*$consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
-            $nombreusu =  mysqli_fetch_array($consulta);
-            $idusuE = $nombreusu["id_usuario"];*/
+     
             $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%s'",$idusuE);
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             $EnumLogros = $fila["logros"];
             $rs->free();
-           /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
-            $usu = mysqli_fetch_array($consulta);
-            $EnumLogros = $usu["logros"];*/
-
-
-
+        
             if(preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogrosEliminado = str_replace($logroE ,'',$EnumLogros);
                 $num = $fila["num_logros"];
                 $num--;
                 $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogrosEliminado,$idusuE);
                 $rs = $conn->query($query);
-                //mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogrosEliminado' WHERE id_usuario = '$idusuE' ");
+               
                 $alert = "<span class ='text1'>Completado</span>";
             }
             else $alert = "<span class='text2'>No posee este logro</span>";

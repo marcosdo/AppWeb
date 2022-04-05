@@ -19,12 +19,7 @@ class  ChatUsuario {
 			if($chats["Tipo"] == "E-U")$data = $data . "\n". "🡸 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
 			else $data = $data . "\n". "🡺 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
 		}
-        /*$consulta = mysqli_query($BD,"SELECT * FROM chat WHERE (Origen = '$nombreUsu' AND Receptor = '$nombreEnt') OR (Origen = '$nombreEnt' AND Receptor = '$nombreUsu') ORDER BY Tiempo ASC ");
-		while($chats = mysqli_fetch_array($consulta)){
-			if($chats["Tipo"] == "E-U")$data = $data . "\n". "🡸 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
-			else $data = $data . "\n". "🡺 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
-					
-		}*/
+      
 		$rts = $rts ."<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
 		$rts = $rts . $data;
 		$rts = $rts . "</textarea>";
@@ -35,34 +30,26 @@ class  ChatUsuario {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
-        //$usuactual = "Usuario1";
 
         $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'", $id_usuario);
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
         $usuEntrenador = $fila["id_profesional"];
         $rs->free();
-        /*$consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
-        $usu =  mysqli_fetch_array($consulta);
-        $usuEntrenador = $usu["id_profesional"];*/
-
+       
 
         $query = sprintf("SELECT * FROM profesional WHERE id_profesional = '%d'", $usuEntrenador);
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
         $nombreEnt = $fila["nutri"];
         $rs->free();
-        /*$consulta = mysqli_query($BD,"SELECT * FROM profesional WHERE id_profesional = '$usuEntrenador'"); 
-        $entre =  mysqli_fetch_array($consulta);
-        $nombreEnt = $entre["nutri"];*/
-       
+        
         $dataChat = self::dataChat($usuactual,$nombreEnt);
 
         if(isset($_POST['submitmsg'])) {
             $fecha = date_create()->format('Y-m-d H:i:s');
             $query = sprintf("INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('%s','%s','%s','%s','%s')",$usuactual,$nombreEnt,$_POST["usermsg"],$fecha,'U-E'); 
             $rs = $conn->query($query);
-            // mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual ','$nombreEnt','$_POST[usermsg]','$fecha','U-E') ");
         }
 
         $contenidoPrincipal = <<<EOF
