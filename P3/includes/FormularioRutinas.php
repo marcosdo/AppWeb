@@ -7,6 +7,10 @@ class FormularioRutinas extends Formulario {
     }
     
     protected function generaCamposFormulario(&$datos) {
+        $dias = $datos['dias'] ?? '';
+        $objetivo = $datos['objetivo'] ?? '';
+        $nivel = $datos['nivel'] ?? '';
+        
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['dias', 'objetivo', 'nivel'], $this->errores, 'span', array('class' => 'error'));
