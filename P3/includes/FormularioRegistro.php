@@ -58,10 +58,7 @@ class FormularioRegistro extends Formulario {
         
         $alias = trim($datos['alias'] ?? '');
         $alias = filter_var($alias, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$alias || empty($alias)) {
-            if(Usuario::buscaPorAlias($alias) || Nutri::buscaPorAlias($alias)) $this->errores['alias'] = 'El nombre de usuario no puede estar repetido.';
-            else $this->errores['alias'] = 'El nombre de usuario no puede estar vacio.';
-        }
+        if (!$alias || empty($alias)) $this->errores['alias'] = 'El nombre de usuario no puede estar vacio.';
 
         $mail = trim($datos['mail'] ?? '');
         $mail = filter_var($mail, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -76,15 +73,24 @@ class FormularioRegistro extends Formulario {
         if (!$password2 || empty($password2) || $password != $password2) $this->errores['password2'] = 'Los passwords deben coincidir.';
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::buscaPorAlias($Alias);
-            if ($usuario) $this->errores[] = "El usuario ya existe";
-            else {
+            if (Usuario::buscaPorAlias($alias)) {
+                $this->errores['alias'] = 'El nombre de usuario no puede estar repetido.';
+                return;
+            }
+            try {
                 $usuario = Usuario::crea($nombre, $apellidos, $mail, $password, $alias, 0);
+                // Nutri::buscaPorAlias($alias); NO EXISTE ESTE METODO
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['id'] = $usuario->getId();
                 $_SESSION['alias'] = $usuario->getAlias();
                 $_SESSION['premium'] = $usuario->getPremium();
+                // Mensaje POP UP ejercicio 3 anexo 1
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha registrado exitosamente', "Bienvenido $nombre"];
+                $app->putAtributoPeticion('mensajes', $mensajes);
+            } catch (UsuarioYaExisteException $e) {
+                $this->errores[] = 'El nombre de usuario no puede estar repetido.';
             }
         }
     }

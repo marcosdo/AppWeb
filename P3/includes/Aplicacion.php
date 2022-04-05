@@ -1,16 +1,15 @@
 <?php
 namespace es\ucm\fdi\aw;
 
-/**
- * Clase que mantiene el estado global de la aplicación.
- */
+/** Clase que mantiene el estado global de la aplicación. */
 class Aplicacion
 {
+	const ATRIBUTOS_PETICION = 'attsPeticion';
+
 	private static $instancia;
-	
+
 	/**
 	 * Devuele una instancia de {@see Aplicacion}.
-	 * 
 	 * @return Applicacion Obtiene la única instancia de la <code>Aplicacion</code>
 	 */
 	public static function getInstance() {
@@ -20,29 +19,17 @@ class Aplicacion
 		return self::$instancia;
 	}
 
-	/**
-	 * @var array Almacena los datos de configuración de la BD
-	 */
+	/** @var array Almacena los datos de configuración de la BD */
 	private $bdDatosConexion;
-	
-	/**
-	 * Almacena si la Aplicacion ya ha sido inicializada.
-	 * 
-	 * @var boolean
-	 */
+	/** @var boolean Almacena si la Aplicacion ya ha sido inicializada. */
 	private $inicializada = false;
-	
-	/**
-	 * @var \mysqli Conexión de BD.
-	 */
+	/** @var \mysqli Conexión de BD. */
 	private $conn;
+	/** @var array Tabla asociativa con los atributos pendientes de la petición. */
+	private $atributosPeticion;
 	
-	/**
-	 * Evita que se pueda instanciar la clase directamente.
-	 */
-	private function __construct()
-	{
-	}
+	/** Evita que se pueda instanciar la clase directamente. */
+	private function __construct() { }
 	
 	/**
 	 * Inicializa la aplicación.
@@ -83,12 +70,15 @@ class Aplicacion
     	    $this->bdDatosConexion = $bdDatosConexion;
     		$this->inicializada = true;
     		session_start();
+			/* Se inicializa los atributos asociados a la petición en base a la sesión y se eliminan para que
+			* no estén disponibles después de la gestión de esta petición.
+			*/
+			$this->atributosPeticion = $_SESSION[self::ATRIBUTOS_PETICION] ?? [];
+			unset($_SESSION[self::ATRIBUTOS_PETICION]);
         }
 	}
 	
-	/**
-	 * Cierre de la aplicación.
-	 */
+	/** Cierre de la aplicación. */
 	public function shutdown()
 	{
 	    $this->compruebaInstanciaInicializada();
@@ -97,9 +87,7 @@ class Aplicacion
 	    }
 	}
 	
-	/**
-	 * Comprueba si la aplicación está inicializada. Si no lo está muestra un mensaje y termina la ejecución.
-	 */
+	/** Comprueba si la aplicación está inicializada. Si no lo está muestra un mensaje y termina la ejecución. */
 	private function compruebaInstanciaInicializada()
 	{
 	    if (! $this->inicializada ) {
@@ -110,7 +98,6 @@ class Aplicacion
 	
 	/**
 	 * Devuelve una conexión a la BD. Se encarga de que exista como mucho una conexión a la BD por petición.
-	 * 
 	 * @return \mysqli Conexión a MySQL.
 	 */
 	public function getConexionBd()
@@ -122,17 +109,44 @@ class Aplicacion
 			$bdPass = $this->bdDatosConexion['lifetypass'];
 			$bd = $this->bdDatosConexion['lifety'];
 			
+			$driver = new \mysqli_driver();
+			$driver->report_mode = MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT;
+
 			$conn = new \mysqli($bdHost, $bdUser, $bdPass, $bd);
-			if ( $conn->connect_errno ) {
-				echo "Error de conexión a la BD ({$conn->connect_errno}):  {$conn->connect_error}";
-				exit();
-			}
-			if ( ! $conn->set_charset("utf8mb4")) {
-				echo "Error al configurar la BD ({$conn->errno}):  {$conn->error}";
-				exit();
-			}
+			$conn->set_charset("utf8mb4");
 			$this->conn = $conn;
 		}
 		return $this->conn;
+	}
+
+	/**
+	 * Añade un atributo <code>$valor</code> para que esté disponible en la siguiente petición bajo la clave <code>$clave</code>.
+	 * @param string $clave Clave bajo la que almacenar el atributo.
+	 * @param any    $valor Valor a almacenar como atributo de la petición.
+	 */
+	public function putAtributoPeticion($clave, $valor)
+	{
+		$atts = null;
+		if (isset($_SESSION[self::ATRIBUTOS_PETICION])) {
+			$atts = &$_SESSION[self::ATRIBUTOS_PETICION];
+		} else {
+			$atts = array();
+			$_SESSION[self::ATRIBUTOS_PETICION] = &$atts;
+		}
+		$atts[$clave] = $valor;
+	}
+
+	/**
+	 * Devuelve un atributo establecido en la petición actual o en la petición justamente anterior.
+	 * @param string $clave Clave sobre la que buscar el atributo.
+	 * @return any Attributo asociado a la sesión bajo la clave <code>$clave</code> o <code>null</code> si no existe.
+	 */
+	public function getAtributoPeticion($clave)
+	{
+		$result = $this->atributosPeticion[$clave] ?? null;
+		if(is_null($result) && isset($_SESSION[self::ATRIBUTOS_PETICION])) {
+			$result = $_SESSION[self::ATRIBUTOS_PETICION][$clave] ?? null;
+		}
+		return $result;
 	}
 }

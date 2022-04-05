@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__.'/plantilla_utils.php';
+$mensajes = mensajesPeticionAnterior();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +13,7 @@
 	<script src="jquery-1.3.2.min.js" type="text/javascript"></script>
 </head>
 <body>
+<?= $mensajes ?>
 <div id="contenedor">
 <?php
 require(RAIZ_APP.'/vistas/comun/cabecera.php');
