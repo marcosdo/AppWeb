@@ -5,8 +5,9 @@
         <li><a href="<?= RUTA_APP ?>/index.php">Portada</a></li>
         <?php
         	$rutaApp = RUTA_APP;
-            if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) {
+            if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
                 echo "<li><a href='plan.php'>Planificación</a></li>";
+                echo "<li><a href='foros.php'>Foro</a></li>"; 
                 if (isset($_SESSION['nutri']) && ($_SESSION["nutri"] === true))
                     echo "<li><a href='chatprof.php'>Chat</a></li>";
                 else {

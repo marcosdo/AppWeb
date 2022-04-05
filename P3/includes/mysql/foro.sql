@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2022 a las 10:58:47
+-- Tiempo de generación: 05-04-2022 a las 13:39:04
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `foro` (
   `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `tema` varchar(20) NOT NULL,
+  `nickcreador` varchar(20) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `contenido` varchar(500) NOT NULL,
   `categoria` enum('Nutricion','Dieta') NOT NULL,
@@ -39,13 +40,20 @@ CREATE TABLE IF NOT EXISTS `foro` (
   PRIMARY KEY (`id_foro`),
   UNIQUE KEY `tema` (`tema`),
   KEY `usuar_PK` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncar tablas antes de insertar `foro`
 --
 
 TRUNCATE TABLE `foro`;
+--
+-- Volcado de datos para la tabla `foro`
+--
+
+INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
+(5, 25, 'ALGO', 'lopez', '2022-04-05 13:25:08', 'ASDASD', 'Nutricion', 0);
+
 -- --------------------------------------------------------
 
 --
