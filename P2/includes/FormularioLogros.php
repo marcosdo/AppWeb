@@ -9,12 +9,10 @@ class FormularioLogros extends Formulario {
     function Usuarios($entNombre){
         $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM profesional WHERE id_profesional = '%d'",$entNombre); 
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $cadena = explode(",",$fila["usuarios"]);
-        foreach($cadena as $usuario){
-            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
+        while($fila = $rs->fetch_assoc()){
+            $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
         }
         $rs->free();
         return $rts;
@@ -24,7 +22,7 @@ class FormularioLogros extends Formulario {
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
        
-        $SelectUsuarios = self::Usuarios($id_usuario);
+        $SelectUsuarios = self::Usuarios($usuactual);
 
         $alert ="";
         if(isset($_POST['buttonLogro'])) {

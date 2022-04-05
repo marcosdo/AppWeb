@@ -29,11 +29,10 @@ class  ChatEntrenador {
     function Usuarios($entNombre){
         $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%d'",$entNombre); 
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        foreach($fila["usuario"] as $usuario){
-            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
+        while($fila = $rs->fetch_assoc()){
+            $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
         }
         $rs->free();
         return $rts;
@@ -62,7 +61,7 @@ class  ChatEntrenador {
             $dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
             $dataChat = $dataChat ."</textarea>";
         } 
-        $SelectUsuarios = self::Usuarios($$usuactual);
+        $SelectUsuarios = self::Usuarios($usuactual);
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {

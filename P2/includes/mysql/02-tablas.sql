@@ -288,7 +288,16 @@ CREATE TABLE IF NOT EXISTS `rutina` (
   KEY `id_rutina` (`id_rutina`),
   KEY `U_FK` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `entrena`
+--
+
+CREATE TABLE `entrena` (
+  `nutri` text NOT NULL,
+  `usuario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- --------------------------------------------------------
 
 --
