@@ -321,8 +321,19 @@ TRUNCATE TABLE `profesional`;
 --
 
 INSERT INTO `profesional` (`nombre`, `apellidos`, `correo`, `password`, `nutri`, `usuarios`, `num_usuarios`, `id_profesional`) VALUES
-('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', 'Floren,ivan,', 2, 1);
+('Antonio', 'Pintus', 'pintus@lifety', '$2y$10$kwNuu0U4fEO7xYOEOH1QWOa4Zk7lnGLmnt9hrM1iV5hV4ASlq4TFu', 'Pintus', '', 2, 1);
 
+--
+-- Truncar tablas antes de insertar `entrena`
+--
+TRUNCATE TABLE `entrena`;
+--
+-- Volcado de datos para la tabla `entrena`
+--
+
+INSERT INTO `entrena` (`nutri`, `usuario`) VALUES 
+('Pintus','Floren'),
+('Pintus','ivan');
 --
 -- Truncar tablas antes de insertar `rutina`
 --

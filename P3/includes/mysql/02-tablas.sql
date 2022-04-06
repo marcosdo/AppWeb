@@ -270,6 +270,7 @@ CREATE TABLE IF NOT EXISTS `profesional` (
   PRIMARY KEY (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
 -- --------------------------------------------------------
 
 --
@@ -290,7 +291,15 @@ CREATE TABLE IF NOT EXISTS `rutina` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `entrena`
+--
 
+CREATE TABLE `entrena` (
+  `nutri` text NOT NULL,
+  `usuario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `usuario`
 --
