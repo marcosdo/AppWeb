@@ -29,12 +29,10 @@ class  ChatEntrenador {
     function Usuarios($entNombre){
         $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM profesional WHERE id_profesional = '%d'",$entNombre); 
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $cadena = explode(",",$fila["usuarios"]);
-        foreach($cadena as $usuario){
-            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
+        while($fila = $rs->fetch_assoc()){
+            $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
         }
         $rs->free();
         return $rts;
@@ -55,9 +53,7 @@ class  ChatEntrenador {
             $fila = $rs->fetch_assoc();
             $NICKusu = $fila["usuario"];
             $rs->free();
-            /*$consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$_POST[idE2]'");
-            $usuN =  mysqli_fetch_array($consulta);
-            $NICKusu = $usuN["usuario"];*/
+       
             $dataChat = self::dataChat($NICKusu, $usuactual);
         }
         else{
@@ -65,7 +61,7 @@ class  ChatEntrenador {
             $dataChat = $dataChat . "Debes Actualizar Chat para ver la información";
             $dataChat = $dataChat ."</textarea>";
         } 
-        $SelectUsuarios = self::Usuarios($id_usuario);
+        $SelectUsuarios = self::Usuarios($usuactual);
 
         if(isset($_POST['idE3'])) {
             if(isset($_POST['submitmsg'])) {
@@ -74,17 +70,10 @@ class  ChatEntrenador {
                 $fila = $rs->fetch_assoc();
                 $NICKusu = $fila["usuario"];
                 $rs->free();
-                /*$consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$_POST[idE2]'");
-                $usuN =  mysqli_fetch_array($consulta);
-                $NICKusu = $usuN["usuario"];*/
-
+    
                 $fecha = date_create()->format('Y-m-d H:i:s');
-
-
                 $query = sprintf("INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('%s','%s','%s','%s','%s')",$usuactual,$NICKusu, $_POST["usermsg"],$fecha,'E-U'); 
                 $rs = $conn->query($query);
-                
-                //mysqli_query($BD,"INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('$usuactual','$NICKusu','$_POST[usermsg]','$fecha','E-U') ");
             }
         }
 

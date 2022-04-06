@@ -3,18 +3,16 @@ namespace es\ucm\fdi\aw;
 
 class FormularioLogros extends Formulario {
     public function __construct() {
-        parent::__construct('formLogros', ['urlRedireccion' => 'chatprof.php']);
+        parent::__construct('formLogros', ['urlRedireccion' => 'EntrenadorPersonalEnt.php']);
         
     }
     function Usuarios($entNombre){
         $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM profesional WHERE id_profesional = '%d'",$entNombre); 
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $cadena = explode(",",$fila["usuarios"]);
-        foreach($cadena as $usuario){
-            if($usuario != "")  $rts = $rts ."<option value='$usuario'>$usuario</option>";
+        while($fila = $rs->fetch_assoc()){
+            $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
         }
         $rs->free();
         return $rts;
@@ -24,7 +22,7 @@ class FormularioLogros extends Formulario {
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
        
-        $SelectUsuarios = self::Usuarios($id_usuario);
+        $SelectUsuarios = self::Usuarios($usuactual);
 
         $alert ="";
         if(isset($_POST['buttonLogro'])) {
@@ -37,9 +35,7 @@ class FormularioLogros extends Formulario {
             $idusuE = $fila["id_usuario"];
             $rs->free();
 
-           /* $consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
-            $nombreusu =  mysqli_fetch_array($consulta);
-            $idusuE = $nombreusu["id_usuario"];*/
+           
 
 
             $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%s'",$idusuE);
@@ -47,9 +43,7 @@ class FormularioLogros extends Formulario {
             $fila = $rs->fetch_assoc();
             $EnumLogros = $fila["logros"];
             $rs->free();
-           /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
-            $usu = mysqli_fetch_array($consulta);
-            $EnumLogros = $usu["logros"];*/
+           
 
             if(!preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogros = $EnumLogros . "," . $logroE;
@@ -58,7 +52,7 @@ class FormularioLogros extends Formulario {
 
                 $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogros,$idusuE);
                 $rs = $conn->query($query);
-                //mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogros' WHERE id_usuario = '$idusuE' ");
+                
                 $alert = "<span class ='text1'>Completado</span>";
             } 
             else $alert = "<span class='text2'>Ya tiene este logro</span>";
@@ -73,27 +67,20 @@ class FormularioLogros extends Formulario {
             $fila = $rs->fetch_assoc();
             $idusuE = $fila["id_usuario"];
             $rs->free();
-            /*$consulta = mysqli_query($BD,"SELECT * FROM usuario WHERE usuario = '$id'");
-            $nombreusu =  mysqli_fetch_array($consulta);
-            $idusuE = $nombreusu["id_usuario"];*/
+     
             $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%s'",$idusuE);
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             $EnumLogros = $fila["logros"];
             $rs->free();
-           /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$idusuE'"); 
-            $usu = mysqli_fetch_array($consulta);
-            $EnumLogros = $usu["logros"];*/
-
-
-
+        
             if(preg_match("/{$logroE}/i",$EnumLogros)){
                 $EnumLogrosEliminado = str_replace($logroE ,'',$EnumLogros);
                 $num = $fila["num_logros"];
                 $num--;
                 $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogrosEliminado,$idusuE);
                 $rs = $conn->query($query);
-                //mysqli_query($BD,"UPDATE premium SET num_logros = '$num', logros = '$EnumLogrosEliminado' WHERE id_usuario = '$idusuE' ");
+               
                 $alert = "<span class ='text1'>Completado</span>";
             }
             else $alert = "<span class='text2'>No posee este logro</span>";
@@ -124,8 +111,8 @@ class FormularioLogros extends Formulario {
         $alert
         </h3></div>
         <div id = 'select'>
-        <button type="submit" name="quitarLogro">Quitar Logro</button>
-        <button type="submit" name="buttonLogro">Añadir Logro</button>
+        <input type='submit' class = 'ButtonD' name='quitarLogro' value='Quitar Logro'/>
+        <input type='submit' class = 'ButtonI' name='buttonLogro' value='Añadir Logro'/>
         </div>
         EOF;
 

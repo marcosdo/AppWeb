@@ -29,16 +29,14 @@ class  Logros {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
-        //$usuactual = "Usuario1";
-         
-       /* $consulta = mysqli_query($BD,"SELECT * FROM premium WHERE id_usuario = '$id_usuario'"); 
-        $usu =  mysqli_fetch_array($consulta);*/
+      
         $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
         $numLogros = $fila["num_logros"];
 	    $EnumLogros = $fila["logros"];
         $rs->free();
+        
         
         $imaginesLogros = self::LogrosImg($EnumLogros);
         $contenidoPrincipal = <<<EOF
