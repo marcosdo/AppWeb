@@ -88,7 +88,22 @@ class Nutri {
         }
     }
     
-    public static function nuevoCliente($usuarios, $num_usuarios, $id) {
+    public static function nuevoCliente($usuarios, $num_usuarios, $id, $aliasEntrenador) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+      
+        $query =  sprintf("UPDATE profesional SET num_usuarios = '%d' WHERE id_profesional = '%d'",  
+        $num_usuarios, 
+        $id);
+
+        $query2 =  sprintf("INSERT INTO entrena (nutri,	usuario) VALUES ('%s', '%s') ",  
+        $aliasEntrenador,
+        $conn->real_escape_string($usuarios));
+
+        if ($conn->query($query) && $conn->query($query2)) return true;
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
+
+        /* ANTIGUO
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query =  sprintf("UPDATE profesional SET usuarios = '%s' , num_usuarios = '%d' WHERE id_profesional = '%d'", 
         $conn->real_escape_string($usuarios), 
@@ -96,7 +111,7 @@ class Nutri {
         $id);
         if ($conn->query($query)) return true;
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+        return false;*/
     }
 
     private $apellidos;

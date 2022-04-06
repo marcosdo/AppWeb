@@ -77,7 +77,7 @@ class FormularioPago extends Formulario {
             else {
                 if(!Premium::crea($peso, $altura, $alergias, $observaciones, 0, "", $_SESSION['id'], $nutri->getId()))  $this->errores[] = "No se ha añadido al usuario a premium";
                 else {
-                    if(!Nutri::nuevoCliente($nutri->getUsuarios().$_SESSION['alias'] . ",", $nutri->getNum_usuarios() + 1, $nutri->getId())) $this->errores[] = "No se ha añadido al usuario al profesional";
+                    if(!Nutri::nuevoCliente($_SESSION['alias'], $nutri->getNum_usuarios() + 1, $nutri->getId(),$nutri->getAlias())) $this->errores[] = "No se ha añadido al usuario al profesional";
                     else {
                         try {
                             Usuario::setPremium($_SESSION['id']);
