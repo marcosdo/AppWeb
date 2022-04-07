@@ -19,7 +19,7 @@ body {
 	width : 100%;
     grid-template-rows: 180px auto 60px;
 	grid-template-columns: 10% 80% 10%;
-	grid-template-areas: "cabecera cabecera cabecera"  "menu contenido anuncios" "pie pie pie";
+	grid-template-areas: "cabecera cabecera cabecera"  "menu contenido anuncios" "pie1 pie2 pie3";
 	position:relative;
 	z-index: 1;
 }
@@ -31,6 +31,8 @@ header {
 	grid-area: cabecera;
 	text-align: center;
 }
+
+
 
 header a, header a:visited {
 	color: #e1523d;
@@ -90,8 +92,73 @@ footer {
 	background-color: #292a3a;
 	color: #e1523d;
 	text-align: center;
-	grid-area: pie;
+	/*grid-area: */
 }
+
+
+footer .columna1{
+	grid-area: pie1;
+	max-width: 400px;
+}
+
+footer .columna1 h1{
+	font-size: 22px;
+}
+
+.informacion_empresa{
+	font-size: 14px;
+	color: #C7C7C7;
+	margin-top: 20 px;
+}
+
+.copyright{
+	font-size: 14px;
+	color: #C7C7C7;
+	margin-top: 20 px;
+}
+
+footer .columna2{
+	grid-area: pie2;
+}
+
+.columna2 h1{
+	font-size: 22px;
+}
+
+.fila{
+	margin-top: 20px;
+	display: flex;
+}
+
+.fila img{
+	width: 36px;
+	height: 36px;
+}
+
+.informacion{
+	font-size: 14px;
+	color: #C7C7C7;
+	margin-top: 20 px;
+}
+
+footer .columna3{
+	grid-area: pie3;
+}
+
+.columna3 h1{
+	font-size: 22px;
+}
+
+
+.fila2{
+	margin-top: 20px;
+	display: flex;
+}
+
+
+
+
+
 /*
 fieldset {
 	border: 1px solid #292a3a;
@@ -439,3 +506,7 @@ border:1px solid #ACD8F0; }
 .mensaje label {
 	margin: 0px;
 }
+
+
+
+
