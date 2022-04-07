@@ -117,7 +117,7 @@ class Rutina {
         } 
     }
 
-    public static function buscaRutina(){
+    public static function buscaRutina($obj){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $_SESSION['id']);
         $rs = $conn->query($query); 
@@ -127,6 +127,7 @@ class Rutina {
                 $rutinaid = $fila['id_rutina'];
             }
         }
+        $obj = $objetivo;
         $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
         $t = $conn->query($q); 
         $arrayaux = [];

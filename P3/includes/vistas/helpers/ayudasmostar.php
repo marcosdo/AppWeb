@@ -1,8 +1,10 @@
 <?php
 use es\ucm\fdi\aw\Rutina;
 
-function mostarRutina(){
-    $arrayaux = Rutina::buscaRutina();
+function mostrarRutina(){
+    
+    $obj = 0;
+    $arrayaux = Rutina::buscaRutina($obj);
     $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
     $contenido = "<caption>Rutina de entrenamiento:</caption><thead><tr>";
 
@@ -15,14 +17,15 @@ function mostarRutina(){
         $contenido .= "<tr>";
         for ($j = 0; $j < count($arrayaux); $j++) { //nº de ejercicios al cabo del día
             $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
+            $auxiliar .=  " x 10";
             $contenido .= "<td> $auxiliar</td>";
         }
         $contenido .= "</tr>";
     }
     $repeticiones = "</tbody><div id= repeticiones>";
-    if($objetivo == 1){
+    if($obj == 1){
         $repeticiones .= "<p> Nº de repeticiones = 6. </p>";
-    }else if($objetivo == 2){
+    }else if($obj == 2){
         $repeticiones .= "<p> Nº de repeticiones = 10. </p>";
     }
     else{
@@ -34,6 +37,7 @@ function mostarRutina(){
     $repeticiones
     EOF;
     return $html;
+
 }
 
 
