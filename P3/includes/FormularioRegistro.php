@@ -20,7 +20,7 @@ class FormularioRegistro extends Formulario {
         $ruta = RUTA_APP;
         $html = <<<EOF
         $htmlErroresGlobales
-        <div class=login id=register>
+        <div class=register>
             <p class="error">{$erroresCampos['nombre']}</p>
             <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="nombre" />
             <p class="error">{$erroresCampos['apellidos']}</p>
@@ -34,7 +34,7 @@ class FormularioRegistro extends Formulario {
             <p class="error">{$erroresCampos['password2']}</p>
             <input id="password2" type="password" name="password2" placeholder="reintroduce la password" />
             <button type="submit" name="registro">Registrar</button>
-            <p class="message">¿Ya estas registrado? <a href=''>Logeate.</a></p>
+            <p class="message">¿Ya estas registrado? <a href='#'>Logeate.</a></p>
         </div>
         EOF;
         return $html;
