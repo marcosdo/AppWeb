@@ -77,6 +77,11 @@ class Rutina {
         }
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
         
+        $obj = 1;
+        $arrayreps = [];
+        self::buscaRutina($obj, $arrayreps);
+
+        
     }
 
     private static function crearRutina($rutina){
@@ -147,7 +152,6 @@ class Rutina {
         $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
         $t = $conn->query($q); 
         $arrayaux = [];
-        $arrayreps = [];
         $dia1 = array();
         $dia2 = array();
         $dia3 = array();
