@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/vistas/helpers/ayudasmostrar.php';
 
-$plani = new es\ucm\fdi\aw\Planificacion();
-$htmlRutina = $plani->mostrar();
+
+$htmlRutina = mostarRutina();
 $tituloPagina = 'Rutina';
 
 $contenidoPrincipal = <<<EOS

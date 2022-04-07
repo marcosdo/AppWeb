@@ -3,7 +3,7 @@ namespace es\ucm\fdi\aw;
 
 class FormularioRutinas extends Formulario {
     public function __construct() {
-        parent::__construct('formRutinas', ['urlRedireccion' => 'planrutina.php']);//cambiar
+        parent::__construct('formRutinas', ['urlRedireccion' => 'planrutina.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
@@ -86,8 +86,9 @@ class FormularioRutinas extends Formulario {
             $this->errores['dias'] = 'El dia no es válido.';
                 
         if (count($this->errores) === 0) {
-            $rutina = new Rutina ($_SESSION['id'], $objetivo, $nivel, $dias);
-            $rutina->comprobarRutina();
+            //$rutina = new Rutina($_SESSION['id'], $objetivo, $nivel, $dias);
+            $rutina = Rutina::crea($_SESSION['id'], $objetivo, $nivel, $dias);
+            $rutina->comprobarRutina($rutina);
         }
     }
 }
