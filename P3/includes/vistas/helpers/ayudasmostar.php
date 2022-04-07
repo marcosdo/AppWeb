@@ -18,7 +18,7 @@ function mostrarRutina(){
         $contenido .= "<tr>";
         for ($j = 0; $j < count($arrayaux); $j++) { //nº de ejercicios al cabo del día
             $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
-            $repes = isset($arrayreps[$j][$i]);
+            $repes = isset($arrayreps[$j][$i])  ? $arrayreps[$j][$i] : "";
             $auxiliar .=  " x ";
             $auxiliar .=  $repes;
             $contenido .= "<td> $auxiliar</td>";

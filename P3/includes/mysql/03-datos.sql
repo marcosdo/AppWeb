@@ -242,31 +242,31 @@ TRUNCATE TABLE `ejercicios`;
 -- Volcado de datos para la tabla `ejercicios`
 --
 
-INSERT INTO `ejercicios` (`id_ejercicio`, `musculo`, `nombre`, `descripcion`, `imagen`) VALUES
-(0, 'Hombro', 'Elevacion lateral', '', ''),
-(1, 'Hombro', 'Press hombro', '', ''),
-(2, 'Hombro', 'Remo al menton', '', ''),
-(3, 'Hombro', 'Press militar', '', ''),
-(4, 'Pierna', 'Sentadilla', '', ''),
-(5, 'Pierna', 'Prensa', '', ''),
-(6, 'Pierna', 'Extension de cuadriceps', '', ''),
-(7, 'Pierna', 'Hip thrust', '', ''),
-(8, 'Pecho', 'Press banca', '', ''),
-(9, 'Pecho', 'Aperturas con mancuernas', '', ''),
-(10, 'Pecho', 'Press banca inclinado', '', ''),
-(11, 'Pecho', 'Maquina de empuje', '', ''),
-(12, 'Triceps', 'Fondos', '', ''),
-(13, 'Triceps', 'Press frances', '', ''),
-(14, 'Triceps', 'Extensiones', '', ''),
-(15, 'Triceps', 'Barras paralelas', '', ''),
-(16, 'Biceps', 'Curl spider', '', ''),
-(17, 'Biceps', 'Predicador', '', ''),
-(18, 'Biceps', 'Martillo', '', ''),
-(19, 'Biceps', 'Chin-ups', '', ''),
-(20, 'Espalda', 'Jalon', '', ''),
-(21, 'Espalda', 'Remo en T', '', ''),
-(22, 'Espalda', 'Remo con barra', '', ''),
-(23, 'Espalda', 'Renegade row', '', '');
+INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripcion`, `imagen`) VALUES
+(0, 2,'Hombro', 'Elevacion lateral', '', ''),
+(1, 0,'Hombro', 'Press hombro', '', ''),
+(2, 1,'Hombro', 'Remo al menton', '', ''),
+(3, 0,'Hombro', 'Press militar', '', ''),
+(4, 0,'Pierna', 'Sentadilla', '', ''),
+(5, 0,'Pierna', 'Prensa', '', ''),
+(6, 1,'Pierna', 'Extension de cuadriceps', '', ''),
+(7, 1,'Pierna', 'Hip thrust', '', ''),
+(8, 0,'Pecho', 'Press banca', '', ''),
+(9, 2,'Pecho', 'Aperturas con mancuernas', '', ''),
+(10, 0,'Pecho', 'Press banca inclinado', '', ''),
+(11, 1,'Pecho', 'Maquina de empuje', '', ''),
+(12, 0,'Triceps', 'Fondos', '', ''),
+(13, 1,'Triceps', 'Press frances', '', ''),
+(14, 2,'Triceps', 'Extensiones', '', ''),
+(15, 1,'Triceps', 'Barras paralelas', '', ''),
+(16, 2,'Biceps', 'Curl spider', '', ''),
+(17, 1,'Biceps', 'Predicador', '', ''),
+(18, 1,'Biceps', 'Martillo', '', ''),
+(19, 1,'Biceps', 'Chin-ups', '', ''),
+(20, 0,'Espalda', 'Jalon', '', ''),
+(21, 0,'Espalda', 'Remo en T', '', ''),
+(22, 1,'Espalda', 'Remo con barra', '', ''),
+(23, 1,'Espalda', 'Renegade row', '', '');
 
 --
 -- Truncar tablas antes de insertar `empresas`

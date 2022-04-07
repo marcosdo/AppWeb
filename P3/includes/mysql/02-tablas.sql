@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `dieta` (
 DROP TABLE IF EXISTS `ejercicios`;
 CREATE TABLE IF NOT EXISTS `ejercicios` (
   `id_ejercicio` int(5) NOT NULL,
+  `tipo` int(1) NOT NULL,
   `musculo` varchar(40) DEFAULT NULL,
   `nombre` varchar(40) DEFAULT NULL,
   `descripcion` mediumtext NOT NULL,
