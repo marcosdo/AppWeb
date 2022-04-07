@@ -10,7 +10,7 @@
                 echo "<li><a href='foros.php'>Foro</a></li>"; 
                 if (isset($_SESSION['nutri']) && ($_SESSION["nutri"] === true)){
                     echo "<li><a href='chatprof.php'>Chat</a></li>";
-                    echo "<li><a href='nutriplan.php'>Editar Planicaciones</a></li>";
+                    echo "<li><a href='nutriplan.php'>Editar Planificaciones</a></li>";
                 }
                 else {
                     if (isset($_SESSION['premium']) && $_SESSION['premium'] == 1) 
