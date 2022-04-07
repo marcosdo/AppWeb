@@ -81,7 +81,8 @@ class FormularioPago extends Formulario {
                     else {
                         try {
                             Usuario::setPremium($_SESSION['id']);
-                            //$_SESSION['premium'] = $usuario->getPremium();
+                            $usuario = Usuario::buscaPorId($_SESSION['id']);
+                            $_SESSION['premium'] = $usuario->getPremium();
                         } catch (Exception $e) {
                             $this->errores[] = "No se ha actualizado a premium al usuario";
                         }
