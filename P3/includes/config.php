@@ -14,7 +14,7 @@ define('BD_PASS', 'lifetypass');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/AppWeb/P3');
+define('RUTA_APP', '/AW/GitHub/P3');
                     
 define('RUTA_IMGS', RUTA_APP.'/img');
 define('RUTA_CSS', RUTA_APP.'/css');
