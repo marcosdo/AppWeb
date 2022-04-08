@@ -20,14 +20,12 @@ class FormularioLogin extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <div class=login>
-            <p class="error">{$erroresCampos['alias']}</p>
-            <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
-            <p class="error">{$erroresCampos['password']}</p>
-            <input id="password" type="password" name="password" placeholder="password"/>
-            <button type="submit" name="login">Entrar</button>
-            <p class="message">¿No estas registrado? <a href='#'>Crea una cuenta</a></p>
-        </div>
+        <p class="error">{$erroresCampos['alias']}</p>
+        <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
+        <p class="error">{$erroresCampos['password']}</p>
+        <input id="password" type="password" name="password" placeholder="password"/>
+        <button type="submit" name="login">Entrar</button>
+        <p class="message">¿No estas registrado? <a href='#'>Crea una cuenta</a></p>
         EOF;
         return $html;
     }

@@ -232,44 +232,78 @@ th{
 	color:#e1523d;
 }
 
-
 div#repeticiones {
 	text-align: center;
 	color: #292a3a;
 }
 
-
 .column-hover {
 	background:#dddddd;
 }
 
-div#tabla {
+.plan {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
 }
 
-#tabla img {
-	max-width: 300px;
-	max-height: 400px;
+.plan #formRutinas, .plan #formDietas, .form {
+	background: #FFFFFF;
+	margin: 0 auto 100px;
+	padding: 3%;
+	border-radius: 20px;
+}
+
+.plan .nivel {
+	background: #dddddd;
+	font-weight: bold;
+	border-radius: 5px;
+	display: inline-flex;
+	list-style-type: none;
+	padding: 7px 3px;
+	margin: 0;
+}
+
+.plan .nivel .element input {
+	display: none;
+}
+
+.plan .nivel .element label {
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 4px 5px 4px 5px;
+	color: #6c6c6c;
+}
+
+.plan .nivel .element input:checked + label {
+	color: #EF3B3A;
+	background-color: #FFFFFF;
 }
 
 .form {
 	position: relative;
 	z-index: 1;
-	background: #FFFFFF;
 	max-width: 60%;
-	margin: 0 auto 100px;
-	padding: 3%;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
 	text-align: center;
 }
 
+.plan #formRutinas button, .plan #formDietas button, .form button {
+	outline: 0;
+	background: #EF3B3A;
+	border: 0;
+	padding: 15px;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	transition: all 0.3 ease;
+	cursor: pointer;
+	font-family: Century;
+}
+
+.form button {
+	width: 100%;
+}
 .form .thumbnail {
-	background: #ffffff;
 	margin: 0 auto 30px;
 	padding: 50px 30px;
 	max-width: 400px;
@@ -293,23 +327,6 @@ div#tabla {
 	border-bottom-right-radius: 3px;
 	box-sizing: border-box;
 	font-size: 1em;
-}
-
-.form button {
-	outline: 0;
-	background: #EF3B3A;
-	width: 100%;
-	border: 0;
-	padding: 15px;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
-	color: #FFFFFF;
-	font-size: 14px;
-	transition: all 0.3 ease;
-	cursor: pointer;
-	font-family: Century;
 }
 
 .form .message {

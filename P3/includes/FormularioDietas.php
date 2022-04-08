@@ -16,25 +16,18 @@ class FormularioDietas extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend id="diet-plan">Dietas</legend>
-            <div>
-                <div>
-                    <p>Selecciona tu dieta:</p>
-                    <select name="choose-diet" id="choose-diet">
-                        <option value="1">Pérdida de peso</option>
-                        <option value="2">Ganancia de peso</option>
-                        <option value="3">Mantener peso</option>
-                    </select>
-                    {$erroresCampos['objetivo-dieta']}
-                </div>
-                <p>
-                Según la mayoría de los dietistas, no existen alimentos “malos”, sino dietas “poco sanas”. Una dieta saludable se consigue comiendo la cantidad correcta de alimentos en la proporción adecuada, con continuidad.
-                Comer una proporción adecuada de alimentos de los principales grupos constituye la base del bienestar cotidiano, y reducirá el riesgo de enfermedades a largo plazo. 
-                </p>
-                <button type="submit" name="enviar">Quiero esta dieta</button>
-            </div>
-        </fieldset>
+        <p>Selecciona tu dieta:</p>
+        <select name="choose-diet" id="choose-diet">
+            <option value="1">Pérdida de peso</option>
+            <option value="2">Ganancia de peso</option>
+            <option value="3">Mantener peso</option>
+        </select>
+        {$erroresCampos['objetivo-dieta']}
+        <p>
+        Según la mayoría de los dietistas, no existen alimentos “malos”, sino dietas “poco sanas”. Una dieta saludable se consigue comiendo la cantidad correcta de alimentos en la proporción adecuada, con continuidad.
+        Comer una proporción adecuada de alimentos de los principales grupos constituye la base del bienestar cotidiano, y reducirá el riesgo de enfermedades a largo plazo. 
+        </p>
+        <button type="submit" name="enviar">Quiero esta dieta</button>
         EOF;
         return $html;
     }

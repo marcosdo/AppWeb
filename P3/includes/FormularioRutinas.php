@@ -19,46 +19,42 @@ class FormularioRutinas extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formrutina"> 
-            <legend id="routine-plan">Rutinas</legend>
-            <div>
-                <p> Selecciona tu nivel: </p>
-                    <div>
-                        <input type= "radio" name="nivel" value="P" checked> <label for="principiante"> Principiante </label>
-                    </div>
-                    <div>
-                        <input type= "radio" name="nivel" value="M"> <label for="medio"> Medio </label>
-                    </div>
-                    <div>
-                        <input type= "radio" name="nivel" value="A"> <label for="avanzado"> Avanzado </label>
-                    </div>
-                    {$erroresCampos['nivel']}
-                <div>
-                    <p> Selecciona el numero de dias: <p>
-                    <select name="dias" id="choose-days">
-                        <option value="3">3 Días</option>
-                        <option value="5">5 Días</option>
-                    </select >
-                    {$erroresCampos['dias']}
-                </div>
-                <div>
-                    <p> Selecciona tu objetivo de entrenamiento: <p>
-                    <select name="objetivo" id="choose-routine">
-                        <option value="1">Fuerza</option>
-                        <option value="2">Hipertrofia</option>
-                        <option value="3">Resistencia</option>
-                    </select>
-                    {$erroresCampos['objetivo']}
-                </div>
-                <p>
-                La actividad física regular puede mejorar la fuerza muscular y 
-                aumentar la resistencia. El ejercicio suministra oxígeno y nutrientes a 
-                los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
-                pulmonar mejora, tienes más energía para hacer las tareas diarias.
-                </p>
-                <button type="submit" name="enviar">Quiero esta rutina</button>
-            </div>
-        </fieldset>
+        <p> Selecciona tu nivel: </p>
+        <ul class="nivel">
+            <li class="element">
+                <input type= "radio" name="nivel" value="P" id="principiante" checked>
+                <label for="principiante"> Principiante </label>
+            </li>
+            <li class="element">
+                <input type= "radio" name="nivel" value="M" id="medio">
+                <label for="medio"> Medio </label>
+            </li>
+            <li class="element">
+                <input type= "radio" name="nivel" value="A" id="avanzado">
+                <label for="avanzado"> Avanzado </label>
+            </li>
+        </ul>
+        <p class="error">{$erroresCampos['nivel']}</p>
+        <p> Selecciona el numero de dias: <p>
+        <select name="dias" id="choose-days">
+            <option value="3">3 Días</option>
+            <option value="5">5 Días</option>
+        </select >
+        <p class="error">{$erroresCampos['dias']}</p>
+        <p> Selecciona tu objetivo de entrenamiento: </p>
+        <select name="objetivo" id="choose-routine">
+            <option value="1">Fuerza</option>
+            <option value="2">Hipertrofia</option>
+            <option value="3">Resistencia</option>
+        </select>
+        <p class="error">{$erroresCampos['objetivo']}</p>
+        <p>
+        La actividad física regular puede mejorar la fuerza muscular y 
+        aumentar la resistencia. El ejercicio suministra oxígeno y nutrientes a 
+        los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
+        pulmonar mejora, tienes más energía para hacer las tareas diarias.
+        </p>
+        <button type="submit" name="enviar">Quiero esta rutina</button>
         EOF;
         return $html;
     }

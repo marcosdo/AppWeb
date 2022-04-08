@@ -13,8 +13,7 @@ $htmlFormDietas = $form2->gestiona();
 $tituloPagina = 'Planificacion';
  
 $contenidoPrincipal = <<<EOS
-<h1>Acceso al sistema</h1>
-<div id="tabla">
+<div class=plan>
 $htmlFormRutinas
 $htmlFormDietas
 </div>
