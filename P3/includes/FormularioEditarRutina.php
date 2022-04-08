@@ -17,15 +17,44 @@ class FormularioEditarRutina extends Formulario {
         $rs->free();
         return $rts;
     }
+
+    private function generaTabla(){
+        $id = Rutina::getIdEditar();
+        $contenido = "<table id=planificacion>";
+        $obj = 0;
+        $arrayreps = [];
+        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, false);
+        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
+        $contenido .= "<caption>Rutina de entrenamiento</caption><thead><tr>";
+
+        for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
+            $contenido .= "<th>Día $i </th>";
+        }
+        $contenido .= "</tr></thead><tbody>";
+        for ($i = 0; $i < $ejerciciostotales;$i++){
+            $contenido .= "<tr>";
+            for ($j = 0; $j < count($arrayaux); $j++) { //nº de ejercicios al cabo del día
+                $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
+                if(isset($arrayaux[$j][$i])) $auxiliar .= " x ";
+                $auxiliar .= isset($arrayreps[$j][$i])  ? $arrayreps[$j][$i] : "";
+                $contenido .= "<td> $auxiliar</td>";
+            }
+            $contenido .= "</tr>";
+        }
+        $series = "</tbody><div id= repeticiones>";
+        $series .= "<p> Nº de series: 3 </p> </div>";
+        $contenido .= "</table>";
+        
+    }
     
     protected function generaCamposFormulario(&$datos) {
         $alias = $datos['alias'] ?? '';
-        $ejercicios = Ejercicios();
+        $ejercicios = self::Ejercicios();
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
-    
-        $tmp = Rutina::devolverEjercicio(, 2,2);
+        self::generaTabla();
+        $SelectUsuarios = "";
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
@@ -47,14 +76,7 @@ class FormularioEditarRutina extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-        $this->errores = [];
-        htmlspecialchars(trim(strip_tags($_POST["alias"])));
-        if ($objetivo != '1' && $objetivo != '2' && $objetivo != '3') 
-            $this->errores['objetivo'] = 'El objetivo no es válido.';
-
-        if (count($this->errores) === 0) {
-            
-        }
+        
 
     }
 }

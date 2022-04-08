@@ -59,7 +59,7 @@ class FormularioPlanEntRutina extends Formulario {
         $alias      = trim($datos["alias"] ?? '');
 
         if (count($this->errores) === 0) {
-            
+            Rutina::setIdEditar($alias);
         }
 
     }

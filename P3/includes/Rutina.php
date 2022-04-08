@@ -6,12 +6,11 @@ class Rutina {
     private $_ejerciciosdia;
     private $_nivel;
     private $_objetivo;
-    private $_id;
     private $_dias;
     private $_muscs;
-    private $array;
     private $_id_rutina;
     private $antigua;
+    private static $id_editar;
 
     public static function crea($id, $objetivo, $nivel, $dias){
         $rutina = new Rutina($id, $objetivo, $nivel, $dias);
@@ -79,7 +78,7 @@ class Rutina {
         
         $obj = 1;
         $arrayreps = [];
-        self::buscaRutina($obj, $arrayreps);
+        self::buscaRutina($obj, $arrayreps, true); // esto que hace aqui??
 
         
     }
@@ -138,9 +137,11 @@ class Rutina {
         return $reps;
     }
 
-    public static function buscaRutina(&$obj, &$arrayreps){
+    public static function buscaRutina(&$obj, &$arrayreps, $usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $_SESSION['id']);
+        if($usuario) $idus = $_SESSION['id'];
+        else $idus = self:: $id_editar;
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $idus);
         $rs = $conn->query($query); 
         while( $fila = $rs->fetch_assoc()){
             if($fila['activa'] == true){
@@ -218,24 +219,54 @@ class Rutina {
         return $arrayaux;
     }
 
+    public static function setIdEditar($id){
+        self:: $id_editar = $id;
+    }
+
+    public static function getIdEditar(){
+        return self:: $id_editar;
+    }
+
     public static function devolverEjercicio($id_usuario, $dia, $pos){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $query2 = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d' AND  contiene.dia = '%d'", $fila['id_rutina', $dia]);
-        $rs2 = $conn->query($query2); 
-        $i = 0;
-        $resultado = "";
-        while($i < $pos && $fila2 = $rs2->fetch_assoc()){
-            $i++;
-            if($i == $pos) $ejercicio = $fila['id_ejercicio'];
-        }
-        $query3 = sprintf("SELECT ejercicio.nombre FROM ejercicios WHERE ejercicio.id_ejercicio = '%d'", $ejercicio);
-        $rs3 = $conn->query($query2); 
+        while($fila = $rs->fetch_assoc()){ 
+            $query2 = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d' AND  contiene.dia = '%d'", $fila['id_rutina'], $dia);
+            $rs2 = $conn->query($query2); 
+            $i = 0;
+            while($i < $pos && $fila2 = $rs2->fetch_assoc()){
+                $i++;
+                if($i == $pos) $ejercicio = $fila2['id_ejercicio'];
+            }
+            $query3 = sprintf("SELECT ejercicio.nombre FROM ejercicios WHERE ejercicio.id_ejercicio = '%d'", $ejercicio);
+            $rs3 = $conn->query($query3); 
+        }   
         return $rs3;
     }
 
+    public static function diasUsuario($id_usuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
+        $rs = $conn->query($query); 
+        $dias = 0;
+        while($fila = $rs->fetch_assoc()){ 
+            $dias = $fila['dias'];
+        }
+        return $dias;
+    }
+
+    public static function ejerciciosxDia($id_usuario, $dia){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
+        $rs = $conn->query($query); 
+        while($fila = $rs->fetch_assoc()){ 
+            $query2 = sprintf("SELECT COUNT(*) FROM contiene WHERE contiene.id_rutina = '%d' AND contiene.dia = '%d'", $fila['id_rutina'], $dia);
+            $rs2 = $conn->query($query2);  
+            $ejerciciosxdia = $rs2->num_rows;
+       }
+        return $ejerciciosxdia;
+    }
 
     public function __construct($id, $objetivo, $nivel, $dias) {
         $this->_nivel = $nivel;
