@@ -218,6 +218,18 @@ class Rutina {
         return $arrayaux;
     }
 
+    public static function devolverEjercicio($id_usuario, $dia, $pos){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $id_usuario);
+        $rs = $conn->query($query); 
+        while( $fila = $rs->fetch_assoc()){
+            if($fila['activa'] == true){
+                $objetivo = $fila['objetivo'];
+                $rutinaid = $fila['id_rutina'];
+            }
+        }
+    }
+
 
     public function __construct($id, $objetivo, $nivel, $dias) {
         $this->_nivel = $nivel;
