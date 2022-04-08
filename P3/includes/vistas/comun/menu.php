@@ -6,17 +6,17 @@
         <?php
         	$rutaApp = RUTA_APP;
             if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
-                echo "<li><a href='plan.php'>Planificación</a></li>";
-                echo "<li><a href='foros.php'>Foro</a></li>"; 
+                echo "<li><a href='foros.php'>Foro</a></li>";  
                 if (isset($_SESSION['nutri']) && ($_SESSION["nutri"] === true)){
                     echo "<li><a href='chatprof.php'>Chat</a></li>";
-                    echo "<li><a href='nutriplan.php'>Editar Planificaciones</a></li>";
+                    echo "<li><a href='nutriplan.php'>Planificación</a></li>";
                 }
                 else {
                     if (isset($_SESSION['premium']) && $_SESSION['premium'] == 1) 
                         echo "<li><a href='chatusu.php'>Seguimiento</a></li>";
                     else 
                         echo "<li><a href='suscripcion.php'>Seguimiento</a></li>";
+                        echo "<li><a href='plan.php'>Planificación</a></li>";
                 }
             }
         ?>
