@@ -16,8 +16,8 @@ class FormularioDietas extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <p>Selecciona tu dieta:</p>
         <select name="choose-diet" id="choose-diet">
+            <option value="" disabled="disabled" selected="selected">Selecciona tu dieta</option>
             <option value="1">Pérdida de peso</option>
             <option value="2">Ganancia de peso</option>
             <option value="3">Mantener peso</option>

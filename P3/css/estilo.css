@@ -245,16 +245,17 @@ div#repeticiones {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
+	z-index: 1;
 }
 
-.plan #formRutinas, .plan #formDietas, .form {
+#formRutinas, #formDietas, .form {
 	background: #FFFFFF;
 	margin: 0 auto 100px;
 	padding: 3%;
 	border-radius: 20px;
 }
 
-.plan .nivel {
+.nivel {
 	background: #dddddd;
 	font-weight: bold;
 	border-radius: 5px;
@@ -264,20 +265,33 @@ div#repeticiones {
 	margin: 0;
 }
 
-.plan .nivel .element input {
+.element input {
 	display: none;
 }
 
-.plan .nivel .element label {
+.element label {
 	border-radius: 5px;
 	cursor: pointer;
 	padding: 4px 5px 4px 5px;
 	color: #6c6c6c;
 }
 
-.plan .nivel .element input:checked + label {
+.element input:checked + label {
 	color: #EF3B3A;
 	background-color: #FFFFFF;
+}
+
+select {
+	padding: 7px 40px 7px 12px;
+	width: 100%;
+	border: 1px solid #e8eaed;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px -2px #9098a9;
+	cursor: pointer;
+	font-size: 16px;
+}
+select option[value=""][disabled] {
+	display: none;
 }
 
 .form {

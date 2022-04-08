@@ -35,14 +35,16 @@ class FormularioRutinas extends Formulario {
             </li>
         </ul>
         <p class="error">{$erroresCampos['nivel']}</p>
-        <p> Selecciona el numero de dias: <p>
-        <select name="dias" id="choose-days">
+    
+        <select name="dias" id="choose-days" required>
+            <option value="" disabled="disabled" selected="selected">Selecciona el numero de dias</option>
             <option value="3">3 Días</option>
             <option value="5">5 Días</option>
         </select >
         <p class="error">{$erroresCampos['dias']}</p>
-        <p> Selecciona tu objetivo de entrenamiento: </p>
-        <select name="objetivo" id="choose-routine">
+        
+        <select name="objetivo" id="choose-routine" required>
+            <option value="" disabled="disabled" selected="selected">Selecciona tu objetivo de entrenamiento</option>
             <option value="1">Fuerza</option>
             <option value="2">Hipertrofia</option>
             <option value="3">Resistencia</option>
