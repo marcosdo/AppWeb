@@ -220,14 +220,20 @@ class Rutina {
 
     public static function devolverEjercicio($id_usuario, $dia, $pos){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $id_usuario);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
         $rs = $conn->query($query); 
-        while( $fila = $rs->fetch_assoc()){
-            if($fila['activa'] == true){
-                $objetivo = $fila['objetivo'];
-                $rutinaid = $fila['id_rutina'];
-            }
+        $fila = $rs->fetch_assoc();
+        $query2 = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d' AND  contiene.dia = '%d'", $fila['id_rutina', $dia]);
+        $rs2 = $conn->query($query2); 
+        $i = 0;
+        $resultado = "";
+        while($i < $pos && $fila2 = $rs2->fetch_assoc()){
+            $i++;
+            if($i == $pos) $ejercicio = $fila['id_ejercicio'];
         }
+        $query3 = sprintf("SELECT ejercicio.nombre FROM ejercicios WHERE ejercicio.id_ejercicio = '%d'", $ejercicio);
+        $rs3 = $conn->query($query2); 
+        return $rs3;
     }
 
 

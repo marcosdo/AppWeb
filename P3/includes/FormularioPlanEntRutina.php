@@ -56,8 +56,7 @@ class FormularioPlanEntRutina extends Formulario {
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
         htmlspecialchars(trim(strip_tags($_POST["alias"])));
-        if ($objetivo != '1' && $objetivo != '2' && $objetivo != '3') 
-            $this->errores['objetivo'] = 'El objetivo no es válido.';
+        $alias      = trim($datos["alias"] ?? '');
 
         if (count($this->errores) === 0) {
             

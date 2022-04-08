@@ -25,7 +25,7 @@ class FormularioEditarRutina extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
     
-        $SelectUsuarios = self::Usuarios($_SESSION['alias']);
+        $tmp = Rutina::devolverEjercicio(, 2,2);
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
