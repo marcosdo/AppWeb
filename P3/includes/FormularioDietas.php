@@ -1,6 +1,8 @@
 <?php
 namespace es\ucm\fdi\aw;
 
+use Exception;
+
 class FormularioDietas extends Formulario {
     public function __construct() {
         parent::__construct('formDietas', ['urlRedireccion' => 'plandieta.php']);
@@ -40,20 +42,19 @@ class FormularioDietas extends Formulario {
         $tipo_dieta = filter_var($tipo_dieta, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Lanza un error si hay datos malignos
         if (!$tipo_dieta || empty($tipo_dieta))
-            $this->errores['objetivo-dieta'] = 'ERROR: procesa formulario de dietas. Caracteres malignos';
+            $this->errores['objetivo-dieta'] = '';
 
-        /* === ERRORES ===
-        dieta != {1, 2, 3}
-        =============== */
         if (!$tipo_dieta == '1' || !$tipo_dieta == '2' || !$tipo_dieta == '3') 
-            $this->errores['objetivo-dieta'] = 'ERROR: procesa formulario de dietas. Caracteres no esperados';
+            $this->errores['objetivo-dieta'] = 'Así que has intentado romperlo';
 
         // Si todo ha ido bien, 
         if (count($this->errores) === 0) {
-            // Crea una instancia de dieta
-            $class_dieta = Dieta::Dieta_ConstructorFalso($tipo_dieta);
-            if (!$class_dieta)
-                $this->errores['class-dieta'] = 'ERROR: procesa formulario de dietas. No se ha podido crear una dieta';
+            try {
+                Dieta::register($tipo_dieta);
+            }
+            catch (Exception $e) {
+                $this->errores['class-dieta'] = 'No se ha podido crear una dieta';
+            }
         }
     }
 }
