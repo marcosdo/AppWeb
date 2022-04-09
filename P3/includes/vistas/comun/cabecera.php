@@ -10,11 +10,12 @@
 		return $html;
 	}
 ?>
+<div id="header">
+	<div class="logo">
+		<h1>Lifety</h1>
+	</div>
 
-<div class="logo">
-	<h1>Lifety</h1>
-</div>
-
-<div class="saludo">
-	<?= mostrarSaludo() ?>
+	<div class="saludo">
+		<?= mostrarSaludo() ?>
+	</div>
 </div>
