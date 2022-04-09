@@ -22,32 +22,15 @@ class FormularioPago extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
-            <legend> Por favor, introduzca sus datos:</legend>
-            <div>
-                <label for="peso">Introduzca su peso:</label>
-                <input type="text" name="peso"/>
-                {$erroresCampos['peso']}
-            </div>
-            <div>
-                <label for="altura">Introduzca su altura:</label>
-                <input type="text" name="altura" />
-                {$erroresCampos['altura']}
-            </div>
-            <div>
-                <label for="alergias">Si tiene alguna alergia rellene este campo:</label>
-                <input type="text" name="alergias"/>
-                {$erroresCampos['alergias']}
-            </div>
-            <div>
-                <label for="observaciones">Alguna observacion adicional:</label>
-                <input type="text" name="observaciones"/>
-                {$erroresCampos['observaciones']}
-            </div>
-            <div>
-                <button type="submit" name="pagar" value="pagar">Pagar</button>
-            </div>
-        </fieldset>
+        <p class="error">{$erroresCampos['peso']}</p>
+        <input type="text" name="peso" placeholder="peso"/>
+        <p class="error">{$erroresCampos['altura']}</p>
+        <input type="text" name="altura" placeholder="altura"/>
+        <p class="error">{$erroresCampos['alergias']}</p>
+        <input type="text" name="alergias" placeholder="alergias"/>
+        <p class="error">{$erroresCampos['observaciones']}</p>
+        <input type="text" name="observaciones" placeholder="observaciones adicionales"/>
+        <button type="submit" name="pagar">Pagar</button>
         EOF;
         return $html;
     }

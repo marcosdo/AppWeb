@@ -3,17 +3,18 @@
 		$rutaApp = RUTA_APP;
 		$html='';
 		if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
-			return "Bienvenido, {$_SESSION['alias']} <a href='{$rutaApp}/logout.php'>(salir)</a>";
+			return "{$_SESSION['alias']} <a href='{$rutaApp}/logout.php'>(salir)</a>";
 		} else {
-			return "Usuario desconocido. <a href='$rutaApp/login.php#'>Login.</a>";
+			return "<a href='$rutaApp/login.php#'>Login.</a>";
 		}
 		return $html;
 	}
 ?>
 
-<header>
+<div class="logo">
 	<h1>Lifety</h1>
-	<div class="saludo">
-		<?= mostrarSaludo() ?>
-	</div>
-</header>
+</div>
+
+<div class="saludo">
+	<?= mostrarSaludo() ?>
+</div>
