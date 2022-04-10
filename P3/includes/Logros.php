@@ -35,7 +35,7 @@ class Logros {
             else error_log("Error BD ({$conn->errno}): {$conn->error}");
         }else return false;
     }
-
+    
     static function getId($alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias);
@@ -72,7 +72,7 @@ class Logros {
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
-    //esta funcion no debe estar aqui
+    //esta funcion no debe estar aqui  (NECESITAMOS UNA CLASE DE LOS ENTRENADORES)
     static function getUsuario($entNombre){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 

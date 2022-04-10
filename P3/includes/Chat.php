@@ -26,7 +26,7 @@ class Chat {
         $rs = $conn->query($query);
         if(!$rs) error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
-    //esta funcion no debe estar aqui
+    //esta funcion no debe estar aqui (NECESITAMOS UNA CLASE DE LOS ENTRENADORES)
     static function getUsuario($entNombre){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
