@@ -7,11 +7,11 @@ function htmlmenu() {
         $html .= "<li><a href='foros.php'>Foro</a></li>";  
         if (isset($_SESSION['rol'])) {
             // Si eres admin
-            if ($_SESSION['rol'] == Usuarios::ADMIN_ROLE) {
+            if ($_SESSION['rol'] == Personas::ADMIN_ROLE) {
                 $html .= "<li><a href='admin.php'>Consola</a></li>";
             }
             // Si eres usuario
-            else if ($_SESSION['rol'] == Usuarios::USER_ROLE) {
+            else if ($_SESSION['rol'] == Personas::USER_ROLE) {
                 if (isset($_SESSION['premium']) && $_SESSION['premium'] === 1) 
                     $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
                 else {
@@ -20,7 +20,7 @@ function htmlmenu() {
                 }
             }
             // Si eres profesional
-            else if($_SESSION['rol'] == Usuarios::PROFESSIONAL_ROLE) {
+            else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
                 $html .= "<li><a href='chatprof.php'>Chat</a></li>";
                 $html .= "<li><a href='nutriplan.php'>Planificación</a></li>";
             }

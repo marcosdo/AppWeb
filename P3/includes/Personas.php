@@ -3,43 +3,43 @@ namespace es\ucm\fdi\aw;
 
 use Exception;
 
-class Usuarios {
+class Personas {
     public const ADMIN_ROLE = 0;
     public const USER_ROLE = 1;
     public const PROFESSIONAL_ROLE = 2;
 
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
-    private $id;
-    private $alias;
-    private $nombre;
-    private $apellidos;
-    private $correo;
-    private $password;
-    private $rol;
+    protected $_id;
+    protected $_alias;
+    protected $_nombre;
+    protected $_apellidos;
+    protected $_correo;
+    protected $_password;
+    protected $_rol;
 
     // ==================== MÉTODOS ====================
     // ====================         ====================
     // Constructor
-    private function __construct($alias, $nombre, $apellidos, $correo, $password, $rol = Usuarios::USER_ROLE, $id = null) {
-        $this->id = $id;
-        $this->alias = $alias;
-        $this->nombre = $nombre;
-        $this->apellidos = $apellidos;
-        $this->correo = $correo;
-        $this->password = $password;
-        $this->rol = $rol;
+    private function __construct($alias, $nombre, $apellidos, $correo, $password, $rol = Personas::USER_ROLE, $id = null) {
+        $this->_id = $id;
+        $this->_alias = $alias;
+        $this->_nombre = $nombre;
+        $this->_apellidos = $apellidos;
+        $this->_correo = $correo;
+        $this->_password = $password;
+        $this->_rol = $rol;
     }
 
     // ==================== PUBLIC ====================
     // Getters y setters
-    public function getId() { return $this->id; }
-    public function getRol() { return $this->rol; }
-    public function getAlias() { return $this->alias; }
-    public function getCorreo() { return $this->correo; }
-    public function getNombre() { return $this->nombre; }
-    public function getApellidos() { return $this->apellidos; }
-    public function setPassword($nuevoPassword) { $this->password = self::hashPassword($nuevoPassword); }
+    public function getId() { return $this->_id; }
+    public function getRol() { return $this->_rol; }
+    public function getAlias() { return $this->_alias; }
+    public function getCorreo() { return $this->_correo; }
+    public function getNombre() { return $this->_nombre; }
+    public function getApellidos() { return $this->_apellidos; }
+    public function setPassword($nuevoPassword) { $this->_password = self::hashPassword($nuevoPassword); }
 
     // Funciones de la clase
     public static function login($alias, $password) {
@@ -49,8 +49,8 @@ class Usuarios {
         throw new Exception("Contraseña incorrecta");
     }
 
-    public static function register($alias, $nombre, $apellidos, $correo, $password) {
-        $user = new Usuarios($alias, $nombre, $apellidos, $correo, self::hashPassword($password));
+    public static function register($alias, $nombre, $apellidos, $correo, $password, $rol = Personas::USER_ROLE) {
+        $user = new Personas($alias, $nombre, $apellidos, $correo, self::hashPassword($password), $rol);
         return $user->inserta($user);
     }
 
@@ -64,7 +64,7 @@ class Usuarios {
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila)
-                $result = new Usuarios($fila['nick'], $fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['contraseña'], $fila['rol'], $fila['id_usuario']);
+                $result = new Personas($fila['nick'], $fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['contraseña'], $fila['rol'], $fila['id_usuario']);
         } finally {
             if ($rs != null) {
                 $rs->free();
@@ -83,7 +83,7 @@ class Usuarios {
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila)
-                $result = new Usuarios($fila['nick'], $fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['contraseña'], $fila['rol'], $fila['id_usuario']);
+                $result = new Personas($fila['nick'], $fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['contraseña'], $fila['rol'], $fila['id_usuario']);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -101,20 +101,21 @@ class Usuarios {
     private static function inserta($usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO personas (nick, nombre, apellidos, correo, contraseña) VALUES ('%s', '%s', '%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->alias)
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->apellidos)
-            , $conn->real_escape_string($usuario->correo)
-            , $conn->real_escape_string($usuario->password)
+            "INSERT INTO personas (nick, nombre, apellidos, correo, contraseña, rol) VALUES ('%s', '%s', '%s', '%s', '%s', %d)"
+            , $conn->real_escape_string($usuario->_alias)
+            , $conn->real_escape_string($usuario->_nombre)
+            , $conn->real_escape_string($usuario->_apellidos)
+            , $conn->real_escape_string($usuario->_correo)
+            , $conn->real_escape_string($usuario->_password)
+            , $usuario->_rol
         );
         try {
             $conn->query($query);
-            $usuario->id = $conn->insert_id;
+            $usuario->_id = $conn->insert_id;
             return $usuario;
         } catch (\mysqli_sql_exception $e) {
             if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-                throw new UsuarioYaExisteException("Ya existe el usuario {$usuario->alias}");
+                throw new UsuarioYaExisteException("Ya existe el usuario {$usuario->_alias}");
             }
             throw $e;
         }
@@ -134,7 +135,7 @@ class Usuarios {
     }
 
     private function compruebaPassword($password) {
-        return password_verify($password, $this->password);
+        return password_verify($password, $this->_password);
     }
 
     private static function hashPassword($password) { 

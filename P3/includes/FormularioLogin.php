@@ -42,7 +42,7 @@ class FormularioLogin extends Formulario {
         
         if (count($this->errores) === 0) {
             try {
-                $usuario = Usuarios::login($alias, $password);
+                $usuario = Personas::login($alias, $password);
                 $_SESSION['login'] = true;
                 $_SESSION['id'] = $usuario->getId();
                 $_SESSION['alias'] = $usuario->getAlias();
