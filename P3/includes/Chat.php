@@ -4,7 +4,7 @@ namespace es\ucm\fdi\aw;
 class Chat {
     function __construct() {}
     
-    static function dataChat($Receptor,$Origen){
+    public static function dataChat($Receptor,$Origen){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
         $query = sprintf("SELECT * FROM chat WHERE (Origen = '%s' AND Receptor = '%s') OR (Origen = '%s' AND Receptor = '%s') ORDER BY Tiempo ASC ",$Receptor,$Origen,$Origen,$Receptor);
@@ -19,7 +19,7 @@ class Chat {
         } else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
-    static function enviarMsg($Receptor,$Origen,$Mensaje,$tipo){
+    public static function enviarMsg($Receptor,$Origen,$Mensaje,$tipo){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $fecha = date_create()->format('Y-m-d H:i:s');
         $query = sprintf("INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('%s','%s','%s','%s','%s')",$Origen,$Receptor,$Mensaje,$fecha,$tipo); 

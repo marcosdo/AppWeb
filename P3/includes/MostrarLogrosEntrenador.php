@@ -4,7 +4,7 @@ namespace es\ucm\fdi\aw;
 class MostrarLogrosEntrenador {
     public function __construct() {}
 
-    function Usuarios($entNombre){
+    private function Usuarios($entNombre){
         $rts = "";
         $array = Profesional::getUsuario($entNombre);
         for ($i=0; $i < sizeof($array); $i++) { 
@@ -13,7 +13,7 @@ class MostrarLogrosEntrenador {
         return $rts;
     }
 
-    function mostrarLogrosEnt() {
+    public function mostrarLogrosEnt() {
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
        

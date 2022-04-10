@@ -5,7 +5,7 @@ class  MostrarChatEntrenador {
 
     function __construct() {}
 
-    function Usuarios($entNombre){
+    private function Usuarios($entNombre){
         $rts = "";
         $array = Profesional::getUsuario($entNombre);
         for ($i=0; $i < sizeof($array); $i++) { 
@@ -14,7 +14,7 @@ class  MostrarChatEntrenador {
         return $rts;
     }
 
-    function mostrarMensajes($Receptor,$Origen,$actualizado){
+    private function mostrarMensajes($Receptor,$Origen,$actualizado){
         $mensajes = "";
         $mensajes = $mensajes . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
         if($actualizado){
@@ -26,7 +26,7 @@ class  MostrarChatEntrenador {
         return $mensajes;
     }
 
-    function mostrarChat(){
+    public function mostrarChat(){
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
        

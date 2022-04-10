@@ -62,7 +62,7 @@ class Usuario extends Personas {
         );
         $conn->query($query);
     }
-
+    
     // ==================== PRIVATE ====================
     private static function inserta($person, $usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();

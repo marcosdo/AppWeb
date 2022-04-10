@@ -7,14 +7,14 @@ use es\ucm\fdi\aw\Chat;
 class  MostrarChatUsuario {
     function __construct() {}
     
-    function mostrarMensajes($Receptor,$Origen){
+    private function mostrarMensajes($Receptor,$Origen){
         $rts = "";
         $rts = $rts ."<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
 		$rts = $rts . Chat::dataChat($Receptor,$Origen);
 		$rts = $rts . "</textarea>";
         return $rts;
     }
-    function mostrarChat(){
+    public function mostrarChat(){
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
         $nombreEnt = Premium::getNombreEntrenador($id_usuario);

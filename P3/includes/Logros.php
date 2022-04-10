@@ -4,7 +4,7 @@ namespace es\ucm\fdi\aw;
 class Logros {
     function __construct() {}
 
-    static function addLogro($alias,$logroE){
+    public static function addLogro($alias,$logroE){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $idusuE = self::getId($alias);
         $EnumLogros = self::getLogros($idusuE);
@@ -20,7 +20,7 @@ class Logros {
         }else return false;
     }
 
-    static function deleteLogro($alias,$logroE){
+    public static function deleteLogro($alias,$logroE){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $idusuE = self::getId($alias);
         $EnumLogros = self::getLogros($idusuE);
@@ -37,7 +37,7 @@ class Logros {
     }
     
     //en un futuro debe estar en usuario
-    static function getId($alias){
+    public static function getId($alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias);
         $rs = $conn->query($query);
@@ -49,7 +49,7 @@ class Logros {
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
-    static function getLogros($id_usuario){
+    public static function getLogros($id_usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
         $rs = $conn->query($query);
@@ -61,7 +61,7 @@ class Logros {
         else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 
-    static function getNumLogros($id_usuario){
+    public static function getNumLogros($id_usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
         $rs = $conn->query($query); 

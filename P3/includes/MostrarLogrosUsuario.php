@@ -4,7 +4,7 @@ namespace es\ucm\fdi\aw;
 class  MostrarLogrosUsuario {
     function __construct() {}
     
-    function LogrosImg($EnumLogros){
+    private function LogrosImg($EnumLogros){
         $rts = "";
 		$logro = "";
 		for($i = 0; $i < strlen($EnumLogros); $i++){
@@ -21,7 +21,7 @@ class  MostrarLogrosUsuario {
 		}
 		return $rts;
     }
-    function mostrarLogrosUsu(){
+    public function mostrarLogrosUsu(){
         $usuactual = $_SESSION["alias"];
         $id_usuario =  $_SESSION["id"];
       
