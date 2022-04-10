@@ -8,7 +8,8 @@ $contenidoPrincipal = <<<EOS
 <h1>Consola de Administracion</h1>
 <div id="consola">
     <ul>
-        <li><a href='admincrea.php'>Crea un nuevo usuario</a></li>
+        <li><a href='adminusuarios.php'>Operaciones sobre usuarios</a></li>
+        <li><a href='adminanuncios.php'>Operaciones sobre anuncios</a></li>
     </ul>
 </div>
 EOS;

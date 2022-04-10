@@ -3,9 +3,9 @@ namespace es\ucm\fdi\aw;
 
 use Exception;
 
-class FormularioAdmin extends Formulario {
+class FormularioAdminCrea extends Formulario {
     public function __construct() {
-        parent::__construct('formAdmin', ['urlRedireccion' => 'admin.php']);
+        parent::__construct('formAdminCrea', ['urlRedireccion' => 'admin.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
@@ -21,10 +21,11 @@ class FormularioAdmin extends Formulario {
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
+        <h3>Crea un usuario</h3>
         $htmlErroresGlobales
         <p class="error">{$erroresCampos['rol']}</p>
         <select id="rol" name="rol" value="$rol" >
-            <option disabled="disabled" selected="selected">Nuevo rol</option>
+            <option disabled="disabled" selected="selected">Tipo de rol</option>
             <option value="1">Admin</option>
             <option value="2">Usuario</option>
             <option value="3">Profesional</option>
