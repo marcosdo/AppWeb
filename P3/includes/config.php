@@ -15,9 +15,9 @@ define('BD_PASS', 'lifetypass');
  */
 define('RAIZ_APP', __DIR__);
 define('RUTA_APP', '/AW/GitHub/P3');
-define('RUTA_IMGS', RUTA_APP.'/img');
-define('RUTA_CSS', RUTA_APP.'/css');
-define('RUTA_JS', RUTA_APP.'/js');
+define('RUTA_IMGS', RUTA_APP.'/src/img');
+define('RUTA_CSS', RUTA_APP.'/src/css');
+define('RUTA_JS', RUTA_APP.'/src/js');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
