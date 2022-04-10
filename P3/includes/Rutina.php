@@ -10,7 +10,6 @@ class Rutina {
     private $_muscs;
     private $_id_rutina;
     private $antigua;
-    private static $id_editar;
 
     public static function crea($id, $objetivo, $nivel, $dias){
         $rutina = new Rutina($id, $objetivo, $nivel, $dias);
@@ -139,9 +138,7 @@ class Rutina {
 
     public static function buscaRutina(&$obj, &$arrayreps, $usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        if($usuario) $idus = $_SESSION['id'];
-        else $idus = self:: $id_editar;
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $idus);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $usuario);
         $rs = $conn->query($query); 
         while( $fila = $rs->fetch_assoc()){
             if($fila['activa'] == true){
@@ -219,13 +216,6 @@ class Rutina {
         return $arrayaux;
     }
 
-    public static function setIdEditar($id){
-        self:: $id_editar = $id;
-    }
-
-    public static function getIdEditar(){
-        return self:: $id_editar;
-    }
 
     public static function devolverEjercicio($id_usuario, $dia, $pos){
         $conn = Aplicacion::getInstance()->getConexionBd();

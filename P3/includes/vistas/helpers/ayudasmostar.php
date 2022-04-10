@@ -5,7 +5,7 @@ function mostrarRutina(){
     
     $obj = 0;
     $arrayreps = [];
-    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, true);
+    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $_SESSION['id']);
     $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
     $contenido = "<caption>Rutina de entrenamiento</caption><thead><tr>";
 

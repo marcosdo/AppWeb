@@ -15,7 +15,7 @@ class FormularioPlanEntRutina extends Formulario {
             $query2 = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$fila['usuario']);            
             $rs2 = $conn->query($query2); 
             $filausuario = $rs2->fetch_assoc();
-            $query3 = sprintf("SELECT COUNT(*) FROM rutina WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
+            $query3 = sprintf("SELECT * FROM rutina WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
             $rs3 = $conn->query($query3); 
             $row_cnt = $rs3->num_rows;
             if($row_cnt >0) $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
@@ -59,7 +59,18 @@ class FormularioPlanEntRutina extends Formulario {
         $alias      = trim($datos["alias"] ?? '');
 
         if (count($this->errores) === 0) {
-            Rutina::setIdEditar($alias);
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias); 
+            $rs = $conn->query($query); 
+            while($fila = $rs->fetch_assoc()){
+                $id = $fila['id_usuario'];
+            }
+            /*
+            se podria añadir a rutina un campo que sea editar y que
+            este a 1 para saberque rutina se va a editar y conocer el id de usuario en FormularioEditarRutina
+
+            otra opción variables de sesión (no)
+             */
         }
 
     }
