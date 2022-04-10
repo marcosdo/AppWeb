@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class FormularioPlanEntRutina extends Formulario {
     public function __construct() {

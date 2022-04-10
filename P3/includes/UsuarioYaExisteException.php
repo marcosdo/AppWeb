@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class UsuarioYaExisteException extends \Exception {
     function __construct(string $message = "" , int $code = 0 , \Throwable $previous = null ) {

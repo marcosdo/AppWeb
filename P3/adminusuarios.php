@@ -2,9 +2,9 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$form1 = new \es\ucm\fdi\aw\FormularioAdminCrea();
+$form1 = new \appweb\FormularioAdminCrea();
 $html1 = $form1->gestiona();
-$form2 = new \es\ucm\fdi\aw\FormularioAdminBorra();
+$form2 = new \appweb\FormularioAdminBorra();
 $html2 = $form2->gestiona();
 
 $tituloPagina = 'Consola';

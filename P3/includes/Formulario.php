@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 /**
  * Clase base para la gestión de formularios.

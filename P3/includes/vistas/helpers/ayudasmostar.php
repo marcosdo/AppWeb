@@ -1,5 +1,5 @@
 <?php
-use es\ucm\fdi\aw\Rutina;
+use appweb\Rutina;
 
 function mostrarRutina(){
     

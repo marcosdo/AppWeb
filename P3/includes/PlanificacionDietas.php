@@ -1,6 +1,6 @@
 <?php
 
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class PlanificacionDietas {
     // ==================== ATRIBUTOS ====================

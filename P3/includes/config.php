@@ -34,7 +34,7 @@ date_default_timezone_set('Europe/Madrid');
 spl_autoload_register(function ($class) {
     
     // project-specific namespace prefix
-    $prefix = 'es\\ucm\\fdi\\aw\\';
+    $prefix = 'appweb';
     
     // base directory for the namespace prefix
     $base_dir = __DIR__ . '/';
@@ -122,7 +122,7 @@ function jTraceEx($e, $seen=null) {
 }
 
 // Inicializa la aplicación
-$app = es\ucm\fdi\aw\Aplicacion::getInstance();
+$app = appweb\Aplicacion::getInstance();
 $app->init(array('localhost'=>BD_HOST, 'lifety'=>BD_NAME, 'lifetyuser'=>BD_USER, 'lifetypass'=>BD_PASS));
 
 /**

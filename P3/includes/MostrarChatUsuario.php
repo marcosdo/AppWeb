@@ -1,7 +1,7 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
-use es\ucm\fdi\aw\Chat;
+use appweb\Chat;
 
 
 class  MostrarChatUsuario {

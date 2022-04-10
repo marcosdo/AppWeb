@@ -1,4 +1,4 @@
-<?php namespace es\ucm\fdi\aw; 
+<?php namespace appweb; 
 
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";

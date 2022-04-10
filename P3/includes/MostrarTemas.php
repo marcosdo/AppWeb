@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class MostrarTemas { 
     public function __construct() {}

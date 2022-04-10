@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 /** Clase que mantiene el estado global de la aplicación. */
 class Aplicacion

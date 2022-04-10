@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class MostrarLogrosEntrenador {
     public function __construct() {}

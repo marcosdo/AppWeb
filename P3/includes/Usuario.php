@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace appweb;
 
 class Usuario extends Personas {
     // ==================== MÉTODOS ====================

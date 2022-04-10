@@ -4,8 +4,8 @@ require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Planificacion';
 
-$form = new es\ucm\fdi\aw\FormularioRutinas();
-$form2 = new es\ucm\fdi\aw\FormularioDietas();
+$form = new appweb\FormularioRutinas();
+$form2 = new appweb\FormularioDietas();
 
 $htmlFormRutinas = $form->gestiona();
 $htmlFormDietas = $form2->gestiona();
