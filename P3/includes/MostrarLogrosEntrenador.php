@@ -6,7 +6,7 @@ class MostrarLogrosEntrenador {
 
     function Usuarios($entNombre){
         $rts = "";
-        $array = Logros::getUsuario($entNombre);
+        $array = Profesional::getUsuario($entNombre);
         for ($i=0; $i < sizeof($array); $i++) { 
             $rts = $rts ."<option value='$array[$i]'>$array[$i]</option>";
         } 

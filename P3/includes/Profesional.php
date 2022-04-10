@@ -114,7 +114,17 @@ class Profesional extends Personas {
         $conn->query($query);
         $conn->query($query2);
     }
-
+    public static function getUsuario($entNombre){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
+        $rs = $conn->query($query);
+        if($rs){
+            $array = array();
+            while($fila = $rs->fetch_assoc()) array_push($array,$fila["usuario"]);
+            $rs->free();
+            return $array;
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
     // ==================== PRIVATE ====================
     private static function borra($nutri) { return self::borraPorId($nutri->id); }
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
