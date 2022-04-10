@@ -24,7 +24,7 @@ h1 {
 	grid-template-columns: minmax(10%, auto) minmax(auto, 80%) minmax(auto, 10%);
 	grid-template-areas: "cabecera cabecera cabecera"  "menu contenido anuncios" "pie pie pie";
 	position:relative;
-	z-index: 1;
+	z-index: 6;
 }
 
 
@@ -204,7 +204,6 @@ div#repeticiones {
 	margin: 0 auto 100px;
 	padding: 3%;
 	border-radius: 20px;
-	position: relative;
 }
 
 .nivel {
@@ -247,7 +246,6 @@ select option[value=""][disabled] {
 }
 
 .form , #formPago{
-	max-width: 60%;
 	text-align: center;
 }
 
@@ -324,11 +322,12 @@ body:before {
 #tabla {
 	display: grid;
 	grid-template-columns: auto auto;
+	grid-column-gap: 10px;
 }
 
 #tabla img {
 	border-radius: 20px;
-	max-width: 300;
+	width: 300;
 	max-height: 400px;
 }
 
@@ -520,7 +519,7 @@ border:1px solid #ACD8F0; }
 	}
 	
 	.navbar .menu-items {
-		padding-top: 120px;
+		padding-top: 130px;
 		background-color: #ffffff;
 		height: 100vh;
 		width: 100%;
@@ -532,9 +531,10 @@ border:1px solid #ACD8F0; }
 		transition: transform 0.5s ease-in-out;
 		text-align: center;
 		z-index: 2;
+		position: absolute;
 	}
 
-	#tabla {
+	#tabla, .plan {
 		display: grid;
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
