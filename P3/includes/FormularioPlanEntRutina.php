@@ -3,7 +3,7 @@ namespace appweb;
 
 class FormularioPlanEntRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formRutinas', ['urlRedireccion' => 'planrutinaent.php']);
+        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planrutinaent.php']);
     }
     
     private function Usuarios($entNombre){

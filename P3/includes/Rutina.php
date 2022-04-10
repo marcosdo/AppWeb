@@ -73,13 +73,7 @@ class Rutina {
            
             $rs->free();
         }
-        else error_log("Error BD ({$conn->errno}): {$conn->error}");
-        
-        $obj = 1;
-        $arrayreps = [];
-        self::buscaRutina($obj, $arrayreps, true); // esto que hace aqui??
-
-        
+        else error_log("Error BD ({$conn->errno}): {$conn->error}"); 
     }
 
     private static function crearRutina($rutina){
@@ -136,7 +130,7 @@ class Rutina {
         return $reps;
     }
 
-    public static function buscaRutina(&$obj, &$arrayreps, $usuario){
+    public static function buscaRutina(&$obj, &$arrayreps, &$usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $usuario);
         $rs = $conn->query($query); 

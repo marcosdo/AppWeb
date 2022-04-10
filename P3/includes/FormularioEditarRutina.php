@@ -3,7 +3,7 @@ namespace appweb;
 
 class FormularioEditarRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formRutinas', ['urlRedireccion' => 'planrutinaent.php']);
+        parent::__construct('formEditarRutinas', ['urlRedireccion' => 'planrutinaent.php']);
     }
     
     private function Ejercicios($defecto){
@@ -100,7 +100,7 @@ class FormularioEditarRutina extends Formulario {
             $arrayreps = [];
             $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
             $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
-            $dias = count($arrayaux)+1;
+            $dias = count($arrayaux);
 
             for ($i = 0; $i < $ejerciciostotales;$i++){
                 for ($j = 0; $j < $dias;$j++) { 
