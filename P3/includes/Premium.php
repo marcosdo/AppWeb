@@ -21,6 +21,31 @@ class Premium {
         return false;
     }
     
+    public static function getNombreEntrenador($id_usuario) { 
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'", $id_usuario);
+        $rs = $conn->query($query); 
+        if($rs) {
+            $fila = $rs->fetch_assoc();
+            $Id_profesional = $fila["id_profesional"];
+            $rs->free();
+            $query = sprintf("SELECT * FROM profesional WHERE id_profesional = '%d'", $Id_profesional);
+            $rs = $conn->query($query); 
+            if($rs) {
+                $fila = $rs->fetch_assoc();
+                $Nombre_profesional = $fila["nutri"];
+                $rs->free();
+                return $Nombre_profesional;
+            }
+            else error_log("Error BD ({$conn->errno}): {$conn->error}");
+
+        }
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        return false;
+    }
+    
+
+
     private static function hashPassword($password) {return password_hash($password, PASSWORD_DEFAULT);}
    
     private static function inserta($premium) {

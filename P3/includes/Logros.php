@@ -1,53 +1,89 @@
 <?php
 namespace es\ucm\fdi\aw;
 
-class  Logros {
-    /// PUBLIC
-    // Constructor
-    function __construct() {
-    }
-    
-    function LogrosImg($EnumLogros){
-        $rts = "";
-		$logro = "";
-		
-		for($i = 0; $i < strlen($EnumLogros); $i++){
-			if($EnumLogros[$i] == ","){
-				$logro = $logro . ".png";
-				$rts = $rts . "<img src='img/logros/$logro' alt='' width='70' height='70'>";
-				$logro = "";
-			}
-			else $logro = $logro . $EnumLogros[$i];
-			if($i+1 == strlen($EnumLogros)){
-				$logro = $logro . ".png";
-				$rts = $rts . "<img src='img/logros/$logro' alt='' width='70' height='70'>";
-			}
-		}
-		return $rts;
-    }
-    function mostrarLogros(){
+class Logros {
+    function __construct() {}
+
+    static function addLogro($alias,$logroE){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $usuactual = $_SESSION["alias"];
-        $id_usuario =  $_SESSION["id"];
-      
+        $idusuE = self::getId($alias);
+        $EnumLogros = self::getLogros($idusuE);
+
+        if(!preg_match("/{$logroE}/i",$EnumLogros)){
+            $EnumLogros = $EnumLogros . "," . $logroE;
+            $num = self::getNumLogros($idusuE);
+            $num++;
+            $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogros,$idusuE);
+            $rs = $conn->query($query);
+            if($rs) return true;
+            else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }else return false;
+    }
+
+    static function deleteLogro($alias,$logroE){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $idusuE = self::getId($alias);
+        $EnumLogros = self::getLogros($idusuE);
+
+        if(preg_match("/{$logroE}/i",$EnumLogros)){
+            $EnumLogrosEliminado = str_replace($logroE ,'',$EnumLogros);
+            $num = self::getNumLogros($idusuE);
+            $num--;
+            $query = sprintf("UPDATE premium SET num_logros = '%d', logros = '%s' WHERE id_usuario = '%s' ",$num,$EnumLogrosEliminado,$idusuE);
+            $rs = $conn->query($query);
+            if($rs) return true;
+            else error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }else return false;
+    }
+
+    static function getId($alias){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias);
+        $rs = $conn->query($query);
+        if($rs){
+            $fila = $rs->fetch_assoc();
+            $rs->free();
+            return $fila["id_usuario"];
+        }
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
+
+    static function getLogros($id_usuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
+        $rs = $conn->query($query);
+        if($rs){
+            $fila = $rs->fetch_assoc();
+            $rs->free();
+            return $fila["logros"]; 
+        } 
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
+
+    static function getNumLogros($id_usuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM premium WHERE id_usuario = '%d'",$id_usuario);
         $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $numLogros = $fila["num_logros"];
-	    $EnumLogros = $fila["logros"];
-        $rs->free();
-        
-        
-        $imaginesLogros = self::LogrosImg($EnumLogros);
-        $contenidoPrincipal = <<<EOF
-        <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
-        <div id = 'selectA'>
-        <h3><span class = 'text'>Número de logros : &nbsp<b>$numLogros</b></span></h3>
-        </div>
-        <div id = 'selectA'>
-        $imaginesLogros
-        </div>
-        EOF;
-        return $contenidoPrincipal;
+        if($rs){
+            $fila = $rs->fetch_assoc();
+            $rs->free();
+            return $fila["num_logros"];
+        }
+        else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
+
+    //esta funcion no debe estar aqui
+    static function getUsuario($entNombre){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
+        $rs = $conn->query($query);
+        if($rs){
+            $array = array();
+            while($fila = $rs->fetch_assoc()) array_push($array,$fila["usuario"]);
+            $rs->free();
+            return $array;
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+    }
+
+
 }
