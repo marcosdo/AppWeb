@@ -458,9 +458,10 @@ border:1px solid #ACD8F0; }
 
 /* MENSAJES POPUP (ANEXO 1, EJERCICIO 3)*/
 .mensajes {
+	z-index: 10;
 	position: fixed;
 	width: 100%;
-}
+  }
   
 .mensaje {
 	border: 2px solid black;
@@ -474,14 +475,14 @@ border:1px solid #ACD8F0; }
 	display: none;
 }
 
-.mensaje {
+.mensaje .cabecera {
 	font-size: 2em;
 	line-height: 0.7em;
 	text-align: right;
 	padding: 0 0.1em;
 }
 
-.mensaje{
+.mensaje .contenido {
 	padding: 0.2em 1em;
 	text-align: center;
 }
@@ -493,6 +494,7 @@ border:1px solid #ACD8F0; }
 .mensaje label {
 	margin: 0px;
 }
+/* FIN MENSAJES POPUP (ANEXO 1, EJERCICIO 3)*/
 
 @media all and (max-width: 860px) {
 	#contenedor {

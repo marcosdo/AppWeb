@@ -76,7 +76,7 @@ class FormularioRegistro extends Formulario {
                 Usuario::register($alias, $nombre, $apellidos, $mail, $password);
                 // Mensaje POP UP ejercicio 3 anexo 1
                 $app = Aplicacion::getInstance();
-                $mensajes = ['Se ha registrado exitosamente', "Bienvenido $nombre"];
+                $mensajes = ['Se ha registrado exitosamente', "Gracias $nombre, para empezar a usar lifety inicie sesión"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } catch (UsuarioYaExisteException $e) {
                 $this->errores[] = 'El nombre de usuario no puede estar repetido.';

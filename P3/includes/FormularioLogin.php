@@ -48,6 +48,9 @@ class FormularioLogin extends Formulario {
                 $_SESSION['alias'] = $usuario->getAlias();
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['rol'] = $usuario->getRol();
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha logeado exitosamente', "Bienvenido {$_SESSION['alias']}"];
+                $app->putAtributoPeticion('mensajes', $mensajes);
             }
             catch (Exception $e) {
                 $this->errores[] = "El usuario o el password no coinciden";
