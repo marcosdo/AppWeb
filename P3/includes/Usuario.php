@@ -1,65 +1,42 @@
 <?php
 namespace es\ucm\fdi\aw;
 
-class Usuario {
-    public const ADMIN_ROLE = 1;
-    public const PROFESSIONAL_ROLE = 2;
-    public const USER_ROLE = 3;
+class Usuario extends Personas {
+    // ==================== MÉTODOS ====================
+    // ==================== no estaticos ====================
+    // Constructor
+    private function __construct($premium) {
+        $this->_premium = $premium;
+    }
+
+    // Getters y setters
+    public function getPremium() { return $this->_premium; }
+
+    // Funciones
+    public function borrate() { return ($this->id !== null) ? self::borra($this) : false; }
 
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
-    private $apellidos;
-    private $correo;
-    private $id;
-    private $alias;
-    private $nombre;
-    private $password;
-    private $premium;
+    private $_premium;
 
     // ==================== MÉTODOS ====================
-    // ====================         ====================
-    // Constructor
-    private function __construct($nombre, $apellidos, $correo, $password, $alias, $premium = 0, $id = null) {
-        $this->apellidos = $apellidos;
-        $this->correo = $correo;
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->password = $password;
-        $this->premium = $premium;
-        $this->alias = $alias;
+    // ==================== estaticos ====================
+    public static function crea($person, $premium = 0) {
+        $user = new Usuario($premium);
+        return $user->inserta($person, $user);
     }
 
-    // ==================== PUBLIC ====================
-    // Getters y setters
-    public function getId() { return $this->id; }
-    public function getAlias() { return $this->alias; }
-    public function getCorreo() { return $this->correo; }
-    public function getNombre() { return $this->nombre; }
-    public function getPremium() { return $this->premium; }
-    public function getApellidos() { return $this->apellidos; }
-    public function setPassword($nuevoPassword) { $this->password = self::hashPassword($nuevoPassword); }
-
-    public static function setPremium($id) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE usuario SET premium = 1 WHERE id_usuario = %d"
-            , $conn->real_escape_string($id)
-        );
-        $conn->query($query);
-    }
-
-    // Funciones de la clase
     public static function login($alias, $password) {
         $usuario = self::buscaPorAlias($alias);
         return ($usuario && $usuario->compruebaPassword($password)) ? $usuario : false;
     }
 
-    public static function crea($nombre, $apellidos, $correo, $password, $alias, $premium) {
-        $user = new Usuario($nombre, $apellidos, $correo, self::hashPassword($password), $alias, $premium);
-        return $user->inserta($user) ? $user : false;
+    public static function registra($nick, $nombre, $apellidos, $mail, $password, $rol = Personas::USER_ROLE) {
+        $person = parent::register($nick, $nombre, $apellidos, $mail, $password, $rol);
+        return self::crea($person);
     }
 
-    public static function buscaPorId($id) {
+    public static function buscaID($id) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "SELECT * FROM usuario WHERE id_usuario = %d"
@@ -69,60 +46,38 @@ class Usuario {
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila)
-                $result = new Usuario($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['usuario'], $fila['premium'], $fila['id_usuario']);
+                $result = new Usuario($fila['id_usuario'], $fila['premium']);
         } finally {
-            if ($rs != null) {
+            if ($rs != null)
                 $rs->free();
-            }
         }
         return $result;
     }
 
-    public static function buscaPorAlias($alias) {
+    public static function setPremium($id) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "SELECT * FROM usuario WHERE usuario = '%s'"
-            , $alias
+            "UPDATE usuario SET premium = 1 WHERE id_usuario = %d"
+            , $id
         );
-        try {
-            $rs = $conn->query($query);
-            $fila = $rs->fetch_assoc();
-            if ($fila)
-                $result = new Usuario($fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['password'], $fila['usuario'], $fila['premium'], $fila['id_usuario']);
-        } finally {
-            if ($rs != null) {
-                $rs->free();
-            }
-        }
-        return $result;
-    }
-
-    public function borrate() {
-        if ($this->id !== null) 
-            return self::borra($this);
-        return false;
+        $conn->query($query);
     }
 
     // ==================== PRIVATE ====================
-    private static function inserta($usuario) {
+    private static function inserta($person, $usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO usuario (nombre, apellidos, correo, password, usuario, premium) VALUES ('%s', '%s', '%s', '%s', '%s', %d)"
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->apellidos)
-            , $conn->real_escape_string($usuario->correo)
-            , $conn->real_escape_string($usuario->password)
-            , $conn->real_escape_string($usuario->alias)
-            , $usuario->premium
+            "INSERT INTO usuario (id_usuario, premium) VALUES (%d, %d)"
+            , $person->_id
+            , $usuario->_premium
         );
         try {
             $conn->query($query);
             $usuario->id = $conn->insert_id;
             return $usuario;
         } catch (\mysqli_sql_exception $e) {
-            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-                throw new UsuarioYaExisteException("Ya existe el usuario {$usuario->nombreUsuario}");
-            }
+            if ($conn->sqlstate == 23000) // código de violación de restricción de integridad (PK)
+                throw new UsuarioYaExisteException("Ya existe el usuario {}");
             throw $e;
         }
     }
@@ -138,15 +93,5 @@ class Usuario {
         $conn->query($query);
     }
 
-    private static function borra($usuario) { 
-        return self::borraPorId($usuario->id); 
-    }
-
-    private function compruebaPassword($password) { 
-        return password_verify($password, $this->password);
-    }
-
-    private static function hashPassword($password) { 
-        return password_hash($password, PASSWORD_DEFAULT);
-    }
+    private static function borra($usuario) { return self::borraPorId($usuario->id); }
 }

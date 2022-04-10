@@ -55,22 +55,22 @@ class FormularioPago extends Formulario {
         if (!$observaciones && $observaciones != "") $this->errores['observaciones'] = 'Introduzca un valor valido en observaciones adicionales';
 
         if (count($this->errores) === 0) {
-            $nutri = Nutri::buscaPorMenosUsuarios();
-            if (!$nutri) $this->errores[] = "Ha ocurrido un problema al asignarle nutricionista";
-            else {
-                if(!Premium::crea($peso, $altura, $alergias, $observaciones, 0, "", $_SESSION['id'], $nutri->getId()))  $this->errores[] = "No se ha añadido al usuario a premium";
-                else {
-                    if(!Nutri::nuevoCliente($_SESSION['alias'], $nutri->getNum_usuarios() + 1, $nutri->getId(),$nutri->getAlias())) $this->errores[] = "No se ha añadido al usuario al profesional";
-                    else {
-                        try {
-                            Usuario::setPremium($_SESSION['id']);
-                            $usuario = Usuario::buscaPorId($_SESSION['id']);
-                            $_SESSION['premium'] = $usuario->getPremium();
-                        } catch (Exception $e) {
-                            $this->errores[] = "No se ha actualizado a premium al usuario";
-                        }
-                    }
-                }
+            try {
+                $nutri = Profesional::buscaPorMenosUsuarios();
+                $premium = Premium::creaPremium($peso, $altura, $alergias, $observaciones, 0, "", $_SESSION['id'], $nutri->getId());
+                $nuevoCliente = Profesional::nuevoCliente($_SESSION['alias'], $nutri->getNum_usuarios() + 1, $nutri->getId(), $nutri->getNick());
+                
+                Premium::setPremium($_SESSION['id']);
+                $_SESSION['premium'] = 1;
+            } 
+            catch (Exception $e) {
+                if (!$nutri)
+                    $this->errores[] = "Ha ocurrido un problema al asignarle nutricionista";
+                else if (!$premium)
+                    $this->errores[] = "No se ha añadido al usuario a premium";
+                else if (!$nuevoCliente)
+                    $this->errores[] = "No se ha añadido al usuario al profesional";
+                else $this->errores[] = "No se ha actualizado a premium al usuario";
             }
         }    
     }

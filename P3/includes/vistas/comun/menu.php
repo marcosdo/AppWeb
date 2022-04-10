@@ -1,4 +1,34 @@
-<?php namespace es\ucm\fdi\aw; ?>
+<?php namespace es\ucm\fdi\aw; 
+
+function htmlmenu() {
+    $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
+    if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
+        $html .= "<li><a href='foros.php'>Foro</a></li>";  
+        if (isset($_SESSION['rol'])) {
+            // Si eres admin
+            if ($_SESSION['rol'] == Personas::ADMIN_ROLE) {
+                $html .= "<li><a href='admin.php'>Consola</a></li>";
+            }
+            // Si eres usuario
+            else if ($_SESSION['rol'] == Personas::USER_ROLE) {
+                if (isset($_SESSION['premium']) && $_SESSION['premium'] === 1) 
+                    $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
+                else {
+                    $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
+                    $html .= "<li><a href='plan.php'>Planificación</a></li>";
+                }
+            }
+            // Si eres profesional
+            else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
+                $html .= "<li><a href='chatprof.php'>Chat</a></li>";
+                $html .= "<li><a href='nutriplan.php'>Planificación</a></li>";
+            }
+        }
+    }
+    return $html;
+}
+
+?>
 <nav>
     <div class="navbar">
         <div class="container nav-container">
@@ -10,24 +40,7 @@
             </div> 
             <div class="menu-items">
                 <ul>
-                    <li><a href="<?= RUTA_APP ?>/index.php">PORTADA</a></li>
-                    <?php
-                        $rutaApp = RUTA_APP;
-                        if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
-                            echo "<li><a href='foros.php'>FORO</a></li>";  
-                            if (isset($_SESSION['nutri']) && ($_SESSION["nutri"] === true)){
-                                echo "<li><a href='chatprof.php'>CHAT</a></li>";
-                                echo "<li><a href='nutriplan.php'>PLANIFICACION</a></li>";
-                            }
-                            else {
-                                if (isset($_SESSION['premium']) && $_SESSION['premium'] == 1) 
-                                    echo "<li><a href='chatusu.php'>SEGUIMIENTO</a></li>";
-                                else 
-                                    echo "<li><a href='suscripcion.php'>SEGUIMIENTO</a></li>";
-                                    echo "<li><a href='plan.php'>PLANIFICACION</a></li>";
-                            }
-                        }
-                    ?>
+                    <?php echo htmlmenu() ?>
                 </ul>
             </div>
         </div>
