@@ -1,5 +1,5 @@
 <?php namespace es\ucm\fdi\aw; ?>
-<div id = "nav">
+<nav>
     <div class="navbar">
         <div class="container nav-container">
             <input class="checkbox" type="checkbox" name="" id="" />
@@ -32,5 +32,4 @@
             </div>
         </div>
     </div>
-    
-</div>
+</nav>

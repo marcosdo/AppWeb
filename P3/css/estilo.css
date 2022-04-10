@@ -8,7 +8,10 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #f8f9fa;
+}
 
+h1 {
+	text-align: center;
 }
 
 #contenedor {
@@ -17,21 +20,19 @@ body {
     display: grid;
 	height : 100%;
 	width : 100%;
-    grid-template-rows: 12% auto 20%;
-	grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 150px auto 200px;
+	grid-template-columns: minmax(10%, auto) minmax(auto, 80%) minmax(auto, 10%);
 	grid-template-areas: "cabecera cabecera cabecera"  "menu contenido anuncios" "pie pie pie";
 	position:relative;
 	z-index: 1;
 }
 
 
-#header {
+header {
 	background-color: #292a3a;
 	color: #e1523d ;
 	text-align: center;
 	grid-area: cabecera;
-	padding: 25px;
-
 }
 
 .saludo a,  .saludo a:visited {
@@ -45,7 +46,7 @@ body {
 	font-weight: bold;
 	text-decoration: underline;
 } 
-#nav {
+nav {
 	background-color: #f8f9fa;
 	grid-area: menu;
 }
@@ -53,42 +54,38 @@ body {
 	display: none;
 }
 
-#nav a, nav a:visited {
-	color: #e1523d;
+nav a, nav a:visited {
+	color: #292a3a;
 	font-weight: bold;
 	text-decoration: none;
 } 
 
-#nav a:hover {
+nav a:hover {
 	color: #e1523d;
 	text-decoration: underline;
 } 
 
-#nav a, nav li{
+nav a, nav li{
 	color: #e1523d;
 }
 
-#nav a, nav h3{
+nav a, nav h3{
 	color: #e1523d;
 }
 
-#aside {
-	padding: 10px;
+aside {
 	background-color: #f8f9fa;
 	grid-area: anuncios;
 }
 
-#main {
-	padding: 10px;
+main {
 	margin: 0 auto;
 	background-color: #f8f9fa;
 	grid-area: contenido;
-	width: 80%;
 }
 
-#footer {
+footer {
 	clear: both;
-	padding: 20px;
 	background-color: #292a3a;
 	color: #e1523d;
 	text-align: center;
@@ -200,7 +197,6 @@ div#repeticiones {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
-	z-index: 1;
 }
 
 #formRutinas, #formDietas, .form, #formPago{
@@ -208,6 +204,7 @@ div#repeticiones {
 	margin: 0 auto 100px;
 	padding: 3%;
 	border-radius: 20px;
+	position: relative;
 }
 
 .nivel {
@@ -250,8 +247,6 @@ select option[value=""][disabled] {
 }
 
 .form , #formPago{
-	position: relative;
-	z-index: 1;
 	max-width: 60%;
 	text-align: center;
 }
@@ -466,7 +461,7 @@ border:1px solid #ACD8F0; }
 .mensajes {
 	position: fixed;
 	width: 100%;
-  }
+}
   
 .mensaje {
 	border: 2px solid black;
@@ -498,4 +493,130 @@ border:1px solid #ACD8F0; }
 
 .mensaje label {
 	margin: 0px;
+}
+
+@media all and (max-width: 860px) {
+	#contenedor {
+		grid-template-rows: 150px 40px auto auto 200px;
+		grid-template-areas: "cabecera"  "menu" "contenido" "anuncios" "pie";
+		grid-template-columns: auto;
+		display: grid;
+	}
+	header, main, nav, aside, footer {
+		width: 100%;
+	}
+	
+	.nav-container .hamburger-lines {
+		display: block;
+		height: 26px;
+		width: 32px;
+		position: absolute;
+		top: 10px;
+		left: 47%;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.navbar .menu-items {
+		padding-top: 120px;
+		background-color: #ffffff;
+		height: 100vh;
+		width: 100%;
+		transform: translate(-150%);
+		display: flex;
+		flex-direction: column;
+		margin-left: -50px;
+		padding-left: 50px;
+		transition: transform 0.5s ease-in-out;
+		text-align: center;
+		z-index: 2;
+	}
+
+	#tabla {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto;
+	}
+	
+	#tabla img {
+		display: none;
+	}
+
+
+}
+.navbar .menu-items li {
+	margin-bottom: 1.2rem;
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.navbar .nav-container li {
+	list-style: none;
+}
+
+.navbar .nav-container a {
+	color: #292a3a;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.navbar .nav-container a:hover{
+	color: #e1523d;
+	text-decoration: underline;
+}
+
+.nav-container {
+	display: block;
+	position: relative;
+}
+
+.nav-container .hamburger-lines .line {
+	display: block;
+	height: 4px;
+	width: 100%;
+	border-radius: 10px;
+	background: #292a3a;
+}
+
+.nav-container .checkbox {
+	position: relative;
+	display: block;
+	height: 32px;
+	width: 32px;
+	top: 10px;
+	left: 47%;
+	z-index: 5;
+	opacity: 0;
+	cursor: pointer;
+}
+.nav-container input[type="checkbox"]:checked ~ .menu-items {
+	transform: translateX(0);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line1 {
+	transform: rotate(45deg);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line2 {
+	transform: scaleY(0);
+}
+
+.nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line3 {
+	transform: rotate(-45deg);
+}
+
+.nav-container .hamburger-lines .line1 {
+	transform-origin: 0% 0%;
+	transition: transform 0.4s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line2 {
+	transition: transform 0.2s ease-in-out;
+}
+
+.nav-container .hamburger-lines .line3 {
+	transform-origin: 0% 100%;
+	transition: transform 0.4s ease-in-out;
 }

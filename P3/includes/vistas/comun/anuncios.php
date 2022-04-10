@@ -1,3 +1,3 @@
-<div id="aside">
+<aside>
   Banner de anuncios.
-</div>
+</aside>
