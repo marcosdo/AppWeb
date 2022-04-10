@@ -10,7 +10,7 @@
 		return $html;
 	}
 ?>
-<div id="header">
+<header>
 	<div class="logo">
 		<h1>Lifety</h1>
 	</div>
@@ -18,4 +18,4 @@
 	<div class="saludo">
 		<?= mostrarSaludo() ?>
 	</div>
-</div>
+</header>

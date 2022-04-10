@@ -66,10 +66,11 @@ spl_autoload_register(function ($class) {
 function gestorExcepciones(Throwable $exception) {
     error_log(jTraceEx($exception)); 
     http_response_code(500);
+    $msg = $exception->getMessage();
     $tituloPagina = 'Error';
     $contenidoPrincipal = <<<EOS
         <h1>Oops</h1>
-        <p> Parece que ha habido un fallo. </p>
+        <p> $msg </p>
     EOS;
     require __DIR__.'/vistas/plantillas/plantilla.php';
 }

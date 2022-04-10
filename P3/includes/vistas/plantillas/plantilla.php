@@ -19,11 +19,11 @@ $mensajes = mensajesPeticionAnterior();
 require(RAIZ_APP.'/vistas/comun/cabecera.php');
 require(RAIZ_APP.'/vistas/comun/menu.php');
 ?>
-	<div id = "main">
+	<main>
 		<article>
 			<?= $contenidoPrincipal ?>
 		</article>
-	</div>
+</main>
 <?php
 require(RAIZ_APP.'/vistas/comun/anuncios.php');
 require(RAIZ_APP.'/vistas/comun/pie.php');

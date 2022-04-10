@@ -1,5 +1,5 @@
 
-<div id = "footer">
+<footer>
 
             <div class="columna1">
 
@@ -64,6 +64,4 @@
             </div>
 
 
-</div>
-
-
+</footer>

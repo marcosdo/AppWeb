@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2022 a las 12:13:42
--- Versión del servidor: 10.4.19-MariaDB
--- Versión de PHP: 8.0.6
+-- Tiempo de generación: 10-04-2022 a las 15:46:05
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -153,14 +153,35 @@ CREATE TABLE IF NOT EXISTS `empresas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entrena`
+--
+
+DROP TABLE IF EXISTS `entrena`;
+CREATE TABLE IF NOT EXISTS `entrena` (
+  `nutri` text NOT NULL,
+  `usuario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `foro`
 --
 
 DROP TABLE IF EXISTS `foro`;
 CREATE TABLE IF NOT EXISTS `foro` (
   `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(5) UNSIGNED NOT NULL,
   `tema` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_foro`)
+  `nickcreador` varchar(20) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `contenido` varchar(500) NOT NULL,
+  `categoria` enum('Nutricion','Dieta') NOT NULL,
+  `respuestas` int(5) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_foro`),
+  UNIQUE KEY `tema` (`tema`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `nickcreador` (`nickcreador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -178,10 +199,11 @@ CREATE TABLE IF NOT EXISTS `mensaje` (
   `titulo` varchar(25) NOT NULL,
   `mensaje` mediumtext NOT NULL,
   `fecha` datetime NOT NULL,
+  `prioridad` int(5) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_mensaje`),
   KEY `Tema_FK` (`id_foro`),
   KEY `Mensaje_FK` (`id_referencia`),
-  KEY `Autor_KF` (`id_usuario`)
+  KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -198,7 +220,26 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `cuerpo` mediumtext NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id_noticia`),
-  KEY `Prof_FK` (`id_profesional`)
+  KEY `id_profesional` (`id_profesional`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personas`
+--
+
+DROP TABLE IF EXISTS `personas`;
+CREATE TABLE IF NOT EXISTS `personas` (
+  `id_usuario` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nick` varchar(6) NOT NULL,
+  `nombre` varchar(25) CHARACTER SET utf32 NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `correo` varchar(50) NOT NULL,
+  `contraseña` varchar(100) NOT NULL,
+  `rol` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `nick_admin` (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -223,14 +264,14 @@ CREATE TABLE IF NOT EXISTS `pertenece` (
 
 DROP TABLE IF EXISTS `premium`;
 CREATE TABLE IF NOT EXISTS `premium` (
+  `id_usuario` int(5) UNSIGNED NOT NULL,
+  `id_profesional` int(5) UNSIGNED NOT NULL,
   `peso` float NOT NULL,
   `altura` float NOT NULL,
   `alergias` text NOT NULL,
   `observaciones_adicionales` text NOT NULL,
   `num_logros` int(20) NOT NULL,
   `logros` set('5logros','AccesoTodos','ComenzarChat','Completa1Plan','Completa5Plan','ContrataNutri','Permanencia','Permanencia1m','Foro') NOT NULL,
-  `id_usuario` int(5) UNSIGNED NOT NULL,
-  `id_profesional` int(5) UNSIGNED NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `Pro_FK` (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -260,17 +301,12 @@ CREATE TABLE IF NOT EXISTS `productos` (
 
 DROP TABLE IF EXISTS `profesional`;
 CREATE TABLE IF NOT EXISTS `profesional` (
-  `nombre` text NOT NULL,
-  `apellidos` text NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `id_profesional` int(5) UNSIGNED NOT NULL,
   `nutri` varchar(20) NOT NULL,
-  `usuarios` text NOT NULL,
   `num_usuarios` int(3) NOT NULL,
-  `id_profesional` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `usuarios` text NOT NULL,
   PRIMARY KEY (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 -- --------------------------------------------------------
 
@@ -280,40 +316,27 @@ CREATE TABLE IF NOT EXISTS `profesional` (
 
 DROP TABLE IF EXISTS `rutina`;
 CREATE TABLE IF NOT EXISTS `rutina` (
-  `activa` tinyint(1) NOT NULL,
+  `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
+  `activa` tinyint(1) NOT NULL,
+  `objetivo` int(1) DEFAULT NULL,
   `nivel` char(1) DEFAULT NULL,
   `dias` int(1) DEFAULT NULL,
-  `objetivo` int(1) DEFAULT NULL,
-  `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_rutina`),
   KEY `id_rutina` (`id_rutina`),
-  KEY `U_FK` (`id_usuario`)
+  KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
---
--- Estructura de tabla para la tabla `entrena`
---
 
-CREATE TABLE `entrena` (
-  `nutri` text NOT NULL,
-  `usuario` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `usuario`
 --
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `nombre` text NOT NULL,
-  `apellidos` text NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `usuario` varchar(20) NOT NULL,
+  `id_usuario` int(5) UNSIGNED NOT NULL,
   `premium` tinyint(1) NOT NULL,
-  `id_usuario` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -341,21 +364,28 @@ ALTER TABLE `dieta`
   ADD CONSTRAINT `clave-dieta-almurezo` FOREIGN KEY (`id_almuerzo`) REFERENCES `comidas` (`id_comida`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `clave-dieta-cena` FOREIGN KEY (`id_cena`) REFERENCES `comidas` (`id_comida`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `clave-dieta-desayuno` FOREIGN KEY (`id_desayuno`) REFERENCES `comidas` (`id_comida`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `clave-dieta-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dieta_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `foro`
+--
+ALTER TABLE `foro`
+  ADD CONSTRAINT `foro_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `foro_ibfk_2` FOREIGN KEY (`nickcreador`) REFERENCES `personas` (`nick`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `mensaje`
 --
 ALTER TABLE `mensaje`
-  ADD CONSTRAINT `Autor_KF` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Mensaje_FK` FOREIGN KEY (`id_referencia`) REFERENCES `mensaje` (`id_mensaje`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Tema_FK` FOREIGN KEY (`id_foro`) REFERENCES `foro` (`id_foro`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Tema_FK` FOREIGN KEY (`id_foro`) REFERENCES `foro` (`id_foro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `noticias`
 --
 ALTER TABLE `noticias`
-  ADD CONSTRAINT `Prof_FK` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `noticias_ibfk_1` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pertenece`
@@ -368,14 +398,26 @@ ALTER TABLE `pertenece`
 -- Filtros para la tabla `premium`
 --
 ALTER TABLE `premium`
-  ADD CONSTRAINT `Pro_FK` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Usu_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `premium_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `premium_ibfk_2` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`);
+
+--
+-- Filtros para la tabla `profesional`
+--
+ALTER TABLE `profesional`
+  ADD CONSTRAINT `profesional_ibfk_1` FOREIGN KEY (`id_profesional`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `rutina`
 --
 ALTER TABLE `rutina`
-  ADD CONSTRAINT `U_FK` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `rutina_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
