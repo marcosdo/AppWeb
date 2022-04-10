@@ -1,5 +1,5 @@
 <?php
-use appweb\Rutina;
+use appweb\plan\Rutina;
 
 function mostrarRutina(){
     

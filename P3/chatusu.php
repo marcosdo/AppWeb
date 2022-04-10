@@ -2,10 +2,10 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$chatUsuario = new appweb\MostrarChatUsuario();
+$chatUsuario = new appweb\chat\MostrarChatUsuario();
 $MostrarChat = $chatUsuario->mostrarChat();
 
-$Logros = new appweb\MostrarLogrosUsuario();
+$Logros = new appweb\chat\MostrarLogrosUsuario();
 $MostarLogros = $Logros->mostrarLogrosUsu();
 
 $tituloPagina = 'Tu nutricionista';

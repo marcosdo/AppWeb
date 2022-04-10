@@ -1,7 +1,9 @@
 <?php
-namespace appweb;
+namespace appweb\chat;
 
-use Exception;
+use appweb\Formulario;
+use appweb\usuarios\Profesional;
+use appweb\usuarios\Premium;
 
 class FormularioPago extends Formulario {
     public function __construct() {
@@ -63,7 +65,7 @@ class FormularioPago extends Formulario {
                 Premium::setPremium($_SESSION['id']);
                 $_SESSION['premium'] = 1;
             } 
-            catch (Exception $e) {
+            catch (\Exception $e) {
                 if (!$nutri)
                     $this->errores[] = "Ha ocurrido un problema al asignarle nutricionista";
                 else if (!$premium)

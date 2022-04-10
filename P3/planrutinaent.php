@@ -3,7 +3,7 @@
 require_once __DIR__.'/includes/config.php';
 
 
-$form = new appweb\FormularioEditarRutina();
+$form = new appweb\plan\FormularioEditarRutina();
 $htmlFormRutinas = $form->gestiona();
 $tituloPagina = 'Modificación de Planificación por Nutricionista';
 $html = "-";

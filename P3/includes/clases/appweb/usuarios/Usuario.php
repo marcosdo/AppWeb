@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\usuarios;
+
+use appweb\Aplicacion;
 
 class Usuario extends Personas {
     // ==================== MÉTODOS ====================

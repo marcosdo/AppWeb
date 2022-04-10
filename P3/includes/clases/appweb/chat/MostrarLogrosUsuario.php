@@ -1,5 +1,5 @@
 <?php
-namespace appweb;
+namespace appweb\chat;
 
 class  MostrarLogrosUsuario {
     function __construct() {}

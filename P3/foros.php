@@ -2,10 +2,10 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$class = new appweb\MostrarTemas();
+$class = new appweb\foro\MostrarTemas();
 $html = $class->muestra_temas();
 
-$form = new appweb\FormularioForo();
+$form = new appweb\foro\FormularioForo();
 $htmlFormForo = $form->gestiona();
 
 $tituloPagina = 'Foro';

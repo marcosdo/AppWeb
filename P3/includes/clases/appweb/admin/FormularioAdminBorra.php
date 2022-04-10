@@ -1,7 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\admin;
 
-use Exception;
+use appweb\Formulario;
 
 class FormularioAdminBorra extends Formulario {
     public function __construct() {
@@ -75,7 +75,7 @@ class FormularioAdminBorra extends Formulario {
                     default: break;
                 }
             }
-            catch (Exception $e) {
+            catch (\Exception $e) {
                 $this->errores[] = 'Imposible borrar usuario';
             }
         }

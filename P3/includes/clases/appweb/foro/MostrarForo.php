@@ -1,5 +1,5 @@
 <?php
-namespace appweb;
+namespace appweb\foro;
 
 class MostrarForo { 
     public function __construct() {}

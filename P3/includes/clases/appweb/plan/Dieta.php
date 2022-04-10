@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\plan;
+
+use appweb\Aplicacion;
 
 class Dieta {
     // ==================== ATRIBUTOS ====================

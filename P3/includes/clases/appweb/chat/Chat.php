@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\chat;
+
+use appweb\Aplicacion;
 
 class Chat {
     function __construct() {}

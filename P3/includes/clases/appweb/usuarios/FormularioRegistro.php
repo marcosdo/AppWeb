@@ -1,5 +1,8 @@
 <?php
-namespace appweb;
+namespace appweb\usuarios;
+
+use appweb\Formulario;
+use appweb\Aplicacion;
 
 class FormularioRegistro extends Formulario {
 

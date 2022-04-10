@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\plan;
+
+use appweb\Formulario;
 
 class FormularioRutinas extends Formulario {
     public function __construct() {
@@ -58,8 +60,6 @@ class FormularioRutinas extends Formulario {
         </p>
         <button type="submit" name="enviar">Quiero esta rutina</button>
         EOF;
-
-        // otro boton que envie sin recoger campos para mostrar rutina actual?
         return $html;
     }
 

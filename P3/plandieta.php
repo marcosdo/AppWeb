@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$tabla = new \appweb\PlanificacionDietas();
+$tabla = new \appweb\plan\PlanificacionDietas();
 $html = $tabla->muestra_tabla();
 $tituloPagina = 'Dietas';
 

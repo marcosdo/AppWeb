@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\foro;
+
+use appweb\Aplicacion;
 
 class Foro {
     
@@ -42,9 +44,9 @@ class Foro {
             $foro->id = $conn->insert_id;
             return $foro;
         } catch (\mysqli_sql_exception $e) {
-            if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
+            /*if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
                 throw new UsuarioYaExisteException("Ya existe el usuario {$foro->idforo}");
-            }
+            }*/
             throw $e;
         }
     }

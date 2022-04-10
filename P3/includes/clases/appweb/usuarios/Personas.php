@@ -1,7 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\usuarios;
 
-use Exception;
+use appweb\Aplicacion;
 
 class Personas {
     public const ADMIN_ROLE = 0;
@@ -46,7 +46,7 @@ class Personas {
         $usuario = self::buscaPorAlias($alias);
         if ($usuario->compruebaPassword($password))
             return $usuario;
-        throw new Exception("Contraseña incorrecta");
+        throw new \Exception("Contraseña incorrecta");
     }
 
     public static function register($alias, $nombre, $apellidos, $correo, $password, $rol = Personas::USER_ROLE) {

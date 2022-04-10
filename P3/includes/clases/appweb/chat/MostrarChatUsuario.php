@@ -1,8 +1,8 @@
 <?php
-namespace appweb;
+namespace appweb\chat;
 
-use appweb\Chat;
-
+use appweb\chat\Chat;
+use appweb\usuarios\Premium;
 
 class  MostrarChatUsuario {
     function __construct() {}

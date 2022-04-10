@@ -1,5 +1,8 @@
 <?php
-namespace appweb;
+namespace appweb\foro;
+
+use appweb\Formulario;
+use appweb\Aplicacion;
 
 class FormularioForo extends Formulario {
     public function __construct() {

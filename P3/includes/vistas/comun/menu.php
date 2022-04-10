@@ -1,5 +1,7 @@
 <?php namespace appweb; 
 
+use appweb\usuarios\Personas;
+
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
@@ -15,8 +17,8 @@ function htmlmenu() {
                     $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
                 else {
                     $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
-                    $html .= "<li><a href='plan.php'>Planificación</a></li>";
                 }
+                $html .= "<li><a href='plan.php'>Planificación</a></li>";
             }
             // Si eres profesional
             else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {

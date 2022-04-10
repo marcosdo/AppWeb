@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\usuarios;
+
+use appweb\Aplicacion;
 
 class Profesional extends Personas {
     // ==================== MÉTODOS ====================

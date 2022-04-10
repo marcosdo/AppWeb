@@ -1,7 +1,10 @@
 <?php
-namespace appweb;
+namespace appweb\admin;
 
-use Exception;
+use appweb\Formulario;
+use appweb\usuarios\Personas;
+use appweb\usuarios\Usuario;
+use appweb\usuarios\Profesional;
 
 class FormularioAdminCrea extends Formulario {
     public function __construct() {
@@ -104,7 +107,7 @@ class FormularioAdminCrea extends Formulario {
                     default: break;
                 }
             }
-            catch (Exception $e) {
+            catch (\Exception $e) {
                 $this->errores[] = 'Imposible crear al usuario';
             }
         }

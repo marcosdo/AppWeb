@@ -1,5 +1,7 @@
 <?php
-namespace appweb;
+namespace appweb\plan;
+
+use appweb\Formulario;
 
 class FormularioDietas extends Formulario {
     public function __construct() {

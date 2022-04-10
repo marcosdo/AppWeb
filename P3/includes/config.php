@@ -1,7 +1,6 @@
 <?php
 
-require_once __DIR__.'/Aplicacion.php';
-
+require_once __DIR__.'/clases/appweb/Aplicacion.php';
 /**
  * Parámetros de conexión a la BD
  */
@@ -34,10 +33,10 @@ date_default_timezone_set('Europe/Madrid');
 spl_autoload_register(function ($class) {
     
     // project-specific namespace prefix
-    $prefix = 'appweb';
+    $prefix = '';
     
     // base directory for the namespace prefix
-    $base_dir = __DIR__ . '/';
+    $base_dir = __DIR__ . '/clases/';
     
     // does the class use the namespace prefix?
     $len = strlen($prefix);

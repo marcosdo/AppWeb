@@ -1,7 +1,8 @@
 <?php
-namespace appweb;
+namespace appweb\usuarios;
 
-use Exception;
+use appweb\Formulario;
+use appweb\Aplicacion;
 
 class FormularioLogin extends Formulario {
     public function __construct() {
@@ -52,7 +53,7 @@ class FormularioLogin extends Formulario {
                 $mensajes = ['Se ha logeado exitosamente', "Bienvenido {$_SESSION['alias']}"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             }
-            catch (Exception $e) {
+            catch (\Exception $e) {
                 $this->errores[] = "El usuario o el password no coinciden";
             }
         }

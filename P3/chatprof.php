@@ -2,10 +2,10 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$chatUsuario = new appweb\MostrarChatEntrenador();
+$chatUsuario = new appweb\chat\MostrarChatEntrenador();
 $MostrarChat = $chatUsuario->mostrarChat();
 
-$FormularioLogros = new appweb\MostrarLogrosEntrenador();
+$FormularioLogros = new appweb\chat\MostrarLogrosEntrenador();
 $MostrarLogros = $FormularioLogros->mostrarLogrosEnt();
 
 $tituloPagina = 'Entrenador Personal';

@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$foro = new \appweb\MostrarForo(); 
+$foro = new \appweb\foro\MostrarForo(); 
 $html = $foro->muestra_foro();
 $tituloPagina = 'Foros';
 
