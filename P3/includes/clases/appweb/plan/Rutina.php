@@ -135,80 +135,81 @@ class Rutina {
     public static function buscaRutina(&$obj, &$arrayreps, &$usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $usuario, 1);
-        $rs = $conn->query($query); 
-        while( $fila = $rs->fetch_assoc()){
-            if($fila['activa'] == true){
-                $objetivo = $fila['objetivo'];
-                $rutinaid = $fila['id_rutina'];
+        $rs = $conn->query($query);
+        if($rs != null){
+            while( $fila = $rs->fetch_assoc()){
+                if($fila['activa'] == true){
+                    $objetivo = $fila['objetivo'];
+                    $rutinaid = $fila['id_rutina'];
+                }
             }
-        }
-        $obj = $objetivo;
-        $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
-        $t = $conn->query($q); 
-        $arrayaux = [];
-        $dia1 = array();
-        $dia2 = array();
-        $dia3 = array();
-        $dia4 = array();
-        $dia5 = array();
-        $dia1r = array();
-        $dia2r = array();
-        $dia3r = array();
-        $dia4r = array();
-        $dia5r = array();
-    
-        while($fila = $t->fetch_assoc()){
+            $obj = $objetivo;
+            $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
+            $t = $conn->query($q); 
+            $arrayaux = [];
+            $dia1 = array();
+            $dia2 = array();
+            $dia3 = array();
+            $dia4 = array();
+            $dia5 = array();
+            $dia1r = array();
+            $dia2r = array();
+            $dia3r = array();
+            $dia4r = array();
+            $dia5r = array();
         
-            if($fila['dia'] == 1){
-                array_push($dia1r, $fila['repeticiones']);
-                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                $rs = $conn->query($c);
-                $fila = $rs->fetch_assoc();
-                array_push($dia1, $fila['nombre']);
+            while($fila = $t->fetch_assoc()){
+            
+                if($fila['dia'] == 1){
+                    array_push($dia1r, $fila['repeticiones']);
+                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                    $rs = $conn->query($c);
+                    $fila = $rs->fetch_assoc();
+                    array_push($dia1, $fila['nombre']);
+                }
+                else if ($fila['dia'] == 2){
+                    array_push($dia2r, $fila['repeticiones']);
+                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                    $rs = $conn->query($c);
+                    $fila = $rs->fetch_assoc();
+                    array_push($dia2, $fila['nombre']);
+                }
+                else if ($fila['dia'] == 3){
+                    array_push($dia3r, $fila['repeticiones']);
+                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                    $rs = $conn->query($c);
+                    $fila = $rs->fetch_assoc();
+                    array_push($dia3, $fila['nombre']);
+                }
+                else if ($fila['dia'] == 4){
+                    array_push($dia4r, $fila['repeticiones']);
+                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                    $rs = $conn->query($c);
+                    $fila = $rs->fetch_assoc();
+                    array_push($dia4, $fila['nombre']);
+                }
+                else{
+                    array_push($dia5r, $fila['repeticiones']);
+                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
+                    $rs = $conn->query($c);
+                    $fila = $rs->fetch_assoc();
+                    array_push($dia5, $fila['nombre']);
+                }
             }
-            else if ($fila['dia'] == 2){
-                array_push($dia2r, $fila['repeticiones']);
-                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                $rs = $conn->query($c);
-                $fila = $rs->fetch_assoc();
-                array_push($dia2, $fila['nombre']);
-            }
-            else if ($fila['dia'] == 3){
-                array_push($dia3r, $fila['repeticiones']);
-                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                $rs = $conn->query($c);
-                $fila = $rs->fetch_assoc();
-                array_push($dia3, $fila['nombre']);
-            }
-            else if ($fila['dia'] == 4){
-                array_push($dia4r, $fila['repeticiones']);
-                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                $rs = $conn->query($c);
-                $fila = $rs->fetch_assoc();
-                array_push($dia4, $fila['nombre']);
-            }
-            else{
-                array_push($dia5r, $fila['repeticiones']);
-                $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                $rs = $conn->query($c);
-                $fila = $rs->fetch_assoc();
-                array_push($dia5, $fila['nombre']);
-            }
+            if(!empty($dia1)) array_push($arrayaux, $dia1);
+            if(!empty($dia2)) array_push($arrayaux, $dia2);
+            if(!empty($dia3)) array_push($arrayaux, $dia3);
+            if(!empty($dia4)) array_push($arrayaux, $dia4);
+            if(!empty($dia5)) array_push($arrayaux, $dia5);
+
+            if(!empty($dia1r)) array_push($arrayreps, $dia1r);
+            if(!empty($dia2r)) array_push($arrayreps, $dia2r);
+            if(!empty($dia3r)) array_push($arrayreps, $dia3r);
+            if(!empty($dia4r)) array_push($arrayreps, $dia4r);
+            if(!empty($dia5r)) array_push($arrayreps, $dia5r);
+
+            $rs->free();
         }
-        if(!empty($dia1)) array_push($arrayaux, $dia1);
-        if(!empty($dia2)) array_push($arrayaux, $dia2);
-        if(!empty($dia3)) array_push($arrayaux, $dia3);
-        if(!empty($dia4)) array_push($arrayaux, $dia4);
-        if(!empty($dia5)) array_push($arrayaux, $dia5);
-
-        if(!empty($dia1r)) array_push($arrayreps, $dia1r);
-        if(!empty($dia2r)) array_push($arrayreps, $dia2r);
-        if(!empty($dia3r)) array_push($arrayreps, $dia3r);
-        if(!empty($dia4r)) array_push($arrayreps, $dia4r);
-        if(!empty($dia5r)) array_push($arrayreps, $dia5r);
-
-        $rs->free();
-
         return $arrayaux;
     }
 

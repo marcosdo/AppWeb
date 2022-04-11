@@ -103,7 +103,7 @@ class FormularioEditarRutina extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
         if (count($this->errores) === 0) {
 
@@ -123,23 +123,21 @@ class FormularioEditarRutina extends Formulario {
                     if($tabla != "") $select = $datos[$diaspos];
                     else $select = $tabla;
                     if($tabla != $select){ // Se cambia el ejercicio
-                        $conn = Aplicacion::getInstance()->getConexionBd();
                         $query = sprintf("SELECT * FROM ejercicios");
                         $rs = $conn->query($query); 
                         while ($fila = $rs->fetch_assoc()){
                             if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
                             if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
                         }
-
-                        $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $j);
-                        $conn->query($query2); 
+                        $diaact = $j+1;
+                        $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $diaact);
+                        $actualizacontiene = $conn->query($query2); 
   
                     }
                 }
             }
-            $conn = Aplicacion::getInstance()->getConexionBd();
             $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
-            $conn->query($queryeditar);
+            $actualizarutina = $conn->query($queryeditar);
         }
         
 

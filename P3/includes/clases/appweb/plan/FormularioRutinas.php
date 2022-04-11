@@ -12,15 +12,22 @@ class FormularioRutinas extends Formulario {
         $dias = $datos['dias'] ?? '';
         $objetivo = $datos['objetivo'] ?? '';
         $nivel = $datos['nivel'] ?? '';
+        $ver = $datos['ver'] ?? '';
         
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['dias', 'objetivo', 'nivel'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['dias', 'objetivo', 'nivel', 'ver'], $this->errores, 'span', array('class' => 'error'));
 
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
+        <p> Elija si quiere crear una rutina o ver la rutina actual: </p>
+        <select name="ver" id="ver-rutina" required>
+            <option value="0" selected="selected">Crear</option>
+            <option value="1">Ver</option>
+            </select>
+        <p class="error">{$erroresCampos['ver']}</p>
         <p> Selecciona tu nivel: </p>
         <ul class="nivel">
             <li class="element">
@@ -58,7 +65,7 @@ class FormularioRutinas extends Formulario {
         los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
         pulmonar mejora, tienes más energía para hacer las tareas diarias.
         </p>
-        <button type="submit" name="enviar">Quiero esta rutina</button>
+        <button type="submit" name="enviar">Ver rutina</button>
         EOF;
         return $html;
     }
@@ -74,20 +81,29 @@ class FormularioRutinas extends Formulario {
         htmlspecialchars(trim(strip_tags($_POST["objetivo"])));
         // dias = INT: [3, 5]
         htmlspecialchars(trim(strip_tags($_POST["dias"])));
+        // ver = INT: [0, 1]
+        htmlspecialchars(trim(strip_tags($_POST["ver"])));
+
 
         $nivel      = trim($datos["nivel"] ?? '');
         $objetivo   = trim($datos["objetivo"] ?? '');
         $dias       = trim($datos["dias"] ?? '');
+        $ver       = trim($datos["ver"] ?? '');
+
         if ($objetivo != '1' && $objetivo != '2' && $objetivo != '3') 
             $this->errores['objetivo'] = 'El objetivo no es válido.';
         if($nivel != 'P' && $nivel != 'M' && $nivel != 'A')
             $this->errores['nivel'] = 'El nivel no es válido.';
         if($dias != '3' && $dias != '5')
             $this->errores['dias'] = 'El dia no es válido.';
-                
+        if($ver != '0' && $ver != '1')
+            $this->errores['ver'] = 'El parámetro de ver o crear no es válido.';  
+
         if (count($this->errores) === 0) {
-            $rutina = Rutina::crea($_SESSION['id'], $objetivo, $nivel, $dias);
-            $rutina->comprobarRutina($rutina);
+            if($ver == 0){
+                $rutina = Rutina::crea($_SESSION['id'], $objetivo, $nivel, $dias);
+                $rutina->comprobarRutina($rutina);
+            }
         }
     }
 }
