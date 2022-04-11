@@ -73,17 +73,13 @@ class FormularioPlanEntRutina extends Formulario {
 
         if (count($this->errores) === 0) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias); 
+            $query = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'",$alias); 
             $rs = $conn->query($query); 
-            while($fila = $rs->fetch_assoc()){
-                $id = $fila['id_usuario'];
-            }
-            /*
-            se podria añadir a rutina un campo que sea editar y que
-            este a 1 para saberque rutina se va a editar y conocer el id de usuario en FormularioEditarRutina
-
-            otra opción variables de sesión (no)
-             */
+            $fila = $rs->fetch_assoc();
+            $id = $fila['id_usuario'];
+            $queryr = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'",1, $id, 1); 
+            $conn->query($queryr);
+            
         }
 
     }

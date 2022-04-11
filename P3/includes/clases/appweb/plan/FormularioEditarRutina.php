@@ -6,7 +6,7 @@ use appweb\Aplicacion;
 
 class FormularioEditarRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formEditarRutinas', ['urlRedireccion' => 'planrutinaent.php']);
+        parent::__construct('formEditarRutinas', ['urlRedireccion' => 'nutriplan.php']);
     }
     
     private function Ejercicios($defecto){
@@ -25,8 +25,17 @@ class FormularioEditarRutina extends Formulario {
         return $rts;
     }
 
+    private function idUsuario(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.editar = '%d'",1); 
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
+        return $fila['id_usuario'];
+    }
+
     private function generaTabla(){
-        $idusuario = 5; // CAMBIAR
+        
+        $idusuario = self::idUsuario();
 
         $contenido = "<table id=planificacion>";
         $obj = 0;
@@ -98,7 +107,7 @@ class FormularioEditarRutina extends Formulario {
 
         if (count($this->errores) === 0) {
 
-            $idusuario = 5;
+            $idusuario = self::idUsuario();
             $obj = 0;
             $arrayreps = [];
             $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
@@ -112,7 +121,7 @@ class FormularioEditarRutina extends Formulario {
                     $diaspos .= "-";
                     $diaspos .= $i;
                     if($tabla != "") $select = $datos[$diaspos];
-                    else $select = $datos;
+                    else $select = $tabla;
                     if($tabla != $select){ // Se cambia el ejercicio
                         $conn = Aplicacion::getInstance()->getConexionBd();
                         $query = sprintf("SELECT * FROM ejercicios");
@@ -124,10 +133,14 @@ class FormularioEditarRutina extends Formulario {
 
                         $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $j);
                         $conn->query($query2); 
+  
                     }
                 }
             }
+           /* $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
+            $rsa = $conn->query($queryeditar); */
         }
+        
 
     }
 }

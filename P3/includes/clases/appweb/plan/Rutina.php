@@ -134,7 +134,7 @@ class Rutina {
 
     public static function buscaRutina(&$obj, &$arrayreps, &$usuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d'", $usuario);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $usuario, 1);
         $rs = $conn->query($query); 
         while( $fila = $rs->fetch_assoc()){
             if($fila['activa'] == true){
@@ -242,6 +242,25 @@ class Rutina {
         return $dias;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public static function ejerciciosxDia($id_usuario, $dia){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
