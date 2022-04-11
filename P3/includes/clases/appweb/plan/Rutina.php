@@ -242,25 +242,6 @@ class Rutina {
         return $dias;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     public static function ejerciciosxDia($id_usuario, $dia){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);

@@ -137,8 +137,9 @@ class FormularioEditarRutina extends Formulario {
                     }
                 }
             }
-           /* $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
-            $rsa = $conn->query($queryeditar); */
+            $conn = Aplicacion::getInstance()->getConexionBd();
+            $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
+            $conn->query($queryeditar);
         }
         
 
