@@ -323,9 +323,9 @@ TRUNCATE TABLE `rutina`;
 -- Volcado de datos para la tabla `rutina`
 --
 
-INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`) VALUES
-(91, 36, 1, 1, 'P', 3),
-(92, 32, 1, 1, 'P', 3);
+INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`, `editar`) VALUES
+(91, 36, 1, 1, 'P', 3, 0),
+(92, 32, 1, 1, 'P', 3, 0);
 
 --
 -- Truncar tablas antes de insertar `usuario`

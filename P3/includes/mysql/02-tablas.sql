@@ -322,6 +322,7 @@ CREATE TABLE IF NOT EXISTS `rutina` (
   `objetivo` int(1) DEFAULT NULL,
   `nivel` char(1) DEFAULT NULL,
   `dias` int(1) DEFAULT NULL,
+  `editar` int(1) DEFAULT NULL,
   PRIMARY KEY (`id_rutina`),
   KEY `id_rutina` (`id_rutina`),
   KEY `id_usuario` (`id_usuario`)
