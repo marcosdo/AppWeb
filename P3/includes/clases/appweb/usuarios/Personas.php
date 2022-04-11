@@ -138,7 +138,7 @@ class Personas {
         return self::borraPorId($usuario->id); 
     }
 
-    private function compruebaPassword($password) {
+    protected function compruebaPassword($password) {
         return password_verify($password, $this->_password);
     }
 

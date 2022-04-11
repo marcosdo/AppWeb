@@ -76,7 +76,7 @@ class FormularioRegistro extends Formulario {
 
         if (count($this->errores) === 0) {
             try {
-                Usuario::register($alias, $nombre, $apellidos, $mail, $password);
+                Usuario::registra($alias, $nombre, $apellidos, $mail, $password);
                 // Mensaje POP UP ejercicio 3 anexo 1
                 $app = Aplicacion::getInstance();
                 $mensajes = ['Se ha registrado exitosamente', "Gracias $nombre, para empezar a usar lifety inicie sesión"];

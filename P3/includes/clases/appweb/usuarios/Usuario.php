@@ -30,7 +30,7 @@ class Usuario extends Personas {
 
     public static function login($alias, $password) {
         $usuario = self::buscaPorAlias($alias);
-        return ($usuario && $usuario->compruebaPassword($password)) ? $usuario : false;
+        return ($usuario && parent::compruebaPassword($password)) ? $usuario : false;
     }
 
     public static function registra($nick, $nombre, $apellidos, $mail, $password, $rol = Personas::USER_ROLE) {
