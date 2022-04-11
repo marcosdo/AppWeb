@@ -44,9 +44,11 @@ class Personas {
     // Funciones de la clase
     public static function login($alias, $password) {
         $usuario = self::buscaPorAlias($alias);
-        if ($usuario->compruebaPassword($password))
-            return $usuario;
-        throw new \Exception("Contraseña incorrecta");
+        if($usuario != null){
+            if ($usuario->compruebaPassword($password))
+                return $usuario;
+            throw new \Exception("Contraseña incorrecta");
+        }
     }
 
     public static function register($alias, $nombre, $apellidos, $correo, $password, $rol = Personas::USER_ROLE) {
@@ -84,6 +86,8 @@ class Personas {
             $fila = $rs->fetch_assoc();
             if ($fila)
                 $result = new Personas($fila['nick'], $fila['nombre'], $fila['apellidos'], $fila['correo'], $fila['contraseña'], $fila['rol'], $fila['id_usuario']);
+            else
+                $result = null;
         } finally {
             if ($rs != null)
                 $rs->free();
