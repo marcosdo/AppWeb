@@ -1,58 +1,21 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2022 a las 15:46:31
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
-
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Base de datos: `lifety`
---
-
---
--- Truncar tablas antes de insertar `anuncio`
---
 
 TRUNCATE TABLE `anuncio`;
---
--- Truncar tablas antes de insertar `categorias`
---
-
 TRUNCATE TABLE `categorias`;
---
--- Truncar tablas antes de insertar `chat`
---
-
 TRUNCATE TABLE `chat`;
---
--- Volcado de datos para la tabla `chat`
---
-
 INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 ('pintus', 'perspa', 'hola que tal', '2022-04-10 15:27:50', 'U-E');
 
---
--- Truncar tablas antes de insertar `comidas`
---
-
 TRUNCATE TABLE `comidas`;
---
--- Volcado de datos para la tabla `comidas`
---
-
 INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) VALUES
 (1, 1, 'Desayuno', 'Copos de avena con leche', ''),
 (2, 1, 'Desayuno', 'Yogur con copos de avena', ''),
@@ -142,15 +105,7 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) V
 (86, 3, 'Cena', 'Tortilla de patatas con mayonesa', ''),
 (87, 3, 'Cena', 'Lasana de verduras', '');
 
---
--- Truncar tablas antes de insertar `contiene`
---
-
 TRUNCATE TABLE `contiene`;
---
--- Volcado de datos para la tabla `contiene`
---
-
 INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALUES
 (91, 8, 1, 6),
 (91, 9, 1, 14),
@@ -177,15 +132,7 @@ INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALU
 (92, 12, 3, 6),
 (92, 13, 3, 8);
 
---
--- Truncar tablas antes de insertar `dieta`
---
-
 TRUNCATE TABLE `dieta`;
---
--- Volcado de datos para la tabla `dieta`
---
-
 INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_cena`, `tipo`) VALUES
 (36, '2022-04-10', 1, 12, 30, 1),
 (36, '2022-04-11', 2, 13, 31, 1),
@@ -195,15 +142,7 @@ INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_ce
 (36, '2022-04-15', 2, 37, 77, 1),
 (36, '2022-04-16', 3, 39, 78, 1);
 
---
--- Truncar tablas antes de insertar `ejercicios`
---
-
 TRUNCATE TABLE `ejercicios`;
---
--- Volcado de datos para la tabla `ejercicios`
---
-
 INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripcion`, `imagen`) VALUES
 (0, 2, 'Hombro', 'Elevacion lateral', '', ''),
 (1, 0, 'Hombro', 'Press hombro', '', ''),
@@ -230,48 +169,24 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 (22, 1, 'Espalda', 'Remo con barra', '', ''),
 (23, 1, 'Espalda', 'Renegade row', '', '');
 
---
--- Truncar tablas antes de insertar `empresas`
---
-
 TRUNCATE TABLE `empresas`;
---
--- Truncar tablas antes de insertar `entrena`
---
-
 TRUNCATE TABLE `entrena`;
---
--- Volcado de datos para la tabla `entrena`
---
-
 INSERT INTO `entrena` (`nutri`, `usuario`) VALUES
 ('pintus', 'perspa'),
 ('pintus', 'perspa');
 
---
--- Truncar tablas antes de insertar `foro`
---
-
 TRUNCATE TABLE `foro`;
---
--- Truncar tablas antes de insertar `mensaje`
---
+INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
+(25, 32, 'ALGO', 'anakin', '2022-04-12 13:10:41', 'ASDASD', 'Nutricion', 0),
+(26, 32, 'ALGO2', 'anakin', '2022-04-12 13:14:34', 'asdfasd', 'Nutricion', 0);
 
 TRUNCATE TABLE `mensaje`;
---
--- Truncar tablas antes de insertar `noticias`
---
+INSERT INTO `mensaje` (`id_mensaje`, `id_usuario`, `id_referencia`, `id_foro`, `titulo`, `mensaje`, `fecha`, `prioridad`) VALUES
+(10, 32, NULL, 25, 'Primer mensaje', 'ASDASD', '2022-04-12 13:10:41', 0),
+(11, 32, NULL, 26, 'Primer mensaje', 'asdfasd', '2022-04-12 13:14:34', 0);
 
 TRUNCATE TABLE `noticias`;
---
--- Truncar tablas antes de insertar `personas`
---
-
 TRUNCATE TABLE `personas`;
---
--- Volcado de datos para la tabla `personas`
---
-
 INSERT INTO `personas` (`id_usuario`, `nick`, `nombre`, `apellidos`, `correo`, `contraseña`, `rol`) VALUES
 (8, 'admin0', 'Dwayne', 'Johnson', 'dwayne@lifety.com', '$2y$10$uAGG3yMjH7sBX9Qc2QEXZeJoc92buC2qPgxt2x0zdLv3Th3lrp4c.', 0),
 (31, 'pintus', 'Antonio', 'Pintus', 'pintus@lifety.es', '$2y$10$4HMCjZeRUdGa.USKL.GCi.1bKkrkWWLpyF0n43517XSOOVmvQwDGG', 2),
@@ -280,62 +195,22 @@ INSERT INTO `personas` (`id_usuario`, `nick`, `nombre`, `apellidos`, `correo`, `
 (36, 'perspa', 'Persona', 'P&aacute;jaro', 'perspa@ucm.es', '$2y$10$5XbQuYbufL5BkjaB3x.LLOnfZMrOkEBuz7jSZLZQjehc261drjb6S', 1),
 (37, 'flavio', 'Flavio', 'Briatore', 'flavio@ucm.es', '$2y$10$Hhaw6oPpK.M2FC62Jx0de.wnnv3WUvXIojKATcMv2doTde6ukpmBy', 1);
 
---
--- Truncar tablas antes de insertar `pertenece`
---
-
 TRUNCATE TABLE `pertenece`;
---
--- Truncar tablas antes de insertar `premium`
---
-
 TRUNCATE TABLE `premium`;
---
--- Volcado de datos para la tabla `premium`
---
-
 INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`) VALUES
 (36, 31, 70, 1, 'no', 'no', 0, '');
 
---
--- Truncar tablas antes de insertar `productos`
---
-
 TRUNCATE TABLE `productos`;
---
--- Truncar tablas antes de insertar `profesional`
---
-
 TRUNCATE TABLE `profesional`;
---
--- Volcado de datos para la tabla `profesional`
---
-
 INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`) VALUES
 (31, 'pintus', 2, '');
 
---
--- Truncar tablas antes de insertar `rutina`
---
-
 TRUNCATE TABLE `rutina`;
---
--- Volcado de datos para la tabla `rutina`
---
-
 INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`, `editar`) VALUES
 (91, 36, 1, 1, 'P', 3, 0),
 (92, 32, 1, 1, 'P', 3, 0);
 
---
--- Truncar tablas antes de insertar `usuario`
---
-
 TRUNCATE TABLE `usuario`;
---
--- Volcado de datos para la tabla `usuario`
---
-
 INSERT INTO `usuario` (`id_usuario`, `premium`) VALUES
 (32, 0),
 (35, 0),
