@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__.'/clases/appweb/Aplicacion.php';
 /**
  * Parámetros de conexión a la BD
  */

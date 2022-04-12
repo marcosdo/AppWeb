@@ -3,10 +3,11 @@ namespace appweb\foro;
 
 use appweb\Formulario;
 use appweb\Aplicacion;
+use appweb\foro\Mensaje;
 
 class FormularioForo extends Formulario {
-    public function __construct() {
-        parent::__construct('formForo', ['urlRedireccion' => 'foroaux.php']);
+    public function __construct() { 
+        parent::__construct('formForo', ['urlRedireccion' => 'foros.php']);
     }
 
     private function seleCategorias(){
@@ -40,7 +41,7 @@ class FormularioForo extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['tema', 'contenido', 'categoria'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
-        $categorias = self::seleCategorias();
+        $categoria = self::seleCategorias();
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -57,7 +58,7 @@ class FormularioForo extends Formulario {
                 </div>
                 <div>
                     <p> Seleccione la categoría del foro: <p>
-                    $categorias
+                    $categoria
                     {$erroresCampos['categoria']}
                 </div>
                 <button type="submit" name="enviar">Crear este foro</button>
@@ -91,8 +92,13 @@ class FormularioForo extends Formulario {
         if (count($this->errores) === 0) {
             try {
                 $foro = Foro::crearForo($_SESSION['alias'], $_SESSION['id'], date_create()->format('Y-m-d H:i:s'), $tema, $contenido, $categoria);
+                Mensaje::creaMensaje($_SESSION['id'], $foro->getID(), $contenido);
+                /* POP UP */
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha creado el foro'];
+                $app->putAtributoPeticion('mensajes', $mensajes);
             } catch (\Exception $e) {
-                $this->errores[] = 'El foro no se puede insertar.';
+                $this->errores[] = 'Este tema ya existe.';
            }
         }
     }

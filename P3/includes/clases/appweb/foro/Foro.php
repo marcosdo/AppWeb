@@ -4,22 +4,48 @@ namespace appweb\foro;
 use appweb\Aplicacion;
 
 class Foro {
-    
-    private $_idusuario;
+    // ==================== ATRIBUTOS ====================
+    // ====================           ====================
+    private $_id_foro;
+    private $_id_usuario;
     private $_fecha;
     private $_tema;
     private $_categoria;
     private $_alias;
     private $_contenido;
+    private $_respuestas;
 
-    public function __construct($alias, $idusuario, $fecha, $tema, $contenido, $categoria) {
+    public function __construct($alias, $idusuario, $fecha, $tema, $contenido, $categoria, $respuestas = 0, $idforo = null) {
+        $this->_id_foro = $idforo;
         $this->_fecha = $fecha;
         $this->_tema = $tema;
         $this->_categoria = $categoria;
         $this->_alias = $alias;
         $this->_contenido = $contenido;
         $this->_idusuario = $idusuario;
+        $this->_respuestas = $respuestas;
     }
+
+    public function getID() { return $this->_id_foro; }
+
+    public function getData() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM foro"
+        );
+        $result = array();
+        try {
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila);
+            }
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
+
 
     public static function crearForo($alias, $idusuario, $fecha, $tema, $contenido, $categoria) {
         $foro = new Foro($alias, $idusuario, $fecha, $tema, $contenido, $categoria);
@@ -41,13 +67,26 @@ class Foro {
         );
         try {
             $conn->query($query);
-            $foro->id = $conn->insert_id;
+            $foro->_id_foro = $conn->insert_id;
             return $foro;
         } catch (\mysqli_sql_exception $e) {
-            /*if ($conn->sqlstate == 23000) { // código de violación de restricción de integridad (PK)
-                throw new UsuarioYaExisteException("Ya existe el usuario {$foro->idforo}");
-            }*/
             throw $e;
         }
+    }
+
+    public static function buscaxID($idforo) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM foro WHERE foro.id_foro = %d", $idforo);
+        
+        try {
+            $rs = $conn->query($query); 
+            $fila = $rs->fetch_assoc();
+            $foro = new Foro($fila['nickcreador'], $fila['id_usuario'], $fila['fecha'], $fila['tema'], $fila['contenido'], $fila['categoria'], $fila['respuestas'], $fila['id_foro']);
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $foro;
     }
 }
