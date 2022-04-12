@@ -6,7 +6,7 @@ use appweb\Aplicacion;
 
 class FormularioEditarRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formEditarRutinas', ['urlRedireccion' => 'nutriplan.php']);
+        parent::__construct('formEditarRutinas', ['urlRedireccion' => 'entrenadorplan.php']);
     }
     
     private function Ejercicios($defecto){

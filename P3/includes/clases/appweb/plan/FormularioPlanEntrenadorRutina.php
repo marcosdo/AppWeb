@@ -4,9 +4,9 @@ namespace appweb\plan;
 use appweb\Formulario;
 use appweb\Aplicacion;
 
-class FormularioPlanEntRutina extends Formulario {
+class FormularioPlanEntrenadorRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planrutinaent.php']);
+        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planeditarrutina.php']);
     }
     
     private function Usuarios($entNombre){
@@ -81,6 +81,5 @@ class FormularioPlanEntRutina extends Formulario {
             $conn->query($queryr);
             
         }
-
     }
 }

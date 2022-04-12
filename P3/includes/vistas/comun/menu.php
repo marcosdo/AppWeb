@@ -18,12 +18,13 @@ function htmlmenu() {
                 else {
                     $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
                 }
-                $html .= "<li><a href='plan.php'>Planificación</a></li>";
+                $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
+                $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
             }
             // Si eres profesional
             else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
                 $html .= "<li><a href='chatprof.php'>Chat</a></li>";
-                $html .= "<li><a href='nutriplan.php'>Planificación</a></li>";
+                $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
             }
         }
     }
