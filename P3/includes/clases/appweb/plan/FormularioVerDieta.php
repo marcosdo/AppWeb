@@ -6,7 +6,7 @@ use appweb\Aplicacion;
 
 class FormularioVerDieta extends Formulario {
     public function __construct() {
-        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'plandieta.php']);
+        parent::__construct('formVerDieta', ['urlRedireccion' => 'plandieta.php']);
     }
     
 

@@ -6,7 +6,7 @@ use appweb\Aplicacion;
 
 class FormularioVerRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planrutina.php']);
+        parent::__construct('formVerRutina', ['urlRedireccion' => 'planrutina.php']);
     }
     
 

@@ -65,7 +65,7 @@ function mostrarDieta(){
     $fecha = Dieta:: buscaDieta($_SESSION['id'], $dias, $desayuno, $almuerzo, $cena);
 
     $contenido = "<table id=planificacion>";
-    $contenido .= "<caption>Planificacion de tu dieta:</caption>";
+    $contenido .= "<caption>Planificacion de tu dieta</caption>";
     $contenido .= "<thead><tr>";
     // Dias de la semana 
     $contenido .= "<th></th>";
