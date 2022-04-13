@@ -248,6 +248,76 @@ class Dieta {
         // En caso contrario devuelve el array
         return $ret;
     }
-}
 
+    public static function buscaDieta($id, &$dias, &$desayuno, &$almuerzo, &$cena){
+        /** @var array Array con todos los IDs de desayuno */
+        $IDs_desayunos = array();
+        /** @var array Array con todas las IDs de comidas */
+        $IDs_almuerzos = array();
+        /** @var array Array con todas las IDs de cenas */
+        $IDs_cenas = array();
+        
+        $bd = Aplicacion::getInstance()->getConexionBd();
+        // 1.- Hay que coger la primera fecha y contar cuantos dias tiene la dieta para saber cuantas columnas tendra la tabla
+        $query = sprintf(
+            "SELECT dieta.fecha AS fecha FROM dieta WHERE dieta.id_usuario = %d",
+            $id
+        );
+        // Hace la consulta
+        if (!($result = $bd->query($query))) {
+            return false;
+        }
+        // Coge el numero de dias
+        $dias = $result->num_rows;
+        // Coge la fecha de inicio de la dieta
+        $fila = mysqli_fetch_assoc($result);
+        $fecha = $fila['fecha'];
+        // Libera la memoria
+        $result->free();
+
+        // 2.- Hay que conseguir todos los IDs de las comidas
+        $query = sprintf(
+            "SELECT dieta.id_desayuno, dieta.id_almuerzo, dieta.id_cena FROM dieta WHERE dieta.id_usuario = %d",
+            $id
+        );
+        $result = $bd->query($query);
+
+        while ($fila = mysqli_fetch_assoc($result)) {
+            array_push($IDs_desayunos, $fila['id_desayuno']);
+            array_push($IDs_almuerzos, $fila['id_almuerzo']);
+            array_push($IDs_cenas, $fila['id_cena']);
+        }
+        $result->free();
+
+        // 3.- Hay que conseguir todos los nombres de las comidas
+        $desayuno = self::fill_array($bd, $IDs_desayunos);
+        $almuerzo = self::fill_array($bd, $IDs_almuerzos);
+        $cena = self::fill_array($bd, $IDs_cenas);
+
+        return $fecha;
+    }
+
+    /**
+     * Metodo que dados los IDs, devuelve un array de comidas
+     * @var \mysqli $bd instancia de la base de datos
+     * @var array $src array de enteros del que se obtienen los IDs
+     * @return array|false 
+     */
+    private static function fill_array($bd, $src) {
+        $ret = array();
+        for ($i = 0; $i < count($src); $i++) { 
+            $query = sprintf(
+                "SELECT comidas.descripcion FROM comidas WHERE comidas.id_comida = %d",
+                $src[$i]
+            );
+            $result = $bd->query($query);
+            $fila = mysqli_fetch_assoc($result);
+            array_push($ret, $fila['descripcion']);
+            $result->free();
+        }
+        return $ret;
+    }
+
+
+}
 ?>
