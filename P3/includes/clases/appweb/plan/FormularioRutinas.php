@@ -58,7 +58,7 @@ class FormularioRutinas extends Formulario {
         los tejidos y ayuda a que el sistema cardiovascular funcione de manera más eficiente. Y cuando tu salud cardíaca y 
         pulmonar mejora, tienes más energía para hacer las tareas diarias.
         </p>
-        <button type="submit" name="enviar">Ver rutina</button>
+        <button type="submit" name="enviar">Quiero esta rutina</button>
         EOF;
         return $html;
     }
