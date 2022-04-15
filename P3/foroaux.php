@@ -10,7 +10,8 @@ if (!$idforo) {
 $idforo = $_GET['idforo'];
 
 $msgs = appweb\foro\Mensaje::getMsgs($idforo);
-
+$mensaje = new appweb\foro\FormularioMensaje();
+$htmlFormMensaje = $mensaje->gestiona();
 $tituloPagina = 'Tablon';
 $contenidoPrincipal = '<h1>Tablon de Anuncios</h1>';
 $contenidoPrincipal .= listaListaMensajesPaginados($msgs);
@@ -19,6 +20,7 @@ if (isset($_SESSION['rol'])) {
     $htmlFormNuevoMensaje = $formNuevoMensaje->gestiona();*/
     $contenidoPrincipal .= <<<EOS
         <h1>Nuevo Mensaje</h1>
+        $htmlFormMensaje
     EOS;
 }
 

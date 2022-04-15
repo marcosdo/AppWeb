@@ -20,9 +20,12 @@ $tituloPagina = 'Mensaje';
 
 $msg = $mensaje->getMessage();
 
+$mensaje = new appweb\foro\FormularioMensaje();
+$htmlFormMensaje = $mensaje->gestiona();
 $contenidoPrincipal = <<<EOS
 <h1>Mensaje</h1>
 <p>{$msg}</p>
+$htmlFormMensaje
 EOS;
 
 /* Mensajes sin paginar 

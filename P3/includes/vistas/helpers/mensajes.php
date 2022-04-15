@@ -4,12 +4,15 @@ use appweb\FormularioBorraMensaje;
 use appweb\Aplicacion;
 
 function visualizaMensaje($mensaje) {
+   // $mensaje = new appweb\foro\FormularioMensaje();
+   // $htmlFormMensaje = $mensaje->gestiona();
     $app = Aplicacion::getInstance();
     $verURL = $app->buildUrl('mensajes/mensajes.php', [
         'id' => $mensaje['id_mensaje']
     ]);
     return <<<EOS
-    <a href="{$verURL}">{$mensaje['mensaje']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})</a>
+    <a href="{$verURL}">{$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})</a>
+    
     EOS;
 }
 
