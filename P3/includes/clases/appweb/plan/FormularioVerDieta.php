@@ -29,11 +29,8 @@ class FormularioVerDieta extends Formulario {
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formreditautina"> 
-            <legend id="edit-routine-plan">Ver mi Dieta</legend>
-                    $boton
-                    
-        </fieldset>
+        <p> Pulsa aqui si quieres ver tu rutina </p>
+        $boton
         EOF;
         return $html;
     }
