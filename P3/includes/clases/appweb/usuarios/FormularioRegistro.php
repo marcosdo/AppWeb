@@ -7,7 +7,7 @@ use appweb\Aplicacion;
 class FormularioRegistro extends Formulario {
 
     public function __construct() {
-        parent::__construct('formRegistro', ['urlRedireccion' => 'logout.php']);
+        parent::__construct('formRegistro', ['urlRedireccion' => 'index.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
