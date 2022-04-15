@@ -49,6 +49,7 @@ class Personas {
                 return $usuario;
             throw new \Exception("Contraseña incorrecta");
         }
+        throw new \Exception("Usuario inexistente");
     }
 
     public static function register($alias, $nombre, $apellidos, $correo, $password, $rol = Personas::USER_ROLE) {
