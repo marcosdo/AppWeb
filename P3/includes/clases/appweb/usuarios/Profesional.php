@@ -109,7 +109,7 @@ class Profesional extends Personas {
             , $id
         );
         $query2 = sprintf(
-            "INSERT INTO entrena (nutri, usuario, editarutina, editadieta) VALUES ('%s', '%s, %d, %d') "
+            "INSERT INTO entrena (nutri, usuario, editarutina, editadieta) VALUES ('%s', '%s', '%d', '%d') "
             , $nickEntrenador
             , $conn->real_escape_string($usuarios)
             , 0
