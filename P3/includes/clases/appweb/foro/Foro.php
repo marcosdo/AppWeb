@@ -82,7 +82,8 @@ class Foro {
         try {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
-            $foro = new Foro($fila['nickcreador'], $fila['id_usuario'], $fila['fecha'], $fila['tema'], $fila['contenido'], $fila['categoria'], $fila['respuestas'], $fila['id_foro']);
+            if ($fila != null)
+                $foro = new Foro($fila['nickcreador'], $fila['id_usuario'], $fila['fecha'], $fila['tema'], $fila['contenido'], $fila['categoria'], $fila['respuestas'], $fila['id_foro']);
         } finally {
             if ($rs != null)
                 $rs->free();

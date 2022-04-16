@@ -6,8 +6,8 @@ use appweb\Aplicacion;
 use appweb\foro\Mensaje;
 
 class FormularioMensaje extends Formulario {
-    public function __construct() { 
-        parent::__construct('formForo', ['urlRedireccion' => 'foroaux.php']);
+    public function __construct($idforo = null) { 
+        parent::__construct('formForo', ['urlRedireccion' => ($idforo) ? 'foroaux.php' : "foroaux.php?idforo=$idforo"]);
     }
 
     protected function generaCamposFormulario(&$datos) {
@@ -41,9 +41,18 @@ class FormularioMensaje extends Formulario {
         if (!$mensaje || empty($mensaje))
             $this->errores['mensaje'] = 'Es necesario rellenar el mensaje de contestacion.';
 
+        $idpadre = $_GET['id'] ?? null;
+        $idforo = $_GET['idforo'] ?? null;
+
         if (count($this->errores) === 0) {
             try {
-                Mensaje::creaMensaje($_SESSION['id'], $_GET['idforo'], $mensaje, null,$titulo);
+                $prioridad = 0;
+                if ($idpadre) {
+                    $padre = Mensaje::buscaxID($idpadre);
+                    $idforo = $padre->getIDForo();
+                    $prioridad = $padre->getPrioridad() + 1;
+                }
+                Mensaje::creaMensaje($_SESSION['id'], $idforo, $mensaje, $prioridad, $titulo, $idpadre);
                 /* POP UP */
                 $app = Aplicacion::getInstance();
                 $mensajes = ['Se ha creado el mensaje'];
