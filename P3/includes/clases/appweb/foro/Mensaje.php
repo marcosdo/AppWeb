@@ -30,6 +30,13 @@ class Mensaje {
         $this->_prioridad = $prioridad;
     }
 
+    public function borrate() {
+        if ($this->_id_mensaje !== null) {
+            return self::borra($this);
+        }
+        return false;
+    }
+
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }
@@ -122,5 +129,21 @@ class Mensaje {
                 $rs->free();
         }
         return $msg;
+    }
+
+    private static function borra($mensaje) {
+        return self::borraXID($mensaje->_id_mensaje);
+    }
+
+    public static function borraXID($idMensaje) {
+        if (!$idMensaje)
+            return false;
+
+        $result = false;
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM mensaje WHERE id_mensaje = %d", $idMensaje);
+        $result = $conn->query($query);
+        return $result;
     }
 }
