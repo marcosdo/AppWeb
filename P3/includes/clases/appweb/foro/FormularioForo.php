@@ -10,29 +10,6 @@ class FormularioForo extends Formulario {
         parent::__construct('formForo', ['urlRedireccion' => 'foros.php']);
     }
 
-    private function seleCategorias(){
-        $rts = "";
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "SHOW COLUMNS FROM foro WHERE Field = '%s'",
-            "categoria"
-        );
-        $rs = $conn->query($query);
-        $fila = $rs->fetch_assoc();
-        $type = $fila['Type'];
-        $matches = array();
-        $enum = array();
-        preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
-        $enum = explode("','", $matches[1]);
-        $rts = $rts . " <select name='categoria' id='categoria'>";
-        for($i = 0; $i < sizeof($enum); $i++){
-            $rts = $rts . " <option value = '{$enum[$i]}'> {$enum[$i]} </option>";
-        }
-        $rts = $rts . " </select>";
-        return $rts;
-    }
-
-
     protected function generaCamposFormulario(&$datos) {
         $tema = $datos['tema'] ?? '';
         $contenido = $datos['contenido'] ?? '';
@@ -41,29 +18,18 @@ class FormularioForo extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['tema', 'contenido', 'categoria'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
-        $categoria = self::seleCategorias();
+        $categoria = Foro::seleCategorias(); 
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formforo"> 
-            <legend id="form-foro">Crear Foro</legend>
-            <div>
-                <p> Introduce tu tema: </p>
-                    <input id="tema" type="text" name="tema" value="$tema" placeholder="tema" />
-                    {$erroresCampos['tema']}
-                <div>
-                    <p> Introduce el contenido del foro: <p>
-                    <input id="contenido" type="text" name="contenido" value="$contenido" placeholder="contenido" />
-                    {$erroresCampos['contenido']}
-                </div>
-                <div>
-                    <p> Seleccione la categoría del foro: <p>
-                    $categoria
-                    {$erroresCampos['categoria']}
-                </div>
-                <button type="submit" name="enviar">Crear este foro</button>
-            </div>
-        </fieldset>
+        <h3>¿Quieres crear un nuevo tema?</h3>
+        <input id="tema" type="text" name="tema" value="$tema" placeholder="tema" />
+        {$erroresCampos['tema']}
+        <input id="contenido" type="text" name="contenido" value="$contenido" placeholder="contenido" />
+        {$erroresCampos['contenido']}
+        $categoria
+        {$erroresCampos['categoria']}
+        <button type="submit" name="enviar">Crear este foro</button>
         EOF;
         return $html;
     

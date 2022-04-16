@@ -1,7 +1,7 @@
 <?php
-require_once dirname(__DIR__).'/includes/config.php';
+require_once __DIR__.'/includes/config.php';
 
-include RAIZ_APP.'/vistas/helpers/mensajes.php';
+require_once __DIR__.'/includes/vistas/helpers/mensajes.php';
 
 $idMensaje = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 if (!$idMensaje) {
@@ -17,30 +17,24 @@ $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ??
 $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 3;
 
 $tituloPagina = 'Mensaje';
+$contenidoPrincipal = "";
 
-$msg = $mensaje->getMessage();
+$msg = $mensaje->getMensaje();
 
-$contenidoPrincipal = <<<EOS
+$contenidoPrincipal .= <<<EOS
 <h1>Mensaje</h1>
 <p>{$msg}</p>
 EOS;
-
-/* Mensajes sin paginar 
-$contenidoPrincipal .= listaMensajes($mensaje->id, true, $idMensaje);
-*/
-
-/* Mensajes paginados */
-//$contenidoPrincipal .= listaListaMensajesPaginados($mensaje, true, $idMensaje, $numPorPagina, $numPagina);
+// Mensajes sin paginar
+$contenidoPrincipal .= listaMensajes($idMensaje, true, $idMensaje);
 
 if ($app->usuarioLogueado()) {
-	/*
-	$formRespuesta = new FormularioRespuesta($idMensaje);
-	$htmlFormRespuesta = $formRespuesta->gestiona();
+	$form = new appweb\foro\FormularioMensaje();
+	$htmlFormMensaje = $form->gestiona();
+
 	$contenidoPrincipal .= <<<EOS
-		<h1>Responder</h1>
-		$htmlFormRespuesta
+		$htmlFormMensaje
 	EOS;
-	*/
 }
 
-require RAIZ_APP.'/vistas/plantillas/plantilla.php';
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';

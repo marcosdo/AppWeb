@@ -19,7 +19,7 @@ class Mensaje {
     // ==================== MÉTODOS ====================
     // ==================== no estaticos ====================
     // Constructor
-    public function __construct($id_usuario, $id_foro, $titulo, $mensaje, $prioridad, $id_referencia = 0, $id_mensaje = null) {
+    public function __construct($id_usuario, $id_foro, $titulo, $mensaje, $prioridad, $id_referencia = null, $id_mensaje = null) {
         $this->_id_mensaje = $id_mensaje;
         $this->_id_usuario = $id_usuario;
         $this->_id_referencia = $id_referencia;
@@ -30,23 +30,34 @@ class Mensaje {
         $this->_prioridad = $prioridad;
     }
 
+    public function borrate() {
+        if ($this->_id_mensaje !== null) {
+            return self::borra($this);
+        }
+        return false;
+    }
+
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
-    public function getTitle() { return $this->_titulo; }
-    public function getMessage() { return $this->_mensaje; }
+    public function getIDForo() { return $this->_id_foro; }
+    public function getIDUsuario() { return $this->_id_usuario; }
+    public function getIDRefencia() { return $this->_id_referencia; }
+    public function getTitulo() { return $this->_titulo; }
+    public function getFecha() { return $this->_fecha; }
+    public function getMensaje() { return $this->_mensaje; }
+    public function getPrioridad() { return $this->_prioridad; }
 
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================
     public static function creaMensaje($idusuario, $idforo,  $contenido, $prioridad = 0, $titulo = "Primer mensaje", $idreferencia = null) {
         $msg = new Mensaje($idusuario, $idforo, $titulo, $contenido, $prioridad, $idreferencia);
-        return self::inserta($msg);
+        return self::inserta($msg, $idreferencia);
     }
 
-    public static function inserta($msg) {
+    public static function inserta($msg, $ref) {
+        if ($ref === null)
+            $ref = 'null';
         $conn = Aplicacion::getInstance()->getConexionBd();
-        if ($msg->_id_referencia != 0) 
-            $ref = $msg->_id_referencia;
-        else $ref = 'null';
         $query = sprintf(
             "INSERT INTO mensaje (id_usuario, id_referencia, id_foro, titulo, mensaje, fecha, prioridad) 
             VALUES (%d, %s, %d,'%s','%s','%s', %d)"
@@ -67,12 +78,13 @@ class Mensaje {
         }
     }
 
-    public static function getMsgs($idforo) {
+    public static function getMsgs($idforo, $idref = "IS NULL") {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "SELECT * FROM mensaje WHERE id_foro = %d"
+            "SELECT * FROM mensaje WHERE id_foro = %d AND id_referencia "
             , $idforo
         );
+        ($idref === "IS NULL") ? $query .= $idref : $query .= ("=" . $idref);
         try {
             $result = array();
             $rs = $conn->query($query);
@@ -117,5 +129,21 @@ class Mensaje {
                 $rs->free();
         }
         return $msg;
+    }
+
+    private static function borra($mensaje) {
+        return self::borraXID($mensaje->_id_mensaje);
+    }
+
+    public static function borraXID($idMensaje) {
+        if (!$idMensaje)
+            return false;
+
+        $result = false;
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM mensaje WHERE id_mensaje = %d", $idMensaje);
+        $result = $conn->query($query);
+        return $result;
     }
 }

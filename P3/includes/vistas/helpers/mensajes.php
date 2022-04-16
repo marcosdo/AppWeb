@@ -1,21 +1,33 @@
 <?php
 use appweb\foro\Mensaje;
-use appweb\FormularioBorraMensaje;
+use appweb\foro\FormularioBorraMensaje;
 use appweb\Aplicacion;
 
 function visualizaMensaje($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl('mensajes/mensajes.php', [
+    $verURL = $app->buildUrl('mensajes.php', [
         'id' => $mensaje['id_mensaje']
     ]);
     return <<<EOS
-    <a href="{$verURL}">{$mensaje['mensaje']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})</a>
+    <a href="{$verURL}">{$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})</a>
+    
+    EOS;
+}
+
+function visualizaMensajeObjeto($mensaje) {
+    $app = Aplicacion::getInstance();
+    $verURL = $app->buildUrl('mensajes.php', [
+        'id' => $mensaje->getID()
+    ]);
+    return <<<EOS
+    <a href="{$verURL}">{$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getID()})</a>
+
     EOS;
 }
 
 function botonEditaMensaje($mensaje, $idMensajeRetorno = null) {
     $app = Aplicacion::getInstance();
-    $editaURL = $app->buildUrl('mensajes/editarMensaje.php', [
+    $editaURL = $app->buildUrl('editarmensaje.php', [
         'id' => $mensaje->id,
         'idMensajeRetorno' => $idMensajeRetorno
     ]);
@@ -26,12 +38,17 @@ function botonEditaMensaje($mensaje, $idMensajeRetorno = null) {
 
 function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
 {
-    $formBorra = new FormularioBorraMensaje($mensaje->id, $idMensajeRetorno);
+    $formBorra = new FormularioBorraMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
+    return $formBorra->gestiona();
+}
+function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null)
+{
+    $formBorra = new FormularioBorraMensaje($mensaje->getID(), $idMensajeRetorno);
     return $formBorra->gestiona();
 }
 
 // XXX Esta función es muy similar a la funcion listaMensajesPaginados y en un proyecto real sólo debería de existir una de ellas
-/*function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
+function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
 {
     $mensajes = Mensaje::buscaPorMensajePadre($id);
     if (count($mensajes) == 0) {
@@ -42,10 +59,10 @@ function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
     $html = '<ul>';
     foreach($mensajes as $mensaje) {
         $html .= '<li>';
-        $html .= visualizaMensaje($mensaje);
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->idAutor || $app->esAdmin())) {
-            $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
-            $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
+        $html .= visualizaMensajeObjeto($mensaje);
+        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
+            // $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
+            $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
         }
         if ($recursivo) {
             $html .= listaMensajes($mensaje->getId(), $recursivo, $idMensajeRetorno);
@@ -55,24 +72,25 @@ function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
     $html .= '</ul>';
 
     return $html;
-}*/
-
-function listaMensajesPaginados($id = null, $recursivo = false, $idMensajeRetorno = null, $numPorPagina = 5, $numPagina = 1) {
-    return listaMensajesPaginadosRecursivo($id, $recursivo, $idMensajeRetorno, 1, $numPorPagina, $numPagina);
 }
 
-function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes/mensajes.php', $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
+/*function listaMensajesPaginados($id = null, $recursivo = false, $idMensajeRetorno = null, $numPorPagina = 5, $numPagina = 1) {
+    return listaMensajesPaginadosRecursivo($id, $recursivo, $idMensajeRetorno, 1, $numPorPagina, $numPagina);
+}*/
+
+function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
     return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, $url, $extraUrlParams, 1, $numPorPagina, $numPagina);
 }
 
-function listaMensajesPaginadosRecursivo($id = null, $recursivo = false, $idMensajeRetorno = null, $nivel = 1, $numPorPagina = 5, $numPagina = 1)
+/*function listaMensajesPaginadosRecursivo($id = null, $recursivo = false, $idMensajeRetorno = null, $nivel = 1, $numPorPagina = 5, $numPagina = 1)
 {
     $mensajes = Mensaje::buscaPorMensajePadrePaginado($id, $numPorPagina+1, $numPagina-1);
-    return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, 'mensajes/mensajes.php', [], $nivel, $numPorPagina, $numPagina);
-}
+    return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, 'mensajes.php', [], $nivel, $numPorPagina, $numPagina);
+}*/
 
-function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes/mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1)
+function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1)
 {
+    $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);
     if ($numMensajes == 0) {
@@ -80,22 +98,21 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
     }
 
     $haySiguientePagina = false;
-    if ($numMensajes > $numPorPagina) {
-        $numMensajes = $numPorPagina;
+    if ($numMensajes > $numPorPagina + $primerMensaje) {
         $haySiguientePagina = true;
     }
 
     $html = '<ul>';
-    for($idx = 0; $idx < $numMensajes; $idx++) {
+    for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
         $html .= '<li>';
         $html .= visualizaMensaje($mensaje);
-        /*if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->idAutor || $app->esAdmin())) {
+        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario'])) {
             //$html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
-            //$html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
-        }*/
+            $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
+        }
         if ($recursivo) {
-            $html .= listaMensajesPaginadosRecursivo($mensaje->id, $recursivo, $idMensajeRetorno, $nivel+1, $numPagina, $numPorPagina);
+            //$html .= listaMensajesPaginadosRecursivo($mensaje['id'], $recursivo, $idMensajeRetorno, $nivel+1, $numPagina, $numPorPagina);
         }
         $html .= '</li>';
     }
