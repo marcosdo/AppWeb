@@ -280,7 +280,7 @@ class Aplicacion
     public function idUsuario()
     {
         $this->compruebaInstanciaInicializada();
-        return $_SESSION['idUsuario'] ?? '';
+        return $_SESSION['id'] ?? '';
     }
 
     /*public function esAdmin()
