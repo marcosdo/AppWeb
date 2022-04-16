@@ -7,7 +7,8 @@ use appweb\foro\Mensaje;
 
 class FormularioMensaje extends Formulario {
     public function __construct($idforo = null) { 
-        parent::__construct('formForo', ['urlRedireccion' => ($idforo) ? 'foroaux.php' : "foroaux.php?idforo=$idforo"]);
+        $url = ($idforo) ? "foroaux.php?idforo=$idforo" : 'foroaux.php';
+        parent::__construct('formForo', ['urlRedireccion' => $url]);
     }
 
     protected function generaCamposFormulario(&$datos) {
