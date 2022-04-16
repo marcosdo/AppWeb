@@ -90,4 +90,26 @@ class Foro {
         }
         return $foro;
     }
+
+    public static function seleCategorias(){
+        $rts = "";
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SHOW COLUMNS FROM foro WHERE Field = '%s'",
+            "categoria"
+        );
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        $type = $fila['Type'];
+        $matches = array();
+        $enum = array();
+        preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+        $enum = explode("','", $matches[1]);
+        $rts = $rts . " <select name='categoria' id='categoria'>";
+        for($i = 0; $i < sizeof($enum); $i++){
+            $rts = $rts . " <option value = '{$enum[$i]}'> {$enum[$i]} </option>";
+        }
+        $rts = $rts . " </select>";
+        return $rts;
+    }
 }

@@ -10,30 +10,6 @@ class FormularioForo extends Formulario {
         parent::__construct('formForo', ['urlRedireccion' => 'foros.php']);
     }
 
-    //mirar porque alomejor no deberia hacerse aqui al hacer una conexion a BD y deberia hacerse desde la clase foro :)
-    private function seleCategorias(){
-        $rts = "";
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "SHOW COLUMNS FROM foro WHERE Field = '%s'",
-            "categoria"
-        );
-        $rs = $conn->query($query);
-        $fila = $rs->fetch_assoc();
-        $type = $fila['Type'];
-        $matches = array();
-        $enum = array();
-        preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
-        $enum = explode("','", $matches[1]);
-        $rts = $rts . " <select name='categoria' id='categoria'>";
-        for($i = 0; $i < sizeof($enum); $i++){
-            $rts = $rts . " <option value = '{$enum[$i]}'> {$enum[$i]} </option>";
-        }
-        $rts = $rts . " </select>";
-        return $rts;
-    }
-
-
     protected function generaCamposFormulario(&$datos) {
         $tema = $datos['tema'] ?? '';
         $contenido = $datos['contenido'] ?? '';
@@ -42,7 +18,7 @@ class FormularioForo extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['tema', 'contenido', 'categoria'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
-        $categoria = self::seleCategorias(); //en vez de self poner foro
+        $categoria = Foro::seleCategorias(); 
 
         $html = <<<EOF
         $htmlErroresGlobales
