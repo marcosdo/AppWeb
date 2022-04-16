@@ -172,7 +172,7 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 TRUNCATE TABLE `empresas`;
 TRUNCATE TABLE `entrena`;
 INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
-('pintus', 'perspa', 0, 0),
+('pintus', 'perspa', 0, 0);
 
 TRUNCATE TABLE `foro`;
 INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
