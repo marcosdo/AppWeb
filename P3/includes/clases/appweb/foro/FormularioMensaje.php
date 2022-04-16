@@ -18,7 +18,9 @@ class FormularioMensaje extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
+        {$erroresCampos['titulo']}
         <input id="titulo" type="text" name="titulo" value="$titulo" placeholder="titulo" />
+        {$erroresCampos['mensaje']}
         <input id="mensaje" type="text" name="mensaje" value="$mensaje" placeholder="mensaje" />
         <button type="submit" name="enviar">Responde a este mensaje</button>
         EOF;
