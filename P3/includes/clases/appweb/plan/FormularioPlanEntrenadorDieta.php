@@ -56,7 +56,7 @@ class FormularioPlanEntrenadorDieta extends Formulario {
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset id ="formentrenadordieta"> 
-            <legend id="edit-routine-plan">Editor de Dietas</legend>
+            <legend id="edit-dieta-plan">Editor de Dietas</legend>
                         $Select
                     {$erroresCampos['alias']}
                         $boton
@@ -73,12 +73,8 @@ class FormularioPlanEntrenadorDieta extends Formulario {
 
         if (count($this->errores) === 0) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'",$alias); 
-            $rs = $conn->query($query); 
-            $fila = $rs->fetch_assoc();
-            $id = $fila['id_usuario'];
-            // como sabes cual es la dieta activa¿?
-            $queryr = sprintf("UPDATE dieta SET dieta.editar = '%d' WHERE dieta.id_usuario = '%d' AND rutina.activa = '%d'",1, $id, 1); 
+            
+            $queryr = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'",1, $alias); 
             $conn->query($queryr);
             
         }

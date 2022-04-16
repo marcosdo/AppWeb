@@ -25,53 +25,67 @@ class FormularioEditarDieta extends Formulario {
         return $rts;
     }
 
-    private function idUsuario(){
+    private function idUsuario(&$alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM dieta WHERE dieta.editar = '%d'",1); 
+        $query = sprintf("SELECT * FROM entrena WHERE entrena.editarutina = '%d'",1); 
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
-        return $fila['id_usuario'];
+        $alias =  $fila['usuario'];
+        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
+        $rs2 = $conn->query($query2); 
+        $fila2 = $rs2->fetch_assoc();
+        return $fila2['id_usuario'];
     }
 
     private function generaTabla(){
-        
-        $idusuario = self::idUsuario();
+        $dias = 0;
+        $desayuno = array();
+        $almuerzo = array();
+        $cena = array();
+        $fecha = Dieta:: buscaDieta($_SESSION['id'], $dias, $desayuno, $almuerzo, $cena);
 
         $contenido = "<table id=planificacion>";
-        $obj = 0;
-        $arrayreps = [];
-        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
-        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
-        $contenido .= "<caption>Rutina de entrenamiento</caption><thead><tr>";
-
-        for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
-            $contenido .= "<th>Día $i </th>";
+        $contenido .= "<caption>Dieta especializada</caption>";
+        $contenido .= "<thead><tr>";
+        // Dias de la semana 
+        $contenido .= "<th></th>";
+        for ($i = 0; $i < $dias; $i++) { 
+            $dia_semana = date('w', strtotime($fecha));
+            $dia_mes = date('d', strtotime($fecha));
+            switch ($dia_semana) {
+                case 1: { $contenido .= "<th>L ".$dia_mes."</th>";   } break;
+                case 2: { $contenido .= "<th>M ".$dia_mes."</th>";   } break;
+                case 3: { $contenido .= "<th>X ".$dia_mes."</th>";   } break;
+                case 4: { $contenido .= "<th>J ".$dia_mes."</th>";   } break;
+                case 5: { $contenido .= "<th>V ".$dia_mes."</th>";   } break;
+                case 6: { $contenido .= "<th>S ".$dia_mes."</th>";   } break;
+                case 0: { $contenido .= "<th>D ".$dia_mes."</th>";   } break;
+                default: break;
+            }
+            $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
         }
         $contenido .= "</tr></thead><tbody>";
-        for ($i = 0; $i < $ejerciciostotales;$i++){
+        for ($i = 0; $i < 3; $i++) {
             $contenido .= "<tr>";
-            for ($j = 0; $j < count($arrayaux)  ; $j++) { //nº de ejercicios al cabo del día
-                $defecto = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
-                if($defecto != "") {
-                    $b = count($arrayaux[$j]);
-                    $ejercicios = self::Ejercicios($defecto);
-                    $diaspos = $j;
-                    $diaspos .= "-";
-                    $diaspos .= $i;
-                    $select = "<select name=$diaspos id=$diaspos>";
-                    $select .= $ejercicios;
-                    $select .= "</select";
-                    $contenido .= "<td> $select</td>";
+            switch ($i) {
+                case 0: $contenido .= "<td id=\"table-diets\">Desayuno</td>";  break;
+                case 1: $contenido .= "<td id=\"table-diets\">Comida</td>";    break;
+                case 2: $contenido .= "<td id=\"table-diets\">Cena</td>";      break;
+                default: break;
+            }
+            for ($j = 0; $j < $dias; $j++) {
+                switch ($i) {
+                    case 0: $defecto = $desayuno[$j] . "</td>";   break;
+                    case 1: $contenido .= "<td>" . $almuerzo[$j] . "</td>";     break;
+                    case 2: $contenido .= "<td>" . $cena[$j] . "</td>";       break;
+                    default: break;
                 }
-                else {
-                    $contenido .= "<td> </td>";
-                }
+
+                $contenido .= "<td>" .  . "</td>"
             }
             $contenido .= "</tr>";
         }
-        $series = "</tbody><div id= repeticiones>";
-        $series .= "<p> Nº de series: 3 </p> </div>";
-        $contenido .= "</table>";
+        $contenido .= "</tbody></table>"; 
         return $contenido;
         
     }
@@ -107,7 +121,8 @@ class FormularioEditarDieta extends Formulario {
 
         if (count($this->errores) === 0) {
 
-            $idusuario = self::idUsuario();
+            $alias = "";
+            $idusuario = self::idUsuario($alias);
             $obj = 0;
             $arrayreps = [];
             $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
@@ -136,7 +151,7 @@ class FormularioEditarDieta extends Formulario {
                     }
                 }
             }
-            $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
+            $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
             $actualizarutina = $conn->query($queryeditar);
         }
         
