@@ -4,9 +4,9 @@ namespace appweb\plan;
 use appweb\Formulario;
 use appweb\Aplicacion;
 
-class FormularioPlanEntrenadorRutina extends Formulario {
+class FormularioPlanEntrenadorDieta extends Formulario {
     public function __construct() {
-        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planeditarrutina.php']);
+        parent::__construct('formEntrenadorDietas', ['urlRedireccion' => 'planeditardieta.php']);
     }
     
     private function Usuarios($entNombre){
@@ -23,7 +23,7 @@ class FormularioPlanEntrenadorRutina extends Formulario {
                 $query2 = sprintf("SELECT * FROM usuario WHERE id_usuario = '%s'",$id);            
                 $rs2 = $conn->query($query2); 
                 $filausuario = $rs2->fetch_assoc();
-                $query3 = sprintf("SELECT * FROM rutina WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
+                $query3 = sprintf("SELECT * FROM dieta WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
                 $rs3 = $conn->query($query3); 
                 $row_cnt = $rs3->num_rows;
                 if($row_cnt >0) $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
@@ -50,13 +50,13 @@ class FormularioPlanEntrenadorRutina extends Formulario {
             "<p> Selecciona el usuario: </p><div><select name = 'alias' id = 'alias' type = 'text'>";
             $Select .= $SelectUsuarios;
             $Select .= "</select></div>";
-            $boton = "<div><button type='submit' name='enviar'>Editar rutina</button></div>";
+            $boton = "<div><button type='submit' name='enviar'>Editar dieta</button></div>";
         }
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formentrenadorrutina"> 
-            <legend id="edit-routine-plan">Editor de Rutinas</legend>
+        <fieldset id ="formentrenadordieta"> 
+            <legend id="edit-routine-plan">Editor de Dietas</legend>
                         $Select
                     {$erroresCampos['alias']}
                         $boton
@@ -77,7 +77,8 @@ class FormularioPlanEntrenadorRutina extends Formulario {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
             $id = $fila['id_usuario'];
-            $queryr = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'",1, $id, 1); 
+            // como sabes cual es la dieta activa¿?
+            $queryr = sprintf("UPDATE dieta SET dieta.editar = '%d' WHERE dieta.id_usuario = '%d' AND rutina.activa = '%d'",1, $id, 1); 
             $conn->query($queryr);
             
         }

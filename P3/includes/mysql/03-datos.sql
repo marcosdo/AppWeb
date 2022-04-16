@@ -171,9 +171,8 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 
 TRUNCATE TABLE `empresas`;
 TRUNCATE TABLE `entrena`;
-INSERT INTO `entrena` (`nutri`, `usuario`) VALUES
-('pintus', 'perspa'),
-('pintus', 'perspa');
+INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
+('pintus', 'perspa', 0, 0),
 
 TRUNCATE TABLE `foro`;
 INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
@@ -206,9 +205,9 @@ INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`
 (31, 'pintus', 2, '');
 
 TRUNCATE TABLE `rutina`;
-INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`, `editar`) VALUES
-(91, 36, 1, 1, 'P', 3, 0),
-(92, 32, 1, 1, 'P', 3, 0);
+INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`) VALUES
+(91, 36, 1, 1, 'P', 3),
+(92, 32, 1, 1, 'P', 3);
 
 TRUNCATE TABLE `usuario`;
 INSERT INTO `usuario` (`id_usuario`, `premium`) VALUES
