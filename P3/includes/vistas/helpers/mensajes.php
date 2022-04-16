@@ -41,6 +41,11 @@ function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
     $formBorra = new FormularioBorraMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
     return $formBorra->gestiona();
 }
+function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null)
+{
+    $formBorra = new FormularioBorraMensaje($mensaje->getID(), $idMensajeRetorno);
+    return $formBorra->gestiona();
+}
 
 // XXX Esta función es muy similar a la funcion listaMensajesPaginados y en un proyecto real sólo debería de existir una de ellas
 function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
@@ -55,10 +60,10 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     foreach($mensajes as $mensaje) {
         $html .= '<li>';
         $html .= visualizaMensajeObjeto($mensaje);
-        /*if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->idAutor || $app->esAdmin())) {
-            $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
-            $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
-        }*/
+        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
+            // $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
+            $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
+        }
         if ($recursivo) {
             $html .= listaMensajes($mensaje->getId(), $recursivo, $idMensajeRetorno);
         }
