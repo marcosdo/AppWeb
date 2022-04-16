@@ -7,14 +7,21 @@ if (!appweb\foro\Foro::buscaxID($idforo)) {
     appweb\Aplicacion::redirige($app->buildUrl('/foros.php'));
 }
 
+$numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
+$numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 5;
+
 $msgs = appweb\foro\Mensaje::getMsgs($idforo, 'IS NULL');
 
 $tituloPagina = 'Tablon';
 $contenidoPrincipal = '<h1>Tablon de Anuncios</h1>';
-$contenidoPrincipal .= listaListaMensajesPaginados($msgs);
+
+
+$params = [ 'idforo' => $idforo ];
+$contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroaux.php', $params, $numPorPagina, $numPagina);
+
 if (isset($_SESSION['rol'])) {
-    $mensaje = new appweb\foro\FormularioMensaje($idforo);
-    $htmlFormMensaje = $mensaje->gestiona();
+    $form = new appweb\foro\FormularioMensaje($idforo);
+    $htmlFormMensaje = $form->gestiona();
 
     $contenidoPrincipal .= <<<EOS
         <h1>Nuevo Mensaje</h1>

@@ -85,6 +85,7 @@ function listaMensajesPaginadosRecursivo($id = null, $recursivo = false, $idMens
 
 function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1)
 {
+    $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);
     if ($numMensajes == 0) {
@@ -92,13 +93,12 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
     }
 
     $haySiguientePagina = false;
-    if ($numMensajes > $numPorPagina) {
-        $numMensajes = $numPorPagina;
+    if ($numMensajes > $numPorPagina + $primerMensaje) {
         $haySiguientePagina = true;
     }
 
     $html = '<ul>';
-    for($idx = 0; $idx < $numMensajes; $idx++) {
+    for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
         $html .= '<li>';
         $html .= visualizaMensaje($mensaje);
