@@ -92,72 +92,44 @@ footer {
 	background-color: #292a3a;
 	color: #e1523d;
 	text-align: center;
-	/*grid-area: */
+	
 }
 
+table {
+	width: 100%;
+}
 
-footer .columna1{
+table#tablefooter .columna1{
 	grid-area: pie1;
-	max-width: 400px;
 }
 
-footer .columna1 h1{
-	font-size: 22px;
-}
-
-.informacion_empresa{
-	font-size: 14px;
-	color: #C7C7C7;
-	margin-top: 20 px;
-}
-
-.copyright{
-	font-size: 14px;
-	color: #C7C7C7;
-	margin-top: 20 px;
-}
-
-footer .columna2{
+table#tablefooter .columna2{
 	grid-area: pie2;
 }
 
-.columna2 h1{
-	font-size: 22px;
-}
-
-.fila{
-	margin-top: 20px;
-	display: flex;
-}
-
-.fila img{
-	width: 36px;
-	height: 36px;
-}
-
-.informacion{
-	font-size: 14px;
-	color: #C7C7C7;
-	margin-top: 20 px;
-}
-
-footer .columna3{
+table#tablefooter .columna3{
 	grid-area: pie3;
 }
 
-.columna3 h1{
-	font-size: 22px;
+.fila_footer{
+	color: #ffffff;
 }
 
-
-.fila2{
-	margin-top: 20px;
-	display: flex;
+.fila_footer2{
+	color: #000000;
 }
 
+table td:first-child {
+	width: 300px;
+}
 
+table td:nth-child(2) {
+	width: 400px;
+}
 
-
+table td:nth-child(3) {
+	width: 300px;
+}
 
 /*
 fieldset {
