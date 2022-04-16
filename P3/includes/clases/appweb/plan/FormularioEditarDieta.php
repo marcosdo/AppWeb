@@ -120,13 +120,13 @@ class FormularioEditarDieta extends Formulario {
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset id ="formeditrutina"> 
-            <legend id="edit-routine-plan">Editor de Rutinas</legend>
+            <legend id="edit-routine-plan">Editor de Dietas</legend>
                     <div>
                     $contenido
                     </div>
                     {$erroresCampos['alias']}
                     <div>
-                    <button type="submit" name="enviar">Editar rutina</button>
+                    <button type="submit" name="enviar">Editar dieta</button>
                     </div>
         </fieldset>
         EOF;
@@ -134,44 +134,68 @@ class FormularioEditarDieta extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-       /* $conn = Aplicacion::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
         if (count($this->errores) === 0) {
 
+            $dias = 0;
             $alias = "";
             $idusuario = self::idUsuario($alias);
-            $obj = 0;
-            $arrayreps = [];
-            $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
-            $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
-            $dias = count($arrayaux);
+            $desayuno = array();
+            $almuerzo = array();
+            $cena = array();
+            $fecha = Dieta:: buscaDieta($idusuario, $dias, $desayuno, $almuerzo, $cena);
+            $fechaini = $fecha;
 
-            for ($i = 0; $i < $ejerciciostotales;$i++){
+            for ($i = 0; $i < 3; $i++) {
+                $fecha = $fechaini;
                 for ($j = 0; $j < $dias;$j++) { 
-                    $tabla = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
-                    $diaspos = $j;
+                    
+                    switch ($i) {
+                        case 0: 
+                        $defecto = $desayuno[$j];
+                        break;
+                        case 1: 
+                        $defecto = $almuerzo[$j]; 
+                        break;
+                        case 2: 
+                        $defecto = $cena[$j]; 
+                        break;
+                        default: break;
+                    }
+                    $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%d'", $idusuario); 
+                    $rs = $conn->query($query); 
+                    $diaspos = $i;
                     $diaspos .= "-";
-                    $diaspos .= $i;
-                    if($tabla != "") $select = $datos[$diaspos];
-                    else $select = $tabla;
-                    if($tabla != $select){ // Se cambia el ejercicio
-                        $query = sprintf("SELECT * FROM ejercicios");
-                        $rs = $conn->query($query); 
-                        while ($fila = $rs->fetch_assoc()){
-                            if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
-                            if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
+                    $diaspos .= $j;
+                    $select = $datos[$diaspos];
+                    if($defecto != $select){ // Se cambia el ejercicio
+                        $queryaux = sprintf("SELECT * FROM comidas WHERE comidas.descripcion = '%s'", $select); 
+                        $rsaux = $conn->query($queryaux); 
+                        $filaaux = $rsaux->fetch_assoc();
+                        $idc = $filaaux['id_comida'];
+                        switch ($i){
+                            case 0: 
+                                $query2 = sprintf("UPDATE dieta SET dieta.id_desayuno = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                                break;
+                            case 1: 
+                                $query2 = sprintf("UPDATE dieta SET dieta.id_almuerzo = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                                break;
+                            case 2: 
+                                $query2 = sprintf("UPDATE dieta SET dieta.id_cena = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                                break;
+                                default: break;
                         }
-                        $diaact = $j+1;
-                        $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $diaact);
                         $actualizacontiene = $conn->query($query2); 
   
                     }
+                    $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
                 }
             }
             $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
-            $actualizarutina = $conn->query($queryeditar);
+            $actualizadieta = $conn->query($queryeditar);
         }
-        */
+        
 
     }
 }
