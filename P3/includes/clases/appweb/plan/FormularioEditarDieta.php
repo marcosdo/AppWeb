@@ -9,10 +9,10 @@ class FormularioEditarDieta extends Formulario {
         parent::__construct('formEditarDietas', ['urlRedireccion' => 'entrenadorplan.php']);
     }
     
-    private function comidas ($defecto){
+    private function comidas ($defecto, $tipo){
         $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM comidas"); 
+        $query = sprintf("SELECT * FROM comidas WHERE comidas.tipo = '%s'", $tipo); 
         $rs = $conn->query($query); 
         while($fila = $rs->fetch_assoc()){
             if($defecto == $fila['descripcion']){
@@ -27,7 +27,7 @@ class FormularioEditarDieta extends Formulario {
 
     private function idUsuario(&$alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE entrena.editarutina = '%d'",1); 
+        $query = sprintf("SELECT * FROM entrena WHERE entrena.editadieta = '%d'",1); 
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
         $alias =  $fila['usuario'];
@@ -39,10 +39,12 @@ class FormularioEditarDieta extends Formulario {
 
     private function generaTabla(){
         $dias = 0;
+        $alias = "";
+        $idusuario = self::idUsuario($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
-        $fecha = Dieta:: buscaDieta($_SESSION['id'], $dias, $desayuno, $almuerzo, $cena);
+        $fecha = Dieta:: buscaDieta($idusuario, $dias, $desayuno, $almuerzo, $cena);
 
         $contenido = "<table id=planificacion>";
         $contenido .= "<caption>Dieta especializada</caption>";
@@ -75,13 +77,28 @@ class FormularioEditarDieta extends Formulario {
             }
             for ($j = 0; $j < $dias; $j++) {
                 switch ($i) {
-                    case 0: $defecto = $desayuno[$j] . "</td>";   break;
-                    case 1: $contenido .= "<td>" . $almuerzo[$j] . "</td>";     break;
-                    case 2: $contenido .= "<td>" . $cena[$j] . "</td>";       break;
+                    case 0: 
+                    $defecto = $desayuno[$j];
+                    $tipo = "Desayuno"; 
+                    break;
+                    case 1: 
+                    $defecto = $almuerzo[$j]; 
+                    $tipo = "Comida";
+                    break;
+                    case 2: 
+                    $defecto = $cena[$j]; 
+                    $tipo = "Cena";
+                    break;
                     default: break;
                 }
-
-                $contenido .= "<td>" .  . "</td>"
+                $comidastipo = self::comidas($defecto, $tipo);
+                $diaspos = $i;
+                $diaspos .= "-";
+                $diaspos .= $j;
+                $select = "<select name=$diaspos id=$diaspos>";
+                $select .= $comidastipo;
+                $select .= "</select";
+                $contenido .= "<td> $select</td>";
             }
             $contenido .= "</tr>";
         }
@@ -117,7 +134,7 @@ class FormularioEditarDieta extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
+       /* $conn = Aplicacion::getInstance()->getConexionBd();
 
         if (count($this->errores) === 0) {
 
@@ -154,7 +171,7 @@ class FormularioEditarDieta extends Formulario {
             $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
             $actualizarutina = $conn->query($queryeditar);
         }
-        
+        */
 
     }
 }
