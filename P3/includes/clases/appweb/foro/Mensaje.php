@@ -39,12 +39,14 @@ class Mensaje {
 
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================
-    public static function creaMensaje($idusuario, $idforo,  $contenido, $prioridad = 0, $titulo = "Primer mensaje", $idreferencia = 'null') {
+    public static function creaMensaje($idusuario, $idforo,  $contenido, $prioridad = 0, $titulo = "Primer mensaje", $idreferencia = null) {
         $msg = new Mensaje($idusuario, $idforo, $titulo, $contenido, $prioridad, $idreferencia);
         return self::inserta($msg, $idreferencia);
     }
 
-    public static function inserta($msg, $ref = 'null') {
+    public static function inserta($msg, $ref) {
+        if ($ref === null)
+            $ref = 'null';
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO mensaje (id_usuario, id_referencia, id_foro, titulo, mensaje, fecha, prioridad) 
