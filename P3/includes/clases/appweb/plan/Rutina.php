@@ -213,48 +213,6 @@ class Rutina {
         return $arrayaux;
     }
 
-
-    public static function devolverEjercicio($id_usuario, $dia, $pos){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
-        $rs = $conn->query($query); 
-        while($fila = $rs->fetch_assoc()){ 
-            $query2 = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d' AND  contiene.dia = '%d'", $fila['id_rutina'], $dia);
-            $rs2 = $conn->query($query2); 
-            $i = 0;
-            while($i < $pos && $fila2 = $rs2->fetch_assoc()){
-                $i++;
-                if($i == $pos) $ejercicio = $fila2['id_ejercicio'];
-            }
-            $query3 = sprintf("SELECT ejercicio.nombre FROM ejercicios WHERE ejercicio.id_ejercicio = '%d'", $ejercicio);
-            $rs3 = $conn->query($query3); 
-        }   
-        return $rs3;
-    }
-
-    public static function diasUsuario($id_usuario){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
-        $rs = $conn->query($query); 
-        $dias = 0;
-        while($fila = $rs->fetch_assoc()){ 
-            $dias = $fila['dias'];
-        }
-        return $dias;
-    }
-
-    public static function ejerciciosxDia($id_usuario, $dia){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $id_usuario, 1);
-        $rs = $conn->query($query); 
-        while($fila = $rs->fetch_assoc()){ 
-            $query2 = sprintf("SELECT COUNT(*) FROM contiene WHERE contiene.id_rutina = '%d' AND contiene.dia = '%d'", $fila['id_rutina'], $dia);
-            $rs2 = $conn->query($query2);  
-            $ejerciciosxdia = $rs2->num_rows;
-       }
-        return $ejerciciosxdia;
-    }
-
     public function __construct($id, $objetivo, $nivel, $dias) {
         $this->_nivel = $nivel;
         $this->_id = $id;
