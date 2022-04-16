@@ -20,7 +20,7 @@ function visualizaMensajeObjeto($mensaje) {
         'id' => $mensaje->getID()
     ]);
     return <<<EOS
-    <a href="{$verURL}">{$mensaje->getTitle()} ({$mensaje->getID()}) ({$mensaje->getID()})</a>
+    <a href="{$verURL}">{$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getID()})</a>
 
     EOS;
 }

@@ -31,10 +31,13 @@ class Mensaje {
     }
 
     // Getters y setters
-    public function getTitle() { return $this->_titulo; }
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }
-    public function getMessage() { return $this->_mensaje; }
+    public function getIDUsuario() { return $this->_id_usuario; }
+    public function getIDRefencia() { return $this->_id_referencia; }
+    public function getTitulo() { return $this->_titulo; }
+    public function getFecha() { return $this->_fecha; }
+    public function getMensaje() { return $this->_mensaje; }
     public function getPrioridad() { return $this->_prioridad; }
 
     // ====================  MÉTODOS  ====================

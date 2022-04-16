@@ -19,7 +19,7 @@ $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_I
 $tituloPagina = 'Mensaje';
 $contenidoPrincipal = "";
 
-$msg = $mensaje->getMessage();
+$msg = $mensaje->getMensaje();
 
 $contenidoPrincipal .= <<<EOS
 <h1>Mensaje</h1>
