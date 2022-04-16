@@ -23,7 +23,7 @@ require(RAIZ_APP.'/vistas/comun/menu.php');
 		<article>
 			<?= $contenidoPrincipal ?>
 		</article>
-	</main>
+</main>
 <?php
 require(RAIZ_APP.'/vistas/comun/anuncios.php');
 ?>

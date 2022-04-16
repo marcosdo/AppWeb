@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$form = new es\ucm\fdi\aw\FormularioPago();
+$form = new appweb\chat\FormularioPago();
 $htmlFormPago = $form->gestiona();
 
 $tituloPagina = 'Pago';

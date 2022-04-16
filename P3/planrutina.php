@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/vistas/helpers/ayudasmostar.php';
+require_once __DIR__.'/includes/vistas/helpers/planes.php';
 
 $htmlRutina = mostrarRutina();
 $tituloPagina = 'Rutina';

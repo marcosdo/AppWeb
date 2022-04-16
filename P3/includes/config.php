@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/Aplicacion.php';
-
 /**
  * Parámetros de conexión a la BD
  */
@@ -14,11 +12,10 @@ define('BD_PASS', 'lifetypass');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/AppWeb/P3');
-                    
-define('RUTA_IMGS', RUTA_APP.'/img');
-define('RUTA_CSS', RUTA_APP.'/css');
-define('RUTA_JS', RUTA_APP.'/js');
+define('RUTA_APP', '/AW/GitHub/P3');
+define('RUTA_IMGS', RUTA_APP.'/src/img');
+define('RUTA_CSS', RUTA_APP.'/src/css');
+define('RUTA_JS', RUTA_APP.'/src/js');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
@@ -35,10 +32,10 @@ date_default_timezone_set('Europe/Madrid');
 spl_autoload_register(function ($class) {
     
     // project-specific namespace prefix
-    $prefix = 'es\\ucm\\fdi\\aw\\';
+    $prefix = '';
     
     // base directory for the namespace prefix
-    $base_dir = __DIR__ . '/';
+    $base_dir = __DIR__ . '/clases/';
     
     // does the class use the namespace prefix?
     $len = strlen($prefix);
@@ -67,10 +64,11 @@ spl_autoload_register(function ($class) {
 function gestorExcepciones(Throwable $exception) {
     error_log(jTraceEx($exception)); 
     http_response_code(500);
+    $msg = $exception->getMessage();
     $tituloPagina = 'Error';
     $contenidoPrincipal = <<<EOS
         <h1>Oops</h1>
-        <p> Parece que ha habido un fallo. </p>
+        <p> $msg </p>
     EOS;
     require __DIR__.'/vistas/plantillas/plantilla.php';
 }
@@ -122,8 +120,8 @@ function jTraceEx($e, $seen=null) {
 }
 
 // Inicializa la aplicación
-$app = es\ucm\fdi\aw\Aplicacion::getInstance();
-$app->init(array('localhost'=>BD_HOST, 'lifety'=>BD_NAME, 'lifetyuser'=>BD_USER, 'lifetypass'=>BD_PASS));
+$app = appweb\Aplicacion::getInstance();
+$app->init(array('localhost'=>BD_HOST, 'lifety'=>BD_NAME, 'lifetyuser'=>BD_USER, 'lifetypass'=>BD_PASS), RUTA_APP, RAIZ_APP);
 
 /**
  * @see http://php.net/manual/en/function.register-shutdown-function.php

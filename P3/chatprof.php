@@ -2,16 +2,13 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$chatUsuario = new es\ucm\fdi\aw\ChatEntrenador();
+$chatUsuario = new appweb\chat\MostrarChatEntrenador();
 $MostrarChat = $chatUsuario->mostrarChat();
 
-require_once __DIR__ .'/includes/FormularioLogros.php';
-
-$FormularioLogros = new es\ucm\fdi\aw\FormularioLogros();
-$MostrarLogros = $FormularioLogros->mostrarFormulario();
+$FormularioLogros = new appweb\chat\MostrarLogrosEntrenador();
+$MostrarLogros = $FormularioLogros->mostrarLogrosEnt();
 
 $tituloPagina = 'Entrenador Personal';
-
 $contenidoPrincipal = <<<EOS
 <h1>Entrenador personal</h1>
 <form method='post'>

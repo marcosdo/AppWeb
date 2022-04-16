@@ -1,20 +1,30 @@
 <?php
-
 require_once __DIR__.'/includes/config.php';
 
-$class = new es\ucm\fdi\aw\MostrarTemas();
-$html = $class->muestra_temas();
+function muestraTemas($data) {
+    $aux = "<div class=temas><h3>Lista de temas</h3>";
+    $tema = array_column($data, 'tema');
+    $idforo = array_column($data, 'id_foro');
+    for ($i = 0; $i < count($data); $i++)
+        $aux .= "<li><a href='foroaux.php?idforo={$idforo[$i]}'>{$tema[$i]}</a></li>";
+    $aux .= "</div>";
+    return $aux;
+}
 
-$form = new es\ucm\fdi\aw\FormularioForo();
+$class = new appweb\foro\MostrarTemas();
+$data = $class->getData();
+$html = muestraTemas($data);
+
+$form = new appweb\foro\FormularioForo();
 $htmlFormForo = $form->gestiona();
 
 $tituloPagina = 'Foro';
 $contenidoPrincipal = <<<EOS
 <h1>Temas del foro</h1>
-<h3>¿Quieres crear un nuevo tema?</h3>
-$htmlFormForo
-<h3>Lista de temas</h3>
-$html
+<div id=tabla>
+    $htmlFormForo
+    $html
+</div>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';

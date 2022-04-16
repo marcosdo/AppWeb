@@ -1,6 +1,6 @@
 <?php
 
-use es\ucm\fdi\aw\Aplicacion;
+use appweb\Aplicacion;
 
 function mensajesPeticionAnterior()
 {

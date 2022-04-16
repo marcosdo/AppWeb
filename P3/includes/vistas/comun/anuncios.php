@@ -1,3 +1,3 @@
-<aside id="sidebarDer">
+<aside>
   Banner de anuncios.
 </aside>

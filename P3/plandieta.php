@@ -1,14 +1,13 @@
 <?php 
 
 require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/vistas/helpers/planes.php';
 
-$tabla = new \es\ucm\fdi\aw\PlanificacionDietas();
-$html = $tabla->muestra_tabla();
+$htmlDieta = mostrarDieta();
 $tituloPagina = 'Dietas';
 
 $contenidoPrincipal = <<<EOS
-    <h1>Dietas</h1>
-    $html
+    $htmlDieta
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
