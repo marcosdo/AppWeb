@@ -121,7 +121,7 @@ function jTraceEx($e, $seen=null) {
 
 // Inicializa la aplicación
 $app = appweb\Aplicacion::getInstance();
-$app->init(array('localhost'=>BD_HOST, 'lifety'=>BD_NAME, 'lifetyuser'=>BD_USER, 'lifetypass'=>BD_PASS));
+$app->init(array('localhost'=>BD_HOST, 'lifety'=>BD_NAME, 'lifetyuser'=>BD_USER, 'lifetypass'=>BD_PASS), RUTA_APP, RAIZ_APP);
 
 /**
  * @see http://php.net/manual/en/function.register-shutdown-function.php
