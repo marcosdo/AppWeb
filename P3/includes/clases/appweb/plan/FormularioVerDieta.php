@@ -20,7 +20,8 @@ class FormularioVerDieta extends Formulario {
         $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%s'", $_SESSION['id']); 
         $rs = $conn->query($query);
         if($rs->num_rows > 0) {
-            $boton = "<div><button type='submit' name='enviar'>Ver Mi Dieta</button></div>";
+            $boton = "<p> Pulsa aqui si quieres ver tu dieta </p>";
+            $boton .= "<div><button type='submit' name='enviar'>Ver Mi Dieta</button></div>";
         }
         else{
             $boton = "No tienes ninguna dieta, ¡personalizate una desde Crear Plan!";
@@ -29,8 +30,10 @@ class FormularioVerDieta extends Formulario {
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <p> Pulsa aqui si quieres ver tu rutina </p>
+        <fieldset id ="formverdieta"> 
+            <legend id="ver-dieta-plan">Ver Dieta</legend>
         $boton
+        </fieldset>
         EOF;
         return $html;
     }

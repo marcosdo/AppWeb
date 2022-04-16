@@ -86,6 +86,7 @@ class FormularioRutinas extends Formulario {
         if($dias != '3' && $dias != '5')
             $this->errores['dias'] = 'El dia no es válido.';
         if (count($this->errores) === 0) {
+            
             $rutina = Rutina::crea($_SESSION['id'], $objetivo, $nivel, $dias);
             $rutina->comprobarRutina($rutina);
             

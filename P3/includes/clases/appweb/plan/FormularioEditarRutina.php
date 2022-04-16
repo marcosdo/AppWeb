@@ -25,17 +25,21 @@ class FormularioEditarRutina extends Formulario {
         return $rts;
     }
 
-    private function idUsuario(){
+    private function idUsuario(&$alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.editar = '%d'",1); 
+        $query = sprintf("SELECT * FROM entrena WHERE entrena.editarutina = '%d'",1); 
         $rs = $conn->query($query); 
         $fila = $rs->fetch_assoc();
-        return $fila['id_usuario'];
+        $alias =  $fila['usuario'];
+        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
+        $rs2 = $conn->query($query2); 
+        $fila2 = $rs2->fetch_assoc();
+        return $fila2['id_usuario'];
     }
 
     private function generaTabla(){
-        
-        $idusuario = self::idUsuario();
+        $alias = "";
+        $idusuario = self::idUsuario($alias);
 
         $contenido = "<table id=planificacion>";
         $obj = 0;
@@ -83,7 +87,6 @@ class FormularioEditarRutina extends Formulario {
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
 
 
-        
         $contenido = self::generaTabla();
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
@@ -107,7 +110,8 @@ class FormularioEditarRutina extends Formulario {
 
         if (count($this->errores) === 0) {
 
-            $idusuario = self::idUsuario();
+            $alias = "";
+            $idusuario = self::idUsuario($alias);
             $obj = 0;
             $arrayreps = [];
             $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario);
@@ -136,7 +140,7 @@ class FormularioEditarRutina extends Formulario {
                     }
                 }
             }
-            $queryeditar = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", 0, $idusuario, 1); 
+            $queryeditar = sprintf("UPDATE entrena SET entrena.editarutina = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
             $actualizarutina = $conn->query($queryeditar);
         }
         

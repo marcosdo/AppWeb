@@ -73,11 +73,7 @@ class FormularioPlanEntrenadorRutina extends Formulario {
 
         if (count($this->errores) === 0) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'",$alias); 
-            $rs = $conn->query($query); 
-            $fila = $rs->fetch_assoc();
-            $id = $fila['id_usuario'];
-            $queryr = sprintf("UPDATE rutina SET rutina.editar = '%d' WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'",1, $id, 1); 
+            $queryr = sprintf("UPDATE entrena SET entrena.editarutina = '%d' WHERE entrena.usuario = '%s'",1, $alias); 
             $conn->query($queryr);
             
         }

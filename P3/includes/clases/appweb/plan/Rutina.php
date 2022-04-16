@@ -42,8 +42,8 @@ class Rutina {
                      }
                 }
                 if($antigua == false){ //el usuario no tiene una rutina igual en la bd
-                    $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo, editar) VALUES ('%d', '%d', 
-                    '%s', '%d','%d', '%d')", true, $rutina->_id,  $conn->real_escape_string($rutina->_nivel), $rutina->_dias, $rutina->_objetivo, 0);
+                    $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', 
+                    '%s', '%d','%d')", true, $rutina->_id,  $conn->real_escape_string($rutina->_nivel), $rutina->_dias, $rutina->_objetivo);
                     if ($conn->query($query)){} 
                     $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($rutina->_id));
                     $rs = $conn->query($q); 
@@ -59,9 +59,11 @@ class Rutina {
             }   
             else{ // no esta el usuario y lo inserta
          
-                $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo, editar) VALUES ('%d', '%d', 
-                '%s', '%d','%d', '%d')", true, $rutina->_id,  $conn->real_escape_string($rutina->_nivel), $rutina->_dias, $rutina->_objetivo, 0);
-                if ($conn->query($query)){} 
+                $query = sprintf("INSERT INTO rutina (activa, id_usuario, nivel, dias, objetivo) VALUES ('%d', '%d', 
+                '%s', '%d', '%d')", true, $rutina->_id,  $conn->real_escape_string($rutina->_nivel), $rutina->_dias, $rutina->_objetivo);
+               
+               
+               if ($conn->query($query)){} 
 
                 $q = sprintf("SELECT * FROM rutina WHERE id_usuario = '%d'", $conn->real_escape_string($rutina->_id));
                 $rs = $conn->query($q); 
