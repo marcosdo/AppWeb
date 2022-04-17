@@ -3,6 +3,7 @@ require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/vistas/helpers/foro.php';
 
 $html = muestraTemas();
+$htmlFormForo = "";
 
 if ($app->usuarioLogueado()) {
     $formCreaForo = new appweb\foro\FormularioForo();

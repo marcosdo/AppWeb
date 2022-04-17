@@ -4,8 +4,8 @@ use appweb\usuarios\Personas;
 
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
+    $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
-        $html .= "<li><a href='foros.php'>Foro</a></li>";  
         if (isset($_SESSION['rol'])) {
             // Si eres admin
             if ($_SESSION['rol'] == Personas::ADMIN_ROLE) {
