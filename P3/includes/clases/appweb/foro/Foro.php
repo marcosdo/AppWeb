@@ -20,6 +20,9 @@ class Foro {
     private $_contenido;
     private $_respuestas;
 
+    // ==================== MÉTODOS ====================
+    // ==================== no estaticos ====================
+    // Constructor
     public function __construct($alias, $idusuario, $fecha, $tema, $contenido, $categoria, $respuestas = 0, $idforo = null) {
         $this->_id_foro = $idforo;
         $this->_fecha = $fecha;
@@ -27,32 +30,24 @@ class Foro {
         $this->_categoria = $categoria;
         $this->_alias = $alias;
         $this->_contenido = $contenido;
-        $this->_idusuario = $idusuario;
+        $this->_id_usuario = $idusuario;
         $this->_respuestas = $respuestas;
     }
 
-    public function getID() { return $this->_id_foro; }
-    public function getTema() { return $this->_tema; }
-
-    public function getData() {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "SELECT * FROM foro"
-        );
-        $result = array();
-        try {
-            $rs = $conn->query($query);
-            while ($fila = $rs->fetch_assoc()) {
-                array_push($result, $fila);
-            }
-        } finally {
-            if ($rs != null)
-                $rs->free();
+    public function borrate() {
+        if ($this->_id_foro !== null) {
+            return self::borra($this);
         }
-        return $result;
+        return false;
     }
 
+    // Getters y setters
+    public function getID() { return $this->_id_foro; }
+    public function getIDUsuario() { return $this->_id_usuario; }
+    public function getTema() { return $this->_tema; }
 
+    // ====================  MÉTODOS  ====================
+    // ==================== estaticos ====================
     public static function crearForo($alias, $idusuario, $fecha, $tema, $contenido, $categoria) {
         $foro = new Foro($alias, $idusuario, $fecha, $tema, $contenido, $categoria);
         return self::inserta($foro);
@@ -63,7 +58,7 @@ class Foro {
         $query = sprintf(
             "INSERT INTO foro (id_usuario, tema, fecha, contenido, categoria, respuestas, nickcreador) 
             VALUES (%d, '%s', '%s', '%s', '%s', %d, '%s')"
-            , $foro->_idusuario
+            , $foro->_id_usuario
             , $conn->real_escape_string($foro->_tema)
             , $conn->real_escape_string($foro->_fecha)
             , $conn->real_escape_string($foro->_contenido)
@@ -117,5 +112,39 @@ class Foro {
         }
         $rts = $rts . " </select>";
         return $rts;
+    }
+
+    private static function borra($foro) {
+        return self::borraXID($foro->_id_foro);
+    }
+
+    public static function borraXID($idforo) {
+        if (!$idforo)
+            return false;
+
+        $result = false;
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM foro WHERE id_foro = %d", $idforo);
+        $result = $conn->query($query);
+        return $result;
+    }
+
+    public static function getData() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM foro"
+        );
+        $result = array();
+        try {
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila);
+            }
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
     }
 }
