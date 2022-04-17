@@ -4,6 +4,10 @@ namespace appweb\usuarios;
 use appweb\Aplicacion;
 
 class Usuario extends Personas {
+    // ==================== ATRIBUTOS ====================
+    // ====================           ====================
+    private $_premium;
+
     // ==================== MÉTODOS ====================
     // ==================== no estaticos ====================
     // Constructor
@@ -11,15 +15,15 @@ class Usuario extends Personas {
         $this->_premium = $premium;
     }
 
+    // Funciones
+    public function borrate() {
+        if ($this->id !== null)
+            return self::borra($this);
+        return false; 
+    }
+
     // Getters y setters
     public function getPremium() { return $this->_premium; }
-
-    // Funciones
-    public function borrate() { return ($this->id !== null) ? self::borra($this) : false; }
-
-    // ==================== ATRIBUTOS ====================
-    // ====================           ====================
-    private $_premium;
 
     // ==================== MÉTODOS ====================
     // ==================== estaticos ====================

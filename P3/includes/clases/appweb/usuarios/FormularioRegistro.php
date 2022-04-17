@@ -77,6 +77,7 @@ class FormularioRegistro extends Formulario {
         if (count($this->errores) === 0) {
             try {
                 $usuario = Usuario::registra($alias, $nombre, $apellidos, $mail, $password);
+                $usuario = Usuario::buscaPorAlias($alias);
                 // Mensaje POP UP ejercicio 3 anexo 1
                 $_SESSION['login'] = true;
                 $_SESSION['id'] = $usuario->getId();
