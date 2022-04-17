@@ -27,6 +27,11 @@ function visualizaMensajeObjeto($mensaje) {
     EOS;
 }
 
+function botonEditaMensaje($mensaje, $idMensajeRetorno = null) {
+    $form = new FormularioEditaMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
+    return $form->gestiona();
+}
+
 function botonEditaMensajeObjeto($mensaje, $idMensajeRetorno = null) {
     $form = new FormularioEditaMensaje($mensaje->getID(), $idMensajeRetorno);
     return $form->gestiona();
@@ -103,7 +108,7 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         $html .= '<li>';
         $html .= visualizaMensaje($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario'])) {
-            //$html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
+            $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
         }
         if ($recursivo) {
