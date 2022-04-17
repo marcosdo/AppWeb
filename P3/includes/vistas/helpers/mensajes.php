@@ -72,8 +72,9 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     foreach($mensajes as $mensaje) {
         $html .= '<li>';
         $html .= visualizaMensajeObjeto($mensaje);
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
-            $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
+        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
+            if (!$app->esAdmin())
+                $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
         }
         if ($recursivo) {
@@ -119,8 +120,9 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         $mensaje = $mensajes[$idx];
         $html .= '<li>';
         $html .= visualizaMensaje($mensaje);
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario'])) {
-            $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
+        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
+            if (!$app->esAdmin())
+                $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
         }
         if ($recursivo) {

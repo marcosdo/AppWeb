@@ -283,11 +283,10 @@ class Aplicacion
         return $_SESSION['id'] ?? '';
     }
 
-    /*public function esAdmin()
-    {
+    public function esAdmin() {
         $this->compruebaInstanciaInicializada();
-        return $this->usuarioLogueado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
-    }*/
+        return $this->usuarioLogueado() && $_SESSION['rol'] == 0;
+    }
 
     public function tieneRol($rol)
     {

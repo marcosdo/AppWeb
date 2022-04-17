@@ -49,7 +49,7 @@ class FormularioBorraMensaje extends Formulario {
         if (count($this->errores) === 0) {
             $mensaje = Mensaje::buscaxID($idMensaje);
             $idforo = $mensaje->getIDForo(); 
-            if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
+            if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
                 $mensaje->borrate();
             }
     
