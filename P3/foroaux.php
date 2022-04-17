@@ -20,7 +20,7 @@ $params = [ 'idforo' => $idforo ];
 $contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroaux.php', $params, $numPorPagina, $numPagina);
 
 if (isset($_SESSION['rol'])) {
-    $form = new appweb\foro\FormularioMensaje($idforo);
+    $form = new appweb\foro\FormularioCreaMensaje($idforo);
     $htmlFormMensaje = $form->gestiona();
 
     $contenidoPrincipal .= <<<EOS

@@ -5,6 +5,10 @@ use appweb\Aplicacion;
 use DateTime;
 
 class Mensaje {
+    // ==================== CONSTANTES ====================
+    // ====================           ====================
+    public const MAX_SIZE = 140;
+
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
     private $_id_mensaje;
@@ -37,6 +41,16 @@ class Mensaje {
         return false;
     }
 
+    public function actualizaBD() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE mensaje SET mensaje = '%s' WHERE id_mensaje  = %d"
+            , $this->_mensaje
+            , $this->_id_mensaje
+        );
+        $conn->query($query);
+    }
+
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }
@@ -46,6 +60,7 @@ class Mensaje {
     public function getFecha() { return $this->_fecha; }
     public function getMensaje() { return $this->_mensaje; }
     public function getPrioridad() { return $this->_prioridad; }
+    public function setMensaje($mensaje) { $this->_mensaje = $mensaje; }
 
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================

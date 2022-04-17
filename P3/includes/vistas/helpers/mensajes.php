@@ -1,7 +1,9 @@
 <?php
 use appweb\foro\Mensaje;
 use appweb\foro\FormularioBorraMensaje;
+use appweb\foro\FormularioEditaMensaje;
 use appweb\Aplicacion;
+use appweb\plan\FormularioEditarDieta;
 
 function visualizaMensaje($mensaje) {
     $app = Aplicacion::getInstance();
@@ -25,24 +27,17 @@ function visualizaMensajeObjeto($mensaje) {
     EOS;
 }
 
-function botonEditaMensaje($mensaje, $idMensajeRetorno = null) {
-    $app = Aplicacion::getInstance();
-    $editaURL = $app->buildUrl('editarmensaje.php', [
-        'id' => $mensaje->id,
-        'idMensajeRetorno' => $idMensajeRetorno
-    ]);
-    return <<<EOS
-    <a class="boton" href="{$editaURL}">Editar</a>
-    EOS;
+function botonEditaMensajeObjeto($mensaje, $idMensajeRetorno = null) {
+    $form = new FormularioEditaMensaje($mensaje->getID(), $idMensajeRetorno);
+    return $form->gestiona();
 }
 
-function botonBorraMensaje($mensaje, $idMensajeRetorno = null)
-{
+function botonBorraMensaje($mensaje, $idMensajeRetorno = null){
     $formBorra = new FormularioBorraMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
     return $formBorra->gestiona();
 }
-function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null)
-{
+
+function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null){
     $formBorra = new FormularioBorraMensaje($mensaje->getID(), $idMensajeRetorno);
     return $formBorra->gestiona();
 }
@@ -61,7 +56,7 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
         $html .= '<li>';
         $html .= visualizaMensajeObjeto($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
-            // $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
+            $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
         }
         if ($recursivo) {

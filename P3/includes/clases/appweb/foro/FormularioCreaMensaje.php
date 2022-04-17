@@ -5,7 +5,7 @@ use appweb\Formulario;
 use appweb\Aplicacion;
 use appweb\foro\Mensaje;
 
-class FormularioMensaje extends Formulario {
+class FormularioCreaMensaje extends Formulario {
     public function __construct($idforo = null) { 
         $url = ($idforo) ? "foroaux.php?idforo=$idforo" : 'foroaux.php';
         parent::__construct('formForo', ['urlRedireccion' => $url]);
@@ -41,7 +41,7 @@ class FormularioMensaje extends Formulario {
             $this->errores['titulo'] = '¿Cuál es el titulo del mensaje?';
 
         $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$mensaje || empty($mensaje))
+        if (!$mensaje || empty($mensaje) || mb_strlen($mensaje) > Mensaje::MAX_SIZE)
             $this->errores['mensaje'] = 'Es necesario rellenar el mensaje de contestacion.';
 
         $idpadre = $_GET['id'] ?? null;
