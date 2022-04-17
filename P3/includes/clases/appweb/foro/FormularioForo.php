@@ -42,14 +42,18 @@ class FormularioForo extends Formulario {
         $tema = $datos['tema'] ?? '';
         $contenido = $datos['contenido'] ?? '';
         $categoria = $datos['categoria'] ?? '';
-
+        
         $tema = filter_var($tema, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$tema || empty($tema))
             $this->errores['tema'] = '¿Cuál es el tema de la discusión?';
+        if (mb_strlen($tema) > Foro::MAX_SIZE_TITLE)
+            $this->errores['tema'] = 'El tamaño del contenido introducido se ha excedido del máximo permitido.';
 
         $contenido = filter_var($contenido, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$contenido || empty($contenido))
             $this->errores['contenido'] = 'Es necesario rellenar el contenido del foro.';
+        if (mb_strlen($contenido) > Foro::MAX_SIZE_CONTENT)
+            $this->errores['contenido'] = 'El tamaño del contenido introducido se ha excedido del máximo permitido.';
 
         $categoria = filter_var($categoria, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$categoria || empty($categoria))

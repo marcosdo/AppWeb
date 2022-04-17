@@ -4,6 +4,11 @@ namespace appweb\foro;
 use appweb\Aplicacion;
 
 class Foro {
+    // ==================== CONSTANTES ====================
+    // ====================           ====================
+    public const MAX_SIZE_TITLE = 50;
+    public const MAX_SIZE_CONTENT = 500;
+
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
     private $_id_foro;
