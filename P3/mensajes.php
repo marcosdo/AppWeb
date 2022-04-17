@@ -19,12 +19,13 @@ $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ??
 $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 3;
 
 $tituloPagina = 'Mensaje';
-$contenidoPrincipal = "";
 
 $msg = $mensaje->getMensaje();
+$tituloMensaje = $mensaje->getTitulo();
 
+$contenidoPrincipal = "";
 $contenidoPrincipal .= <<<EOS
-<h1>Mensaje</h1>
+<h1>$tituloMensaje</h1>
 <p>{$msg}</p>
 EOS;
 // Mensajes sin paginar

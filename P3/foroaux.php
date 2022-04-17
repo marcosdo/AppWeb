@@ -3,7 +3,7 @@ require_once __DIR__.'/includes/config.php';
 include __DIR__.'/includes/vistas/helpers/mensajes.php';
 
 $idforo = filter_input(INPUT_GET, 'idforo', FILTER_SANITIZE_NUMBER_INT);
-if (!appweb\foro\Foro::buscaxID($idforo)) {
+if (!($foro = appweb\foro\Foro::buscaxID($idforo))) {
     appweb\Aplicacion::redirige($app->buildUrl('/foros.php'));
 }
 
@@ -13,8 +13,8 @@ $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_I
 $msgs = appweb\foro\Mensaje::getMsgs($idforo, 'IS NULL');
 
 $tituloPagina = 'Tablon';
-$contenidoPrincipal = '<h1>Tablon de Anuncios</h1>';
-
+$nombreForo = $foro->getTema();
+$contenidoPrincipal = "<h1>$nombreForo</h1>";
 
 $params = [ 'idforo' => $idforo ];
 $contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroaux.php', $params, $numPorPagina, $numPagina);

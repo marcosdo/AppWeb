@@ -11,8 +11,14 @@ function visualizaMensaje($mensaje) {
         'id' => $mensaje['id_mensaje']
     ]);
     return <<<EOS
-    <a href="{$verURL}">{$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})</a>
-    
+    <div id ="">
+        <a href="{$verURL}">
+            {$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})
+        </a>
+        <p>
+            {$mensaje['mensaje']}
+        </p>
+    </div>
     EOS;
 }
 
@@ -22,8 +28,14 @@ function visualizaMensajeObjeto($mensaje) {
         'id' => $mensaje->getID()
     ]);
     return <<<EOS
-    <a href="{$verURL}">{$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getID()})</a>
-
+    <div id ="">
+        <a href="{$verURL}">
+            {$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getFecha()})
+        </a>
+        <p>
+            {$mensaje->getMensaje()}
+        </p>
+    </div>
     EOS;
 }
 

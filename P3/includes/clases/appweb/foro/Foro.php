@@ -27,6 +27,7 @@ class Foro {
     }
 
     public function getID() { return $this->_id_foro; }
+    public function getTema() { return $this->_tema; }
 
     public function getData() {
         $conn = Aplicacion::getInstance()->getConexionBd();
