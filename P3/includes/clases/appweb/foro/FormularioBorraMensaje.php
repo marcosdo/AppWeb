@@ -46,20 +46,18 @@ class FormularioBorraMensaje extends Formulario {
 
         $idMensajeRetorno = \filter_var($datos['idMensajeRetorno'] ?? null, FILTER_SANITIZE_NUMBER_INT);
 
-        if (count($this->errores) > 0) {
-            return;
-        }
-
-        $mensaje = Mensaje::buscaxID($idMensaje);
-        $idforo = $mensaje->getIDForo(); 
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
-            $mensaje->borrate();
-        }
-
-        if ($idMensajeRetorno) {
-            $this->urlRedireccion = $app->buildUrl("/foroaux.php?idforo=$idforo", ['id' => $idMensajeRetorno]);
-        } else {
-            $this->urlRedireccion = $app->buildUrl('/foros.php');
+        if (count($this->errores) === 0) {
+            $mensaje = Mensaje::buscaxID($idMensaje);
+            $idforo = $mensaje->getIDForo(); 
+            if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario())) {
+                $mensaje->borrate();
+            }
+    
+            if ($idMensajeRetorno) {
+                $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idMensajeRetorno]);
+            } else {
+                $this->urlRedireccion = $app->buildUrl('/foroaux.php', ['idforo' => $idforo]);
+            }
         }
     }
 }

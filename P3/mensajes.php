@@ -31,7 +31,7 @@ EOS;
 $contenidoPrincipal .= listaMensajes($idMensaje, true, $idMensaje);
 
 if ($app->usuarioLogueado()) {
-	$form = new appweb\foro\FormularioCreaMensaje();
+	$form = new appweb\foro\FormularioCreaMensaje($idMensaje);
 	$htmlFormMensaje = $form->gestiona();
 
 	$contenidoPrincipal .= <<<EOS

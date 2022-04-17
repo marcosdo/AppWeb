@@ -6,9 +6,8 @@ use appweb\Aplicacion;
 use appweb\foro\Mensaje;
 
 class FormularioCreaMensaje extends Formulario {
-    public function __construct($idforo = null) { 
-        $url = ($idforo) ? "foroaux.php?idforo=$idforo" : 'foroaux.php';
-        parent::__construct('formForo', ['urlRedireccion' => $url]);
+    public function __construct() {
+        parent::__construct('formForo');
     }
 
     protected function generaCamposFormulario(&$datos) {
@@ -26,8 +25,6 @@ class FormularioCreaMensaje extends Formulario {
         <button type="submit" name="enviar">Responde a este mensaje</button>
         EOF;
         return $html;
-    
-    
     }
 
     protected function procesaFormulario(&$datos) { 
@@ -63,7 +60,11 @@ class FormularioCreaMensaje extends Formulario {
             } catch (\Exception $e) {
                 $this->errores[] = 'Este tema ya existe.';
            }
+           if ($idpadre) {
+            $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idpadre]);
+        } else {
+            $this->urlRedireccion = $app->buildUrl('/foroaux.php', ['idforo' => $idforo]);
         }
-
+        }
     }
 }

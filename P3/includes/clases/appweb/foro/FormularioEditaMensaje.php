@@ -73,7 +73,7 @@ class FormularioEditaMensaje extends Formulario {
             $this->errores[] = 'No tengo claro que mensaje actualizar.';
         }
 
-        $idMensajeRetorno = \filter_var($datos['idMensajeRetorno'] ?? null, FILTER_SANITIZE_NUMBER_INT);
+        $idMensajeRetorno = filter_var($datos['idMensajeRetorno'] ?? null, FILTER_SANITIZE_NUMBER_INT);
 
         if (count($this->errores) === 0) {
             try {
@@ -90,7 +90,7 @@ class FormularioEditaMensaje extends Formulario {
             if ($idMensajeRetorno) {
                 $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idMensajeRetorno]);
             } else {
-                $this->urlRedireccion = $app->buildUrl('/foros.php');
+                $this->urlRedireccion = $app->buildUrl('/foroaux.php', ['idforo' => $msg->getIDForo()]);
             }
         }
     }
