@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `foro`;
 CREATE TABLE IF NOT EXISTS `foro` (
   `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
-  `tema` varchar(20) NOT NULL,
+  `tema` varchar(50) NOT NULL,
   `nickcreador` varchar(20) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `contenido` varchar(500) NOT NULL,
