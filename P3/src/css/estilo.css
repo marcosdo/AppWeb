@@ -228,7 +228,7 @@ footer {
 		position: absolute;
 	}
 
-	#tabla, .plan {
+	#tabla, .plan, .verplan {
 		display: grid;
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
@@ -237,9 +237,22 @@ footer {
 	#tabla img {
 		display: none;
 	}
+
+	#formRutinas, #formPago, #formVerRutina, #formForo {
+		grid-area: izq;
+	}
+	
+	#formDietas, #suscripcion, #formVerDieta, .temas{
+		grid-area: der;
+	}
+	
 }
 
-
+.temas {
+	width: 100%;
+	text-align: center;
+	list-style-type: none;
+}
 
 /* MENSAJES POPUP*/
 .mensajes {
@@ -361,11 +374,14 @@ div#repeticiones {
 
 /* display planificacion */
 
-.plan {
+.plan, #tabla, .verplan {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
+	grid-template-areas: "izq" "der";
 }
+
+
 
 /* formularios */
 
@@ -442,12 +458,6 @@ div#repeticiones {
 .element input:checked + label {
 	color: #EF3B3A;
 	background-color: #FFFFFF;
-}
-
-#tabla, .verplan{
-	display: grid;
-	grid-template-columns: auto auto;
-	grid-column-gap: 10px;
 }
 
 #tabla img {
