@@ -256,10 +256,12 @@ class Aplicacion
         $this->compruebaInstanciaInicializada();
         //Doble seguridad: unset + destroy
         unset($_SESSION['login']);
+        unset($_SESSION['nutri']);
         unset($_SESSION['nombre']);
-        unset($_SESSION['idUsuario']);
-        unset($_SESSION['roles']);
-
+        unset($_SESSION['id']);
+        unset($_SESSION['premium']);
+        unset($_SESSION['alias']);
+        unset($_SESSION['rol']);
 
         session_destroy();
         session_start();

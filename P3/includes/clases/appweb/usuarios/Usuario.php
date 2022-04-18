@@ -11,7 +11,7 @@ class Usuario extends Personas {
     // ==================== MÉTODOS ====================
     // ==================== no estaticos ====================
     // Constructor
-    private function __construct($premium) {
+    private function __construct($premium, $id = null) {
         $this->_premium = $premium;
     }
 
@@ -52,7 +52,7 @@ class Usuario extends Personas {
             $rs = $conn->query($query);
             $fila = $rs->fetch_assoc();
             if ($fila)
-                $result = new Usuario($fila['id_usuario'], $fila['premium']);
+                $result = new Usuario($fila['premium']);
         } finally {
             if ($rs != null)
                 $rs->free();

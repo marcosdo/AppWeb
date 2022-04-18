@@ -49,6 +49,9 @@ class FormularioLogin extends Formulario {
                 $_SESSION['alias'] = $usuario->getAlias();
                 $_SESSION['nombre'] = $usuario->getNombre();
                 $_SESSION['rol'] = $usuario->getRol();
+                $aux = Usuario::buscaID($_SESSION['id']); 
+                if($aux) $_SESSION['premium'] = $aux->getPremium();
+                else $_SESSION['premium'] = 0;  
                 $app = Aplicacion::getInstance();
                 $mensajes = ['Se ha logeado exitosamente', "Bienvenido {$_SESSION['alias']}"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
