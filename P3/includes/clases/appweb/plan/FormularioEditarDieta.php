@@ -119,16 +119,13 @@ class FormularioEditarDieta extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formeditrutina"> 
-            <legend id="edit-routine-plan">Editor de Dietas</legend>
-                    <div>
-                    $contenido
-                    </div>
-                    {$erroresCampos['alias']}
-                    <div>
-                    <button type="submit" name="enviar">Editar dieta</button>
-                    </div>
-        </fieldset>
+        <div>
+        $contenido
+        </div>
+        {$erroresCampos['alias']}
+        <div>
+        <button type="submit" name="enviar">Editar dieta</button>
+        </div>
         EOF;
         return $html;
     }

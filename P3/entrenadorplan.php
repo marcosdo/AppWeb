@@ -11,10 +11,8 @@ $htmlFormDietas = $form2->gestiona();
 $tituloPagina = 'Modificación de Planificación por Nutricionista';
 $html = "-";
 $contenidoPrincipal = <<<EOS
-<div class=plan>
 $htmlFormRutinas
 $htmlFormDietas
-</div>
 EOS;
 
 

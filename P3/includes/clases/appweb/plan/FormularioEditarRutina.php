@@ -91,16 +91,13 @@ class FormularioEditarRutina extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formeditrutina"> 
-            <legend id="edit-routine-plan">Editor de Rutinas</legend>
-                    <div>
-                    $contenido
-                    </div>
-                    {$erroresCampos['alias']}
-                    <div>
-                    <button type="submit" name="enviar">Editar rutina</button>
-                    </div>
-        </fieldset>
+                    
+        $contenido
+        
+        {$erroresCampos['alias']}
+        
+        <button type="submit" name="enviar">Editar rutina</button>
+                    
         EOF;
         return $html;
     }

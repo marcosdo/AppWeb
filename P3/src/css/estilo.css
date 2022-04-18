@@ -180,8 +180,8 @@ div#repeticiones {
 	grid-template-columns: auto auto;
 	grid-column-gap : 20px;
 }
-
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan{
+ 
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, #formEditaMensaje, #formBorraMensaje{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -233,7 +233,7 @@ select option[value=""][disabled] {
 	text-align: center;
 }
 
-.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button{
+.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button{
 	outline: 0;
 	background: #EF3B3A;
 	border: 0;
@@ -242,6 +242,19 @@ select option[value=""][disabled] {
 	color: #FFFFFF;
 	font-size: 14px;
 	transition: all 0.3 ease;
+	cursor: pointer;
+	font-family: Century;
+}
+
+#formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formEntrenadorRutinas button, #formEntrenadorDietas button, #formEditarRutinas button, #formEditarDietas button {
+	background: #EF3B3A;
+	border: 0;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
 	cursor: pointer;
 	font-family: Century;
 }

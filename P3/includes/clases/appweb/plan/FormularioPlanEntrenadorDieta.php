@@ -47,21 +47,18 @@ class FormularioPlanEntrenadorDieta extends Formulario {
         if($SelectUsuarios == "") $Select = "<div><p>No hay usuarios disponibles.</p></div>";
         else {
             $Select = 
-            "<p> Selecciona el usuario: </p><div><select name = 'alias' id = 'alias' type = 'text'>";
+            "<select name = 'alias' id = 'alias' type = 'text'><option value='' disabled='disabled' selected='selected' required>Selecciona el usuario</option>";
             $Select .= $SelectUsuarios;
-            $Select .= "</select></div>";
-            $boton = "<div><button type='submit' name='enviar'>Editar dieta</button></div>";
+            $Select .= "</select>";
+            $boton = "<button type='submit' name='enviar'>Editar dieta </button>";
         }
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formentrenadordieta"> 
-            <legend id="edit-dieta-plan">Editor de Dietas</legend>
                         $Select
                     {$erroresCampos['alias']}
                         $boton
-                    
-        </fieldset>
+           
         EOF;
         return $html;
     }
