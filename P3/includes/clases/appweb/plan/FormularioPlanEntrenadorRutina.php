@@ -46,8 +46,7 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         $boton ="";
         if($SelectUsuarios == "") $Select = "<div><p>No hay usuarios disponibles.</p></div>";
         else {
-            $Select = 
-            "<div><select name = 'alias' id = 'alias' type = 'text'><option value='' disabled='disabled' selected='selected' required>Selecciona el usuario</option>";
+            $Select = "<p>Selecciona el usuario<p><div><select name = 'alias' id = 'alias' type = 'text'>";
             $Select .= $SelectUsuarios;
             $Select .= "</select>";
             $boton = "<button type='submit' name='enviar'>Editar rutina</button>";
