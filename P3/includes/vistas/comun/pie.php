@@ -24,17 +24,17 @@
                 <h1>Redes sociales</h1>
 
                 <div class="fila_footer">
-                    <img src="$ruta/logos/facebook.png" alt="Facebook" > 
+                    <img src="src/img/logos/facebook.jpg" alt="Facebook" > 
                     <label>Síguenos en Facebook</label>
                 </div>
 
                 <div class="fila_footer">
-                <img src="$ruta/logos/instagram.png" alt="Instagram" >
+                <img src="src/img/logos/instagram.png" alt="Instagram" >
                     <label>Síguenos en Instagram</label>
                 </div>
 
                 <div class="fila_footer">
-                    <img src="$ruta/logos/twitter.png" alt="twitter" >
+                    <img src="src/img/logos/twitter.png" alt="twitter" >
                     <label>Síguenos en Twitter</label>
                 </div>
 
