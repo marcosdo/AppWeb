@@ -181,7 +181,7 @@ div#repeticiones {
 	grid-column-gap : 20px;
 }
  
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, #formEditaMensaje, #formBorraMensaje{
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;

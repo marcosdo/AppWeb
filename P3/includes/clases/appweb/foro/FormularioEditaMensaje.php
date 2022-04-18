@@ -40,7 +40,7 @@ class FormularioEditaMensaje extends Formulario {
         $camposFormulario = <<<EOF
         <input type="hidden" name="idMensaje" value="{$this->idMensaje}" />
         $mensajePadre
-        <fieldset>
+        
             $htmlErroresGlobales
             <div>
                 <label for="mensaje">Mensaje: </label>
@@ -50,7 +50,7 @@ class FormularioEditaMensaje extends Formulario {
             <div>
                 <button type="submit">Actualiza</button>
             </div>
-        </fieldset>
+      
         EOF;
         return $camposFormulario;
     }

@@ -14,7 +14,7 @@ function htmlmenu() {
             }
             // Si eres usuario
             else if ($_SESSION['rol'] == Personas::USER_ROLE) {
-                if (isset($_SESSION['premium']) && $_SESSION['premium'] === 1) 
+                if (isset($_SESSION['premium']) && $_SESSION['premium'] == 1) 
                     $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
                 else {
                     $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
