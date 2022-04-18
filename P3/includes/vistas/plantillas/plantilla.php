@@ -26,6 +26,7 @@ require(RAIZ_APP.'/vistas/comun/menu.php');
 </main>
 <?php
 require(RAIZ_APP.'/vistas/comun/anuncios.php');
+require(RAIZ_APP.'/vistas/comun/pie.php');
 ?>
 </div>
 <?php
@@ -35,6 +36,6 @@ require(RAIZ_APP.'/vistas/comun/anuncios.php');
 ?>
 </body>
 <footer><?php
-require(RAIZ_APP.'/vistas/comun/pie.php');
+
 ?></footer>
 </html>

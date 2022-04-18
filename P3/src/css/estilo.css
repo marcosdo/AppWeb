@@ -114,8 +114,13 @@ table#tablefooter .columna3{
 	color: #ffffff;
 }
 
+.fila_footer img{
+	width: 35px;
+	height: 35px;
+}
+
 .fila_footer2{
-	color: #000000;
+	color: #fafafae3;
 }
 
 table td:first-child {

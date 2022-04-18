@@ -24,17 +24,17 @@
                 <h1>Redes sociales</h1>
 
                 <div class="fila_footer">
-                    <img src="src/img/logos/facebook.jpg" alt="Facebook" > 
+                    <img src="src/img/logos/Facebook.jpg" alt="Facebook" > 
                     <label>Síguenos en Facebook</label>
                 </div>
 
                 <div class="fila_footer">
-                <img src="src/img/logos/instagram.jpg" alt="Instagram" >
+                    <img src="src/img/logos/Instagram.jpg" alt="Instagram" >
                     <label>Síguenos en Instagram</label>
                 </div>
 
                 <div class="fila_footer">
-                    <img src="src/img/logos/twitter.png" alt="twitter" >
+                    <img src="src/img/logos/twitter.jpg" alt="twitter" >
                     <label>Síguenos en Twitter</label>
                 </div>
 
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="fila_footer">
-                        <img src="src/img/logos/gmail.jpg" alt="Gmail" >    
+                        <img src="src/img/logos/Gmail.jpg" alt="Gmail" >    
                         <label>lifety@gmail.com</label>
                     </div>
 
