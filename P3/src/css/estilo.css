@@ -139,7 +139,7 @@ table td:nth-child(3) {
 }
 
 .container_portada img{
-	width: 300px;
+	width: 400px;
 	float: left;
 	margin-right: 20px;
 	margin-bottom: 20px;
@@ -149,6 +149,7 @@ table td:nth-child(3) {
 	font-size: 18px;
 	font-weight: 300;
 	margin-top: 20px;
+	text-align: justify;
 }
 
 .title_portada{
