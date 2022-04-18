@@ -280,49 +280,6 @@ footer {
 	margin: 0px;
 }
 
-/* Pie de pagina mal hecho*/
-
-/*
-table {
-	width: 100%;
-}
-
-table#tablefooter .columna1{
-	grid-area: pie1;
-}
-
-table#tablefooter .columna2{
-	grid-area: pie2;
-}
-
-table#tablefooter .columna3{
-	grid-area: pie3;
-}
-
-.fila_footer{
-	color: #ffffff;
-}
-
-.fila_footer img{
-	width: 35px;
-	height: 35px;
-}
-
-.fila_footer2{
-	color: #fafafae3;
-}
-
-table td:first-child {
-	width: 300px;
-}
-
-table td:nth-child(2) {
-	width: 400px;
-}
-
-table td:nth-child(3) {
-	width: 300px;
-}
 
 .container_portada{
 	width: 100%;
