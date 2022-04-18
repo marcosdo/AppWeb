@@ -5,12 +5,11 @@
   $tituloPagina = 'Portada';
 
   $contenidoPrincipal = <<<EOS
-  <h1>Página principal</h1>
+  <h1 class="title_portada"> BREAK YOUR LIMITS </h1>
   
 
   <div class="container_portada">
 
-    <h1 class="title_portada"> BREAK YOUR LIMITS </h1>
     <h1 class="title_portada2"> "El deporte consiste en dotar al cuerpo de algunas de las virtudes más fuertes del alma:
     la energía, la audacia y la paciencia" Jean Giraudoux, escritor francés. </h1>
     <img src="src/img/entrenamiento.jpg" alt="LIFETY">
