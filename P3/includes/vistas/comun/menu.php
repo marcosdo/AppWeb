@@ -4,12 +4,13 @@ use appweb\usuarios\Personas;
 
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
-    $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+   
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
         if (isset($_SESSION['rol'])) {
             // Si eres admin
             if ($_SESSION['rol'] == Personas::ADMIN_ROLE) {
                 $html .= "<li><a href='admin.php'>Consola</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
             }
             // Si eres usuario
             else if ($_SESSION['rol'] == Personas::USER_ROLE) {
@@ -20,11 +21,13 @@ function htmlmenu() {
                 }
                 $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
                 $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
             }
             // Si eres profesional
             else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
                 $html .= "<li><a href='chatprof.php'>Chat</a></li>";
                 $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
             }
         }
     }
