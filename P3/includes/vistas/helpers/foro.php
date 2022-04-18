@@ -23,7 +23,7 @@ function muestraTemas() {
         else $aux = ""; 
         $html .= "<li>";
         $html .= "<a href='foroaux.php?idforo={$idforo[$i]}'>{$tema[$i]}</a>";
-        $html .= "$boton";
+        $html .= "$aux";
         $html .= "</li>";
     }
     $html .= "</div>";
