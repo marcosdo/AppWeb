@@ -26,8 +26,3 @@ window.addEvent('domready',function(){
 $(".message a").click(function () {
 	$("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
 });
-
-function changeContent(chat) {
-	var x = document.getElementById('textArea');
-	x.value = chat;
-}

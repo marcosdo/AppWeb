@@ -26,7 +26,7 @@ class  MostrarChatUsuario {
         <h1>CHAT ENTRENADOR</h1>
         $mensajes 
         <input name="usermsg" type="text" id="usermsg" size="63"  placeholder="Escriba su mensaje..."/>
-        <input class = "ButtonEnviar"type="submit"  name="submitmsg" value="send" onclick="changeContent($mensajes)"/>
+        <input class = "ButtonEnviar"type="submit"  name="submitmsg" value="send"/>
         <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
         EOF;
         return $contenidoPrincipal;
