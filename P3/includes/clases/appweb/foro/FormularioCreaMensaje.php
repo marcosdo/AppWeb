@@ -36,6 +36,8 @@ class FormularioCreaMensaje extends Formulario {
         $titulo = filter_var($titulo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$titulo || empty($titulo))
             $this->errores['titulo'] = '¿Cuál es el titulo del mensaje?';
+        if (mb_strlen($titulo) > Mensaje::MAX_SIZE_TITLE)
+            $this->errores['titulo'] = 'Longitud maxima 50';
 
         $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$mensaje || empty($mensaje) || mb_strlen($mensaje) > Mensaje::MAX_SIZE)
