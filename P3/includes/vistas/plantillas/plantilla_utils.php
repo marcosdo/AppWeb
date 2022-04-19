@@ -1,9 +1,11 @@
 <?php
-
 use appweb\Aplicacion;
 
-function mensajesPeticionAnterior()
-{
+/**
+ * Devuelve el html necesario para mostar un <div> como di fuera un popup
+ * @return string $html
+ */
+function mensajesPeticionAnterior() {
     $app = Aplicacion::getInstance();
     $mensajes = $app->getAtributoPeticion('mensajes');
     $html = '';
@@ -23,6 +25,5 @@ function mensajesPeticionAnterior()
         }
         $html .= '</div>';
     }
-
     return $html;
 }

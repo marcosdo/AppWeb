@@ -1,3 +1,3 @@
 <aside>
-  Banner de anuncios.
+    Banner de anuncios.
 </aside>

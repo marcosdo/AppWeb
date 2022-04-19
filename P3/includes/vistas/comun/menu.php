@@ -1,10 +1,13 @@
-<?php namespace appweb; 
-
+<?php 
+namespace appweb;
 use appweb\usuarios\Personas;
 
+/**
+ * Devuelve el html necesario para hacer una lista con los .php a los que se puede ir segun las variables de sesion
+ * @return html
+ */
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
-   
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
         if (isset($_SESSION['rol'])) {
             // Si eres admin
@@ -33,8 +36,8 @@ function htmlmenu() {
     }
     return $html;
 }
-
 ?>
+
 <nav>
     <div class="navbar">
         <div class="container nav-container">
