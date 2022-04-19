@@ -30,9 +30,8 @@ class  MostrarLogrosUsuario {
         
         $imaginesLogros = self::LogrosImg($EnumLogros);
         $contenidoPrincipal = <<<EOF
-        <h1><span class = 'text'>T U S &nbsp L O G R O S</span></h1>
         <div id = 'selectA'>
-        <h3><span class = 'text'>Número de logros : &nbsp<b>$numLogros</b></span></h3>
+        <h3>Número de logros $numLogros</h3>
         </div>
         <div id = 'selectA'>
         $imaginesLogros

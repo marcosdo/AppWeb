@@ -31,12 +31,8 @@ class MostrarLogrosEntrenador {
         }
         
         $html = <<<EOF
-        <h1><span class = 'text'>L O G R O S</span></h1>
-        <div id = 'selectA'>
-        <h3><span class = 'textD'>Seleccione el Logro :</span></h3>
-        <h3><span class = 'textI'>Seleccione al Usuario :</span></h3>
-        </div>
-        <div id = 'select'>
+        <h1><span class = 'text'>LOGROS</span></h1>
+        <h3>Seleccione el Logro </h3>
         <select name = 'logrosE' id = 'logrosE' type = 'text' class = 'selectA'>
         <option value='5logros'>Completar 5 Logros</option>
         <option value='AccesoTodos'>Acceso a todas las areas</option>
@@ -47,10 +43,10 @@ class MostrarLogrosEntrenador {
         <option value='Foro'>Entrar en el foro</option>
         <option value='Permanencia1m'>Sesión 1 mes seguidos</option>
         </select>
+        <h3>Seleccione al Usuario </h3>
         <select name = 'idE' id = 'idE' type = 'text' class = 'selectB'>
         $SelectUsuarios
         </select>
-        </div>
         <div id = 'select'><h3>
         $alert
         </h3></div>

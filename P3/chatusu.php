@@ -11,10 +11,8 @@ $MostarLogros = $Logros->mostrarLogrosUsu();
 $tituloPagina = 'Tu nutricionista';
 $contenidoPrincipal = <<<EOS
 <h1>Tu nutricionista</h1>
-	<div id = "logros">
+	<form method="post" id = "formChatUsuario">
 		$MostarLogros
-	</div>
-	<form method="post">
 		$MostrarChat
 	</form>
 EOS;

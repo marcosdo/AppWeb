@@ -385,7 +385,7 @@ div#repeticiones {
 
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg{
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, #formChatUsuario, #formChatEntrenador, .logros{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -489,7 +489,7 @@ select option[value=""][disabled] {
 
 /* botones */
 
-.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button{
+.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario input, #formChatEntrenador input{
 	outline: 0;
 	background: #EF3B3A;
 	border: 0;
@@ -500,6 +500,10 @@ select option[value=""][disabled] {
 	transition: all 0.3 ease;
 	cursor: pointer;
 	font-family: Century;
+}
+#formChatUsuario #usermsg, #formChatEntrenador #usermsg{
+	background-color: #e8eaed;
+	color: #292a3a;
 }
 
 #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formEntrenadorRutinas button, #formEntrenadorDietas button, #formEditarRutinas button, #formEditarDietas button {
@@ -656,3 +660,15 @@ border:1px solid #ACD8F0; }
 }
 .welcome { float:left;color:white }
 */
+
+.chat {
+	width: 100%;
+	height: 200px;
+	resize: none;
+	border-radius: 5px;
+	border: 0;
+	background-color: #e8eaed;
+	margin-bottom: 10px;
+	color: #292a3a;
+	margin-top: 10px;
+}

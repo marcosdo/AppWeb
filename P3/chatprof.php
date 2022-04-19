@@ -11,10 +11,8 @@ $MostrarLogros = $FormularioLogros->mostrarLogrosEnt();
 $tituloPagina = 'Entrenador Personal';
 $contenidoPrincipal = <<<EOS
 <h1>Entrenador personal</h1>
-<form method='post'>
-<div id = "logros" >
+<form method='post' id = "formChatEntrenador">
 	$MostrarLogros
-</div>
 	$MostrarChat
 </form>
 EOS;

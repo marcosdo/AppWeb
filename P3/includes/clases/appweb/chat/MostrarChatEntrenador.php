@@ -42,21 +42,18 @@ class  MostrarChatEntrenador {
         }
 
         $contenidoPrincipal = <<<EOF
-        <div id="wrapper"><div id="menu">
-        <h1><span class = 'text'>C H A T &nbsp C O N &nbsp U S U A R I O</span></h1>
-        <span class="welcome" >&nbsp&nbsp Bienvenido, $usuactual</span>
-        <span class = 'text'>Elige usuario:</span>
+    
+        <h1>CHAT CON USUARIO</h1>
+        <h3>Elige usuario para visualizar su chat:</h3>
         <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
         <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
-        </div>
-        <div id="chatbox"></div>$mensajes
-        <input name="usermsg" type="text" id="usermsg" size="63" />
-        <span class = 'text'>D: </span>
+        $mensajes
+        <h3>Elige usuario al que escribir un mensaje</h3>
         <select name = 'idE3' id = 'idE3' type = 'text'>
         $SelectUsuarios
         </select>
+        <input name="usermsg" type="text" id="usermsg" placeholder="Escriba su mensaje..." size="63"/>
         <input class = "ButtonEnviar" name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-        </div>
         EOF;
         
         return $contenidoPrincipal;
