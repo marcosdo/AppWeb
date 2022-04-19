@@ -3,7 +3,7 @@ use appweb\Aplicacion;
 
 /**
  * Devuelve el html necesario para mostar un <div> como di fuera un popup
- * @return string $html
+ * @return html
  */
 function mensajesPeticionAnterior() {
     $app = Aplicacion::getInstance();

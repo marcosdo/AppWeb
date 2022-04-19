@@ -2,31 +2,34 @@
 use appweb\plan\Rutina;
 use appweb\plan\Dieta;
 
-
 /**
-     * Metodo que devuelve una tabla con el contenido de las rutinas de la base de datos
-     * @return string $html Código en html de una tabla
+ * Metodo que devuelve una tabla con el contenido de las rutinas de la base de datos
+ * @return html Código en html de una tabla
 */
-
 function mostrarRutina(){
     
     $obj = 10;
     $arrayreps = [];
     $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $_SESSION['id']);
-    if($obj != 10){
-        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
+    if($obj != 10) {
+        // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
+        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
         $contenido = "<caption>Rutina de entrenamiento</caption><thead><tr>";
 
-
-        for ($i = 1; $i < count($arrayaux)+1;$i++){ //nº de dias
+        // num. de dias
+        for ($i = 1; $i < count($arrayaux)+1;$i++) { 
             $contenido .= "<th>Día $i </th>";
         }
+
         $contenido .= "</tr></thead><tbody>";
         for ($i = 0; $i < $ejerciciostotales;$i++){
             $contenido .= "<tr>";
-            for ($j = 0; $j < count($arrayaux); $j++) { //nº de ejercicios al cabo del día
-                $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; //DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
-                if(isset($arrayaux[$j][$i])) $auxiliar .= " x ";
+            // num. de ejercicios al cabo del día
+            for ($j = 0; $j < count($arrayaux); $j++) {
+                // DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
+                $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
+                if (isset($arrayaux[$j][$i])) 
+                    $auxiliar .= " x ";
                 $auxiliar .= isset($arrayreps[$j][$i])  ? $arrayreps[$j][$i] : "";
                 $contenido .= "<td> $auxiliar</td>";
             }
@@ -34,29 +37,26 @@ function mostrarRutina(){
         }
         $series = "</tbody><div id= repeticiones>";
         $series .= "<p> Nº de series: 3 </p> </div>";
+
         $html = <<<EOF
-        <table id=planificacion>$contenido</table>
-        $series
+            <table id=planificacion>$contenido</table>
+            $series
         EOF;
     }
     else{
         $contenido = "No hay ninguna rutina creada";
-
         $html = <<<EOF
-
-        $contenido
+            $contenido
         EOF;
     }
     return $html;
-
 }
 
 /**
-     * Metodo que devuelve una tabla con el contenido de las comidas de la base de datos
-     * La tabla tiene una columna por dia de la semana, y dos filas por cada comida { desayuno, comida, cena }
-     * @return string $html Código en html de una tabla
+ * Metodo que devuelve una tabla con el contenido de las comidas de la base de datos
+ * La tabla tiene una columna por dia de la semana, y dos filas por cada comida { desayuno, comida, cena }
+ * @return html
 */
-
 function mostrarDieta(){
     $dias = 0;
     $desayuno = array();
@@ -111,6 +111,3 @@ function mostrarDieta(){
     return $html;
 
 }
-
-
-

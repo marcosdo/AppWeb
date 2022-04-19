@@ -1,10 +1,14 @@
 <?php
+use appweb\Aplicacion;
 use appweb\foro\Mensaje;
 use appweb\foro\FormularioBorraMensaje;
 use appweb\foro\FormularioEditaMensaje;
-use appweb\Aplicacion;
-use appweb\plan\FormularioEditarDieta;
 
+/**
+ * Crea html de un solo mensaje (a partir de un array)
+ * @param array $mensaje Mensaje con el contenido que se quiere mostrar
+ * @return html
+ */
 function visualizaMensaje($mensaje) {
     $app = Aplicacion::getInstance();
     $verURL = $app->buildUrl('mensajes.php', [
@@ -22,6 +26,11 @@ function visualizaMensaje($mensaje) {
     EOS;
 }
 
+/**
+ *Crea html de un solo mensaje (a partir de un objeto)
+ * @param \mensaje $mensaje Mensaje con el contenido que se quiere mostrar
+ * @return html
+ */
 function visualizaMensajeObjeto($mensaje) {
     $app = Aplicacion::getInstance();
     $verURL = $app->buildUrl('mensajes.php', [
@@ -39,29 +48,58 @@ function visualizaMensajeObjeto($mensaje) {
     EOS;
 }
 
+/**
+ * Crea html de un boton para editar el mensaje (a partir de un array)
+ * @param array $mensaje                        Mensaje con el contenido que se quiere mostrar
+ * @param int   $idMensajeRetorno   (opcional)  ID del mensaje padre
+ * @return html
+ */
 function botonEditaMensaje($mensaje, $idMensajeRetorno = null) {
     $form = new FormularioEditaMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
     return $form->gestiona();
 }
 
+/**
+ * Crea html de un boton para editar el mensaje (a partir de un objeto)
+ * @param \mensaje $mensaje                        Mensaje con el contenido que se quiere mostrar
+ * @param int       $idMensajeRetorno   (opcional)  ID del mensaje padre
+ * @return html
+ */
 function botonEditaMensajeObjeto($mensaje, $idMensajeRetorno = null) {
     $form = new FormularioEditaMensaje($mensaje->getID(), $idMensajeRetorno);
     return $form->gestiona();
 }
 
-function botonBorraMensaje($mensaje, $idMensajeRetorno = null){
+/**
+ * Crea html de un boton para borrar el mensaje (a partir de un array)
+ * @param array $mensaje                        Mensaje con el contenido que se quiere mostrar
+ * @param int   $idMensajeRetorno   (opcional)  ID del mensaje padre
+ * @return html
+ */
+function botonBorraMensaje($mensaje, $idMensajeRetorno = null) {
     $formBorra = new FormularioBorraMensaje($mensaje['id_mensaje'], $idMensajeRetorno);
     return $formBorra->gestiona();
 }
 
-function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null){
+/**
+ * Crea html de un boton para borrar el mensaje (a partir de un objeto)
+ * @param \mensaje $mensaje                        Mensaje con el contenido que se quiere mostrar
+ * @param int       $idMensajeRetorno   (opcional)  ID del mensaje padre
+ * @return html
+ */
+function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null) {
     $formBorra = new FormularioBorraMensaje($mensaje->getID(), $idMensajeRetorno);
     return $formBorra->gestiona();
 }
 
-// XXX Esta función es muy similar a la funcion listaMensajesPaginados y en un proyecto real sólo debería de existir una de ellas
-function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
-{
+/**
+ * Crea html de una lista <ul> con cada mensaje en ese nivel
+ * @param int   $id                 (opcional) ID del mensaje actual
+ * @param bool  $recursivo          (opcional) si es recursivo se mostraran indentados
+ * @param int   $idMensajeRetorno   (opcional) ID del mensaje padre
+ * @return html
+ */
+function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null) {
     $mensajes = Mensaje::buscaPorMensajePadre($id);
     if (count($mensajes) == 0) {
         return '';
@@ -76,10 +114,10 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
             $html .= "<div class = msg>";
             if (!$app->esAdmin())
                 $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
-                $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
-                $html .= "</div>";
+            $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
+            $html .= "</div>";
         }
-        
+
         if ($recursivo) {
             $html .= listaMensajes($mensaje->getId(), $recursivo, $idMensajeRetorno);
         }
@@ -90,22 +128,35 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     return $html;
 }
 
-/*function listaMensajesPaginados($id = null, $recursivo = false, $idMensajeRetorno = null, $numPorPagina = 5, $numPagina = 1) {
-    return listaMensajesPaginadosRecursivo($id, $recursivo, $idMensajeRetorno, 1, $numPorPagina, $numPagina);
-}*/
-
+/**
+ * Crea html de una lista <ul> con cada mensaje en ese nivel con dos botones para avanzar y retroceder si hay muchos mensajes
+ * @param array     $mensajes           array de objetos mensajes que se quieren mostrar
+ * @param bool      $recursivo          (opcional) si es recursivo se mostraran indentados
+ * @param int       $idMensajeRetorno   (opcional) ID del mensaje padre
+ * @param string    $url                (opcional) URL a donde se redireccionara despues de avanzar o retroceder al mostrar los mensajes
+ * @param array     $extraUrlParams     (opcional) parametros de la URL
+ * @param int       $nivel              (opcional) nivel de recursividad en el que nos encontramos
+ * @param int       $numPorPagina       (opcional) numero de mensajes por cada pagina
+ * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
+ * @return html
+ */
 function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
     return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, $url, $extraUrlParams, 1, $numPorPagina, $numPagina);
 }
 
-/*function listaMensajesPaginadosRecursivo($id = null, $recursivo = false, $idMensajeRetorno = null, $nivel = 1, $numPorPagina = 5, $numPagina = 1)
-{
-    $mensajes = Mensaje::buscaPorMensajePadrePaginado($id, $numPorPagina+1, $numPagina-1);
-    return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, 'mensajes.php', [], $nivel, $numPorPagina, $numPagina);
-}*/
-
-function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1)
-{
+/**
+ * Crea html de una lista <ul> con cada mensaje en ese nivel con dos botones para avanzar y retroceder si hay muchos mensajes
+ * @param array     $mensajes           array de objetos mensajes que se quieren mostrar
+ * @param bool      $recursivo          (opcional) si es recursivo se mostraran indentados
+ * @param int       $idMensajeRetorno   (opcional) ID del mensaje padre
+ * @param string    $url                (opcional) URL a donde se redireccionara despues de avanzar o retroceder al mostrar los mensajes
+ * @param array     $extraUrlParams     (opcional) parametros de la URL
+ * @param int       $nivel              (opcional) nivel de recursividad en el que nos encontramos
+ * @param int       $numPorPagina       (opcional) numero de mensajes por cada pagina
+ * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
+ * @return html
+ */
+function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
     $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);
@@ -174,33 +225,4 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
     }
 
     return $html;
-}
-
-function mensajeForm($action, $label, $button, $idMensajeRetorno = null, $idMensajeActualizar = null, $mensajeActual='')
-{
-    $mensajeRetorno = '';
-    if ($idMensajeRetorno != null) {
-        $mensajeRetorno = <<<EOS
-        <input type="hidden" name="idMensajeRetorno" value="{$idMensajeRetorno}" />
-        EOS;
-    }
-    $mensajeActualizar = '';
-    if ($idMensajeActualizar != null) {
-        $mensajeActualizar = <<<EOS
-        <input type="hidden" name="id" value="{$idMensajeActualizar}" />
-        EOS;
-    }
-
-    $htmlForm = <<<EOS
-    <form action="{$action}" method="POST">
-        $mensajeActualizar
-        $mensajeRetorno
-        <fieldset>
-            <div><label for="mensaje">{$label}</label><input id="mensaje" type="text" name="mensaje" value="{$mensajeActual}" /></div>
-            <div><button type="submit">{$button}</button></div>
-        </fieldset>
-    </form>
-    EOS;
-
-    return $htmlForm;
 }
