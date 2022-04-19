@@ -4,6 +4,7 @@ namespace appweb\foro;
 use appweb\Formulario;
 use appweb\Aplicacion;
 use appweb\foro\Mensaje;
+use appweb\vistas\helpers;
 
 class FormularioForo extends Formulario {
     public function __construct() { 
@@ -18,7 +19,7 @@ class FormularioForo extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['tema', 'contenido', 'categoria'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
-        $categoria = Foro::seleCategorias(); 
+        $categoria = seleCategorias(); 
 
         $html = <<<EOF
         $htmlErroresGlobales
