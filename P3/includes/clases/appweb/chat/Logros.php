@@ -41,7 +41,7 @@ class Logros {
     //en un futuro debe estar en usuario
     public static function getId($alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM usuario WHERE usuario = '%s'",$alias);
+        $query = sprintf("SELECT * FROM personas WHERE nick = '%s'",$alias);
         $rs = $conn->query($query);
         if($rs){
             $fila = $rs->fetch_assoc();

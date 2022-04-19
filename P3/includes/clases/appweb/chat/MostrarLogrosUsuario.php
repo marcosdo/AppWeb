@@ -10,13 +10,13 @@ class  MostrarLogrosUsuario {
 		for($i = 0; $i < strlen($EnumLogros); $i++){
 			if($EnumLogros[$i] == ","){
 				$logro = $logro . ".png";
-				$rts = $rts . "<img src='img/logros/$logro' alt='' width='70' height='70'>";
+				$rts = $rts . "<img src='src/img/logros/$logro' alt='' width='70' height='70'>";
 				$logro = "";
 			}
 			else $logro = $logro . $EnumLogros[$i];
 			if($i+1 == strlen($EnumLogros)){
 				$logro = $logro . ".png";
-				$rts = $rts . "<img src='img/logros/$logro' alt='' width='70' height='70'>";
+				$rts = $rts . "<img src='src/img/logros/$logro' alt='' width='70' height='70'>";
 			}
 		}
 		return $rts;
