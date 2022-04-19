@@ -380,7 +380,7 @@ div#repeticiones {
 
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, #formChatUsuario, #formChatEntrenador, .logros{
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, #formChatUsuario, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -398,7 +398,7 @@ div#repeticiones {
 
 /* input*/
 
-.form input, #formPago input, #formForo input{
+.form input, #formPago input, #formForo input, #formAdminCrea input, #formAdminBorra input{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;
@@ -484,7 +484,7 @@ select option[value=""][disabled] {
 
 /* botones */
 
-.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario input, #formChatEntrenador input{
+.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario input, #formChatEntrenador input, #formAdminCrea button, #formAdminBorra button{
 	outline: 0;
 	background: #EF3B3A;
 	border: 0;
