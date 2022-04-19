@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `mensaje` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `id_referencia` int(5) UNSIGNED DEFAULT NULL,
   `id_foro` int(5) UNSIGNED NOT NULL,
-  `titulo` varchar(25) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
   `mensaje` mediumtext NOT NULL,
   `fecha` datetime NOT NULL,
   `prioridad` int(5) UNSIGNED NOT NULL DEFAULT 0,
