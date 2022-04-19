@@ -238,11 +238,11 @@ footer {
 		display: none;
 	}
 
-	#formRutinas, #formPago, #formVerRutina, #formForo {
+	#formRutinas, #formPago, #formVerRutina, #formForo, #formEntrenadorRutinas{
 		grid-area: izq;
 	}
 	
-	#formDietas, #suscripcion, #formVerDieta, .temas{
+	#formDietas, #suscripcion, #formVerDieta, .temas, #formEntrenadorDietas{
 		grid-area: der;
 	}
 	

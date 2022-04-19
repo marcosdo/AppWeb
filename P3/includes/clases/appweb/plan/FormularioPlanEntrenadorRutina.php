@@ -44,9 +44,9 @@ class FormularioPlanEntrenadorRutina extends Formulario {
     
         $SelectUsuarios = self::Usuarios($_SESSION['alias']);
         $boton ="";
-        if($SelectUsuarios == "") $Select = "<div><p>No hay usuarios disponibles.</p></div>";
+        if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
         else {
-            $Select = "<p>Selecciona el usuario<p><div><select name = 'alias' id = 'alias' type = 'text'>";
+            $Select = "<p>Selecciona el usuario<p><select name = 'alias' id = 'alias' type = 'text'>";
             $Select .= $SelectUsuarios;
             $Select .= "</select>";
             $boton = "<button type='submit' name='enviar'>Editar rutina</button>";
@@ -57,7 +57,6 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         $Select
         {$erroresCampos['alias']}
         $boton
-                    
         EOF;
         return $html;
     }
@@ -65,7 +64,7 @@ class FormularioPlanEntrenadorRutina extends Formulario {
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
         htmlspecialchars(trim(strip_tags($_POST["alias"])));
-        $alias      = trim($datos["alias"] ?? '');
+        $alias = trim($datos["alias"] ?? '');
 
         if (count($this->errores) === 0) {
             $conn = Aplicacion::getInstance()->getConexionBd();
