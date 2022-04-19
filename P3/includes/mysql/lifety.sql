@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2022 a las 15:43:31
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Servidor: vm16.db.swarm.test
+-- Tiempo de generación: 19-04-2022 a las 14:02:08
+-- Versión del servidor: 10.8.2-MariaDB-1:10.8.2+maria~focal
+-- Versión de PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,48 +27,32 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `anuncio`
 --
 
-DROP TABLE IF EXISTS `anuncio`;
-CREATE TABLE IF NOT EXISTS `anuncio` (
-  `id_anuncio` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `anuncio` (
+  `id_anuncio` int(5) UNSIGNED NOT NULL,
   `id_empresa` int(5) UNSIGNED NOT NULL,
   `contenido` mediumtext NOT NULL,
   `imagen` varchar(30) NOT NULL,
-  `orden` int(1) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_anuncio`),
-  KEY `Empresa_FK` (`id_empresa`)
+  `orden` int(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `anuncio`
---
-
-TRUNCATE TABLE `anuncio`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `categorias`
 --
 
-DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `id_categoria` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tipo` enum('proteina','creatina','vitaminas','gainer','aminoacidos','pre-entreno','minerales') NOT NULL,
-  PRIMARY KEY (`id_categoria`)
+CREATE TABLE `categorias` (
+  `id_categoria` int(5) UNSIGNED NOT NULL,
+  `tipo` enum('proteina','creatina','vitaminas','gainer','aminoacidos','pre-entreno','minerales') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `categorias`
---
-
-TRUNCATE TABLE `categorias`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `chat`
 --
 
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE IF NOT EXISTS `chat` (
+CREATE TABLE `chat` (
   `Receptor` text NOT NULL,
   `Origen` text NOT NULL,
   `Contenido` mediumtext NOT NULL,
@@ -76,11 +60,6 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `Tipo` enum('U-E','E-U') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `chat`
---
-
-TRUNCATE TABLE `chat`;
 --
 -- Volcado de datos para la tabla `chat`
 --
@@ -94,21 +73,14 @@ INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 -- Estructura de tabla para la tabla `comidas`
 --
 
-DROP TABLE IF EXISTS `comidas`;
-CREATE TABLE IF NOT EXISTS `comidas` (
-  `id_comida` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comidas` (
+  `id_comida` int(5) UNSIGNED NOT NULL,
   `objetivo` int(1) NOT NULL,
   `tipo` enum('Desayuno','Comida','Cena') NOT NULL,
   `descripcion` varchar(100) NOT NULL,
-  `link` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`id_comida`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4;
+  `link` varchar(40) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `comidas`
---
-
-TRUNCATE TABLE `comidas`;
 --
 -- Volcado de datos para la tabla `comidas`
 --
@@ -208,27 +180,19 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) V
 -- Estructura de tabla para la tabla `contiene`
 --
 
-DROP TABLE IF EXISTS `contiene`;
-CREATE TABLE IF NOT EXISTS `contiene` (
+CREATE TABLE `contiene` (
   `id_rutina` int(5) NOT NULL,
   `id_ejercicio` int(5) NOT NULL,
   `dia` int(1) NOT NULL,
-  `repeticiones` int(2) NOT NULL,
-  KEY `Ejercicio_FK` (`id_ejercicio`),
-  KEY `id_rutina` (`id_rutina`)
+  `repeticiones` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `contiene`
---
-
-TRUNCATE TABLE `contiene`;
 --
 -- Volcado de datos para la tabla `contiene`
 --
 
 INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALUES
-(91, 8, 1, 6),
+(91, 12, 1, 6),
 (91, 9, 1, 14),
 (91, 0, 1, 14),
 (91, 1, 1, 6),
@@ -240,7 +204,7 @@ INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALU
 (91, 5, 3, 6),
 (91, 12, 3, 6),
 (91, 13, 3, 8),
-(92, 8, 1, 6),
+(92, 12, 1, 6),
 (92, 9, 1, 14),
 (92, 0, 1, 14),
 (92, 1, 1, 6),
@@ -259,31 +223,21 @@ INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALU
 -- Estructura de tabla para la tabla `dieta`
 --
 
-DROP TABLE IF EXISTS `dieta`;
-CREATE TABLE IF NOT EXISTS `dieta` (
+CREATE TABLE `dieta` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
   `id_desayuno` int(5) UNSIGNED DEFAULT NULL,
   `id_almuerzo` int(5) UNSIGNED DEFAULT NULL,
   `id_cena` int(5) UNSIGNED DEFAULT NULL,
-  `tipo` int(1) UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_usuario`,`fecha`),
-  KEY `clave-dieta-desayuno` (`id_desayuno`),
-  KEY `clave-dieta-almurezo` (`id_almuerzo`),
-  KEY `clave-dieta-cena` (`id_cena`)
+  `tipo` int(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `dieta`
---
-
-TRUNCATE TABLE `dieta`;
 --
 -- Volcado de datos para la tabla `dieta`
 --
 
 INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_cena`, `tipo`) VALUES
-(36, '2022-04-10', 1, 12, 30, 1),
+(36, '2022-04-10', 10, 12, 30, 1),
 (36, '2022-04-11', 2, 13, 31, 1),
 (36, '2022-04-12', 3, 34, 74, 1),
 (36, '2022-04-13', 63, 35, 75, 1),
@@ -297,22 +251,15 @@ INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_ce
 -- Estructura de tabla para la tabla `ejercicios`
 --
 
-DROP TABLE IF EXISTS `ejercicios`;
-CREATE TABLE IF NOT EXISTS `ejercicios` (
+CREATE TABLE `ejercicios` (
   `id_ejercicio` int(5) NOT NULL,
   `tipo` int(1) NOT NULL,
   `musculo` varchar(40) DEFAULT NULL,
   `nombre` varchar(40) DEFAULT NULL,
   `descripcion` mediumtext NOT NULL,
-  `imagen` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_ejercicio`)
+  `imagen` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `ejercicios`
---
-
-TRUNCATE TABLE `ejercicios`;
 --
 -- Volcado de datos para la tabla `ejercicios`
 --
@@ -349,43 +296,30 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 -- Estructura de tabla para la tabla `empresas`
 --
 
-DROP TABLE IF EXISTS `empresas`;
-CREATE TABLE IF NOT EXISTS `empresas` (
-  `id_empresa` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_empresa`),
-  UNIQUE KEY `nombre_empresa` (`nombre`)
+CREATE TABLE `empresas` (
+  `id_empresa` int(5) UNSIGNED NOT NULL,
+  `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `empresas`
---
-
-TRUNCATE TABLE `empresas`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `entrena`
 --
 
-DROP TABLE IF EXISTS `entrena`;
-CREATE TABLE IF NOT EXISTS `entrena` (
+CREATE TABLE `entrena` (
   `nutri` text NOT NULL,
-  `usuario` text NOT NULL
+  `usuario` text NOT NULL,
+  `editarutina` int(1) NOT NULL,
+  `editadieta` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `entrena`
---
-
-TRUNCATE TABLE `entrena`;
 --
 -- Volcado de datos para la tabla `entrena`
 --
 
-INSERT INTO `entrena` (`nutri`, `usuario`) VALUES
-('pintus', 'perspa'),
-('pintus', 'perspa');
+INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
+('pintus', 'perspa', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -393,100 +327,82 @@ INSERT INTO `entrena` (`nutri`, `usuario`) VALUES
 -- Estructura de tabla para la tabla `foro`
 --
 
-DROP TABLE IF EXISTS `foro`;
-CREATE TABLE IF NOT EXISTS `foro` (
-  `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `foro` (
+  `id_foro` int(5) UNSIGNED NOT NULL,
   `id_usuario` int(5) UNSIGNED NOT NULL,
-  `tema` varchar(20) NOT NULL,
+  `tema` varchar(50) NOT NULL,
   `nickcreador` varchar(20) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `contenido` varchar(500) NOT NULL,
   `categoria` enum('Nutricion','Dieta') NOT NULL,
-  `respuestas` int(5) UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_foro`),
-  UNIQUE KEY `tema` (`tema`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `nickcreador` (`nickcreador`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+  `respuestas` int(5) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Truncar tablas antes de insertar `foro`
+-- Volcado de datos para la tabla `foro`
 --
 
-TRUNCATE TABLE `foro`;
+INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
+(27, 31, '&iquest;Creatina-&gt;p&eacute;rdida de pelo?', 'pintus', '2022-04-19 15:27:25', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', 'Dieta', 0);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `mensaje`
 --
 
-DROP TABLE IF EXISTS `mensaje`;
-CREATE TABLE IF NOT EXISTS `mensaje` (
-  `id_mensaje` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mensaje` (
+  `id_mensaje` int(5) UNSIGNED NOT NULL,
   `id_usuario` int(5) UNSIGNED NOT NULL,
-  `id_referencia` int(5) UNSIGNED NOT NULL,
+  `id_referencia` int(5) UNSIGNED DEFAULT NULL,
   `id_foro` int(5) UNSIGNED NOT NULL,
-  `titulo` varchar(25) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
   `mensaje` mediumtext NOT NULL,
   `fecha` datetime NOT NULL,
-  `prioridad` int(5) UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_mensaje`),
-  KEY `Tema_FK` (`id_foro`),
-  KEY `Mensaje_FK` (`id_referencia`),
-  KEY `id_usuario` (`id_usuario`)
+  `prioridad` int(5) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Truncar tablas antes de insertar `mensaje`
+-- Volcado de datos para la tabla `mensaje`
 --
 
-TRUNCATE TABLE `mensaje`;
+INSERT INTO `mensaje` (`id_mensaje`, `id_usuario`, `id_referencia`, `id_foro`, `titulo`, `mensaje`, `fecha`, `prioridad`) VALUES
+(12, 31, NULL, 27, 'Contexto', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', '2022-04-19 15:27:25', 0),
+(16, 31, NULL, 27, 'Creatina buena o no', 'Merece la pena tomar creatina? O se produce mucha perdida de cabello. La perdida es gradual o de golpe?', '2022-04-19 15:35:34', 0),
+(17, 32, NULL, 27, 'Mi experiencia con la creatina', 'Yo tomo creatina pre-entreno y no tengo problemas de cabello eso es un mito', '2022-04-19 15:51:20', 0),
+(18, 38, 16, 27, 'Experiencia con creatina de conocidos', 'Mi novio ha empezado a tomar creatina y le veo con menor cantidad de pelo, te dir&iacute;a que la p&eacute;rdida es de golpe', '2022-04-19 15:55:42', 1),
+(19, 32, 18, 27, 'Mi experiencia con la creatina', 'Yo la tomo y noto mi cabello igual de denso y fuerte, la p&eacute;rdida depende de las hormonas. La creatina no lo induce, ya que la creamos con nuestro propio cuerpo', '2022-04-19 15:56:56', 2);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `noticias`
 --
 
-DROP TABLE IF EXISTS `noticias`;
-CREATE TABLE IF NOT EXISTS `noticias` (
-  `id_noticia` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `noticias` (
+  `id_noticia` int(5) UNSIGNED NOT NULL,
   `id_profesional` int(5) UNSIGNED NOT NULL,
   `titulo` varchar(40) NOT NULL,
   `cuerpo` mediumtext NOT NULL,
-  `fecha` datetime NOT NULL,
-  PRIMARY KEY (`id_noticia`),
-  KEY `id_profesional` (`id_profesional`)
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `noticias`
---
-
-TRUNCATE TABLE `noticias`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `personas`
 --
 
-DROP TABLE IF EXISTS `personas`;
-CREATE TABLE IF NOT EXISTS `personas` (
-  `id_usuario` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personas` (
+  `id_usuario` int(5) UNSIGNED NOT NULL,
   `nick` varchar(6) NOT NULL,
   `nombre` varchar(25) CHARACTER SET utf32 NOT NULL,
   `apellidos` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `contraseña` varchar(100) NOT NULL,
-  `rol` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `nick_admin` (`nick`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+  `rol` tinyint(1) UNSIGNED NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `personas`
---
-
-TRUNCATE TABLE `personas`;
 --
 -- Volcado de datos para la tabla `personas`
 --
@@ -497,7 +413,8 @@ INSERT INTO `personas` (`id_usuario`, `nick`, `nombre`, `apellidos`, `correo`, `
 (32, 'anakin', 'Anakin', 'Skywalker', 'anakin@ucm.es', '$2y$10$uOz6PMvV6YOUHm3b6Is6juMm1PG5zF1Vyp175pSCVGMpweIj4xzki', 1),
 (35, 'admin2', 'Mark', 'Wahlberg', 'markwa@lifety.es', '$2y$10$LqSxgop6C4kalnXJsXYMZe1zVqg0T4.AokRa1cdxkyjHsxnkd6HcG', 0),
 (36, 'perspa', 'Persona', 'P&aacute;jaro', 'perspa@ucm.es', '$2y$10$5XbQuYbufL5BkjaB3x.LLOnfZMrOkEBuz7jSZLZQjehc261drjb6S', 1),
-(37, 'flavio', 'Flavio', 'Briatore', 'flavio@ucm.es', '$2y$10$Hhaw6oPpK.M2FC62Jx0de.wnnv3WUvXIojKATcMv2doTde6ukpmBy', 1);
+(37, 'flavio', 'Flavio', 'Briatore', 'flavio@ucm.es', '$2y$10$Hhaw6oPpK.M2FC62Jx0de.wnnv3WUvXIojKATcMv2doTde6ukpmBy', 1),
+(38, 'silvia', 'Silvia', 'Mu&ntilde;oz', 'silvia@ucm.es', '$2y$10$UWc8VQdQjGB80Bo.zybo..LLomjrT9Ig210N0zt.HHZ0BDOVS2Ebe', 1);
 
 -- --------------------------------------------------------
 
@@ -505,27 +422,18 @@ INSERT INTO `personas` (`id_usuario`, `nick`, `nombre`, `apellidos`, `correo`, `
 -- Estructura de tabla para la tabla `pertenece`
 --
 
-DROP TABLE IF EXISTS `pertenece`;
-CREATE TABLE IF NOT EXISTS `pertenece` (
+CREATE TABLE `pertenece` (
   `id_producto` int(5) UNSIGNED NOT NULL,
-  `id_categoria` int(5) UNSIGNED NOT NULL,
-  KEY `Producto_FK` (`id_producto`),
-  KEY `Categoria_FK` (`id_categoria`)
+  `id_categoria` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `pertenece`
---
-
-TRUNCATE TABLE `pertenece`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `premium`
 --
 
-DROP TABLE IF EXISTS `premium`;
-CREATE TABLE IF NOT EXISTS `premium` (
+CREATE TABLE `premium` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `id_profesional` int(5) UNSIGNED NOT NULL,
   `peso` float NOT NULL,
@@ -533,16 +441,9 @@ CREATE TABLE IF NOT EXISTS `premium` (
   `alergias` text NOT NULL,
   `observaciones_adicionales` text NOT NULL,
   `num_logros` int(20) NOT NULL,
-  `logros` set('5logros','AccesoTodos','ComenzarChat','Completa1Plan','Completa5Plan','ContrataNutri','Permanencia','Permanencia1m','Foro') NOT NULL,
-  PRIMARY KEY (`id_usuario`),
-  KEY `Pro_FK` (`id_profesional`)
+  `logros` set('5logros','AccesoTodos','ComenzarChat','Completa1Plan','Completa5Plan','ContrataNutri','Permanencia','Permanencia1m','Foro') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `premium`
---
-
-TRUNCATE TABLE `premium`;
 --
 -- Volcado de datos para la tabla `premium`
 --
@@ -556,42 +457,28 @@ INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergi
 -- Estructura de tabla para la tabla `productos`
 --
 
-DROP TABLE IF EXISTS `productos`;
-CREATE TABLE IF NOT EXISTS `productos` (
-  `id_producto` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `productos` (
+  `id_producto` int(5) UNSIGNED NOT NULL,
   `imagen` varchar(25) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` mediumtext NOT NULL,
   `precio` decimal(10,0) UNSIGNED NOT NULL,
-  `link` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_producto`)
+  `link` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `productos`
---
-
-TRUNCATE TABLE `productos`;
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `profesional`
 --
 
-DROP TABLE IF EXISTS `profesional`;
-CREATE TABLE IF NOT EXISTS `profesional` (
+CREATE TABLE `profesional` (
   `id_profesional` int(5) UNSIGNED NOT NULL,
   `nutri` varchar(20) NOT NULL,
   `num_usuarios` int(3) NOT NULL,
-  `usuarios` text NOT NULL,
-  PRIMARY KEY (`id_profesional`)
+  `usuarios` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `profesional`
---
-
-TRUNCATE TABLE `profesional`;
 --
 -- Volcado de datos para la tabla `profesional`
 --
@@ -605,24 +492,15 @@ INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`
 -- Estructura de tabla para la tabla `rutina`
 --
 
-DROP TABLE IF EXISTS `rutina`;
-CREATE TABLE IF NOT EXISTS `rutina` (
-  `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rutina` (
+  `id_rutina` int(5) NOT NULL,
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `activa` tinyint(1) NOT NULL,
   `objetivo` int(1) DEFAULT NULL,
   `nivel` char(1) DEFAULT NULL,
-  `dias` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id_rutina`),
-  KEY `id_rutina` (`id_rutina`),
-  KEY `id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
+  `dias` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `rutina`
---
-
-TRUNCATE TABLE `rutina`;
 --
 -- Volcado de datos para la tabla `rutina`
 --
@@ -637,18 +515,11 @@ INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, 
 -- Estructura de tabla para la tabla `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
+CREATE TABLE `usuario` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
-  `premium` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id_usuario`)
+  `premium` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Truncar tablas antes de insertar `usuario`
---
-
-TRUNCATE TABLE `usuario`;
 --
 -- Volcado de datos para la tabla `usuario`
 --
@@ -656,7 +527,196 @@ TRUNCATE TABLE `usuario`;
 INSERT INTO `usuario` (`id_usuario`, `premium`) VALUES
 (32, 0),
 (35, 0),
-(36, 1);
+(36, 1),
+(38, 0);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  ADD PRIMARY KEY (`id_anuncio`),
+  ADD KEY `Empresa_FK` (`id_empresa`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Indices de la tabla `comidas`
+--
+ALTER TABLE `comidas`
+  ADD PRIMARY KEY (`id_comida`);
+
+--
+-- Indices de la tabla `contiene`
+--
+ALTER TABLE `contiene`
+  ADD KEY `Ejercicio_FK` (`id_ejercicio`),
+  ADD KEY `id_rutina` (`id_rutina`);
+
+--
+-- Indices de la tabla `dieta`
+--
+ALTER TABLE `dieta`
+  ADD PRIMARY KEY (`id_usuario`,`fecha`),
+  ADD KEY `clave-dieta-desayuno` (`id_desayuno`),
+  ADD KEY `clave-dieta-almurezo` (`id_almuerzo`),
+  ADD KEY `clave-dieta-cena` (`id_cena`);
+
+--
+-- Indices de la tabla `ejercicios`
+--
+ALTER TABLE `ejercicios`
+  ADD PRIMARY KEY (`id_ejercicio`);
+
+--
+-- Indices de la tabla `empresas`
+--
+ALTER TABLE `empresas`
+  ADD PRIMARY KEY (`id_empresa`),
+  ADD UNIQUE KEY `nombre_empresa` (`nombre`);
+
+--
+-- Indices de la tabla `foro`
+--
+ALTER TABLE `foro`
+  ADD PRIMARY KEY (`id_foro`),
+  ADD UNIQUE KEY `tema` (`tema`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `nickcreador` (`nickcreador`);
+
+--
+-- Indices de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  ADD PRIMARY KEY (`id_mensaje`),
+  ADD KEY `Tema_FK` (`id_foro`),
+  ADD KEY `Mensaje_FK` (`id_referencia`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `noticias`
+--
+ALTER TABLE `noticias`
+  ADD PRIMARY KEY (`id_noticia`),
+  ADD KEY `id_profesional` (`id_profesional`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `nick_admin` (`nick`);
+
+--
+-- Indices de la tabla `pertenece`
+--
+ALTER TABLE `pertenece`
+  ADD KEY `Producto_FK` (`id_producto`),
+  ADD KEY `Categoria_FK` (`id_categoria`);
+
+--
+-- Indices de la tabla `premium`
+--
+ALTER TABLE `premium`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `Pro_FK` (`id_profesional`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `profesional`
+--
+ALTER TABLE `profesional`
+  ADD PRIMARY KEY (`id_profesional`);
+
+--
+-- Indices de la tabla `rutina`
+--
+ALTER TABLE `rutina`
+  ADD PRIMARY KEY (`id_rutina`),
+  ADD KEY `id_rutina` (`id_rutina`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `anuncio`
+--
+ALTER TABLE `anuncio`
+  MODIFY `id_anuncio` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id_categoria` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `comidas`
+--
+ALTER TABLE `comidas`
+  MODIFY `id_comida` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
+--
+-- AUTO_INCREMENT de la tabla `empresas`
+--
+ALTER TABLE `empresas`
+  MODIFY `id_empresa` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `foro`
+--
+ALTER TABLE `foro`
+  MODIFY `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  MODIFY `id_mensaje` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `noticias`
+--
+ALTER TABLE `noticias`
+  MODIFY `id_noticia` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `id_usuario` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_producto` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rutina`
+--
+ALTER TABLE `rutina`
+  MODIFY `id_rutina` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- Restricciones para tablas volcadas

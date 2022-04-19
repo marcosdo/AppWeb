@@ -9,13 +9,9 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-TRUNCATE TABLE `anuncio`;
-TRUNCATE TABLE `categorias`;
-TRUNCATE TABLE `chat`;
 INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
 ('pintus', 'perspa', 'hola que tal', '2022-04-10 15:27:50', 'U-E');
 
-TRUNCATE TABLE `comidas`;
 INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) VALUES
 (1, 1, 'Desayuno', 'Copos de avena con leche', ''),
 (2, 1, 'Desayuno', 'Yogur con copos de avena', ''),
@@ -105,9 +101,8 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) V
 (86, 3, 'Cena', 'Tortilla de patatas con mayonesa', ''),
 (87, 3, 'Cena', 'Lasana de verduras', '');
 
-TRUNCATE TABLE `contiene`;
 INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALUES
-(91, 8, 1, 6),
+(91, 12, 1, 6),
 (91, 9, 1, 14),
 (91, 0, 1, 14),
 (91, 1, 1, 6),
@@ -119,7 +114,7 @@ INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALU
 (91, 5, 3, 6),
 (91, 12, 3, 6),
 (91, 13, 3, 8),
-(92, 8, 1, 6),
+(92, 12, 1, 6),
 (92, 9, 1, 14),
 (92, 0, 1, 14),
 (92, 1, 1, 6),
@@ -132,9 +127,8 @@ INSERT INTO `contiene` (`id_rutina`, `id_ejercicio`, `dia`, `repeticiones`) VALU
 (92, 12, 3, 6),
 (92, 13, 3, 8);
 
-TRUNCATE TABLE `dieta`;
 INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_cena`, `tipo`) VALUES
-(36, '2022-04-10', 1, 12, 30, 1),
+(36, '2022-04-10', 10, 12, 30, 1),
 (36, '2022-04-11', 2, 13, 31, 1),
 (36, '2022-04-12', 3, 34, 74, 1),
 (36, '2022-04-13', 63, 35, 75, 1),
@@ -142,7 +136,6 @@ INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_ce
 (36, '2022-04-15', 2, 37, 77, 1),
 (36, '2022-04-16', 3, 39, 78, 1);
 
-TRUNCATE TABLE `ejercicios`;
 INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripcion`, `imagen`) VALUES
 (0, 2, 'Hombro', 'Elevacion lateral', '', ''),
 (1, 0, 'Hombro', 'Press hombro', '', ''),
@@ -169,51 +162,43 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 (22, 1, 'Espalda', 'Remo con barra', '', ''),
 (23, 1, 'Espalda', 'Renegade row', '', '');
 
-TRUNCATE TABLE `empresas`;
-TRUNCATE TABLE `entrena`;
 INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
 ('pintus', 'perspa', 0, 0);
 
-TRUNCATE TABLE `foro`;
 INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
-(25, 32, 'ALGO', 'anakin', '2022-04-12 13:10:41', 'ASDASD', 'Nutricion', 0),
-(26, 32, 'ALGO2', 'anakin', '2022-04-12 13:14:34', 'asdfasd', 'Nutricion', 0);
+(27, 31, '&iquest;Creatina-&gt;p&eacute;rdida de pelo?', 'pintus', '2022-04-19 15:27:25', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', 'Dieta', 0);
 
-TRUNCATE TABLE `mensaje`;
 INSERT INTO `mensaje` (`id_mensaje`, `id_usuario`, `id_referencia`, `id_foro`, `titulo`, `mensaje`, `fecha`, `prioridad`) VALUES
-(10, 32, NULL, 25, 'Primer mensaje', 'ASDASD', '2022-04-12 13:10:41', 0),
-(11, 32, NULL, 26, 'Primer mensaje', 'asdfasd', '2022-04-12 13:14:34', 0);
+(12, 31, NULL, 27, 'Contexto', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', '2022-04-19 15:27:25', 0),
+(16, 31, NULL, 27, 'Creatina buena o no', 'Merece la pena tomar creatina? O se produce mucha perdida de cabello. La perdida es gradual o de golpe?', '2022-04-19 15:35:34', 0),
+(17, 32, NULL, 27, 'Mi experiencia con la creatina', 'Yo tomo creatina pre-entreno y no tengo problemas de cabello eso es un mito', '2022-04-19 15:51:20', 0),
+(18, 38, 16, 27, 'Experiencia con creatina de conocidos', 'Mi novio ha empezado a tomar creatina y le veo con menor cantidad de pelo, te dir&iacute;a que la p&eacute;rdida es de golpe', '2022-04-19 15:55:42', 1),
+(19, 32, 18, 27, 'Mi experiencia con la creatina', 'Yo la tomo y noto mi cabello igual de denso y fuerte, la p&eacute;rdida depende de las hormonas. La creatina no lo induce, ya que la creamos con nuestro propio cuerpo', '2022-04-19 15:56:56', 2);
 
-TRUNCATE TABLE `noticias`;
-TRUNCATE TABLE `personas`;
 INSERT INTO `personas` (`id_usuario`, `nick`, `nombre`, `apellidos`, `correo`, `contraseña`, `rol`) VALUES
 (8, 'admin0', 'Dwayne', 'Johnson', 'dwayne@lifety.com', '$2y$10$uAGG3yMjH7sBX9Qc2QEXZeJoc92buC2qPgxt2x0zdLv3Th3lrp4c.', 0),
 (31, 'pintus', 'Antonio', 'Pintus', 'pintus@lifety.es', '$2y$10$4HMCjZeRUdGa.USKL.GCi.1bKkrkWWLpyF0n43517XSOOVmvQwDGG', 2),
 (32, 'anakin', 'Anakin', 'Skywalker', 'anakin@ucm.es', '$2y$10$uOz6PMvV6YOUHm3b6Is6juMm1PG5zF1Vyp175pSCVGMpweIj4xzki', 1),
 (35, 'admin2', 'Mark', 'Wahlberg', 'markwa@lifety.es', '$2y$10$LqSxgop6C4kalnXJsXYMZe1zVqg0T4.AokRa1cdxkyjHsxnkd6HcG', 0),
 (36, 'perspa', 'Persona', 'P&aacute;jaro', 'perspa@ucm.es', '$2y$10$5XbQuYbufL5BkjaB3x.LLOnfZMrOkEBuz7jSZLZQjehc261drjb6S', 1),
-(37, 'flavio', 'Flavio', 'Briatore', 'flavio@ucm.es', '$2y$10$Hhaw6oPpK.M2FC62Jx0de.wnnv3WUvXIojKATcMv2doTde6ukpmBy', 1);
+(37, 'flavio', 'Flavio', 'Briatore', 'flavio@ucm.es', '$2y$10$Hhaw6oPpK.M2FC62Jx0de.wnnv3WUvXIojKATcMv2doTde6ukpmBy', 1),
+(38, 'silvia', 'Silvia', 'Mu&ntilde;oz', 'silvia@ucm.es', '$2y$10$UWc8VQdQjGB80Bo.zybo..LLomjrT9Ig210N0zt.HHZ0BDOVS2Ebe', 1);
 
-TRUNCATE TABLE `pertenece`;
-TRUNCATE TABLE `premium`;
 INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`) VALUES
 (36, 31, 70, 1, 'no', 'no', 0, '');
 
-TRUNCATE TABLE `productos`;
-TRUNCATE TABLE `profesional`;
 INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`) VALUES
 (31, 'pintus', 2, '');
 
-TRUNCATE TABLE `rutina`;
 INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`) VALUES
 (91, 36, 1, 1, 'P', 3),
 (92, 32, 1, 1, 'P', 3);
 
-TRUNCATE TABLE `usuario`;
 INSERT INTO `usuario` (`id_usuario`, `premium`) VALUES
 (32, 0),
 (35, 0),
-(36, 1);
+(36, 1),
+(38, 0);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
