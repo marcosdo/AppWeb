@@ -93,7 +93,6 @@ class Foro {
     }
 
     public static function seleCategorias(){
-        $rts = "";
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "SHOW COLUMNS FROM foro WHERE Field = '%s'",
