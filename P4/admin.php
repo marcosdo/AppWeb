@@ -10,6 +10,7 @@ $contenidoPrincipal = <<<EOS
     <ul>
         <li><a href='adminusuarios.php'>Operaciones sobre usuarios</a></li>
         <li><a href='adminanuncios.php'>Operaciones sobre anuncios</a></li>
+        <li><a href='adminproductos.php'>Operaciones sobre productos</a></li>
     </ul>
 </div>
 EOS;
