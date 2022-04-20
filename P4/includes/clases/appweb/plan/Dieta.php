@@ -318,6 +318,92 @@ class Dieta {
         return $ret;
     }
 
+    public static function getComidas($tipo){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM comidas WHERE comidas.tipo = '%s'", $tipo); 
+        $rs = $conn->query($query); 
+        $comidas = array();
+        while($fila = $rs->fetch_assoc()){
+            $comidas[] = $fila["descripcion"];
+        }
+        $rs->free();
+        return $comidas;
+    }
+
+    public static function usuarioEditarRutina(&$alias){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM entrena WHERE entrena.editadieta = '%d'",1); 
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
+        $alias =  $fila['usuario'];
+        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
+        $rs2 = $conn->query($query2); 
+        $fila2 = $rs2->fetch_assoc();
+        return $fila2['id_usuario'];
+    }
+
+    public static function editarDieta($datos){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        $dias = 0;
+        $alias = "";
+        $idusuario = self::usuarioEditarRutina($alias);
+        $desayuno = array();
+        $almuerzo = array();
+        $cena = array();
+        $fecha = self:: buscaDieta($idusuario, $dias, $desayuno, $almuerzo, $cena);
+        $fechaini = $fecha;
+
+        for ($i = 0; $i < 3; $i++) {
+            $fecha = $fechaini;
+            for ($j = 0; $j < $dias;$j++) { 
+                
+                switch ($i) {
+                    case 0: 
+                    $defecto = $desayuno[$j];
+                    break;
+                    case 1: 
+                    $defecto = $almuerzo[$j]; 
+                    break;
+                    case 2: 
+                    $defecto = $cena[$j]; 
+                    break;
+                    default: break;
+                }
+                $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%d'", $idusuario); 
+                $rs = $conn->query($query); 
+                $diaspos = $i;
+                $diaspos .= "-";
+                $diaspos .= $j;
+                $select = $datos[$diaspos];
+                if($defecto != $select){ // Se cambia el ejercicio
+                    $queryaux = sprintf("SELECT * FROM comidas WHERE comidas.descripcion = '%s'", $select); 
+                    $rsaux = $conn->query($queryaux); 
+                    $filaaux = $rsaux->fetch_assoc();
+                    $idc = $filaaux['id_comida'];
+                    switch ($i){
+                        case 0: 
+                            $query2 = sprintf("UPDATE dieta SET dieta.id_desayuno = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                            break;
+                        case 1: 
+                            $query2 = sprintf("UPDATE dieta SET dieta.id_almuerzo = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                            break;
+                        case 2: 
+                            $query2 = sprintf("UPDATE dieta SET dieta.id_cena = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
+                            break;
+                            default: break;
+                    }
+                    $conn->query($query2); 
+
+                }
+                $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
+            }
+        }
+        $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
+        $conn->query($queryeditar);
+
+    }
+
 
 }
 ?>

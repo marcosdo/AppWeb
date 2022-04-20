@@ -3,6 +3,8 @@ namespace appweb\plan;
 
 use appweb\Formulario;
 use appweb\Aplicacion;
+use appweb\plan\Dieta;
+
 
 class FormularioEditarDieta extends Formulario {
     public function __construct() {
@@ -10,37 +12,22 @@ class FormularioEditarDieta extends Formulario {
     }
     
     private function comidas ($defecto, $tipo){
+        $comidas = Dieta::getComidas($tipo);
         $rts = "";
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM comidas WHERE comidas.tipo = '%s'", $tipo); 
-        $rs = $conn->query($query); 
-        while($fila = $rs->fetch_assoc()){
-            if($defecto == $fila['descripcion']){
-                $rts .= "<option value='$fila[descripcion]' selected>$fila[descripcion]</option>";
+        foreach ($comidas as &$valor) {
+            if($defecto == $valor){
+                $rts .= "<option value='$valor' selected>$valor</option>";
             }
             else
-                $rts .= "<option value='$fila[descripcion]'>$fila[descripcion]</option>";
+                $rts .= "<option value='$valor'>$valor</option>";
         }
-        $rs->free();
         return $rts;
-    }
-
-    private function idUsuario(&$alias){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE entrena.editadieta = '%d'",1); 
-        $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $alias =  $fila['usuario'];
-        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
-        $rs2 = $conn->query($query2); 
-        $fila2 = $rs2->fetch_assoc();
-        return $fila2['id_usuario'];
     }
 
     private function generaTabla(){
         $dias = 0;
         $alias = "";
-        $idusuario = self::idUsuario($alias);
+        $idusuario = Dieta::usuarioEditarRutina($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
@@ -131,66 +118,9 @@ class FormularioEditarDieta extends Formulario {
     }
 
     protected function procesaFormulario(&$datos) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
 
         if (count($this->errores) === 0) {
-
-            $dias = 0;
-            $alias = "";
-            $idusuario = self::idUsuario($alias);
-            $desayuno = array();
-            $almuerzo = array();
-            $cena = array();
-            $fecha = Dieta:: buscaDieta($idusuario, $dias, $desayuno, $almuerzo, $cena);
-            $fechaini = $fecha;
-
-            for ($i = 0; $i < 3; $i++) {
-                $fecha = $fechaini;
-                for ($j = 0; $j < $dias;$j++) { 
-                    
-                    switch ($i) {
-                        case 0: 
-                        $defecto = $desayuno[$j];
-                        break;
-                        case 1: 
-                        $defecto = $almuerzo[$j]; 
-                        break;
-                        case 2: 
-                        $defecto = $cena[$j]; 
-                        break;
-                        default: break;
-                    }
-                    $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%d'", $idusuario); 
-                    $rs = $conn->query($query); 
-                    $diaspos = $i;
-                    $diaspos .= "-";
-                    $diaspos .= $j;
-                    $select = $datos[$diaspos];
-                    if($defecto != $select){ // Se cambia el ejercicio
-                        $queryaux = sprintf("SELECT * FROM comidas WHERE comidas.descripcion = '%s'", $select); 
-                        $rsaux = $conn->query($queryaux); 
-                        $filaaux = $rsaux->fetch_assoc();
-                        $idc = $filaaux['id_comida'];
-                        switch ($i){
-                            case 0: 
-                                $query2 = sprintf("UPDATE dieta SET dieta.id_desayuno = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
-                                break;
-                            case 1: 
-                                $query2 = sprintf("UPDATE dieta SET dieta.id_almuerzo = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
-                                break;
-                            case 2: 
-                                $query2 = sprintf("UPDATE dieta SET dieta.id_cena = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
-                                break;
-                                default: break;
-                        }
-                        $actualizacontiene = $conn->query($query2); 
-  
-                    }
-                    $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
-                }
-            }
-            $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
-            $actualizadieta = $conn->query($queryeditar);
+            Dieta::editarDieta($datos);
         }
         
 

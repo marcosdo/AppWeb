@@ -215,6 +215,67 @@ class Rutina {
         return $arrayaux;
     }
 
+    public static function usuarioEditarRutina(&$alias){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM entrena WHERE entrena.editarutina = '%d'",1); 
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
+        $alias =  $fila['usuario'];
+        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
+        $rs2 = $conn->query($query2); 
+        $fila2 = $rs2->fetch_assoc();
+        return $fila2['id_usuario'];
+    }
+
+    public static function getEjercicios(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM ejercicios"); 
+        $rs = $conn->query($query); 
+        $ejercicios = array();
+        while($fila = $rs->fetch_assoc()){
+            $ejercicios[] = $fila["nombre"];
+        }
+        $rs->free();
+        return $ejercicios;
+    }
+
+    public static function editarRutina($datos){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $alias = "";
+        $idusuario = self::usuarioEditarRutina($alias);
+        $obj = 0;
+        $arrayreps = [];
+        $arrayaux = self::buscaRutina($obj, $arrayreps, $idusuario);
+        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
+        $dias = count($arrayaux);
+
+        for ($i = 0; $i < $ejerciciostotales;$i++){
+            for ($j = 0; $j < $dias;$j++) { 
+                $tabla = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
+                $diaspos = $j;
+                $diaspos .= "-";
+                $diaspos .= $i;
+                if($tabla != "") $select = $datos[$diaspos];
+                else $select = $tabla;
+                if($tabla != $select){ 
+                    $query = sprintf("SELECT * FROM ejercicios");
+                    $rs = $conn->query($query); 
+                    while ($fila = $rs->fetch_assoc()){
+                        if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
+                        if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
+                    }
+                    $diaact = $j+1;
+                    $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $diaact);
+                    $conn->query($query2); 
+
+                }
+            }
+        }
+        $queryeditar = sprintf("UPDATE entrena SET entrena.editarutina = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
+        $conn->query($queryeditar);
+    }
+
+
     public function __construct($id, $objetivo, $nivel, $dias) {
         $this->_nivel = $nivel;
         $this->_id = $id;
