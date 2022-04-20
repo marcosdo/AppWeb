@@ -8,6 +8,8 @@ use appweb\usuarios\Personas;
  */
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
+    $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos recomendados</a></li>";
+
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
         if (isset($_SESSION['rol'])) {
             // Si eres admin
