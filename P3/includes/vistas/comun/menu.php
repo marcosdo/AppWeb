@@ -25,6 +25,7 @@ function htmlmenu() {
                 $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
                 $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
                 $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
             }
             // Si eres profesional
             else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
