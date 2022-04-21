@@ -8,7 +8,7 @@ if (!($foro = appweb\foro\Foro::buscaxID($idforo))) {
 }
 
 $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
-$numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 5;
+$numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 3;
 
 $msgs = appweb\foro\Mensaje::getMsgs($idforo, 'IS NULL');
 
