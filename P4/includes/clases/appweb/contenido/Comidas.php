@@ -25,7 +25,7 @@ class Comidas {
 
     public static function getData(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT descripcion, link FROM comidas");
+        $query = sprintf("SELECT * FROM comidas");
         $rs = $conn->query($query);
         $result = array();
         try {
