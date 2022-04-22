@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -132,7 +133,7 @@ DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
   `id_noticia` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_profesional` int(5) UNSIGNED NOT NULL,
-  `titulo` varchar(40) NOT NULL,
+  `titulo` mediumtext NOT NULL,
   `cuerpo` mediumtext NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id_noticia`),
@@ -177,12 +178,15 @@ CREATE TABLE IF NOT EXISTS `premium` (
 DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `id_producto` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(5) UNSIGNED NOT NULL,
   `imagen` varchar(25) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` mediumtext NOT NULL,
   `precio` decimal(10,0) UNSIGNED NOT NULL,
   `link` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_producto`)
+  `tipo` enum('proteina','caseina','creatina','aminoacidos','preentreno','gainer') NOT NULL,
+  PRIMARY KEY (`id_producto`),
+  KEY `id_empresa` (`id_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `profesional`;
@@ -248,6 +252,9 @@ ALTER TABLE `premium`
   ADD CONSTRAINT `premium_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `premium_ibfk_2` FOREIGN KEY (`id_profesional`) REFERENCES `profesional` (`id_profesional`);
 
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`);
+
 ALTER TABLE `profesional`
   ADD CONSTRAINT `profesional_ibfk_1` FOREIGN KEY (`id_profesional`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -256,6 +263,7 @@ ALTER TABLE `rutina`
 
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
