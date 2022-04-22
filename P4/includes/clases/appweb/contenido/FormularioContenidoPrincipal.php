@@ -11,9 +11,11 @@ class FormularioContenidoPrincipal extends Formulario {
     }
 
     protected function generaCamposFormulario(&$datos) {
+        $ruta = RUTA_IMGS;
         $html = <<<EOF
         <div class=contenido>
             <div id=recetas>
+                <img src=$ruta/recetasCPP.png alt="recetas">
                 <button type="submit" name="recetas">RECETAS</button>
             </div>
             <div id=noticias>
