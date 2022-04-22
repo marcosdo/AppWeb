@@ -1,18 +1,28 @@
 <?php
 use appweb\Aplicacion;
-use appweb\contenido\Noticias;
+use appweb\usuarios\Profesional;
 
 function muestraNoticia($noticia) {
-   // $html = "<h4>".$titulo[$i]."</h4>"; //PONER AQUI REFERENCIA :))
-   // return $html;
+   $app = Aplicacion::getInstance();
+   $verURL = $app->buildUrl('noticia.php', [
+       'id' => $noticia['id_noticia']
+   ]);
+   $profesional = Profesional::buscaID($noticia['id_profesional']);
+   return <<<EOS
+   <a href="{$verURL}">
+        <h4> {$noticia['titulo']} </h4>
+        <p> {$profesional->getNick()} </p>
+        <p> ({$noticia['fecha']}) </p>
+    </a>
+   EOS;
 }
 
 
-function listaListaNoticiasPaginadas($noticias, $url, $numPorPagina = 5, $numPagina = 1) {
+function listaListaNoticiasPaginadas($noticias, $url, $numPorPagina = 10, $numPagina = 1) {
     return listaListaNoticiasPaginadasRecursivo($noticias, $url,  1, $numPorPagina, $numPagina);
 }
 
-function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
+function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numPorPagina = 10, $numPagina = 1) {
     $primerNoticia = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numNoticias = count($noticias);

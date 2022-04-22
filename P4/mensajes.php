@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-
 require_once __DIR__.'/includes/vistas/helpers/mensajes.php';
 
 // Coger los parametros $_GET: ?id=n, y si no existe redirigir al index

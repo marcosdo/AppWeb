@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/vistas/helpers/noticias.php';
 
 // Coger los parametros $_GET: ?id=n, y si no existe redirigir al index
 $idNoticia = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
