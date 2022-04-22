@@ -12,9 +12,17 @@ class FormularioContenidoPrincipal extends Formulario {
 
     protected function generaCamposFormulario(&$datos) {
         $html = <<<EOF
-        <button type="submit" name="recetas">RECETAS</button>
-        <button type="submit" name="noticias">NOTICIAS</button>
-        <button type="submit" name="ejercicios">EJERCICIOS</button>
+        <div class=contenido>
+            <div id=recetas>
+                <button type="submit" name="recetas">RECETAS</button>
+            </div>
+            <div id=noticias>
+                <button type="submit" name="noticias">NOTICIAS</button>
+            </div>
+            <div id=ejercicios>
+                <button type="submit" name="ejercicios">EJERCICIOS</button>
+            </div>
+        <div>
         EOF;
         return $html;
     }
