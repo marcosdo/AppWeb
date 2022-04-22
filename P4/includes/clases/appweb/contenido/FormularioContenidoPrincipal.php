@@ -19,9 +19,11 @@ class FormularioContenidoPrincipal extends Formulario {
                 <button type="submit" name="recetas">RECETAS</button>
             </div>
             <div id=noticias>
+                <img src=$ruta/noticiasCPP.png alt="noticias">
                 <button type="submit" name="noticias">NOTICIAS</button>
             </div>
             <div id=ejercicios>
+                <img src=$ruta/ejerciciosCPP.png alt="ejercicios">
                 <button type="submit" name="ejercicios">EJERCICIOS</button>
             </div>
         <div>

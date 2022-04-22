@@ -8,7 +8,6 @@ use appweb\usuarios\Personas;
  */
 function htmlmenu() {
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
-    $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos recomendados</a></li>";
 
     if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
         if (isset($_SESSION['rol'])) {
@@ -28,6 +27,7 @@ function htmlmenu() {
                 $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
                 $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
                 $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos</a></li>";
             }
             // Si eres profesional
             else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {

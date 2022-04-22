@@ -2,20 +2,9 @@
 use appweb\Aplicacion;
 use appweb\contenido\Comidas;
 
-function muestraReceta() {
-    $app = Aplicacion::getInstance();
-    $data = Comidas::getData();
-    $descripcion = array_column($data, 'descripcion');
-    $link = array_column($data, 'link');
-
-    $html = "<div class=recetas><h3>Todas las recetas</h3><ul>";
-    for ($i = 0; $i < count($data); $i++) {
-        $html .= "<li>";
-        $html .= "<h4>".$descripcion[$i]."</h4>";
-        $html .= "<iframe src='https://www.youtube.com/embed/$link[$i]'></iframe>";
-        $html .= "</li>";
-    }
-    $html .= "</ul></div>";
+function muestraReceta($receta) {
+    $html = "<h4>".$receta["descripcion"]."</h4>";
+    $html .= "<iframe src='https://www.youtube.com/embed/$receta[link]'></iframe>";
     return $html;
 }
 
@@ -43,8 +32,7 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
     for($idx = $primeraReceta; $idx < $primeraReceta + $numPorPagina && $idx < $numRecetas; $idx++) {
         $receta = $recetas[$idx];
         $html .= '<li>';
-        $html .= "<h4>".$descripcion[$idx]."</h4>";
-        $html .= "<iframe src='https://www.youtube.com/embed/$link[$idx]'></iframe>";
+        $html .= muestraReceta($receta);
         $html .= '</li>';
     }
     $html .= '</ul></div>';

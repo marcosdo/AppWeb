@@ -27,6 +27,9 @@ h1 {
 	text-align: center;
 }
 
+article {
+	width: 100%;
+}
 /* Estructura de la pagina*/
 
 #contenedor {
@@ -95,7 +98,7 @@ nav a, nav h3{
 	font-weight: 500;
 }
 
-.navbar .nav-container li {
+.navbar .nav-container li, .recetas li, .temas li, .nivel li {
 	list-style: none;
 }
 
@@ -175,6 +178,7 @@ main {
 	margin: 0 auto;
 	background-color: #f8f9fa;
 	grid-area: contenido;
+	width: 90%;
 }
 
 footer {
@@ -233,17 +237,25 @@ footer {
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
 	}
+
+	.contenido {
+		grid-template-rows: auto auto auto;
+	}
 	
 	#tabla img {
 		display: none;
 	}
 
-	#formRutinas, #formPago, #formVerRutina, #formForo, #formEntrenadorRutinas{
+	#formRutinas, #formPago, #formVerRutina, #formForo, #formEntrenadorRutinas, #recetas{
 		grid-area: izq;
 	}
 	
-	#formDietas, #suscripcion, #formVerDieta, .temas, #formEntrenadorDietas{
+	#formDietas, #suscripcion, #formVerDieta, .temas, #formEntrenadorDietas, #ejercicios{
 		grid-area: der;
+	}
+
+	#noticias{
+		grid-area: centro;
 	}
 	
 }
@@ -251,7 +263,6 @@ footer {
 .temas {
 	width: 100%;
 	text-align: center;
-	list-style-type: none;
 }
 
 /* MENSAJES POPUP*/
@@ -376,8 +387,26 @@ div#repeticiones {
 	grid-template-areas: "izq" "der";
 }
 
+.verplan #formVerRutina #formVerDieta {
+	width: 50%;
+}
 
+/* display contenido */
 
+.contenido {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-template-areas: "izq" "centro" "der";
+}
+
+.contenido {
+	text-align: center;
+}
+
+.contenido img {
+	width: 250px;
+	height: 250px;
+}
 /* formularios */
 
 #formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, #formChatUsuario, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido{
@@ -434,7 +463,6 @@ div#repeticiones {
 	font-weight: bold;
 	border-radius: 5px;
 	display: inline-flex;
-	list-style-type: none;
 	padding: 7px 3px;
 	margin: 0;
 }
@@ -532,130 +560,7 @@ select option[value=""][disabled] {
 	width: 100%;
 }
 
-/*
-#chat {
-	float: left;
-	width: 50%;
-	background-color: rgb(201, 0, 0);
-}
-.selectA { 
-	float: left;
-	width: 200px; 
-	height: 30px; }
-.selectB { 
-	float: right;
-	width: 200px; 
-	height: 30px; 
-}
-.buttonA { 
-	float: left;
-	width: 200px; 
-	height: 30px; 
-	background-color: #94d696;
-}
-.buttonB { 
-	float: right;
-	width: 200px; 
-	height: 30px; 
-	background-color: #c47e7e;
-}
-
-#logros {
-    margin:0 auto;
-    margin-bottom:25px;
-    padding:10px;
-    background:rgb(66, 66, 68);
-   height:270px;
-    width:430px;
-    border:1px solid #00ffe1;
-	border-width: thick;
-    overflow:auto;
-	text-align: center;
-}
-#select{
-    float: left;
-	height: 50px;
-	width: 420px;
-	text-align: center;
-}
-#selectA{
-    float: left;
-	height: 40px;
-	width: 420px;
-	text-align: left;
-}
- 
-
-  
-form, p, span {
-    margin:0;
-    padding:0; 
-}
- 
-#wrapper, #loginform {
-    margin:0 auto;
-    padding-bottom:25px;
-    background:rgb(66, 66, 68);
-	text-align: center;
-    width:504px;
-    border:1px solid #00ffe1;
-border-width: thick;}
-  
-
-  
-#chatbox {
-    text-align:left;
-    margin:0 auto;
-    margin-bottom:25px;
-    padding:10px;
-    overflow:auto; 
-}
-.chat{
-	background:#fff;
-    height:270px;
-    width:430px;
-    border:1px solid #ACD8F0;
-	margin-bottom:25px;
-	padding:10px;
-
-}
-#usermsg {
-    width:325px;
-    border:1px solid #ACD8F0; }
-#usermsgSelect {
-		width:60px;
-border:1px solid #ACD8F0; }
-  
-#submit { width: 60px; }
-.text {color:white;}
-.textD {color:white;
-	float: left;
-	width: 200px; 
-	height: 30px; }
-.textI {color:white;
-	float: right;
-	width: 200px; 
-	height: 30px;}
-.ButtonD {background-color:#c47e7e;
-	float: left;
-	width: 200px; 
-	height: 30px; }
-.ButtonI {background-color:#94d696;
-	float: right;
-	width: 200px; 
-	height: 30px;}
-
-.ButtonEnviar {background-color:#94d696;}
-.ButtonActua {background-color:#00ffe1;}
-.text1{
-	color:#4afb50;
-}
-.text2{
-	color:#ff5252;
-}
-.welcome { float:left;color:white }
-*/
-
+/* chat */
 .chat {
 	width: 100%;
 	height: 200px;
@@ -666,4 +571,24 @@ border:1px solid #ACD8F0; }
 	margin-bottom: 10px;
 	color: #292a3a;
 	margin-top: 10px;
+}
+
+/* recetas */
+
+.recetas {
+	background: #FFFFFF;
+	margin: auto;
+	border-radius: 20px;
+	width: 100%;
+}
+
+.recetas iframe {
+	width: 80%;
+}
+
+/* ejercicios */
+
+.ejercicios img{
+	width : 320px;
+	height: 300px;
 }
