@@ -667,3 +667,8 @@ border:1px solid #ACD8F0; }
 	color: #292a3a;
 	margin-top: 10px;
 }
+
+.ejercicios img{
+	width : 200px;
+	height: 200px;
+}

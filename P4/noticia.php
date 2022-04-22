@@ -11,10 +11,6 @@ $noticia = appweb\contenido\Noticias::buscaxID($idNoticia);
 if (!$noticia) {
 	appweb\Aplicacion::redirige($app->buildUrl('/noticias.php'));
 }
-
-$numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
-$numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 3;
-
 $tituloPagina = 'Noticia';
 
 $titulo = $noticia->getTitulo();

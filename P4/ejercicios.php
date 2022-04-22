@@ -1,14 +1,18 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/vistas/helpers/ejercicios.php';
 
-$form = new appweb\chat\FormularioPago();
-$htmlFormPago = $form->gestiona();
+$numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
+$numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 18;
 
-$tituloPagina = 'Pago';
-$ruta = RUTA_IMGS;
+$ejercicios = appweb\contenido\Ejercicios::getData();
+$lista = listaListaEjerciciosPaginadas($ejercicios, 'ejercicios.php', $numPorPagina, $numPagina);
+
+$tituloPagina = 'Ejercicios';
 $contenidoPrincipal = <<<EOS
-<h1>Contratacion de nutricionista</h1>
-$htmlFormPago
+<h1>EJERCICIOS</h1>
+$lista
 EOS;
+
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
