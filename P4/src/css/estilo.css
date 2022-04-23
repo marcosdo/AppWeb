@@ -435,7 +435,7 @@ div#repeticiones {
 
 /* input*/
 
-.form input, #formPago input, #formForo input, #formAdminCrea input, #formAdminBorra input, #formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio #nombre {
+.form input, #formPago input, #formForo input, #formAdminCrea input, #formAdminBorra input, #formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio #nombre,  #formCreaEjercicio label{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;
@@ -444,6 +444,12 @@ div#repeticiones {
 	border-radius: 3px;
 	box-sizing: border-box;
 	font-size: 1em;
+}
+
+#formCreaEjercicio label {
+	text-align: center;
+	display: block;
+	cursor: pointer;
 }
 
 /* errores formularios */
@@ -684,8 +690,8 @@ select option[value=""][disabled] {
 /* ejercicios */
 
 .ejercicios img{
-	width : 250px;
-	height: 230px;
+	width : 200px;
+	height: 180px;
 }
 
 .ejercicios {
@@ -718,6 +724,6 @@ select option[value=""][disabled] {
 	grid-template-areas: "izq"  "centro" "der";
 }
 
-#formCreaEjercicio input {
+#formCreaEjercicio #imagen {
 	display: none;
 }
