@@ -34,6 +34,7 @@ function htmlmenu() {
                 $html .= "<li><a href='chatprof.php'>Chat</a></li>";
                 $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
                 $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+                $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
             }
         }
     }
