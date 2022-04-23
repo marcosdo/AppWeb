@@ -6,9 +6,10 @@ use appweb\productos\Productos;
  * @return html
  */
 function listaProductos() {
-    Productos::getTodosProductos();
-
-    $html = "A.";
+    Productos::getProductos();
+    $html = "<br>Lista productos...";
+    
 
     return $html;
 }
+
