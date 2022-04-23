@@ -1,6 +1,7 @@
 <?php
 use appweb\Aplicacion;
 use appweb\usuarios\Profesional;
+use appweb\contenido\FormularioBorraNoticia;
 
 function muestraNoticia($noticia, $clase) {
    $app = Aplicacion::getInstance();
@@ -19,6 +20,10 @@ function muestraNoticia($noticia, $clase) {
    EOS;
 }
 
+function botonBorraNoticia($noticia) {
+    $form = new  FormularioBorraNoticia($noticia['id_noticia']);
+    return $form->gestiona();
+}
 
 function listaListaNoticiasPaginadas($noticias, $url, $numPorPagina = 10, $numPagina = 1) {
     return listaListaNoticiasPaginadasRecursivo($noticias, $url,  1, $numPorPagina, $numPagina);
@@ -44,6 +49,9 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
         else $clase = "impar";
         $html .= '<li>';
         $html .= muestraNoticia($noticia, $clase);
+        if($app->esProfesional()){
+            $html .= botonBorraNoticia($noticia);
+        }
         $html .= '</li>';
     }
     $html .= '</ul></div>';

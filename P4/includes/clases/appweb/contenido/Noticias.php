@@ -20,6 +20,7 @@ class Noticias {
         $this->titulo = $titulo;
         $this->cuerpo = $cuerpo;
         $this->fecha = $fecha;
+        $this->id_noticia = $id_noticia;
     }
 
     public static function getData(){
@@ -39,6 +40,30 @@ class Noticias {
         return $result;
     }
 
+    public static function creaNoticia($id_profesional, $titulo,  $cuerpo, $fecha) {
+        $noticia = new Noticias($id_profesional, $titulo,  $cuerpo, $fecha);
+        return self::inserta($noticia);
+    }
+
+    public static function inserta($noticia) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO noticias (id_profesional, titulo, cuerpo, fecha) 
+            VALUES (%d, '%s','%s','%s')"
+            , $noticia->id_profesional
+            , $conn->real_escape_string($noticia->titulo)
+            , $conn->real_escape_string($noticia->cuerpo)
+            , $conn->real_escape_string($noticia->fecha)
+        );
+        try {
+            $conn->query($query);
+            $noticia->id_noticia = $conn->insert_id;
+            return $noticia;
+        } catch (\mysqli_sql_exception $e) {
+            throw $e;
+        }
+    }
+
     public static function buscaxID($id){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
@@ -47,7 +72,8 @@ class Noticias {
         try {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
-            $noticia = new Noticias($fila['id_profesional'], $fila['titulo'], $fila['cuerpo'], $fila['fecha'], $fila['id_noticia']);
+                                        
+            $noticia = new Noticias($fila['id_profesional'], $fila['titulo'], $fila['cuerpo'], $fila['fecha'], $id);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -59,5 +85,32 @@ class Noticias {
     public function getTitulo() { return $this->titulo; }
     public function getCuerpo() { return $this->cuerpo; }
     public function getFecha() { return $this->fecha; }
+   
+    private static function borra($idnoticia) {
+        return self::borraXID($idnoticia->id_noticia);
+    }
 
+    public static function borraXID($idnoticia) {
+        if (!$idnoticia)
+            return false;
+
+        $result = false;
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM noticias WHERE id_noticia = %d", $idnoticia);
+        try {
+            $result = $conn->query($query);
+        }
+        catch (\mysqli_sql_exception $e) {
+            throw $e;
+        }
+        return $result;
+    }
+
+    public function borrate() {
+        if ($this->id_noticia !== null) {
+            return self::borra($this);
+        }
+        return false;
+    }
 }
