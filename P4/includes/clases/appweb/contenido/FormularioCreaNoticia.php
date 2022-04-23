@@ -20,7 +20,7 @@ class FormularioCreaNoticia extends Formulario {
         
         <input id="titulo" type="text" name="titulo" placeholder="titulo de la noticia" />
         {$erroresCampos['titulo']}
-        <h3>Cuerpo de la noticia:</h3>
+        <h3>Cuerpo de la noticia</h3>
         <textarea id="cuerpo" type="text" name="cuerpo" placeholder="Empieza a escribir aqui..."></textarea>
         {$erroresCampos['cuerpo']}
         <button type="submit" name="enviar">Crea esta noticia</button>
