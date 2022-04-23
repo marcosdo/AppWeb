@@ -72,7 +72,7 @@ abstract class Formulario {
     public function __construct($formId, $opciones = array()) {
         $this->formId = $formId;
 
-        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null);
+        $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => 'multipart/form-data', 'urlRedireccion' => null);
         $opciones = array_merge($opcionesPorDefecto, $opciones);
 
         $this->action = $opciones['action'];

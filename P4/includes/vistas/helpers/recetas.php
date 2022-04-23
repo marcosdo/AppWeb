@@ -29,11 +29,17 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
     if ($numRecetas > $numPorPagina + $primeraReceta) {
         $haySiguientePagina = true;
     }
+    if($app->esProfesional()){
+        $form = new appweb\contenido\FormularioCreaReceta();
+        $html = $form->gestiona();
+    }
+    else $html = '';
+    
 
     $descripcion = array_column($recetas, 'descripcion');
     $link = array_column($recetas, 'link');
     
-    $html = '<div class=recetas><ul>';
+    $html .= '<div class=recetas><ul>';
     for($idx = $primeraReceta; $idx < $primeraReceta + $numPorPagina && $idx < $numRecetas; $idx++) {
         $receta = $recetas[$idx];
         $html .= '<li>';

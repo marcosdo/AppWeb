@@ -32,7 +32,7 @@ class FormularioContenidoPrincipal extends Formulario {
             </div>
             <div id=ejercicios>
                 <div>
-                    <img src=$ruta/ejerciciosCPP.png alt="ejercicios">
+                    <img src=$ruta/ejerciciosCPPaux.png alt="ejercicios">
                 </div>
                 <div>
                     <button type="submit" name="ejercicios">EJERCICIOS</button>

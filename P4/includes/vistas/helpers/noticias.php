@@ -41,8 +41,12 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
     if ($numNoticias > $numPorPagina + $primerNoticia) {
         $haySiguientePagina = true;
     }
-
-    $html = '<div class=noticias><ul>';
+    if($app->esProfesional()){
+        $form = new appweb\contenido\FormularioCreaNoticia();
+        $html = $form->gestiona();
+    }
+    else $html ='';
+    $html .= '<div class=noticias><ul>';
     for($idx = $primerNoticia; $idx < $primerNoticia + $numPorPagina && $idx < $numNoticias; $idx++) {
         $noticia = $noticias[$idx];
         if(($idx%2) == 0) $clase = "par";
