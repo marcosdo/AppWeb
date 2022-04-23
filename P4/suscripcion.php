@@ -6,7 +6,6 @@ $form = new appweb\chat\FormularioPago();
 $htmlFormPago = $form->gestiona();
 
 $tituloPagina = 'Pago';
-$ruta = RUTA_IMGS;
 $contenidoPrincipal = <<<EOS
 <h1>Contratacion de nutricionista</h1>
 $htmlFormPago
