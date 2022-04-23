@@ -87,7 +87,7 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
         }
 
         $html .=<<<EOS
-            <div>
+            <div id=paginas>
                 Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
             </div>
         EOS;

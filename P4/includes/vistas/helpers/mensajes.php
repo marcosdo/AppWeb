@@ -218,7 +218,7 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         }
 
         $html .=<<<EOS
-            <div>
+            <div id=paginas>
                 Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
             </div>
         EOS;

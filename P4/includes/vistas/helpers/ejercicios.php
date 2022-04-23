@@ -50,12 +50,15 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
     $auxiliar = 0; 
     for($idx = $primerejercicio; $idx < $primerejercicio + $numPorPagina && $idx < $numejercicios; $idx++) {
         if(!$auxiliar) $html .= '<div class="fila">';
+        $id= 'row'.$auxiliar;
+        $html .= "<div id=$id>";
         $auxiliar += 1;
         $ejercicio = $ejercicios[$idx];
         $html .= muestraEjercicio($ejercicio);
         if($app->esProfesional()){
             $html .= botonBorraEjercicio($ejercicio);
         }
+        $html .= '</div>';
         if($auxiliar == 3){
             $auxiliar = 0;
             $html .= '</div>';
@@ -90,7 +93,7 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         }
 
         $html .=<<<EOS
-            <div>
+            <div id=paginas>
                 Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
             </div>
         EOS;
