@@ -1,4 +1,3 @@
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -9,7 +8,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-DROP TABLE IF EXISTS `anuncio`;
 CREATE TABLE IF NOT EXISTS `anuncio` (
   `id_anuncio` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_empresa` int(5) UNSIGNED NOT NULL,
@@ -20,14 +18,12 @@ CREATE TABLE IF NOT EXISTS `anuncio` (
   KEY `Empresa_FK` (`id_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id_categoria` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tipo` enum('proteina','creatina','vitaminas','gainer','aminoacidos','pre-entreno','minerales') NOT NULL,
   PRIMARY KEY (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `chat`;
 CREATE TABLE IF NOT EXISTS `chat` (
   `Receptor` text NOT NULL,
   `Origen` text NOT NULL,
@@ -36,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `Tipo` enum('U-E','E-U') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `comidas`;
 CREATE TABLE IF NOT EXISTS `comidas` (
   `id_comida` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `objetivo` int(1) NOT NULL,
@@ -46,7 +41,6 @@ CREATE TABLE IF NOT EXISTS `comidas` (
   PRIMARY KEY (`id_comida`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `contiene`;
 CREATE TABLE IF NOT EXISTS `contiene` (
   `id_rutina` int(5) NOT NULL,
   `id_ejercicio` int(5) NOT NULL,
@@ -56,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `contiene` (
   KEY `id_rutina` (`id_rutina`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `dieta`;
 CREATE TABLE IF NOT EXISTS `dieta` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
@@ -70,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `dieta` (
   KEY `clave-dieta-cena` (`id_cena`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `ejercicios`;
 CREATE TABLE IF NOT EXISTS `ejercicios` (
   `id_ejercicio` int(5) NOT NULL,
   `tipo` int(1) NOT NULL,
@@ -81,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `ejercicios` (
   PRIMARY KEY (`id_ejercicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `empresas`;
 CREATE TABLE IF NOT EXISTS `empresas` (
   `id_empresa` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
@@ -89,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   UNIQUE KEY `nombre_empresa` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `entrena`;
 CREATE TABLE IF NOT EXISTS `entrena` (
   `nutri` text NOT NULL,
   `usuario` text NOT NULL,
@@ -97,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `entrena` (
   `editadieta` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `foro`;
 CREATE TABLE IF NOT EXISTS `foro` (
   `id_foro` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
@@ -113,7 +102,6 @@ CREATE TABLE IF NOT EXISTS `foro` (
   KEY `nickcreador` (`nickcreador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `mensaje`;
 CREATE TABLE IF NOT EXISTS `mensaje` (
   `id_mensaje` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
@@ -129,18 +117,16 @@ CREATE TABLE IF NOT EXISTS `mensaje` (
   KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
   `id_noticia` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_profesional` int(5) UNSIGNED NOT NULL,
   `titulo` mediumtext NOT NULL,
   `cuerpo` mediumtext NOT NULL,
-  `fecha` datetime NOT NULL,
+  `fecha` date NOT NULL,
   PRIMARY KEY (`id_noticia`),
   KEY `id_profesional` (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `personas`;
 CREATE TABLE IF NOT EXISTS `personas` (
   `id_usuario` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nick` varchar(6) NOT NULL,
@@ -153,7 +139,6 @@ CREATE TABLE IF NOT EXISTS `personas` (
   UNIQUE KEY `nick_admin` (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `pertenece`;
 CREATE TABLE IF NOT EXISTS `pertenece` (
   `id_producto` int(5) UNSIGNED NOT NULL,
   `id_categoria` int(5) UNSIGNED NOT NULL,
@@ -161,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `pertenece` (
   KEY `Categoria_FK` (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `premium`;
 CREATE TABLE IF NOT EXISTS `premium` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `id_profesional` int(5) UNSIGNED NOT NULL,
@@ -175,7 +159,6 @@ CREATE TABLE IF NOT EXISTS `premium` (
   KEY `Pro_FK` (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `id_producto` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_empresa` int(5) UNSIGNED NOT NULL,
@@ -189,7 +172,6 @@ CREATE TABLE IF NOT EXISTS `productos` (
   KEY `id_empresa` (`id_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `profesional`;
 CREATE TABLE IF NOT EXISTS `profesional` (
   `id_profesional` int(5) UNSIGNED NOT NULL,
   `nutri` varchar(20) NOT NULL,
@@ -198,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `profesional` (
   PRIMARY KEY (`id_profesional`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `rutina`;
 CREATE TABLE IF NOT EXISTS `rutina` (
   `id_rutina` int(5) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(5) UNSIGNED NOT NULL,
@@ -211,7 +192,6 @@ CREATE TABLE IF NOT EXISTS `rutina` (
   KEY `id_usuario` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id_usuario` int(5) UNSIGNED NOT NULL,
   `premium` tinyint(1) NOT NULL,
@@ -263,7 +243,6 @@ ALTER TABLE `rutina`
 
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `personas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
