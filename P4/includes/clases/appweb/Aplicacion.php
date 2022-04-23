@@ -255,6 +255,11 @@ class Aplicacion {
         $this->compruebaInstanciaInicializada();
         return $this->usuarioLogueado() && $_SESSION['rol'] == 0;
     }
+    
+    public function esProfesional() {
+        $this->compruebaInstanciaInicializada();
+        return $this->usuarioLogueado() && $_SESSION['rol'] == 2;
+    }
 
     /**
      * Metodo que comprueba si el rol existe
