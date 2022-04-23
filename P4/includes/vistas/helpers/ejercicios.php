@@ -1,5 +1,6 @@
 <?php
 use appweb\Aplicacion;
+use appweb\contenido\FormularioBorraEjercicio;
 
 
 function muestraEjercicio($ejercicio) {
@@ -16,6 +17,10 @@ function muestraEjercicio($ejercicio) {
    EOS;
 }
 
+function botonBorraEjercicio($ejercicio) {
+    $form = new  FormularioBorraEjercicio($ejercicio['id_ejercicio']);
+    return $form->gestiona();
+}
 
 function listaListaEjerciciosPaginadas($ejercicios, $url, $numPorPagina = 18, $numPagina = 1) {
     return listaListaejerciciosPaginadasRecursivo($ejercicios, $url,  1, $numPorPagina, $numPagina);
@@ -42,6 +47,9 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         $ejercicio = $ejercicios[$idx];
         $html .= '<li>';
         $html .= muestraEjercicio($ejercicio);
+        if($app->esProfesional()){
+            $html .= botonBorraEjercicio($ejercicio);
+        }
         if($auxiliar == 3){
             $auxiliar = 0;
             $html .= '</div><div>';

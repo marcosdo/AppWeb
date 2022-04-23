@@ -9,9 +9,13 @@ $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_I
 $ejercicios = appweb\contenido\Ejercicios::getData();
 $lista = listaListaEjerciciosPaginadas($ejercicios, 'ejercicios.php', $numPorPagina, $numPagina);
 
+$form = new appweb\contenido\FormularioCreaEjercicio();
+$htmlFormEjercicio = $form->gestiona();
+
 $tituloPagina = 'Ejercicios';
 $contenidoPrincipal = <<<EOS
 <h1>EJERCICIOS</h1>
+$htmlFormEjercicio
 $lista
 EOS;
 
