@@ -17,8 +17,10 @@ $titulo = $noticia->getTitulo();
 $cuerpo = $noticia->getCuerpo();
 
 $contenidoPrincipal = <<<EOS
-<h1>{$titulo}</h1>
-<p>{$cuerpo}</p>
+<div id='noticia'>
+	<h1>{$titulo}</h1>
+	<p>{$cuerpo}</p>
+</div>
 EOS;
 
 

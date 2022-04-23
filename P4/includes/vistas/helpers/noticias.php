@@ -2,18 +2,20 @@
 use appweb\Aplicacion;
 use appweb\usuarios\Profesional;
 
-function muestraNoticia($noticia) {
+function muestraNoticia($noticia, $clase) {
    $app = Aplicacion::getInstance();
    $verURL = $app->buildUrl('noticia.php', [
        'id' => $noticia['id_noticia']
    ]);
    $profesional = Profesional::buscaID($noticia['id_profesional']);
    return <<<EOS
-   <a href="{$verURL}">
-        <h4> {$noticia['titulo']} </h4>
-        <p> {$profesional->getNick()} </p>
-        <p> ({$noticia['fecha']}) </p>
-    </a>
+   <div class = $clase>
+    <a href="{$verURL}">
+            <h4> {$noticia['titulo']} </h4>
+                <p> Autor: {$profesional->getNick()} <span class='fecha'> Fecha: ({$noticia['fecha']}) </span</p>
+            </p>
+        </a>
+    </div>
    EOS;
 }
 
@@ -38,9 +40,11 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
     $html = '<div class=noticias><ul>';
     for($idx = $primerNoticia; $idx < $primerNoticia + $numPorPagina && $idx < $numNoticias; $idx++) {
         $noticia = $noticias[$idx];
+        if(($idx%2) == 0) $clase = "par";
+        else $clase = "impar";
         $html .= '<li>';
-        $html .= muestraNoticia($noticia);
-        
+        $html .= muestraNoticia($noticia, $clase);
+        $html .= '</li>';
     }
     $html .= '</ul></div>';
 

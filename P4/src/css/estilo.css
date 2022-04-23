@@ -96,7 +96,7 @@ nav a, nav h3{
 	font-weight: 500;
 }
 
-.navbar .nav-container li, .recetas li, .temas li, .nivel li, .noticias li {
+.navbar .nav-container li, .recetas li, .temas li, .nivel li, .noticias li, .ejercicios li {
 	list-style: none;
 }
 
@@ -627,9 +627,20 @@ select option[value=""][disabled] {
 	text-align: center;
 }
 
+.noticias .fecha {
+	float:right;
+}
+
+#noticia p {
+	text-align: justify;
+}
 /* ejercicios */
 
 .ejercicios img{
 	width : 320px;
 	height: 300px;
+}
+
+#ejercicio {
+	text-align: center;
 }
