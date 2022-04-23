@@ -408,7 +408,8 @@ div#repeticiones {
 }
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, #formChatUsuario, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido{
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg, 
+#formChatUsuario, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -424,9 +425,12 @@ div#repeticiones {
 	display: none;
 }
 
+#formCreaNoticia h3 {
+	text-align: center;
+}
 /* input*/
 
-.form input, #formPago input, #formForo input, #formAdminCrea input, #formAdminBorra input{
+.form input, #formPago input, #formForo input, #formAdminCrea input, #formAdminBorra input, #formCreaReceta input, #formCreaNoticia input{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;
@@ -511,7 +515,9 @@ select option[value=""][disabled] {
 
 /* botones */
 
-.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario input, #formChatEntrenador input, #formAdminCrea button, #formAdminBorra button, #formContenido button{
+.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
+#formEditaMensaje button, #formBorraMensaje button, #formChatUsuario input, #formChatEntrenador input, #formAdminCrea button, #formAdminBorra button, 
+#formContenido button, #formCreaReceta button, #formCreaNoticia button, #formBorraReceta button, #formBorraNoticia button, #formBorraEjercicio button{
 	outline: 0;
 	background: #EF3B3A;
 	border: 0;
@@ -528,7 +534,8 @@ select option[value=""][disabled] {
 	color: #292a3a;
 }
 
-#formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formEntrenadorRutinas button, #formEntrenadorDietas button, #formEditarRutinas button, #formEditarDietas button {
+#formBorraForo button, #formEditaMensaje button, #formBorraMensaje button, #formEntrenadorRutinas button, #formEntrenadorDietas button, #formEditarRutinas button, 
+#formEditarDietas button {
 	background: #EF3B3A;
 	border: 0;
 	padding: 10px;
@@ -541,10 +548,17 @@ select option[value=""][disabled] {
 	font-family: Century;
 }
 
-.form button, #formPago button{
+.form button, #formPago button, #formBorraNoticia button{
 	width: 100%;
 }
 
+#formBorraNoticia {
+	margin-bottom: 10px;
+}
+
+#formBorraReceta button, #formBorraEjercicio button {
+	width: 80%
+}
 /* miniatura login registro */
 
 .form .thumbnail {
@@ -559,14 +573,14 @@ select option[value=""][disabled] {
 	width: 100%;
 }
 
-/* chat */
-.chat {
+/* textarea */
+.chat, #formCreaNoticia textarea{
 	width: 100%;
 	height: 200px;
 	resize: none;
 	border-radius: 5px;
 	border: 0;
-	background-color: #e8eaed;
+	background-color: #f2f2f2;
 	margin-bottom: 10px;
 	color: #292a3a;
 	margin-top: 10px;
@@ -585,6 +599,7 @@ select option[value=""][disabled] {
 .recetas iframe {
 	width: 80%;
 	min-height: 250px;
+	border-radius: 20px;
 }
 
 .recetas ul{
