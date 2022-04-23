@@ -1,11 +1,16 @@
 <?php
 use appweb\Aplicacion;
-use appweb\contenido\Comidas;
+use appweb\contenido\FormularioBorraReceta;
 
 function muestraReceta($receta) {
     $html = "<h1>".$receta["descripcion"]."</h1>";
     $html .= "<iframe src='https://www.youtube.com/embed/$receta[link]'></iframe>";
     return $html;
+}
+
+function botonBorraReceta($receta) {
+    $form = new  FormularioBorraReceta($receta['id_comida']);
+    return $form->gestiona();
 }
 
 function listaListaRecetasPaginadas($recetas, $url, $numPorPagina = 3, $numPagina = 1) {
@@ -33,6 +38,9 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
         $receta = $recetas[$idx];
         $html .= '<li>';
         $html .= muestraReceta($receta);
+        if($app->esProfesional()){
+            $html .= botonBorraReceta($receta);
+        }
         $html .= '</li>';
     }
     $html .= '</ul></div>';

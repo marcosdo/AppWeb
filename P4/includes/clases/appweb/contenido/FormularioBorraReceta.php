@@ -35,10 +35,19 @@ class FormularioBorraReceta extends Formulario {
             $this->errores[] = 'No tengo claro que receta actualizar.';
 
         if (count($this->errores) === 0) {
-            $comida = Comidas::buscaxID($idreceta);
-  
-            if ($app->usuarioLogueado() && $app->esProfesional()) {
-                $comida->borrate();
+            try {
+                $comida = Comidas::buscaxID($idreceta);
+    
+                if ($app->usuarioLogueado() && $app->esProfesional()) {
+                    $comida->borrate();
+                }
+
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha borrado la comida'];
+                $app->putAtributoPeticion('mensajes', $mensajes);
+            }
+            catch (\Exception $e) {
+                $this->errores[] = 'No se puede eliminar la receta.';
             }
         }
     }

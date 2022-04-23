@@ -6,7 +6,7 @@ use appweb\Aplicacion;
 
 class FormularioCreaReceta extends Formulario {
     public function __construct() {
-        parent::__construct('formCreaReceta');
+        parent::__construct('formCreaReceta', ['urlRedireccion' => 'recetas.php']);
     }
 
     protected function generaCamposFormulario(&$datos) {
