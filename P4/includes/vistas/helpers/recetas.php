@@ -3,7 +3,7 @@ use appweb\Aplicacion;
 use appweb\contenido\Comidas;
 
 function muestraReceta($receta) {
-    $html = "<h4>".$receta["descripcion"]."</h4>";
+    $html = "<h1>".$receta["descripcion"]."</h1>";
     $html .= "<iframe src='https://www.youtube.com/embed/$receta[link]'></iframe>";
     return $html;
 }

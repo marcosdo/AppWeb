@@ -7,8 +7,6 @@ body {
 	margin : 0;
 	padding : 0;
     font-family:  Century;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	background-color: #f8f9fa;
 }
 
@@ -98,7 +96,7 @@ nav a, nav h3{
 	font-weight: 500;
 }
 
-.navbar .nav-container li, .recetas li, .temas li, .nivel li {
+.navbar .nav-container li, .recetas li, .temas li, .nivel li, .noticias li {
 	list-style: none;
 }
 
@@ -257,7 +255,6 @@ footer {
 	#noticias{
 		grid-area: centro;
 	}
-	
 }
 
 .temas {
@@ -401,6 +398,8 @@ div#repeticiones {
 
 .contenido {
 	text-align: center;
+	align-items: center;
+	height: 100%;
 }
 
 .contenido img {
@@ -577,13 +576,55 @@ select option[value=""][disabled] {
 
 .recetas {
 	background: #FFFFFF;
-	margin: auto;
+	padding-top: 15px;
 	border-radius: 20px;
 	width: 100%;
+	text-align: center;
 }
 
 .recetas iframe {
 	width: 80%;
+	min-height: 250px;
+}
+
+.recetas ul{
+	padding-inline-start: 0px;
+}
+
+/* noticias */
+
+.noticias ul {
+	padding-inline-start: 0px;
+}
+
+.noticias .par {
+	border-radius: 20px;
+	background-color: #e6e6e6;
+}
+
+.noticias .impar {
+	background-color: #FFFFFF;
+	border-radius: 20px;
+}
+
+.noticias .par, .noticias .impar {
+	padding: 10px 10px;
+	margin-bottom: 10px;
+}
+
+.noticias a, .noticias a:visited{
+	color: #292a3a;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.noticias a:hover {
+	color: #e1523d;
+	text-decoration: underline;
+}
+
+.noticias h4 {
+	text-align: center;
 }
 
 /* ejercicios */

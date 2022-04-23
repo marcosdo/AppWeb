@@ -15,16 +15,28 @@ class FormularioContenidoPrincipal extends Formulario {
         $html = <<<EOF
         <div class=contenido>
             <div id=recetas>
-                <img src=$ruta/recetasCPP.png alt="recetas">
-                <button type="submit" name="recetas">RECETAS</button>
+                <div>
+                    <img src=$ruta/recetasCPP.png alt="recetas">
+                </div>
+                <div>
+                    <button type="submit" name="recetas">RECETAS</button>
+                </div>
             </div>
             <div id=noticias>
-                <img src=$ruta/noticiasCPP.png alt="noticias">
-                <button type="submit" name="noticias">NOTICIAS</button>
+                <div>
+                    <img src=$ruta/noticiasCPP.png alt="noticias">
+                </div>
+                <div>
+                    <button type="submit" name="noticias">NOTICIAS</button>
+                </div>
             </div>
             <div id=ejercicios>
-                <img src=$ruta/ejerciciosCPP.png alt="ejercicios">
-                <button type="submit" name="ejercicios">EJERCICIOS</button>
+                <div>
+                    <img src=$ruta/ejerciciosCPP.png alt="ejercicios">
+                </div>
+                <div>
+                    <button type="submit" name="ejercicios">EJERCICIOS</button>
+                </div>
             </div>
         <div>
         EOF;
