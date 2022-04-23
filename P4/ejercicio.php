@@ -14,7 +14,7 @@ if (!$ejercicio) {
 
 $tituloPagina = 'Ejercicio';
 
-$imagen = $ejercicio->getImagen();
+$imagen = $ejercicio->getId_ejercicio();
 $nombre = $ejercicio->getNombre();
 $descripcion = $ejercicio->getDescripcion();
 $musculo = $ejercicio->getMusculo();
@@ -35,7 +35,5 @@ $contenidoPrincipal = <<<EOS
 	<p>{$descripcion}</p>
 </div>
 EOS;
-
-
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';

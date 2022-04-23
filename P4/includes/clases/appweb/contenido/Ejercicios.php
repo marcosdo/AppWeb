@@ -31,7 +31,7 @@ class Ejercicios {
     public static function inserta($ejercicio) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO ejercicio (tipo, musculo, nombre, descripcion) 
+            "INSERT INTO ejercicios (tipo, musculo, nombre, descripcion) 
             VALUES (%d, '%s','%s','%s')"
             , $ejercicio->tipo
             , $conn->real_escape_string($ejercicio->musculo)
@@ -85,7 +85,7 @@ class Ejercicios {
     public function getMusculo() { return $this->musculo; }
     public function getNombre() { return $this->nombre; }
     public function getDescripcion() { return $this->descripcion; }
-    public function getImagen() { return $this->imagen; }
+    
 
     private static function borra($idejercicio) {
         return self::borraXID($idejercicio->id_ejercicio);
@@ -96,7 +96,7 @@ class Ejercicios {
             return false;
 
         $result = false;
-
+        
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM ejercicios WHERE id_ejercicio = %d", $idejercicio);
         $result = $conn->query($query);

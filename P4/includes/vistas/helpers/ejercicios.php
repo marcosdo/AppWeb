@@ -12,7 +12,7 @@ function muestraEjercicio($ejercicio) {
    return <<<EOS
    <a href="{$verURL}">
         <h4> {$ejercicio['nombre']} </h4>
-        <p> <img src="$ruta/ejercicios/$ejercicio[id_ejercicio].png" alt="LIFETY"> </p>
+        <img src="$ruta/ejercicios/$ejercicio[id_ejercicio].png" alt="LIFETY">
     </a>
    EOS;
 }
@@ -39,25 +39,29 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         $haySiguientePagina = true;
     }
 
-    $html = '<div class=ejercicios><ul>';
-    $html .= '<div class="fila">'; //MOSTRAR 3 EJERCICIOS EN UNA FILA :)
+    if($app->esProfesional()){
+        $form = new appweb\contenido\FormularioCreaEjercicio();
+        $html = $form->gestiona();
+    }
+    else $html = '';
+
+    $html .= '<div class=ejercicios>';
+     //MOSTRAR 3 EJERCICIOS EN UNA FILA :)
     $auxiliar = 0; 
     for($idx = $primerejercicio; $idx < $primerejercicio + $numPorPagina && $idx < $numejercicios; $idx++) {
+        if(!$auxiliar) $html .= '<div class="fila">';
         $auxiliar += 1;
         $ejercicio = $ejercicios[$idx];
-        $html .= '<li>';
         $html .= muestraEjercicio($ejercicio);
         if($app->esProfesional()){
             $html .= botonBorraEjercicio($ejercicio);
         }
         if($auxiliar == 3){
             $auxiliar = 0;
-            $html .= '</div><div>';
+            $html .= '</div>';
         }
-        
     }
     $html .= '</div>';
-    $html .= '</ul></div>';
 
     if ($nivel == 1) {
         // Controles de paginacion
