@@ -35,7 +35,7 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
     }
 
     $html = '<div class=ejercicios><ul>';
-    $html .= '<div>'; //MOSTRAR 3 EJERCICIOS EN UNA FILA :)
+    $html .= '<div class="fila">'; //MOSTRAR 3 EJERCICIOS EN UNA FILA :)
     $auxiliar = 0; 
     for($idx = $primerejercicio; $idx < $primerejercicio + $numPorPagina && $idx < $numejercicios; $idx++) {
         $auxiliar += 1;

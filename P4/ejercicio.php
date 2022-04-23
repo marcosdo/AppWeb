@@ -19,12 +19,21 @@ $nombre = $ejercicio->getNombre();
 $descripcion = $ejercicio->getDescripcion();
 $musculo = $ejercicio->getMusculo();
 $tipo = $ejercicio->getTipo();
+$ruta = RUTA_IMGS;
 
+switch($tipo) {
+	case 1: $aux = "fuerza";
+	case 2: $aux = "hipertrofia";
+	case 3: $aux = "resistencia";
+}
 $contenidoPrincipal = <<<EOS
 <h1>{$nombre}</h1>
-<p>{$descripcion}</p>
-<p>{$musculo}</p>
-<p>{$tipo}</p>
+<div id='ejercicio'>
+	<img src="$ruta/ejercicios/$imagen.png" alt="LIFETY">
+	<p>Musculo entrenado: {$musculo}</p>
+	<p>Util para mejorar la {$aux}</p>
+	<p>{$descripcion}</p>
+</div>
 EOS;
 
 
