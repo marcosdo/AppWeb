@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `ejercicios` (
   `musculo` varchar(40) DEFAULT NULL,
   `nombre` varchar(40) DEFAULT NULL,
   `descripcion` mediumtext NOT NULL,
-  `imagen` varchar(50) NOT NULL,
   PRIMARY KEY (`id_ejercicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
