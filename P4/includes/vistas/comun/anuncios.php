@@ -8,8 +8,8 @@ function htmlbanner(){
     $contenido = $array[0];
     $imagen = $array[1];
     $link = $array[2];
-    return "<a href='$link'>
-    <img src='$img/anuncios/$imagen' alt= '$contenido'/></a>";
+    return "<a href='$link' title = '$contenido'>
+    <img src='$img/anuncios/$imagen'/></a>";
 }
 ?>
 
@@ -21,10 +21,5 @@ function htmlbanner(){
     </div>
 </aside>
 
-<script type="text/javascript">
-  function actualizar(){$('#actua').load('anuncios.php');}
-//Función para actualizar cada 4 segundos(4000 milisegundos)
-  setInterval("actualizar()",1000);
-</script>
 
 
