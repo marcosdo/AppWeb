@@ -5,8 +5,10 @@ use appweb\publicidad\BannerAnuncio;
 function htmlbanner(){
     $array = BannerAnuncio::LogicaBanner();
     $img = RUTA_IMGS;
-    $link = $array[1];
-    return "<img src='$img/anuncios/$link'>";
+    $contenido = $array[0];
+    $imagen = $array[1];
+    $link = $array[2];
+    return "<img src='$img/anuncios/$imagen' href= '$link' alt= '$contenido'>";
 }
 ?>
 
