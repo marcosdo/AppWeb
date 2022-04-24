@@ -8,7 +8,8 @@ function htmlbanner(){
     $contenido = $array[0];
     $imagen = $array[1];
     $link = $array[2];
-    return "<img src='$img/anuncios/$imagen' href= '$link' alt= '$contenido'>";
+    return "<a href='$link'>
+    <img src='$img/anuncios/$imagen' alt= '$contenido'/></a>";
 }
 ?>
 
