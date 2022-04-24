@@ -22,9 +22,9 @@ $tipo = $ejercicio->getTipo();
 $ruta = RUTA_IMGS;
 
 switch($tipo) {
-	case 1: $aux = "fuerza";
-	case 2: $aux = "hipertrofia";
-	case 3: $aux = "resistencia";
+	case 0: $aux = "fuerza";
+	case 1: $aux = "hipertrofia";
+	case 2: $aux = "resistencia";
 }
 $contenidoPrincipal = <<<EOS
 <h1>{$nombre}</h1>
