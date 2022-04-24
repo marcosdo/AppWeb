@@ -64,7 +64,7 @@ class FormularioAdminAnuncio extends Formulario {
                 $filename = $_FILES["imagen"]["name"];
                 $location = 'C:/xampp/htdocs/AW/GitHub/P4/src/img/anuncios/' . $filename;
                 move_uploaded_file($_FILES["imagen"]["tmp_name"],$location);
-                Anuncio::creaAnuncio($id_empresa,$contenido,$imagen,$link);
+                Anuncio::creaAnuncio($id_empresa,$contenido,$filename,$link);
             }
             catch (\Exception $e) {
                 $this->errores[] = 'Imposible crear el anuncio';

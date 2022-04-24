@@ -6,7 +6,7 @@ function htmlbanner(){
     $array = BannerAnuncio::LogicaBanner();
     $img = RUTA_IMGS;
     $link = $array[1];
-    return "<img src='$img/logos/$link'>";
+    return "<img src='$img/anuncios/$link'>";
 }
 ?>
 
