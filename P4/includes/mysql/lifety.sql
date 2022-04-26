@@ -27,11 +27,11 @@ CREATE TABLE `anuncio` (
   `id_empresa` int(5) unsigned NOT NULL,
   `contenido` mediumtext NOT NULL,
   `imagen` varchar(30) NOT NULL,
-  `orden` int(1) unsigned NOT NULL,
+  `link` varchar(50) NOT NULL,
   PRIMARY KEY (`id_anuncio`),
   KEY `Empresa_FK` (`id_empresa`),
   CONSTRAINT `Empresa_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `anuncio` (
 
 LOCK TABLES `anuncio` WRITE;
 /*!40000 ALTER TABLE `anuncio` DISABLE KEYS */;
+INSERT INTO `anuncio` VALUES (3,1,'1','entrenamiento.jpg','https://es-es.facebook.com/ '),(4,1,'1','nutricionista.jpg','https://es-es.facebook.com/ '),(5,1,'hola que tal','9.jpg','https://www.nutritienda.com/es/prozis?');
 /*!40000 ALTER TABLE `anuncio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +222,7 @@ CREATE TABLE `empresas` (
   `nombre` varchar(20) NOT NULL,
   PRIMARY KEY (`id_empresa`),
   UNIQUE KEY `nombre_empresa` (`nombre`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,6 +231,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+INSERT INTO `empresas` VALUES (1,'facebook');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -570,4 +572,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-24 11:14:03
+-- Dump completed on 2022-04-26 16:44:44
