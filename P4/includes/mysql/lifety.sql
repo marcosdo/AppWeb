@@ -231,7 +231,14 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'facebook');
+INSERT INTO `empresas` VALUES (1,'facebook'),
+(2,'Prozis'),
+(3,'Myprotein'),
+(4,'Lifepro'),
+(5,'Emfit'),
+(6,'Iogenix'),
+(7,'HSN'),
+(8,'Potential');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
