@@ -12,7 +12,9 @@ function mostrarRutina(){
     
     $obj = 10;
     $arrayreps = [];
-    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $_SESSION['id']);
+    $arrayids = [];
+
+    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $_SESSION['id'], $arrayids);
     if($obj != 10) {
         // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
@@ -28,8 +30,10 @@ function mostrarRutina(){
             $contenido .= "<tr>";
             // num. de ejercicios al cabo del día
             for ($j = 0; $j < count($arrayaux); $j++) {
-                // DIA 4 Y 5 HASTA 6 Y DIA 1 A 3 HASTA 4 EN NIVEL PRINCIPIANTE :)
-                $auxiliar = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
+                $idejercicio = isset($arrayaux[$j][$i]) ? $arrayids[$j][$i] : ""; 
+                $nombreejercicio = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
+                $auxiliar = "<a href=".RUTA_APP."/ejercicio.php?id=$idejercicio>$nombreejercicio</a>";
+
                 if (isset($arrayaux[$j][$i])) 
                     $auxiliar .= " x ";
                 $auxiliar .= isset($arrayreps[$j][$i])  ? $arrayreps[$j][$i] : "";

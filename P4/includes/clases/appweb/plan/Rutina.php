@@ -134,7 +134,7 @@ class Rutina {
         return $reps;
     }
 
-    public static function buscaRutina(&$obj, &$arrayreps, &$usuario){
+    public static function buscaRutina(&$obj, &$arrayreps, &$usuario, &$arrayids){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $usuario, 1);
         $rs = $conn->query($query);
@@ -149,6 +149,8 @@ class Rutina {
             $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
             $t = $conn->query($q); 
             $arrayaux = [];
+            $arrayids = [];
+
             $dia1 = array();
             $dia2 = array();
             $dia3 = array();
@@ -159,6 +161,11 @@ class Rutina {
             $dia3r = array();
             $dia4r = array();
             $dia5r = array();
+            $dia1i = array();
+            $dia2i = array();
+            $dia3i = array();
+            $dia4i = array();
+            $dia5i = array();
         
             while($fila = $t->fetch_assoc()){
             
@@ -168,6 +175,8 @@ class Rutina {
                     $rs = $conn->query($c);
                     $fila = $rs->fetch_assoc();
                     array_push($dia1, $fila['nombre']);
+                    array_push($dia1i, $fila['id_ejercicio']);
+
                 }
                 else if ($fila['dia'] == 2){
                     array_push($dia2r, $fila['repeticiones']);
@@ -175,6 +184,8 @@ class Rutina {
                     $rs = $conn->query($c);
                     $fila = $rs->fetch_assoc();
                     array_push($dia2, $fila['nombre']);
+                    array_push($dia2i, $fila['id_ejercicio']);
+
                 }
                 else if ($fila['dia'] == 3){
                     array_push($dia3r, $fila['repeticiones']);
@@ -182,6 +193,8 @@ class Rutina {
                     $rs = $conn->query($c);
                     $fila = $rs->fetch_assoc();
                     array_push($dia3, $fila['nombre']);
+                    array_push($dia3i, $fila['id_ejercicio']);
+
                 }
                 else if ($fila['dia'] == 4){
                     array_push($dia4r, $fila['repeticiones']);
@@ -189,6 +202,8 @@ class Rutina {
                     $rs = $conn->query($c);
                     $fila = $rs->fetch_assoc();
                     array_push($dia4, $fila['nombre']);
+                    array_push($dia4i, $fila['id_ejercicio']);
+
                 }
                 else{
                     array_push($dia5r, $fila['repeticiones']);
@@ -196,6 +211,8 @@ class Rutina {
                     $rs = $conn->query($c);
                     $fila = $rs->fetch_assoc();
                     array_push($dia5, $fila['nombre']);
+                    array_push($dia5i, $fila['id_ejercicio']);
+
                 }
             }
             if(!empty($dia1)) array_push($arrayaux, $dia1);
@@ -209,6 +226,12 @@ class Rutina {
             if(!empty($dia3r)) array_push($arrayreps, $dia3r);
             if(!empty($dia4r)) array_push($arrayreps, $dia4r);
             if(!empty($dia5r)) array_push($arrayreps, $dia5r);
+
+            if(!empty($dia1i)) array_push($arrayids, $dia1i);
+            if(!empty($dia2i)) array_push($arrayids, $dia2i);
+            if(!empty($dia3i)) array_push($arrayids, $dia3i);
+            if(!empty($dia4i)) array_push($arrayids, $dia4i);
+            if(!empty($dia5i)) array_push($arrayids, $dia5i);
 
             $rs->free();
         }
@@ -245,7 +268,9 @@ class Rutina {
         $idusuario = self::usuarioEditarRutina($alias);
         $obj = 0;
         $arrayreps = [];
-        $arrayaux = self::buscaRutina($obj, $arrayreps, $idusuario);
+        $arrayids = [];
+
+        $arrayaux = self::buscaRutina($obj, $arrayreps, $idusuario, $arrayids);
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
         $dias = count($arrayaux);
 
