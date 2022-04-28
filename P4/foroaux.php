@@ -2,6 +2,8 @@
 require_once __DIR__.'/includes/config.php';
 include __DIR__.'/includes/vistas/helpers/mensajes.php';
 
+$app = appweb\Aplicacion::getInstance();
+
 $idforo = filter_input(INPUT_GET, 'idforo', FILTER_SANITIZE_NUMBER_INT);
 if (!($foro = appweb\foro\Foro::buscaxID($idforo))) {
     appweb\Aplicacion::redirige($app->buildUrl('/foros.php'));
@@ -19,7 +21,7 @@ $contenidoPrincipal = "<h1>$nombreForo</h1>";
 $params = [ 'idforo' => $idforo ];
 $contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroaux.php', $params, $numPorPagina, $numPagina);
 
-if (isset($_SESSION['rol'])) {
+if ($app->tieneRol()) {
     $form = new appweb\foro\FormularioCreaMensaje($idforo);
     $htmlFormMensaje = $form->gestiona();
 

@@ -7,35 +7,35 @@ use appweb\usuarios\Personas;
  * @return html
  */
 function htmlmenu() {
+    $app = Aplicacion::getInstance();
+
     $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
 
-    if (isset($_SESSION['login']) && ($_SESSION["login"] === true)) { 
-        if (isset($_SESSION['rol'])) {
-            // Si eres admin
-            if ($_SESSION['rol'] == Personas::ADMIN_ROLE) {
-                $html .= "<li><a href='admin.php'>Consola</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+    if ($app->usuarioLogueado()) { 
+        // Si eres admin
+        if ($app->esAdmin()) {
+            $html .= "<li><a href='admin.php'>Consola</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+        }
+        // Si eres usuario
+        else if ($app->esUsuario()) {
+            if ($app->esPremium()) 
+                $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
+            else {
+                $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
             }
-            // Si eres usuario
-            else if ($_SESSION['rol'] == Personas::USER_ROLE) {
-                if (isset($_SESSION['premium']) && $_SESSION['premium'] == 1) 
-                    $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
-                else {
-                    $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
-                }
-                $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
-                $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos</a></li>";
-            }
-            // Si eres profesional
-            else if($_SESSION['rol'] == Personas::PROFESSIONAL_ROLE) {
-                $html .= "<li><a href='chatprof.php'>Chat</a></li>";
-                $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
-                $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
-            }
+            $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
+            $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos</a></li>";
+        }
+        // Si eres profesional
+        else if($app->esProfesional()) {
+            $html .= "<li><a href='chatprof.php'>Chat</a></li>";
+            $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
         }
     }
     return $html;

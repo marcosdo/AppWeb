@@ -62,10 +62,11 @@ class FormularioForo extends Formulario {
 
         if (count($this->errores) === 0) {
             try {
-                $foro = Foro::crearForo($_SESSION['alias'], $_SESSION['id'], date_create()->format('Y-m-d H:i:s'), $tema, $contenido, $categoria);
-                Mensaje::creaMensaje($_SESSION['id'], $foro->getID(), $contenido);
-                /* POP UP */
                 $app = Aplicacion::getInstance();
+                $idUsuario = $app->idUsuario();
+                $foro = Foro::crearForo($app->nombreUsuario(), $idUsuario, date_create()->format('Y-m-d H:i:s'), $tema, $contenido, $categoria);
+                Mensaje::creaMensaje($idUsuario, $foro->getID(), $contenido);
+                /* POP UP */
                 $mensajes = ['Se ha creado el foro'];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } catch (\Exception $e) {

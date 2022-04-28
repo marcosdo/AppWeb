@@ -1,6 +1,7 @@
 <?php
 namespace appweb\plan;
 
+use appweb\Aplicacion;
 use appweb\Formulario;
 
 class FormularioRutinas extends Formulario {
@@ -86,8 +87,8 @@ class FormularioRutinas extends Formulario {
         if($dias != '3' && $dias != '5')
             $this->errores['dias'] = 'El dia no es válido.';
         if (count($this->errores) === 0) {
-            
-            $rutina = Rutina::crea($_SESSION['id'], $objetivo, $nivel, $dias);
+            $app = Aplicacion::getInstance();
+            $rutina = Rutina::crea($app->idUsuario(), $objetivo, $nivel, $dias);
             $rutina->comprobarRutina($rutina);
             
         }

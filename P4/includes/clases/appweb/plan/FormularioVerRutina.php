@@ -15,8 +15,9 @@ class FormularioVerRutina extends Formulario {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
     
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $_SESSION['id']); 
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $app->idUsuario());
         $rs = $conn->query($query);
         if($rs->num_rows > 0) {
             $boton = "<p> Pulsa aqui si quieres ver tu rutina </p>";

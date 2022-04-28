@@ -16,8 +16,9 @@ class FormularioVerDieta extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
     
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%s'", $_SESSION['id']); 
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%s'", $app->idUsuario()); 
         $rs = $conn->query($query);
         if($rs->num_rows > 0) {
             $boton = "<p> Pulsa aqui si quieres ver tu dieta </p>";

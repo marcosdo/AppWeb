@@ -48,15 +48,15 @@ class FormularioCreaMensaje extends Formulario {
 
         if (count($this->errores) === 0) {
             try {
+                $app = Aplicacion::getInstance();
                 $prioridad = 0;
                 if ($idpadre) {
                     $padre = Mensaje::buscaxID($idpadre);
                     $idforo = $padre->getIDForo();
                     $prioridad = $padre->getPrioridad() + 1;
                 }
-                Mensaje::creaMensaje($_SESSION['id'], $idforo, $mensaje, $prioridad, $titulo, $idpadre);
+                Mensaje::creaMensaje($app->idUsuario(), $idforo, $mensaje, $prioridad, $titulo, $idpadre);
                 /* POP UP */
-                $app = Aplicacion::getInstance();
                 $mensajes = ['Se ha creado el mensaje'];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } catch (\Exception $e) {

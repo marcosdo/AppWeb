@@ -1,6 +1,7 @@
 <?php
 namespace appweb\chat;
 
+use appweb\Aplicacion;
 use appweb\chat\Chat;
 use appweb\usuarios\Premium;
 
@@ -15,8 +16,9 @@ class  MostrarChatUsuario {
         return $rts;
     }
     public function mostrarChat(){
-        $usuactual = $_SESSION["alias"];
-        $id_usuario =  $_SESSION["id"];
+        $app = Aplicacion::getInstance();
+        $usuactual = $app->nombreUsuario();
+        $id_usuario = $app->idUsuario();
         $nombreEnt = Premium::getNombreEntrenador($id_usuario);
 
         $mensajes = self::mostrarMensajes($usuactual,$nombreEnt);

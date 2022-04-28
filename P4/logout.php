@@ -1,16 +1,9 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 
-//Doble seguridad: unset + destroy
-unset($_SESSION['login']);
-unset($_SESSION['nutri']);
-unset($_SESSION['nombre']);
-unset($_SESSION['id']);
-unset($_SESSION['premium']);
-unset($_SESSION['alias']);
-unset($_SESSION['rol']);
 
-session_destroy();
+$app = appweb\Aplicacion::getInstance();
+$app->logout();
 
 $tituloPagina = 'Logout';
 

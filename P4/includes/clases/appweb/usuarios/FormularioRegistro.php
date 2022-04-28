@@ -78,13 +78,9 @@ class FormularioRegistro extends Formulario {
             try {
                 $usuario = Usuario::registra($alias, $nombre, $apellidos, $mail, $password);
                 $usuario = Usuario::buscaPorAlias($alias);
-                // Mensaje POP UP ejercicio 3 anexo 1
-                $_SESSION['login'] = true;
-                $_SESSION['id'] = $usuario->getId();
-                $_SESSION['alias'] = $alias;
-                $_SESSION['nombre'] = $nombre;
-                $_SESSION['rol'] = Personas::USER_ROLE;
                 $app = Aplicacion::getInstance();
+                $app->login($usuario);
+                /* POP UP */
                 $mensajes = ['Se ha registrado exitosamente', "Gracias $nombre"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             } catch (UsuarioYaExisteException $e) {

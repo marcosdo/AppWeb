@@ -1,6 +1,7 @@
 <?php
 namespace appweb\chat;
 
+use appweb\Aplicacion;
 use appweb\usuarios\Profesional;
 
 class  MostrarChatEntrenador {
@@ -29,8 +30,9 @@ class  MostrarChatEntrenador {
     }
 
     public function mostrarChat(){
-        $usuactual = $_SESSION["alias"];
-        $id_usuario =  $_SESSION["id"];
+        $app = Aplicacion::getInstance();
+        $usuactual = $app->nombreUsuario();
+        $id_usuario = $app->idUsuario();
        
         $mensajes = "";
         if(isset($_POST['idE2'])) $mensajes = self::mostrarMensajes($_POST["idE2"] ,$usuactual,true);

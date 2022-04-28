@@ -43,17 +43,15 @@ class FormularioLogin extends Formulario {
         
         if (count($this->errores) === 0) {
             try {
-                $usuario = Personas::login($alias, $password);
-                $_SESSION['login'] = true;
-                $_SESSION['id'] = $usuario->getId();
-                $_SESSION['alias'] = $usuario->getAlias();
-                $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['rol'] = $usuario->getRol();
-                $aux = Usuario::buscaID($_SESSION['id']); 
-                if($aux) $_SESSION['premium'] = $aux->getPremium();
-                else $_SESSION['premium'] = 0;  
                 $app = Aplicacion::getInstance();
-                $mensajes = ['Se ha logeado exitosamente', "Bienvenido {$_SESSION['alias']}"];
+                $usuario = Personas::login($alias, $password);
+                $app->login($usuario);
+                $aux = Usuario::buscaID($app->idUsuario());
+                if ($aux)
+                    $app->setPremium($aux->getPremium());
+                else $app->setPremium(0);  
+                $app = Aplicacion::getInstance();
+                $mensajes = ['Se ha logeado exitosamente', "Bienvenido {$app->nombreUsuario()}"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             }
             catch (\Exception $e) {

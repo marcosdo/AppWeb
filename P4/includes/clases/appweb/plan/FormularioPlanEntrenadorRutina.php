@@ -41,8 +41,10 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
-    
-        $SelectUsuarios = self::Usuarios($_SESSION['alias']);
+
+        $app = Aplicacion::getInstance();
+
+        $SelectUsuarios = self::Usuarios($app->idUsuario());
         $boton ="";
         if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
         else {

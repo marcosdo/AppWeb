@@ -1,6 +1,7 @@
 <?php
 namespace appweb\chat;
 
+use appweb\Aplicacion;
 use appweb\Formulario;
 use appweb\usuarios\Profesional;
 use appweb\usuarios\Premium;
@@ -58,13 +59,18 @@ class FormularioPago extends Formulario {
 
         if (count($this->errores) === 0) {
             try {
+                $app = Aplicacion::getInstance();
+                $idUsuario = $app->idUsuario();
+                $nombre = $app->nombreUsuario();
+
                 $nutri = Profesional::buscaPorMenosUsuarios();
-                $premium = Premium::creaPremium($peso, $altura, $alergias, $observaciones, 0, "", $_SESSION['id'], $nutri->getId());
-                $nuevoCliente = Profesional::nuevoCliente($_SESSION['alias'], $nutri->getNum_usuarios() + 1, $nutri->getId(), $nutri->getNick());
-                
-                Premium::setPremium($_SESSION['id']);
-                $_SESSION['premium'] = 1;
-            } 
+                $premium = Premium::creaPremium($peso, $altura, $alergias, $observaciones, 0, "", $idUsuario, $nutri->getId());
+                $nuevoCliente = Profesional::nuevoCliente($nombre, $nutri->getNum_usuarios() + 1, $nutri->getId(), $nutri->getNick());
+
+                Premium::setPremium($idUsuario);
+                $app->setPremium(1);
+
+            }
             catch (\Exception $e) {
                 if (!$nutri)
                     $this->errores[] = "Ha ocurrido un problema al asignarle nutricionista";

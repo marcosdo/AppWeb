@@ -2,6 +2,9 @@
 
 namespace appweb;
 
+use appweb\usuarios\Usuario;
+use appweb\usuarios\Personas;
+
 /** Clase que mantiene el estado global de la aplicación. */
 class Aplicacion {
     // ==================== CONSTANTES ====================
@@ -196,13 +199,15 @@ class Aplicacion {
         $this->doIncludeInterna($rutaVista, $params);
     }
 
-    /*public function login(Usuario $user) {
+    public function login(Personas $user) {
         $this->compruebaInstanciaInicializada();
         $_SESSION['login'] = true;
+        $_SESSION['id'] = $user->getId();
+        $_SESSION['alias'] = $user->getAlias();
         $_SESSION['nombre'] = $user->getNombre();
         $_SESSION['idUsuario'] = $user->getId();
-        $_SESSION['roles'] = $user->getRoles();
-    }*/
+        $_SESSION['rol'] = $user->getRol();
+    }
 
     /** Metodo que cierra sesion borrando las variables de sesion y reiniciando la sesion */
     public function logout() {
@@ -247,18 +252,46 @@ class Aplicacion {
         return $_SESSION['id'] ?? '';
     }
 
+    /** Metodo que pone el usuario a premium */
+    public function setPremium($pre) {
+        $this->compruebaInstanciaInicializada();
+        $_SESSION['premium'] = $pre;
+    }
+
     /**
      * Metodo que comprueba si el usuario logeado es admin
      * @return true|false
      */
     public function esAdmin() {
         $this->compruebaInstanciaInicializada();
-        return $this->usuarioLogueado() && $_SESSION['rol'] == 0;
+        return $this->usuarioLogueado() && $_SESSION['rol'] == Personas::ADMIN_ROLE;
     }
     
+    /**
+     * Metodo que devuelve si el usuario es premium
+     * @return true|false
+     */
+    public function esPremium() {
+        $this->compruebaInstanciaInicializada();
+        return $this->usuarioLogueado() && $_SESSION['premium'] == 1;
+    }
+
+    /**
+     * Metodo que comprueba si el usuario es profesional
+     * @return true|false
+     */
     public function esProfesional() {
         $this->compruebaInstanciaInicializada();
-        return $this->usuarioLogueado() && $_SESSION['rol'] == 2;
+        return $this->usuarioLogueado() && $_SESSION['rol'] == Personas::PROFESSIONAL_ROLE;
+    }
+
+    /**
+     * Metodo que comprueba si el usuario es un usuario estandar
+     * @return true|false
+     */
+    public function esUsuario() {
+        $this->compruebaInstanciaInicializada();
+        return $this->usuarioLogueado() && $_SESSION['rol'] == Personas::USER_ROLE;
     }
 
     /**
@@ -266,9 +299,9 @@ class Aplicacion {
      * @var int $rol entero del rol que queremos comprobar
      * @return true|false
      */
-    public function tieneRol($rol) {
+    public function tieneRol() {
         $this->compruebaInstanciaInicializada();
-        return $this->usuarioLogueado() && (array_search($rol, $_SESSION['rol']) !== false);
+        return $this->usuarioLogueado() && isset($_SESSION['rol']);
     }
 
     /**

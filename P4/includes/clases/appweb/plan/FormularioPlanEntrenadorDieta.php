@@ -37,12 +37,14 @@ class FormularioPlanEntrenadorDieta extends Formulario {
 
     protected function generaCamposFormulario(&$datos) {
         $alias = $datos['alias'] ?? '';
-        
+
+        $app = Aplicacion::getInstance();
+
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
     
-        $SelectUsuarios = self::Usuarios($_SESSION['alias']);
+        $SelectUsuarios = self::Usuarios($app->idUsuario());
         $boton ="";
         if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
         else {

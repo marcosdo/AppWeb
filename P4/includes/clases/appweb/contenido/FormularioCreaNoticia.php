@@ -43,8 +43,8 @@ class FormularioCreaNoticia extends Formulario {
 
         if (count($this->errores) === 0) {
             try {
-                Noticias::creaNoticia($_SESSION['id'], $titulo, $cuerpo, date_create()->format('Y-m-d'));
                 $app = Aplicacion::getInstance();
+                Noticias::creaNoticia($app->idUsuario(), $titulo, $cuerpo, date_create()->format('Y-m-d'));
                 $mensajes = ['Se ha creado la noticia'];
                 $app->putAtributoPeticion('mensajes', $mensajes);
             }

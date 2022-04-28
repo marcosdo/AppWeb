@@ -1,6 +1,6 @@
 <?php
 
-
+use appweb\Aplicacion;
 use appweb\plan\Rutina;
 use appweb\plan\Dieta;
 
@@ -9,12 +9,13 @@ use appweb\plan\Dieta;
  * @return html Código en html de una tabla
 */
 function mostrarRutina(){
-    
+    $app = Aplicacion::getInstance();
+    $idusuario = $app->idUsuario();
     $obj = 10;
     $arrayreps = [];
     $arrayids = [];
 
-    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $_SESSION['id'], $arrayids);
+    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario, $arrayids);
     if($obj != 10) {
         // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
@@ -64,11 +65,12 @@ function mostrarRutina(){
  * @return html
 */
 function mostrarDieta(){
+    $app = Aplicacion::getInstance();
     $dias = 0;
     $desayuno = array();
     $almuerzo = array();
     $cena = array();
-    $fecha = Dieta:: buscaDieta($_SESSION['id'], $dias, $desayuno, $almuerzo, $cena);
+    $fecha = Dieta::buscaDieta($app->idUsuario(), $dias, $desayuno, $almuerzo, $cena);
 
     $contenido = "<table id=planificacion>";
     $contenido .= "<caption>Planificacion de tu dieta</caption>";

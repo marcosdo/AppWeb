@@ -76,12 +76,13 @@ class Dieta {
      * @var int $dias numero de dias que se hace la dieta
      */
     private static function insert_rows($bd, $desayunos, $comidas, $cenas, $tipo, $dias = 7) {
+        $app = Aplicacion::getInstance();
         $long_query = "";
         $fecha = date('Y-m-d');
         for ($i = 0; $i < $dias; $i++) {
             $query = sprintf(
                 "INSERT INTO dieta (id_usuario, fecha, id_desayuno, id_almuerzo, id_cena, tipo) VALUES (%d, '%s', %d, %d, %d, %d);",
-                $_SESSION['id'], $fecha, $desayunos[$i], $comidas[$i], $cenas[$i], $tipo
+                $app->idUsuario(), $fecha, $desayunos[$i], $comidas[$i], $cenas[$i], $tipo
             );
             $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
             $long_query .= $query;
@@ -100,10 +101,11 @@ class Dieta {
      * @var int $dias numero de dias que se hace la dieta
      */
     private static function update_rows($bd, $desayunos, $comidas, $cenas, $tipo, $dias = 7) {
+        $app = Aplicacion::getInstance();
         // Buscar la fecha mas antigua de su dieta
         $query = sprintf(
             "SELECT MIN(dieta.fecha) AS fecha FROM dieta WHERE dieta.id_usuario = %d",
-            $_SESSION['id']
+            $app->idUsuario()
         );
         // Si la consulta da error tratar el error
         if (!($result = $bd->query($query)))
@@ -120,7 +122,7 @@ class Dieta {
         for ($i = 0; $i < $dias; $i++) { 
             $query = sprintf(
                 "UPDATE dieta SET dieta.fecha = '%s', dieta.id_desayuno = %d, dieta.id_almuerzo = %d, dieta.id_cena = %d, dieta.tipo = %d WHERE dieta.id_usuario = %d AND dieta.fecha = '%s';",
-                $fecha_nueva, $desayunos[$i], $comidas[$i], $cenas[$i], $tipo, $_SESSION['id'], $fecha_antigua
+                $fecha_nueva, $desayunos[$i], $comidas[$i], $cenas[$i], $tipo, $app->idUsuario(), $fecha_antigua
             );
             $long_query .= $query;
             $fecha_nueva = date('Y-m-d', strtotime($fecha_nueva . '+1 day'));
@@ -139,9 +141,10 @@ class Dieta {
      * @return array|false
      */
     private static function select_rows($bd, $id) {
+        $app = Aplicacion::getInstance();
         $query = sprintf(
             "SELECT dieta.%s FROM dieta WHERE dieta.id_usuario = %d",
-            $id, $_SESSION['id']
+            $id, $app->idUsuario()
         );
         // Si la consulta da error tratar el error
         if (!($result = $bd->query($query)))
@@ -160,9 +163,10 @@ class Dieta {
      * @return true|false
      */
     private static function exists_id($bd) {
+        $app = Aplicacion::getInstance();
         $query = sprintf(
             "SELECT dieta.id_usuario FROM dieta WHERE dieta.id_usuario = %d",
-            $_SESSION['id']
+            $app->idUsuario()
         );
         // Si la consulta da error tratar el error
         if (!($result = $bd->query($query)))
@@ -180,10 +184,11 @@ class Dieta {
      * @return true|false
      */
     private static function exists_type($bd, $tipo) {
+        $app = Aplicacion::getInstance();
         // Busca si ya existe en la tabla 'planificacion' el tipo
         $query = sprintf(
             "SELECT dieta.tipo FROM dieta WHERE dieta.id_usuario = %d AND dieta.tipo = %d",
-            $_SESSION['id'], $tipo
+            $app->idUsuario(), $tipo
         );
         // Si la consulta da error tratar el error
         $result = $bd->query($query);
