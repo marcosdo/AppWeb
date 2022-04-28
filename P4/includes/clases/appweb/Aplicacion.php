@@ -273,7 +273,7 @@ class Aplicacion {
      */
     public function esPremium() {
         $this->compruebaInstanciaInicializada();
-        return $this->usuarioLogueado() && $_SESSION['premium'] == 1;
+        return $this->usuarioLogueado() && isset($_SESSION['premium']) && $_SESSION['premium'] == 1;
     }
 
     /**
