@@ -191,7 +191,14 @@ TRUNCATE TABLE `premium`;
 INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`) VALUES
 (36, 31, 70, 1, 'no', 'no', 0, '');
 
+
+
 TRUNCATE TABLE `productos`;
+INSERT INTO `productos` (`id_producto`, `id_empresa`, `imagen`, `nombre`, `descripcion`, `precio`, `link`, `tipo`) VALUES
+('1', '4', '', 'Choco Jungle Whey Protein', 'La mejor proteína del mercado con 70g por cada 100 del tipo Whey Protein.', '20', '', 'proteina'),
+('2', '2', '', 'Creatina Creapure', 'Creatina sin sabor de la mejor calidad del mercado.', '10', '', 'creatina'),
+('3', '5', '', 'Caseina', 'Producto ideal para acelerar la recuperacion muscular mientras descansas.', '21', '', 'caseina');
+
 TRUNCATE TABLE `profesional`;
 INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`) VALUES
 (31, 'pintus', 2, '');
