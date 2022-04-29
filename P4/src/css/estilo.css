@@ -364,8 +364,14 @@ tr:hover {
 	outline: none;
     text-decoration: none;
     padding: 2px 1px 0;
-    color: #13bee9;
+	color:#e1523d;
+
+
+
+    
 }
+/*color: #13bee9;
+*/
 
 #planificacion a:hover{
 	outline: none;
