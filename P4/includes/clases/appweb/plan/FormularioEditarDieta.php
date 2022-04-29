@@ -27,7 +27,7 @@ class FormularioEditarDieta extends Formulario {
     private function generaTabla(){
         $dias = 0;
         $alias = "";
-        $idusuario = Dieta::usuarioEditarRutina($alias);
+        $idusuario = Dieta::usuarioEditarDieta($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();

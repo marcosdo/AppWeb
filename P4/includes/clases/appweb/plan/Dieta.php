@@ -335,7 +335,7 @@ class Dieta {
         return $comidas;
     }
 
-    public static function usuarioEditarRutina(&$alias){
+    public static function usuarioEditarDieta(&$alias){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM entrena WHERE entrena.editadieta = '%d'",1); 
         $rs = $conn->query($query); 
@@ -352,7 +352,7 @@ class Dieta {
 
         $dias = 0;
         $alias = "";
-        $idusuario = self::usuarioEditarRutina($alias);
+        $idusuario = self::usuarioEditarDieta($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
