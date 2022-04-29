@@ -17,6 +17,8 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         foreach ($usuarios as &$valor) {
             $rts = $rts ."<option value='$valor'>$valor</option>";
         }
+
+        
        return $rts;
     }
 

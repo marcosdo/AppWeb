@@ -158,6 +158,33 @@ class Profesional extends Personas {
     }
 
 
+    public static function getUsuariosDieta ($entNombre){
+        $usuarios = array();
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
+        $rs = $conn->query($query); 
+        while($fila = $rs->fetch_assoc()){
+            $queryid = sprintf("SELECT * FROM personas WHERE nick = '%s'",$fila['usuario']);            
+            $rsid = $conn->query($queryid);
+            $filaid = $rsid->fetch_assoc();
+            if($filaid != null){
+                $id = $filaid['id_usuario'];
+                $query2 = sprintf("SELECT * FROM usuario WHERE id_usuario = '%s'",$id);            
+                $rs2 = $conn->query($query2); 
+                $filausuario = $rs2->fetch_assoc();
+                $query3 = sprintf("SELECT * FROM dieta WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
+                $rs3 = $conn->query($query3); 
+                $row_cnt = $rs3->num_rows;
+                if($row_cnt >0) array_push($usuarios, $fila['usuario']);
+            }
+        }
+
+       $rs->free();
+        
+       return $usuarios;
+    }
+
+
     
     // ==================== PRIVATE ====================
     private static function borra($nutri) { return self::borraPorId($nutri->id); }
