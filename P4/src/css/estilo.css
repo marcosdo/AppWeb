@@ -360,6 +360,21 @@ tr:hover {
 	background-color: #dddddd;
 }
 
+#planificacion a{
+	outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+    color: #13bee9;
+}
+
+#planificacion a:hover{
+	outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+	color: #f2f2f2;
+}
+
+
 #planificacion td:hover ,#planificacion th:hover{
 	background-color: #292a3a;
 	color: #f2f2f2;
