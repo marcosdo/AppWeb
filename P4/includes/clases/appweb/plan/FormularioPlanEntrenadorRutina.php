@@ -3,35 +3,20 @@ namespace appweb\plan;
 
 use appweb\Formulario;
 use appweb\Aplicacion;
+use appweb\usuarios\Profesional;
 
 class FormularioPlanEntrenadorRutina extends Formulario {
     public function __construct() {
         parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planeditarrutina.php']);
     }
     
-    private function Usuarios($entNombre){
+    private function Usuarios(){
         $rts = "";
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE nutri = '%s'",$entNombre); 
-        $rs = $conn->query($query); 
-        while($fila = $rs->fetch_assoc()){
-            $queryid = sprintf("SELECT * FROM personas WHERE nick = '%s'",$fila['usuario']);            
-            $rsid = $conn->query($queryid);
-            $filaid = $rsid->fetch_assoc();
-            if($filaid != null){
-                $id = $filaid['id_usuario'];
-                $query2 = sprintf("SELECT * FROM usuario WHERE id_usuario = '%s'",$id);            
-                $rs2 = $conn->query($query2); 
-                $filausuario = $rs2->fetch_assoc();
-                $query3 = sprintf("SELECT * FROM rutina WHERE id_usuario = '%s'",$filausuario['id_usuario']);          
-                $rs3 = $conn->query($query3); 
-                $row_cnt = $rs3->num_rows;
-                if($row_cnt >0) $rts = $rts ."<option value='$fila[usuario]'>$fila[usuario]</option>";
-            }
+        $app = Aplicacion::getInstance();
+        $usuarios = Profesional::getUsuariosRutina($app->nombreUsuario());
+        foreach ($usuarios as &$valor) {
+            $rts = $rts ."<option value='$valor'>$valor</option>";
         }
-
-       if($rts != "") $rs->free();
-        
        return $rts;
     }
 
@@ -44,7 +29,7 @@ class FormularioPlanEntrenadorRutina extends Formulario {
 
         $app = Aplicacion::getInstance();
 
-        $SelectUsuarios = self::Usuarios($app->idUsuario());
+        $SelectUsuarios = self::Usuarios();
         $boton ="";
         if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
         else {
