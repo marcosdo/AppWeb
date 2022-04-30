@@ -188,79 +188,6 @@ footer {
 
 }
 
-/* Diseño dispositivos pequeños*/
-
-@media all and (max-width: 860px) {
-	#contenedor {
-		grid-template-rows: 150px 40px auto auto 200px;
-		grid-template-areas: "cabecera"  "menu" "contenido" "anuncios" "pie";
-		grid-template-columns: auto;
-		display: grid;
-	}
-	header, main, nav, aside, footer {
-		width: 100%;
-	}
-	
-	.nav-container .hamburger-lines {
-		display: block;
-		height: 26px;
-		width: 32px;
-		position: absolute;
-		top: 10px;
-		left: 47%;
-		z-index: 2;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-	
-	.navbar .menu-items {
-		padding-top: 130px;
-		background-color: #ffffff;
-		height: 100vh;
-		width: 100%;
-		transform: translate(-150%);
-		display: flex;
-		flex-direction: column;
-		margin-left: -50px;
-		padding-left: 50px;
-		transition: transform 0.5s ease-in-out;
-		text-align: center;
-		z-index: 2;
-		position: absolute;
-	}
-
-	#tabla, .plan, .verplan {
-		display: grid;
-		grid-template-columns: auto;
-		grid-template-rows: auto auto;
-	}
-
-	.contenido {
-		grid-template-rows: auto auto auto;
-	}
-	
-	#tabla img {
-		display: none;
-	}
-
-	#formRutinas, #formPago, #formVerRutina, #formForo, #formEntrenadorRutinas, #recetas, #row0{
-		grid-area: izq;
-	}
-	
-	#formDietas, #suscripcion, #formVerDieta, .temas, #formEntrenadorDietas, #ejercicios, #row1{
-		grid-area: der;
-	}
-
-	#noticias, #row2{
-		grid-area: centro;
-	}
-
-	.fila {
-		grid-template-columns: auto;
-	}
-}
-
 .temas {
 	width: 100%;
 	text-align: center;
@@ -752,8 +679,8 @@ select option[value=""][disabled] {
 /* ejercicios */
 
 .ejercicios img{
-	width : 200px;
-	height: 180px;
+	width : 100%;
+	height: 60%;
 }
 
 .ejercicios {
@@ -788,4 +715,78 @@ select option[value=""][disabled] {
 
 #formCreaEjercicio #imagen {
 	display: none;
+}
+
+
+/* Diseño dispositivos pequeños*/
+
+@media all and (max-width: 860px) {
+	#contenedor {
+		grid-template-rows: 150px 40px auto auto 200px;
+		grid-template-areas: "cabecera"  "menu" "contenido" "anuncios" "pie";
+		grid-template-columns: auto;
+		display: grid;
+	}
+	header, main, nav, aside, footer {
+		width: 100%;
+	}
+	
+	.nav-container .hamburger-lines {
+		display: block;
+		height: 26px;
+		width: 32px;
+		position: absolute;
+		top: 10px;
+		left: 47%;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.navbar .menu-items {
+		padding-top: 130px;
+		background-color: #ffffff;
+		height: 100vh;
+		width: 100%;
+		transform: translate(-150%);
+		display: flex;
+		flex-direction: column;
+		margin-left: -50px;
+		padding-left: 50px;
+		transition: transform 0.5s ease-in-out;
+		text-align: center;
+		z-index: 2;
+		position: absolute;
+	}
+
+	#tabla, .plan, .verplan {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto;
+	}
+
+	.contenido {
+		grid-template-rows: auto auto auto;
+	}
+	
+	#tabla img {
+		display: none;
+	}
+
+	#formRutinas, #formPago, #formVerRutina, #formForo, #formEntrenadorRutinas, #recetas, #row0{
+		grid-area: izq;
+	}
+	
+	#formDietas, #suscripcion, #formVerDieta, .temas, #formEntrenadorDietas, #ejercicios, #row1{
+		grid-area: der;
+	}
+
+	#noticias, #row2{
+		grid-area: centro;
+	}
+
+	.fila {
+		grid-template-columns: auto;
+	}
 }
