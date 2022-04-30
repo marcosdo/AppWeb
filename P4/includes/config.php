@@ -12,6 +12,7 @@ define('RUTA_APP', '/AW/GitHub/P4');
 define('RUTA_IMGS', RUTA_APP.'/src/img');
 define('RUTA_CSS', RUTA_APP.'/src/css');
 define('RUTA_JS', RUTA_APP.'/src/js');
+define('RUTA_ALMACEN_EJERCICIOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'ejercicios']));
 
 /** Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria */
 ini_set('default_charset', 'UTF-8');
