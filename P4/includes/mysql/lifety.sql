@@ -466,7 +466,6 @@ DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id_producto` int(5) unsigned NOT NULL AUTO_INCREMENT,
   `id_empresa` int(5) unsigned NOT NULL,
-  `imagen` varchar(25) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` mediumtext NOT NULL,
   `precio` decimal(10,0) unsigned NOT NULL,

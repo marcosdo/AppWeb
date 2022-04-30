@@ -161,7 +161,6 @@ CREATE TABLE IF NOT EXISTS `premium` (
 CREATE TABLE IF NOT EXISTS `productos` (
   `id_producto` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_empresa` int(5) UNSIGNED NOT NULL,
-  `imagen` varchar(25) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` mediumtext NOT NULL,
   `precio` decimal(10,0) UNSIGNED NOT NULL,

@@ -144,6 +144,15 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 (24, 1, 'Espalda', 'Remo mancuernas banco', 'Necesita colocar un banco inclinado a 360 para hacer el ejercicio. Seleccione el peso adecuado de las mancuernas. Coja las pesas, sientese en el banco y descanse el pecho sobre la almohadilla. Su cabeza debe estar mas alta que el banco. Los pies deben estar en el suelo y los brazos deben estar rectos. Retrayendo los omoplatos, levante las mancuernas hacia los lados de su pecho mientras exhala. Mientras hace el ejercicio, mueva solo el brazo, asegurese de no mover ninguna otra parte de su cuerpo. Vuelva a la posicion inicial con un suave movimiento mientras inhala.');
 
 TRUNCATE TABLE `empresas`;
+INSERT INTO `empresas` VALUES (1,'facebook'),
+(2,'Prozis'),
+(3,'Myprotein'),
+(4,'Lifepro'),
+(5,'Emfit'),
+(6,'Iogenix'),
+(7,'HSN'),
+(8,'Potential');
+
 TRUNCATE TABLE `entrena`;
 INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
 ('pintus', 'perspa', 0, 0);
@@ -194,10 +203,10 @@ INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergi
 
 
 TRUNCATE TABLE `productos`;
-INSERT INTO `productos` (`id_producto`, `id_empresa`, `imagen`, `nombre`, `descripcion`, `precio`, `link`, `tipo`) VALUES
-('1', '4', '', 'Choco Jungle Whey Protein', 'La mejor proteína del mercado con 70g por cada 100 del tipo Whey Protein.', '20', '', 'proteina'),
-('2', '2', '', 'Creatina Creapure', 'Creatina sin sabor de la mejor calidad del mercado.', '10', '', 'creatina'),
-('3', '5', '', 'Caseina', 'Producto ideal para acelerar la recuperacion muscular mientras descansas.', '21', '', 'caseina');
+INSERT INTO `productos` (`id_producto`, `id_empresa`, `nombre`, `descripcion`, `precio`, `link`, `tipo`) VALUES
+('1', '4', 'Choco Jungle Whey Protein', 'La mejor proteína del mercado con 70g por cada 100 del tipo Whey Protein.', '20', '', 'proteina'),
+('2', '2', 'Creatina Creapure', 'Creatina sin sabor de la mejor calidad del mercado.', '10', '', 'creatina'),
+('3', '5', 'Caseina', 'Producto ideal para acelerar la recuperacion muscular mientras descansas.', '21', '', 'caseina');
 
 TRUNCATE TABLE `profesional`;
 INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`) VALUES
