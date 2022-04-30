@@ -336,7 +336,7 @@ footer {
 
 /* Productos Recomendados */
 
-.productos {
+.productos-layout {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -352,12 +352,23 @@ footer {
 .nombre-producto{
 	color:#EF3B3A;
 	text-align: center;
+}
+
+.descripcion-producto{
+	color: #292a3a;
+
 
 }
 
+.imagen-producto{
+	text-align: center;
+}
+
 .precio-producto{
-	color:#e1523d;
+	color: #6c6c6c;
+
 	font-weight: bold;
+	text-align: right;
 }
 
 /* Tablas planificacion */
