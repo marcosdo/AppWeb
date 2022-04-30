@@ -334,6 +334,32 @@ footer {
 }
 */
 
+/* Productos Recomendados */
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    align-items: stretch;
+}
+.row-producto{
+	border: 1px solid #ccc;
+	padding: 20px;
+
+}
+
+
+.nombre-producto{
+	color:#EF3B3A;
+	text-align: center;
+
+}
+
+.precio-producto{
+	color:#e1523d;
+	font-weight: bold;
+}
+
 /* Tablas planificacion */
 
 caption{
@@ -365,10 +391,6 @@ tr:hover {
     text-decoration: none;
     padding: 2px 1px 0;
 	color:#e1523d;
-
-
-
-    
 }
 
 #planificacion td{
