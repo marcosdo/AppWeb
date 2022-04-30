@@ -342,7 +342,7 @@ footer {
     grid-gap: 20px;
     align-items: stretch;
 }
-.row-producto{
+.producto{
 	border: 1px solid #ccc;
 	padding: 20px;
 
@@ -358,6 +358,9 @@ footer {
 	color: #292a3a;
 
 
+}
+.imagen-producto img{
+    border-radius: 20px;
 }
 
 .imagen-producto{

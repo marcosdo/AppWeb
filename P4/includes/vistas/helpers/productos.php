@@ -1,34 +1,93 @@
 <?php
-use appweb\productos\Productos;
+use appweb\Aplicacion;
 
-/**
- * 
- * @return html
- */
-function listaProductos() {
-    $ids = array();
-    $nombres = array();
-    $empresa = array();
-    $descripcion = array();
-    $precio = array();
-    $link = array();
-    $tipo = array(); 
-    Productos::getProductos($ids, $nombres, $empresa, $descripcion, $precio, $link, $tipo);
-    $html = "<div class ='productos-layout'>";
+
+function muestraProducto($producto) {
+    $app = Aplicacion::getInstance();
+    $verURL = $app->buildUrl('producto.php', [
+        'id' => $producto['id_producto']
+    ]);
     $ruta = RUTA_IMGS;
+    return <<<EOS
+    <a href="{$verURL}">
+         <h4 class='nombre-producto'> {$producto['nombre']} </h4>
+         <div class='imagen-producto'><img src="$ruta/productos/$producto[id_producto].png" alt="LIFETY"></div>
+     </a>
+     <h4 class='precio-producto'> {$producto['precio']} </h4>
+    EOS;
+ }
 
-    for($i = 0; $i < count($nombres); $i++){
-        $productoi = "<div class ='row-producto'>";
-        $productoi .= "<h1 class='nombre-producto'>$nombres[$i]</h1>";
-        $productoi .= "<div class ='imagen-producto'><img src='$ruta/productos/$ids[$i].png' alt=$nombres[$i]></div>";
-        $productoi .= "<h3 class = 'descripcion-producto'>De $empresa[$i]. $descripcion[$i] Para comprar: $link[$i]</h3>";
-        $productoi .= "<span class ='precio-producto'><h3>$precio[$i]€</h3></span>";
-
-        $productoi .= "</div>";
-        $html .= $productoi;
-    }
-    
-    $html .= "</div>";
-    return $html;
+ function listaListaProductosPaginadas($productos, $url, $numPorPagina = 9, $numPagina = 1) {
+    return listaListaProductosPaginadasRecursivo($productos, $url,  1, $numPorPagina, $numPagina);
 }
 
+function listaListaProductosPaginadasRecursivo($productos, $url, $nivel = 1, $numPorPagina = 9, $numPagina = 1) {
+    $primerproducto = ($numPagina - 1) * $numPorPagina;
+    $app = Aplicacion::getInstance();
+    $numproductos = count($productos);
+    if ($productos == 0) {
+        return '';
+    }
+
+    $haySiguientePagina = false;
+    if ($numproductos > $numPorPagina + $primerproducto) {
+        $haySiguientePagina = true;
+    }
+
+    
+
+    $html = "<div class ='productos-layout'>";
+    $auxiliar = 0; 
+    for($idx = $primerproducto; $idx < $primerproducto + $numPorPagina && $idx < $numproductos; $idx++) {
+        if(!$auxiliar) $html .= '<div class="row-producto">';
+        $id= 'row'.$auxiliar;
+        $html .= "<div class = 'producto'>";
+
+        //$html .= "<div id=$id>";
+        $auxiliar += 1;
+        $productoi = $productos[$idx];
+        $html .= muestraProducto($productoi);
+        
+        $html .= '</div>';
+        if($auxiliar == 3){
+            $auxiliar = 0;
+            $html .= '</div>';
+        }
+    }
+    $html .= '</div>';
+
+    if ($nivel == 1) {
+        // Controles de paginacion
+        $clasesPrevia='deshabilitado';
+        $clasesSiguiente = 'deshabilitado';
+        $hrefPrevia = '';
+        $hrefSiguiente = '';
+
+        if ($numPagina > 1) {
+            // Seguro que hay ejercicios anteriores
+            $paginaPrevia = $numPagina - 1;
+            $clasesPrevia = '';
+            $hrefPrevia = $app->buildUrl($url,[
+                'numPagina' => $paginaPrevia,
+                'numPorPagina' => $numPorPagina
+            ]);
+        }
+
+        if ($haySiguientePagina) {
+            // Puede que haya ejercicios posteriores
+            $paginaSiguiente = $numPagina + 1;
+            $clasesSiguiente = '';
+            $hrefSiguiente = $app->buildUrl($url, [ 
+            'numPagina' => $paginaSiguiente,
+            'numPorPagina' => $numPorPagina]);
+        }
+
+        $html .=<<<EOS
+            <div id=paginas>
+                Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
+            </div>
+        EOS;
+    }
+
+    return $html;
+}
