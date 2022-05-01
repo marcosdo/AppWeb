@@ -86,7 +86,15 @@ class Productos {
             "tipo"
         );
         $rs = $conn->query($query);
-        return $rs;   
+
+        $fila = $rs->fetch_assoc();
+        $type = $fila['Type'];
+        $matches = array();
+        $enum = array();
+        preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+        $enum = explode("','", $matches[1]);
+
+        return $enum;
     }
     
     public static function getPrecioMaximo(){

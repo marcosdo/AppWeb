@@ -10,7 +10,6 @@ class FormularioFiltrarProductos extends Formulario {
         parent::__construct('formPersProductos', ['urlRedireccion' => 'tienda.php']);
     }
 
-
     /**
      * campos filtrar
      *  tipo (select)
@@ -26,11 +25,6 @@ class FormularioFiltrarProductos extends Formulario {
      *  peso
      *  altura
      *  imc
-     *  
-     * 
-     * 
-     * 
-     * 
      */
 
     private function listaEmpresas(){
@@ -42,14 +36,9 @@ class FormularioFiltrarProductos extends Formulario {
         return $html;
     }
 
-    private function tipoProductos(){
-        $rs = Productos::getTipos();
-        $fila = $rs->fetch_assoc();
-        $type = $fila['Type'];
-        $matches = array();
-        $enum = array();
-        preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
-        $enum = explode("','", $matches[1]);
+    private function tipoProductos() {
+        $enum = Productos::getTipos();
+
         // Crear la variable html que devolvera el codigo
         $html = "<option value='det' disabled='disabled' selected='selected'>Filtre por tipo de producto</option>";
         for($i = 0; $i < sizeof($enum); $i++) {
@@ -63,42 +52,36 @@ class FormularioFiltrarProductos extends Formulario {
         $empresa = $datos['empresa'] ?? '';
         $tipo = $datos['tipo'] ?? '';
 
-
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['precio', 'empresa', 'tipo'], $this->errores, 'span', array('class' => 'error'));
-  
+
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
-        
-        $boton = "<button type='submit' name='enviar'>Filtrar productos</button>";
-
-        
-
         $empresas = self::listaEmpresas();
         $tipos = self::tipoProductos();
         $preciomaximo = Productos::getPrecioMaximo();
+        $boton = "<button type='submit' name='enviar'>Filtrar productos</button>";
 
         $camposFormulario = <<<EOF
-        $htmlErroresGlobales
-        <p> Selecciona el precio maximo deseado </p>
-        <input name = "precio" id = "choose-precio" type="range" min = "0" max = $preciomaximo value = "0"
-        onchange = "document.getElementById('outprecio').value=value">
-        <output id="outprecio" name="outprecio" for ="precio">0</output>
-        
-        <p class="error">{$erroresCampos['precio']}</p>
-    
-        <select name="empresa" id="choose-empresa" required>
-            $empresas
-        </select >
-        <p class="error">{$erroresCampos['empresa']}</p>
-        
-        <select name="tipo" id="choose-tipo" required>
-            $tipos
-        </select>
-        <p class="error">{$erroresCampos['tipo']}</p>
+            $htmlErroresGlobales
+            <p> Selecciona el precio maximo deseado </p>
+            <input name="precio" id="choose-precio" type="range" min="0" max=$preciomaximo value="0"
+                onchange="document.getElementById('outprecio').value=value">
+            <output id="outprecio" name="outprecio" for ="precio">0</output>
 
-        $boton
-        EOF;        
+            <p class="error">{$erroresCampos['precio']}</p>
+
+            <select name="empresa" id="choose-empresa" required>
+                $empresas
+            </select>
+            <p class="error">{$erroresCampos['empresa']}</p>
+
+            <select name="tipo" id="choose-tipo" required>
+                $tipos
+            </select>
+            <p class="error">{$erroresCampos['tipo']}</p>
+            $boton
+        EOF;
         return $camposFormulario;
     }
 
@@ -115,11 +98,10 @@ class FormularioFiltrarProductos extends Formulario {
         $precio      = trim($datos["precio"] ?? '');
         $empresa   = trim($datos["empresa"] ?? '');
         $tipo       = trim($datos["tipo"] ?? '');
-       
+
         if (count($this->errores) === 0) {
 
 
         }
-            
     }
 }
