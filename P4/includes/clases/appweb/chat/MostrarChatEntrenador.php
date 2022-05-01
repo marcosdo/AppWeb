@@ -58,7 +58,7 @@ class  MostrarChatEntrenador {
         <h1>CHAT CON USUARIO</h1>
         <h3>Elige usuario para visualizar su chat:</h3>
         <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
-        <button class = "ButtonActua"name='actua' type='submit' id='actua' >Actualizar Chat</button>
+        <button class = "ButtonActua"name='actua1' type='submit' id='actua1' >Actualizar Chat</button>
         $mensajes
         $html1
         EOF;
