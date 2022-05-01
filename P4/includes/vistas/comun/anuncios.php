@@ -1,25 +1,16 @@
-<?php
-namespace appweb;
-use appweb\publicidad\BannerAnuncio; 
-
-function htmlbanner(){
-    $array = BannerAnuncio::LogicaBanner();
-    $img = RUTA_IMGS;
-    $contenido = $array[0];
-    $imagen = $array[1];
-    $link = $array[2];
-    return "<a href='$link' title = '$contenido'>
-    <img src='$img/anuncios/$imagen'/></a>";
-}
-?>
 
 
 <aside>
     Banner de anuncios.
     <div id="actua">
-     <?php echo htmlbanner() ?>
+    <?php ?>
     </div>
 </aside>
 
+<script src = "//code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  function actualizar(){$('#actua').load('anuncioAleatorio.php');}
+  setInterval("actualizar()",7000);
+</script>
 
 
