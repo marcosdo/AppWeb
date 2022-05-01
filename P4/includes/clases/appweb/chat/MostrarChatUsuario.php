@@ -2,7 +2,6 @@
 namespace appweb\chat;
 
 use appweb\Aplicacion;
-use appweb\chat\Chat;
 use appweb\usuarios\Premium;
 
 class  MostrarChatUsuario {
@@ -11,7 +10,19 @@ class  MostrarChatUsuario {
     private function mostrarMensajes($Receptor,$Origen){
         $rts = "";
         $rts = $rts ."<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
-		$rts = $rts . Chat::dataChat($Receptor,$Origen);
+		$array_msg = Chat::arrayMensajes($Receptor,$Origen);
+
+        $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
+        for ($i=0; $i < sizeof($array_msg); $i++) { 
+            if($array_msg[$i][4] == "E-U"){
+                $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
+                $array_msg[$i][1] . ": " . $array_msg[$i][2];
+            }else{
+                $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
+                $array_msg[$i][1] . ": " . $array_msg[$i][2];
+           }
+        }
+        $rts = $rts . $data;
 		$rts = $rts . "</textarea>";
         return $rts;
     }
@@ -21,15 +32,15 @@ class  MostrarChatUsuario {
         $id_usuario = $app->idUsuario();
         $nombreEnt = Premium::getNombreEntrenador($id_usuario);
 
+        $form1 = new FormularioEnviarMensajeUsu();
+        $html1 = $form1->gestiona();
+
         $mensajes = self::mostrarMensajes($usuactual,$nombreEnt);
-        if(isset($_POST['submitmsg'])) Chat::enviarMsg($nombreEnt,$usuactual,$_POST["usermsg"],"U-E");
 
         $contenidoPrincipal = <<<EOF
         <h1>CHAT ENTRENADOR</h1>
         $mensajes 
-        <input name="usermsg" type="text" id="usermsg" size="63"  placeholder="Escriba su mensaje..."/>
-        <input class = "ButtonEnviar"type="submit"  name="submitmsg" value="send"/>
-        <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
+        $html1
         EOF;
         return $contenidoPrincipal;
     }

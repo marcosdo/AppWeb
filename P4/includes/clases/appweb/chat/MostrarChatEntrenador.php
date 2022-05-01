@@ -8,7 +8,7 @@ class  MostrarChatEntrenador {
 
     function __construct() {}
 
-    private function Usuarios($entNombre){
+    public static function Usuarios($entNombre){
         $rts = "";
         $array = Profesional::getUsuario($entNombre);
         for ($i=0; $i < sizeof($array); $i++) { 
@@ -21,7 +21,18 @@ class  MostrarChatEntrenador {
         $mensajes = "";
         $mensajes = $mensajes . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
         if($actualizado){
-            $mensajes = $mensajes . Chat::dataChat($Receptor,$Origen);
+            $array_msg = Chat::arrayMensajes($Receptor,$Origen);
+            $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
+            for ($i=0; $i < sizeof($array_msg); $i++) { 
+                if($array_msg[$i][4] == "E-U"){
+                    $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
+                    $array_msg[$i][1] . ": " . $array_msg[$i][2];
+                }else{
+                    $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
+                    $array_msg[$i][1] . ": " . $array_msg[$i][2];
+               }
+            }
+            $mensajes = $mensajes . $data;
         }else{
             $mensajes = $mensajes . "Debes Actualizar Chat para ver la información";
         }
@@ -35,27 +46,21 @@ class  MostrarChatEntrenador {
         $id_usuario = $app->idUsuario();
        
         $mensajes = "";
+
         if(isset($_POST['idE2'])) $mensajes = self::mostrarMensajes($_POST["idE2"] ,$usuactual,true);
         else $mensajes = self::mostrarMensajes("",$usuactual,false);
 
         $SelectUsuarios = self::Usuarios($usuactual);
-        if(isset($_POST['idE3'])) {
-            if(isset($_POST['submitmsg'])) Chat::enviarMsg($_POST["idE3"],$usuactual,$_POST["usermsg"],"E-U");
-        }
+        $form1 = new FormularioEnviarMensajeEnt();
+        $html1 = $form1->gestiona();
 
         $contenidoPrincipal = <<<EOF
-    
         <h1>CHAT CON USUARIO</h1>
         <h3>Elige usuario para visualizar su chat:</h3>
         <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
-        <input class = "ButtonActua"name='actua' type='submit' id='actua' value='Actualizar Chat'/>
+        <button class = "ButtonActua"name='actua' type='submit' id='actua' >Actualizar Chat</button>
         $mensajes
-        <h3>Elige usuario al que escribir un mensaje</h3>
-        <select name = 'idE3' id = 'idE3' type = 'text'>
-        $SelectUsuarios
-        </select>
-        <input name="usermsg" type="text" id="usermsg" placeholder="Escriba su mensaje..." size="63"/>
-        <input class = "ButtonEnviar" name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+        $html1
         EOF;
         
         return $contenidoPrincipal;

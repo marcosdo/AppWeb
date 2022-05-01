@@ -25,11 +25,15 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `chat` (
-  `Receptor` text NOT NULL,
-  `Origen` text NOT NULL,
+  `id_mensaje` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Receptor` varchar(6) NOT NULL,
+  `Origen` varchar(6) NOT NULL,
   `Contenido` mediumtext NOT NULL,
   `Tiempo` datetime NOT NULL,
-  `Tipo` enum('U-E','E-U') NOT NULL
+  `Tipo` enum('U-E','E-U') NOT NULL,
+  PRIMARY KEY (`id_mensaje`),
+  KEY `receptor_FK` (`Receptor`),
+  KEY `origen_FK` (`Origen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `comidas` (
@@ -203,6 +207,11 @@ ALTER TABLE `anuncio`
 ALTER TABLE `contiene`
   ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Idrut_FK` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id_rutina`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE `chat`
+  ADD CONSTRAINT `receptor_FK` FOREIGN KEY (`Receptor`) REFERENCES `personas` (`nick`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `origen_FK` FOREIGN KEY (`Origen`) REFERENCES `personas` (`nick`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `dieta`
   ADD CONSTRAINT `clave-dieta-almurezo` FOREIGN KEY (`id_almuerzo`) REFERENCES `comidas` (`id_comida`) ON DELETE SET NULL ON UPDATE CASCADE,

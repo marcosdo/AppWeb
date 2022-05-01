@@ -2,30 +2,47 @@
 namespace appweb\chat;
 
 use appweb\Aplicacion;
+use appweb\usuarios\Premium;
+
 
 class Chat {
     function __construct() {}
     
-    public static function dataChat($Receptor,$Origen){
+    public static function arrayMensajes($Receptor,$Origen){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
-        $query = sprintf("SELECT * FROM chat WHERE (Origen = '%s' AND Receptor = '%s') OR (Origen = '%s' AND Receptor = '%s') ORDER BY Tiempo ASC ",$Receptor,$Origen,$Origen,$Receptor);
-        $rs = $conn->query($query);
-        if($rs){
-            while($chats = $rs->fetch_assoc()){
-                if($chats["Tipo"] == "E-U")$data = $data . "\n". "🡸 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
-                else $data = $data . "\n". "🡺 [" . $chats["Tiempo"] . "] " . $chats["Origen"] . ": " . $chats["Contenido"];
+        $query = sprintf("SELECT * FROM chat WHERE (Origen = '%s' AND Receptor = '%s') OR (Origen = '%s' AND Receptor = '%s') ORDER BY Tiempo ASC",
+        $conn->real_escape_string($Receptor),
+        $conn->real_escape_string($Origen),
+        $conn->real_escape_string($Origen),
+        $conn->real_escape_string($Receptor));
+        try {
+            $Mensajes = array();
+            $rs = $conn->query($query);
+            while($Mensaje_BD = $rs->fetch_assoc()) {
+                $msg = MensajeChat::arrayMsg($Mensaje_BD);
+                array_push($Mensajes, $msg);
             }
             $rs->free();
-            return $data;
-        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return $Mensajes;
+        } catch (\mysqli_sql_exception $e) {
+            throw $e;
+        }
     }
 
-    public static function enviarMsg($Receptor,$Origen,$Mensaje,$tipo){
-        $conn = Aplicacion::getInstance()->getConexionBd();
+    public static function enviarMsgUsu($Mensaje){
+        $app = Aplicacion::getInstance();
+        $Origen = $app->nombreUsuario();
+        $id_usuario = $app->idUsuario();
+        $Receptor = Premium::getNombreEntrenador($id_usuario);
         $fecha = date_create()->format('Y-m-d H:i:s');
-        $query = sprintf("INSERT INTO chat (Origen,Receptor,Contenido,Tiempo,Tipo) VALUES ('%s','%s','%s','%s','%s')",$Origen,$Receptor,$Mensaje,$fecha,$tipo); 
-        $rs = $conn->query($query);
-        if(!$rs) error_log("Error BD ({$conn->errno}): {$conn->error}");
+        MensajeChat::creaMsg($Receptor,$Origen,$fecha,$Mensaje,"U-E");
+    }
+
+
+    public static function enviarMsgEnt($Receptor,$Mensaje){
+        $app = Aplicacion::getInstance();
+        $Origen = $app->nombreUsuario();
+        $fecha = date_create()->format('Y-m-d H:i:s');
+        MensajeChat::creaMsg($Receptor,$Origen,$fecha,$Mensaje,"E-U");
     }
 }
