@@ -5,15 +5,15 @@ use appweb\Aplicacion;
 class Anuncio {
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
-    private $id_empresa;
+    private $empresa;
     private $contenido;
     private $imagen;
     private $link;
     private $id_anuncio;
     // ==================== MÉTODOS ====================
     // Constructor
-    public function __construct($id_empresa, $contenido, $imagen, $link, $id_anuncio = null) {
-        $this->id_empresa = $id_empresa;
+    public function __construct($empresa, $contenido, $imagen, $link, $id_anuncio = null) {
+        $this->empresa = $empresa;
         $this->contenido = $contenido;
         $this->imagen = $imagen;
         $this->link = $link;
@@ -22,17 +22,17 @@ class Anuncio {
     
 
 
-    public static function creaAnuncio($id_empresa, $contenido,  $imagen, $link) {
-        $anuncio = new Anuncio($id_empresa, $contenido, $imagen, $link);
+    public static function creaAnuncio($empresa, $contenido,  $imagen, $link) {
+        $anuncio = new Anuncio($empresa, $contenido, $imagen, $link);
         return self::inserta($anuncio);
     }
 
     public static function inserta($anuncio) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-        "INSERT INTO anuncio (id_empresa, contenido, imagen, link) 
-        VALUES (%d, '%s', '%s', '%s')"
-        , $anuncio->id_empresa
+        "INSERT INTO anuncio (nombre_empresa, contenido, imagen, link) 
+        VALUES ('%s', '%s', '%s', '%s')"
+        , $conn->real_escape_string($anuncio->empresa)
         , $conn->real_escape_string($anuncio->contenido)
         , $conn->real_escape_string($anuncio->imagen)
         , $conn->real_escape_string($anuncio->link));
@@ -43,5 +43,16 @@ class Anuncio {
         } catch (\mysqli_sql_exception $e) {
             throw $e;
         }
+    }
+    public static function getEmpresas(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM empresas"); 
+        $rs = $conn->query($query);
+        if($rs){
+            $array = array();
+            while($fila = $rs->fetch_assoc()) array_push($array,$fila["nombre"]);
+            $rs->free();
+            return $array;
+        } else error_log("Error BD ({$conn->errno}): {$conn->error}");
     }
 }

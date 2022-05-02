@@ -13,7 +13,7 @@ define('RUTA_IMGS', RUTA_APP.'/src/img');
 define('RUTA_CSS', RUTA_APP.'/src/css');
 define('RUTA_JS', RUTA_APP.'/src/js');
 define('RUTA_ALMACEN_EJERCICIOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'ejercicios']));
-
+define('RUTA_ALMACEN_ANUNCIOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'anuncios']));
 /** Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria */
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
@@ -54,10 +54,14 @@ function gestorExcepciones(Throwable $exception) {
     error_log(jTraceEx($exception)); 
     http_response_code(500);
     $msg = $exception->getMessage();
+    $msg1 = $exception->getFile();
+    $msg2 = $exception->getLine();
     $tituloPagina = 'Error';
     $contenidoPrincipal = <<<EOS
         <h1>Oops</h1>
         <p> $msg </p>
+        <p> $msg1 </p>
+        <p> $msg2 </p>
     EOS;
     require __DIR__.'/vistas/plantillas/plantilla.php';
 }

@@ -10,22 +10,34 @@ class FormularioAdminAnuncio extends Formulario {
         parent::__construct('formAdminAnuncio', ['urlRedireccion' => 'admin.php']);
     }
     
+    public static function Empresas(){
+        $rts = "";
+        $array = Anuncio::getEmpresas();
+        for ($i=0; $i < sizeof($array); $i++) { 
+            $rts = $rts ."<option value='$array[$i]'>$array[$i]</option>";
+        } 
+        return $rts;
+    }
+
     protected function generaCamposFormulario(&$datos) {
-        $id_empresa =  $datos['id_empresa'] ?? '';
+        $empresa =  $datos['empresa'] ?? '';
         $contenido = $datos['contenido'] ?? '';
         $imagen = $datos['imagen'] ?? '';
         $link = $datos['link'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['id_empresa', 'contenido', 'imagen', 'link'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['empresa', 'contenido', 'imagen', 'link'], $this->errores, 'span', array('class' => 'error'));
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
+        $selectEmpresas = self::Empresas();
         $html = <<<EOF
         <h3>Crea un anuncio</h3>
         $htmlErroresGlobales
-        <p class="error">{$erroresCampos['id_empresa']}</p>
-        <input id="id_empresa" type="text" name="id_empresa" value="$id_empresa" placeholder="id_empresa" />
+        <p class="error">{$erroresCampos['empresa']}</p>
+        <select id = "empresa" name = "empresa" value="$empresa">
+        $selectEmpresas
+        </select>
         <p class="error">{$erroresCampos['contenido']}</p>
         <input id="contenido" type="text" name="contenido" value="$contenido" placeholder="contenido" />
         <p class="error">{$erroresCampos['imagen']}</p>
@@ -42,10 +54,10 @@ class FormularioAdminAnuncio extends Formulario {
         $this->errores = [];
         $imagen = $datos['imagen'] ?? '';
 
-        $id_empresa = trim($datos['id_empresa'] ?? '');
-        $id_empresa = filter_var($id_empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$id_empresa || empty($id_empresa)) 
-            $this->errores['id_empresa'] = 'El id de empresa no puede estar vacio.';
+        $empresa = trim($datos['empresa'] ?? '');
+        $empresa = filter_var($empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!$empresa || empty($empresa)) 
+            $this->errores['empresa'] = 'La empresa no puede estar vacio.';
 
         $contenido = trim($datos['contenido'] ?? '');
         $contenido = filter_var($contenido, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -56,19 +68,33 @@ class FormularioAdminAnuncio extends Formulario {
         $link = filter_var($link, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$link || empty($link)) 
             $this->errores['link'] = 'El link no puede estar vacio.';
-
-
+    
+        $filename = $_FILES["imagen"]["name"];
+        $ok = self::check_file_uploaded_name($filename) && $this->check_file_uploaded_length($filename);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['imagen']['tmp_name']);
+        $ok = preg_match('/image\/*./', $mimeType);
+        if (!$ok)  $this->errores['imagen'] = 'El archivo tiene un nombre o tipo no soportado';
+       
         // Si todo ha ido bien, 
         if (count($this->errores) === 0) {
             try {
-                $filename = $_FILES["imagen"]["name"];
-                $location = 'C:/xampp/htdocs/AW/GitHub/P4/src/img/anuncios/' . $filename;
-                move_uploaded_file($_FILES["imagen"]["tmp_name"],$location);
-                Anuncio::creaAnuncio($id_empresa,$contenido,$filename,$link);
+                $tmp_name = $_FILES['imagen']['tmp_name'];
+                $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_ALMACEN_ANUNCIOS,$filename]);
+                if (!move_uploaded_file($tmp_name, $ruta)) {
+                    $this->errores['imagen'] = 'Error al mover el archivo';
+                }else Anuncio::creaAnuncio($empresa,$contenido,$filename,$link);
             }
             catch (\Exception $e) {
                 $this->errores[] = 'Imposible crear el anuncio';
             }
         }
+    }
+    private static function check_file_uploaded_name($filename) {
+        return (bool) ((mb_ereg_match('/^[0-9A-Z-_\.]+$/i', $filename) === 1) ? true : false);
+    }
+
+    private function check_file_uploaded_length($filename) {
+        return (bool) ((mb_strlen($filename, 'UTF-8') < 250) ? true : false);
     }
 }

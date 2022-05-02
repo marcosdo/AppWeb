@@ -10,12 +10,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `anuncio` (
   `id_anuncio` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(5) UNSIGNED NOT NULL,
+  `nombre_empresa` varchar(20) NOT NULL,
   `contenido` mediumtext NOT NULL,
-  `imagen` varchar(30) NOT NULL,
-  `orden` int(1) UNSIGNED NOT NULL,
+  `imagen` varchar(50) NOT NULL,
+  `link` varchar(50)  NOT NULL,
   PRIMARY KEY (`id_anuncio`),
-  KEY `Empresa_FK` (`id_empresa`)
+  KEY `Empresa_FK` (`nombre_empresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `categorias` (
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 
 ALTER TABLE `anuncio`
-  ADD CONSTRAINT `Empresa_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Empresa_FK` FOREIGN KEY (`nombre_empresa`) REFERENCES `empresas` (`nombre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `contiene`
   ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE,

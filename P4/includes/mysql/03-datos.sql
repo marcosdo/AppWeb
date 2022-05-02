@@ -10,10 +10,16 @@ SET time_zone = "+00:00";
 
 
 TRUNCATE TABLE `anuncio`;
+INSERT INTO `anuncio` (`id_anuncio`, `nombre_empresa`, `contenido`, `imagen`, `link`) VALUES
+(12, 'goldgym', '50% de descuento en el primer mes', '5.jpg', 'https://www.goldsgym.com/'),
+(13, 'energyFitness', '3 meses por solo 50 euros!!!!!', '6.jpg', 'http://energiefitness.es/'),
+(14, 'fitnessCenter', 'FitnessCenter el mejor gimnasio de Madrid !!', '10.jpg', 'https://www.fitnesscentervaguada.com/'),
+(15, 'energyFitness', 'GET FIT NOW', '11.jpg', 'http://energiefitness.es/'),
+(16, 'theGym', '50% en el mes de enero', '16.jpg', 'https://thegym.es/'),
+(17, 'fitnessCenter', 'GET YOUR ONE YEAR MEMBERSHIP NOW!', '25.jpg', 'https://www.fitnesscentervaguada.com/');
+
 TRUNCATE TABLE `categorias`;
-TRUNCATE TABLE `chat`;
-INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
-('pintus', 'perspa', 'hola que tal', '2022-04-10 15:27:50', 'U-E');
+
 
 TRUNCATE TABLE `comidas`;
 INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) VALUES
@@ -151,7 +157,11 @@ INSERT INTO `empresas` VALUES (1,'facebook'),
 (5,'Emfit'),
 (6,'Iogenix'),
 (7,'HSN'),
-(8,'Potential');
+(8,'Potential'),
+(9, 'goldgym'),
+(10, 'energyFitness'),
+(11, 'fitnessCenter'),
+(12, 'theGym');
 
 TRUNCATE TABLE `entrena`;
 INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
