@@ -2,6 +2,8 @@
 
 namespace appweb\productos;
 
+use appweb\productos\Productos;
+use appweb\Aplicacion;
 use appweb\Formulario;
 
 class FormularioFiltrarProductos extends Formulario {
@@ -85,23 +87,35 @@ class FormularioFiltrarProductos extends Formulario {
         return $camposFormulario;
     }
 
-    /**
-     * Procesa los datos del formulario.
-     */
-    protected function procesaFormulario(&$datos)
-    {
+    /** Procesa los datos del formulario. */
+    protected function procesaFormulario(&$datos) {
+        $this->errores = [];
 
-        htmlspecialchars(trim(strip_tags($_POST["precio"])));
-        htmlspecialchars(trim(strip_tags($_POST["empresa"])));
-        htmlspecialchars(trim(strip_tags($_POST["tipo"])));
+        $precio = trim($datos['precio'] ?? '');
+        $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ($precio < 0 || $precio > Productos::getPrecioMaximo())
+            $this->errores['precio'] = 'Precio invalido';
 
-        $precio      = trim($datos["precio"] ?? '');
-        $empresa   = trim($datos["empresa"] ?? '');
-        $tipo       = trim($datos["tipo"] ?? '');
+        $empresa = trim($datos['empresa'] ?? '');
+        $empresa = filter_var($empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!array_search($empresa, Productos::getEmpresas()))
+            $this->errores['empresa'] = 'Empresa no encontrada';
+
+        $tipo = trim($datos['tipo'] ?? '');
+        $tipo = filter_var($tipo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!array_search($empresa, Productos::getEmpresas()))
+            $this->errores['tipo'] = 'Tipo no encontrado';
 
         if (count($this->errores) === 0) {
-
-
+            $params = [
+                "numPorPagina" => 9,
+                "numPagina" => 1,
+                "precio" => $precio,
+                "empresa" => $empresa,
+                "tipo" => $tipo
+            ];
+            $url = Aplicacion::buildParams($params);
+            Aplicacion::redirige($url);
         }
     }
 }
