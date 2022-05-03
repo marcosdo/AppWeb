@@ -66,6 +66,7 @@ class FormularioFiltrarProductos extends Formulario {
 
         $camposFormulario = <<<EOF
             $htmlErroresGlobales
+            <h1>Filtrar Productos</h1>
             <p> Selecciona el precio maximo deseado </p>
             <input name="precio" id="choose-precio" type="range" min="0" max=$preciomaximo value="0"
                 onchange="document.getElementById('outprecio').value=value">

@@ -36,7 +36,7 @@ function listaListaProductosPaginadasRecursivo($productos, $url, $nivel = 1, $nu
 
     
 
-    $html = "<div class ='productos-layout'>";
+    $html = "<h1>Ver Productos</h1><div class ='productos-layout'>";
     $auxiliar = 0; 
     for($idx = $primerproducto; $idx < $primerproducto + $numPorPagina && $idx < $numproductos; $idx++) {
         if(!$auxiliar) $html .= '<div class="row-producto">';
