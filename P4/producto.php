@@ -28,8 +28,10 @@ $contenidoPrincipal = <<<EOS
 <div id='producto'>
 	<img src="$ruta/productos/$idProducto.png" alt="LIFETY">
 	<h2>Precio {$precio}€</h2>
+	<p>Se trata de {$tipo} de la marca {$empresa}. {$descripcion}</p>
 
-	<p>Es {$tipo} de {$empresa}. {$descripcion}</p>
+	<a href=$link class="comprar-producto">Comprar</a>
+
 </div>
 EOS;
 
