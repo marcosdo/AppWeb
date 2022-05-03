@@ -15,7 +15,7 @@ function visualizaMensaje($mensaje) {
         'id' => $mensaje['id_mensaje']
     ]);
     return <<<EOS
-    <div id ="">
+    <div id ="mensaje">
         <a href="{$verURL}">
             {$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})
         </a>
@@ -37,7 +37,7 @@ function visualizaMensajeObjeto($mensaje) {
         'id' => $mensaje->getID()
     ]);
     return <<<EOS
-    <div id ="">
+    <div id ="mensajeObjeto">
         <a href="{$verURL}">
             {$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getFecha()})
         </a>
@@ -106,9 +106,9 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     }
 
     $app = Aplicacion::getInstance();
-    $html = '<ul>';
+    $html = '<ul class = "listamensajes">';
     foreach($mensajes as $mensaje) {
-        $html .= '<li>';
+        $html .= '<li class=estilomensaje>';
         $html .= visualizaMensajeObjeto($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
             $html .= "<div class = msg>";
@@ -169,10 +169,10 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         $haySiguientePagina = true;
     }
 
-    $html = '<ul>';
+    $html = '<ul class =listamensajes>';
     for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
-        $html .= '<li>';
+        $html .= '<li class=estilomensaje>';
         $html .= visualizaMensaje($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
             $html .= "<div class = msg>";

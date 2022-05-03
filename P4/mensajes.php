@@ -25,7 +25,7 @@ $tituloMensaje = $mensaje->getTitulo();
 $contenidoPrincipal = "";
 $contenidoPrincipal .= <<<EOS
 <h1>$tituloMensaje</h1>
-<p>{$msg}</p>
+<p class = respuesta>{$msg}</p>
 EOS;
 // Mensajes sin paginar
 $contenidoPrincipal .= listaMensajes($idMensaje, true, $idMensaje);

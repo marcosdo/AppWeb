@@ -9,26 +9,37 @@ use appweb\foro\Foro;
 function muestraTemas() {
     $app = Aplicacion::getInstance();
     // Coger todas las filas de foro
+    
+    $enum = Foro::seleCategorias();
     $data = Foro::getData();
-    $tema = array_column($data, 'tema');
-    $idforo = array_column($data, 'id_foro');
-    // Crear la variable html que devolvera el codigo
-    $html = "<div class=temas><h3>Lista de temas</h3>";
-    for ($i = 0; $i < count($data); $i++) {
-        // Busca el foro
-        $foro = Foro::buscaxID($idforo[$i]);
-        $formBorraForo = new appweb\foro\FormularioBorraForo($idforo[$i]);
-        $boton = $formBorraForo->gestiona();
-        // Mostrar el boton solo si es el creador o el admin
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $foro->getIDUsuario()) || $app->esAdmin())
-            $aux = $boton;
-        else $aux = ""; 
+
+    $html = "<div class=temas>";
+    $html .= "<h3>Lista de temas</h3>";
+    for ($j = 0; $j < count($enum); $j++) {
+        $tipo = array_column($data, 'categoria');
+        $tema = array_column($data, 'tema');
+        $idforo = array_column($data, 'id_foro');
+        // Crear la variable html que devolvera el codigo
+        $html .= "<h4>{$enum[$j]}</h4>";
         $html .= "<li>";
-        $html .= "<a href='foroaux.php?idforo={$idforo[$i]}'>{$tema[$i]}</a>";
-        $html .= "$aux";
+        for ($i = 0; $i < count($data); $i++) {
+            if ($tipo[$i] == $enum[$j]) {
+                // Busca el foro
+                $foro = Foro::buscaxID($idforo[$i]);
+                $formBorraForo = new appweb\foro\FormularioBorraForo($idforo[$i]);
+                $boton = $formBorraForo->gestiona();
+                // Mostrar el boton solo si es el creador o el admin
+                if ($app->usuarioLogueado() && ($app->idUsuario() == $foro->getIDUsuario()) || $app->esAdmin())
+                    $aux = $boton;
+                else $aux = ""; 
+                $html .= "<a href='foroaux.php?idforo={$idforo[$i]}' class='listatemas'>{$tema[$i]}</a>";
+                $html .= "$aux";
+                
+            }
+        }
         $html .= "</li>";
     }
-    $html .= "</div>";
+    $html .= "</div>"; 
     return $html;
 }
 
@@ -38,13 +49,8 @@ function muestraTemas() {
  */
 function seleCategorias(){
     // Coger del foro todas las categorias posibles
-    $rs = Foro::seleCategorias();
-    $fila = $rs->fetch_assoc();
-    $type = $fila['Type'];
-    $matches = array();
-    $enum = array();
-    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
-    $enum = explode("','", $matches[1]);
+    $enum = Foro::seleCategorias();
+
     // Crear la variable html que devolvera el codigo
     $html = " <select name='categoria' id='categoria'>";
     for($i = 0; $i < sizeof($enum); $i++) {

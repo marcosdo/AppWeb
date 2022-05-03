@@ -44,7 +44,7 @@ class FormularioEditaMensaje extends Formulario {
             $htmlErroresGlobales
             <div>
                 <label for="mensaje">Mensaje: </label>
-                <input id="mensaje" type="text" name="mensaje" value="{$textoMensaje}"/>
+                <textarea id="mensaje" type="text" name="mensaje" placeholder="Empieza a escribir aqui el mensaje..."></textarea>
                 {$erroresCampos['mensaje']}
             </div>
             <div>

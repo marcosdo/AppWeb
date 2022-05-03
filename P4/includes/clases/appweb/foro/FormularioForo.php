@@ -26,7 +26,7 @@ class FormularioForo extends Formulario {
         <h3>¿Quieres crear un nuevo tema?</h3>
         <input id="tema" type="text" name="tema" value="$tema" placeholder="tema" />
         {$erroresCampos['tema']}
-        <input id="contenido" type="text" name="contenido" value="$contenido" placeholder="contenido" />
+        <textarea id="contenido" type="text" name="contenido" value="$contenido" placeholder="Empieza a escribir aqui el contenido del tema..."></textarea>
         {$erroresCampos['contenido']}
         $categoria
         {$erroresCampos['categoria']}

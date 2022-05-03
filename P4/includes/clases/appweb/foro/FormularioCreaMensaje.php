@@ -21,7 +21,7 @@ class FormularioCreaMensaje extends Formulario {
         {$erroresCampos['titulo']}
         <input id="titulo" type="text" name="titulo" value="$titulo" placeholder="titulo" />
         {$erroresCampos['mensaje']}
-        <input id="mensaje" type="text" name="mensaje" value="$mensaje" placeholder="mensaje" />
+        <textarea id="mensaje" type="text" name="mensaje" value="$mensaje" placeholder="Empieza a escribir aqui el mensaje..."></textarea>
         <button type="submit" name="enviar">Responde a este mensaje</button>
         EOF;
         return $html;
