@@ -68,6 +68,23 @@ class Productos {
         return $result;
     }
 
+    public static function getDataPers(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM productos");
+        $rs = $conn->query($query);
+        $result = array();
+        try {
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila);
+            }
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
+
     public static function getEmpresas(){
         $empresas = array();
         $conn = Aplicacion::getInstance()->getConexionBd();
