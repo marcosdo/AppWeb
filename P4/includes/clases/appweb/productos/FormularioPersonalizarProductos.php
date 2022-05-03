@@ -20,9 +20,9 @@ class FormularioPersonalizarProductos extends Formulario {
         $boton = "<button type='submit' name='enviar'>Ver productos personalizados</button>";
 
         $camposFormulario = <<<EOF
-            <h1>Productos Personalizados</h1>
+            <h2>Productos Personalizados</h2>
             $htmlErroresGlobales
-            <p> Si quiere ver sus productos recomendados segun su planificación y seguimiento pulse el siguiente boton: </p>
+            <p> Si quiere ver sus productos recomendados segun su planificación y seguimiento pulse el siguiente boton. </p>
             $boton
             <p></p>
         EOF;
