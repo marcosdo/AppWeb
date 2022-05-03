@@ -21,8 +21,8 @@ $htmlPersProductos = $form->gestiona();
 $tituloPagina = 'Productos';
 $contenidoPrincipal = <<<EOS
     $htmlFilt
-    $htmlProductos
     $htmlPersProductos
+    $htmlProductos
 EOS;
 
 require_once __DIR__.'/includes/vistas/plantillas/plantilla.php';
