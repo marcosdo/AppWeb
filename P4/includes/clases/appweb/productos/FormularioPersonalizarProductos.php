@@ -9,7 +9,7 @@ use appweb\Formulario;
 class FormularioPersonalizarProductos extends Formulario {
 
     public function __construct() {
-        parent::__construct('formPersProductos', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('formPersProductos', ['urlRedireccion' => 'tiendapersonalizada.php']);
     }
 
     protected function generaCamposFormulario(&$datos) {
@@ -23,6 +23,7 @@ class FormularioPersonalizarProductos extends Formulario {
             $htmlErroresGlobales
             <p> Si quiere ver sus productos recomendados segun su planificación y seguimiento pulse el siguiente boton: </p>
             $boton
+            <p></p>
         EOF;
         return $camposFormulario;
     }

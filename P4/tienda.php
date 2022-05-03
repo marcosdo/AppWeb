@@ -16,7 +16,7 @@ $htmlFilt = $form->gestiona();
 
 // Ver productos personalizados
 $form2 = new appweb\productos\FormularioPersonalizarProductos();
-$htmlPersProductos = $form->gestiona();
+$htmlPersProductos = $form2->gestiona();
 
 $tituloPagina = 'Productos';
 $contenidoPrincipal = <<<EOS
