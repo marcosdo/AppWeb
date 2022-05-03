@@ -96,6 +96,22 @@ class Personas {
         return $result;
     }
 
+    public static function buscaAlias($alias) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM personas WHERE nick = '%s'"
+            , $alias
+        );
+        try {
+            $rs = $conn->query($query);
+            if($rs->num_rows) return true;
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return false;
+    }
+
     public function borrate() {
         if ($this->id !== null) 
             return self::borra($this);
