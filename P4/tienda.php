@@ -14,10 +14,15 @@ $htmlProductos = listaListaProductosPaginadas($productos, 'tienda.php', $numPorP
 $form = new appweb\productos\FormularioFiltrarProductos();
 $htmlFilt = $form->gestiona();
 
+// Ver productos personalizados
+$form2 = new appweb\productos\FormularioPersonalizarProductos();
+$htmlPersProductos = $form->gestiona();
+
 $tituloPagina = 'Productos';
 $contenidoPrincipal = <<<EOS
     $htmlFilt
     $htmlProductos
+    $htmlPersProductos
 EOS;
 
 require_once __DIR__.'/includes/vistas/plantillas/plantilla.php';

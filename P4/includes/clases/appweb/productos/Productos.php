@@ -107,4 +107,24 @@ class Productos {
         } 
         return $precio; 
     }
+
+    public static function personalizaProductos($usuarioId){
+   /**
+     * campos filtrar
+     *  tipo (select)
+     *  empresa (select)
+     *  precio 
+     * 
+     *  si has iniciado sesion: 
+     *  objetivodieta 
+     *  objetivorutina
+     *  nivel 
+     * 
+     *  si eres premium 
+     *  peso
+     *  altura
+     *  imc
+     */
+
+    }
 }
