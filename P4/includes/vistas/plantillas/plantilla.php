@@ -13,6 +13,7 @@ $mensajes = mensajesPeticionAnterior();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="<?= RUTA_CSS ?>/estilo.css" />
         <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
+        <script src="https://kit.fontawesome.com/f34cf33e14.js" crossorigin="anonymous"></script>
     </head>
 
     <body>

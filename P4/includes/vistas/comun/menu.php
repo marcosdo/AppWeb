@@ -9,33 +9,33 @@ use appweb\usuarios\Personas;
 function htmlmenu() {
     $app = Aplicacion::getInstance();
 
-    $html = "<li><a href=".RUTA_APP."/index.php>Portada</a></li>";
+    $html = "<li><a href=".RUTA_APP."/index.php><i class='fa-solid fa-house'></i> Portada</a></li>";
 
     if ($app->usuarioLogueado()) { 
         // Si eres admin
         if ($app->esAdmin()) {
-            $html .= "<li><a href='admin.php'>Consola</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
+            $html .= "<li><a href='admin.php'><i class='fa-solid fa-terminal'></i> Consola</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php><i class='fa-solid fa-comments'></i> Foro</a></li>";
         }
         // Si eres usuario
         else if ($app->esUsuario()) {
             if ($app->esPremium()) 
-                $html .= "<li><a href='chatusu.php'>Seguimiento</a></li>";
+                $html .= "<li><a href='chatusu.php'><i class='fa-solid fa-user-doctor'></i> Seguimiento</a></li>";
             else {
-                $html .= "<li><a href='suscripcion.php'>Seguimiento</a></li>";
+                $html .= "<li><a href='suscripcion.php'><i class='fa-solid fa-user-doctor'></i> Seguimiento</a></li>";
             }
-            $html .= "<li><a href='verplan.php'>Ver Plan</a></li>";
-            $html .= "<li><a href='plan.php'>Crear Plan</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/tienda.php>Productos</a></li>";
+            $html .= "<li><a href='verplan.php'><i class='fa-solid fa-magnifying-glass-arrow-right'></i> Ver Plan</a></li>";
+            $html .= "<li><a href='plan.php'><i class='fa-solid fa-heart-pulse'></i> Crear Plan</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php><i class='fa-solid fa-comments'></i> Foro</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/contenido.php><i class='fa-solid fa-book'></i> Contenido</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/tienda.php><i class='fa-solid fa-cart-shopping'></i> Productos</a></li>";
         }
         // Si eres profesional
         else if($app->esProfesional()) {
-            $html .= "<li><a href='chatprof.php'>Chat</a></li>";
-            $html .= "<li><a href='entrenadorplan.php'>Planificación</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/foros.php>Foro</a></li>";
-            $html .= "<li><a href=".RUTA_APP."/contenido.php>Contenido</a></li>";
+            $html .= "<li><a href='chatprof.php'><i class='fa-brands fa-rocketchat'></i> Chat</a></li>";
+            $html .= "<li><a href='entrenadorplan.php'><i class='fa-solid fa-heart-pulse'></i>  Planificación</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/foros.php><i class='fa-solid fa-comments'></i> Foro</a></li>";
+            $html .= "<li><a href=".RUTA_APP."/contenido.php><i class='fa-solid fa-book'></i> Contenido</a></li>";
         }
     }
     return $html;
