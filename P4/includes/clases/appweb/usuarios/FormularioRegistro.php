@@ -35,7 +35,7 @@ class FormularioRegistro extends Formulario {
         <p class="error">{$erroresCampos['password2']}</p>
         <input id="password2" type="password" name="password2" placeholder="reintroduce la password" />
         <button type="submit" name="registro">Registrar</button>
-        <p class="message">¿Ya estas registrado? <a href='#'>Logeate.</a></p>
+        <h4 class="message">¿Ya estas registrado? <a href='#'>Logeate.</a></h4>
         EOF;
         return $html;
     }
