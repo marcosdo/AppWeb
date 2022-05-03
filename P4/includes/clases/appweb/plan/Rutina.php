@@ -103,7 +103,7 @@ class Rutina {
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()){
                 if($j < 2){
-                    $repeticiones = self:: calculadoraRepeticiones($rutina, $fila['tipo']);
+                    $repeticiones = self:: calculadoraRepeticiones($rutina->_objetivo, $fila['tipo']);
                     $query= sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
                     '%d')",  $rutina->_id_rutina , $fila['id_ejercicio'], $dia, $repeticiones);
                      if ($conn->query($query));
@@ -115,17 +115,17 @@ class Rutina {
         } 
     }
 
-    private static function calculadoraRepeticiones($rutina, $tipo){
+    private static function calculadoraRepeticiones($objetivo, $tipo){
         switch($tipo){
             case 0:
-                if($rutina->_objetivo == 1) $reps = 6;
-                else if($rutina->_objetivo == 2) $reps = 8;
-                else if($rutina->_objetivo == 3) $reps = 10;
+                if($objetivo == 1) $reps = 6;
+                else if($objetivo == 2) $reps = 8;
+                else if($objetivo == 3) $reps = 10;
                 break;
             case 1:
-                if($rutina->_objetivo == 1) $reps = 8;
-                else if($rutina->_objetivo == 2) $reps = 10;
-                else if($rutina->_objetivo == 3) $reps = 12;
+                if($objetivo == 1) $reps = 8;
+                else if($objetivo == 2) $reps = 10;
+                else if($objetivo == 3) $reps = 12;
                 break;
             case 2:
                 $reps = 14;
@@ -280,19 +280,41 @@ class Rutina {
                 $diaspos = $j;
                 $diaspos .= "-";
                 $diaspos .= $i;
-                if($tabla != "") $select = $datos[$diaspos];
-                else $select = $tabla;
-                if($tabla != $select){ 
-                    $query = sprintf("SELECT * FROM ejercicios");
-                    $rs = $conn->query($query); 
-                    while ($fila = $rs->fetch_assoc()){
-                        if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
-                        if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
-                    }
-                    $diaact = $j+1;
-                    $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d'", $nuevo, $antiguo, $diaact);
-                    $conn->query($query2); 
+                $select = $datos[$diaspos];
 
+                if($tabla != "") { // Ya hay un ejercicio
+                    if($tabla != $select){ 
+                        $query = sprintf("SELECT * FROM ejercicios");
+                        $rs = $conn->query($query); 
+                        while ($fila = $rs->fetch_assoc()){
+                            if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
+                            if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
+                        }
+                        $diaact = $j+1;
+                        $repeticiones = self:: editarRepeticiones($nuevo, $idusuario, $conn, $rutinaactiva);
+
+                        $query2 = sprintf("UPDATE contiene SET contiene.id_ejercicio = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d' AND contiene.id_rutina = '%d'", $nuevo, $antiguo, $diaact, $rutinaactiva);
+                        $conn->query($query2); 
+
+                        $query3 = sprintf("UPDATE contiene SET contiene.repeticiones = '%d' WHERE contiene.id_ejercicio = '%d' AND contiene.dia = '%d' AND contiene.id_rutina = '%d'", $repeticiones, $nuevo, $diaact, $rutinaactiva);
+                        $conn->query($query3); 
+
+
+                    }
+            
+                } 
+                else if($select != ""){ // Se inserta un ejercicio extra
+                    $query = sprintf("SELECT * FROM ejercicios");
+                        $rs = $conn->query($query); 
+                        while ($fila = $rs->fetch_assoc()){
+                            if ($fila['nombre'] == $select) $ejercicio = $fila['id_ejercicio'];
+                        }
+                    $repeticiones = self:: editarRepeticiones($ejercicio, $idusuario, $conn, $rutinaactiva);
+                    $diaact = $j+1;
+
+                    $query2 = sprintf("INSERT INTO contiene (id_rutina, id_ejercicio, dia, repeticiones) VALUES ('%d', '%d', '%d', 
+                    '%d')",  $rutinaactiva, $ejercicio, $diaact, $repeticiones);
+                    $conn->query($query2); 
                 }
             }
         }
@@ -300,6 +322,31 @@ class Rutina {
         $conn->query($queryeditar);
     }
 
+    private static function editarRepeticiones($nuevo, $idusuario, $conn, &$rutinaactiva){
+        
+        $tipoejercicio = self::getTipoEjercicio($nuevo, $conn);
+        $objetivo = self::getRutinaObjetivoUsuario($idusuario,$rutinaactiva, $conn);
+
+        $nuevasrepeticiones = self::calculadoraRepeticiones($objetivo, $tipoejercicio);
+
+        return $nuevasrepeticiones;
+    }
+
+    private static function getTipoEjercicio($ejercicio, $conn){
+        $querytipo = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $ejercicio);
+        $rstipo = $conn->query($querytipo);
+        $filatipo = $rstipo->fetch_assoc();
+        return $filatipo['tipo'];
+    }
+
+    private static function getRutinaObjetivoUsuario($idUsuario, &$rutinaactiva, $conn){
+        $queryobjetivo = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
+        $rsobjetivo = $conn->query($queryobjetivo);
+        $filaobjetivo = $rsobjetivo->fetch_assoc();
+        $objetivo = $filaobjetivo['objetivo'];
+        $rutinaactiva = $filaobjetivo['id_rutina'];
+        return $objetivo;
+    }
 
     public function __construct($id, $objetivo, $nivel, $dias) {
         $this->_nivel = $nivel;

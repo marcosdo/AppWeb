@@ -13,6 +13,8 @@ class FormularioEditarRutina extends Formulario {
     private function selectEjercicios($defecto){
         $html = "";
         $ejercicios = Rutina::getEjercicios();
+        if($defecto == "")
+            $html .= "<option value='' selected>No hay ejercicio</option>";
         foreach ($ejercicios as &$valor) {
             if($defecto == $valor)
                 $html .= "<option value='$valor' selected>$valor</option>";
@@ -42,19 +44,16 @@ class FormularioEditarRutina extends Formulario {
             $contenido .= "<tr>";
             for ($j = 0; $j < count($arrayaux)  ; $j++) { 
                 $defecto = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
-                if($defecto != "") {
-                    $ejercicios = self::selectEjercicios($defecto);
-                    $diaspos = $j;
-                    $diaspos .= "-";
-                    $diaspos .= $i;
-                    $select = "<select name=$diaspos id=$diaspos>";
-                    $select .= $ejercicios;
-                    $select .= "</select";
-                    $contenido .= "<td> $select</td>";
-                }
-                else {
-                    $contenido .= "<td> </td>";
-                }
+                $ejercicios = self::selectEjercicios($defecto);
+                $diaspos = $j;
+                $diaspos .= "-";
+                $diaspos .= $i;
+                $select = "<select name=$diaspos id=$diaspos>";
+                $select .= $ejercicios;
+                $select .= "</select";
+                $contenido .= "<td> $select</td>";
+                
+                
             }
             $contenido .= "</tr>";
         }
