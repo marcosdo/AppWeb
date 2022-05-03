@@ -113,6 +113,27 @@ class Productos {
 
         return $enum;
     }
+
+
+    public static function getProducto($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM productos WHERE productos.id_producto = %d", $id
+        );
+        try {
+            $rs = $conn->query($query); 
+            $fila = $rs->fetch_assoc();
+            $query2 = sprintf("SELECT * FROM empresas WHERE empresas.id_empresa = %d", $fila['id_empresa']);
+            $rs2 = $conn->query($query2); 
+            $fila2 = $rs->fetch_assoc();
+
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $fila2['nombre']);
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $producto;
+    }
     
     public static function getPrecioMaximo(){
         $precio = 0;
@@ -142,6 +163,10 @@ class Productos {
      *  altura
      *  imc
      */
+
+
+    // comprobar si tiene plan rutina o dieta o seguimiento?
+    
 
     }
 }
