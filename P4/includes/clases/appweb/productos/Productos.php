@@ -11,14 +11,66 @@ class Productos {
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
   
+    private $empresa;
+    private $nombre;
+    private $descripcion;
+    private $precio;
+    private $link;
+    private $tipo;
+
     // ==================== MÉTODOS ====================
     // ==================== no estaticos ====================
+
+    public function getLink() { return $this->link; }
+    public function getTipo() { return $this->tipo; }
+    public function getPrecio() { return $this->precio; }
+    public function getEmpresa() { return $this->empresa; }
+    public function getNombre() { return $this->nombre; }
+    public function getDescripcion() { return $this->descripcion; }
+
+
     // Constructor
+
+    public function __construct($id = null, $empresa, $nombre, $descripcion, $precio, $link, $tipo) {
+        $this->empresa = $empresa;
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+        $this->precio = $precio;
+        $this->link = $link;
+        $this->tipo = $tipo;
+    }
    
     // Getters y setters
   
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================
+
+    public static function buscaProducto($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM productos WHERE productos.id_producto = %d", $id
+        );
+        try {
+            $rs = $conn->query($query); 
+            $fila = $rs->fetch_assoc();
+            $nombreEmpresa = self::getNombreEmpresa($id);
+            $producto = new Productos($id, $nombreEmpresa, $fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo']);
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $producto;
+    }
+
+    private static function getNombreEmpresa ($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM empresas WHERE empresas.id_empresa = %d", $id
+        );
+        $rs = $conn->query($query); 
+        $fila = $rs->fetch_assoc();
+        return $fila['nombre'];
+    }
 
     /**
      * guardar en una lista todos los productos para usuarios sin plan

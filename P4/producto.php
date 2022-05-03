@@ -7,7 +7,7 @@ if (!$idProducto) {
 	appweb\Aplicacion::redirige($app->buildUrl('/productos.php'));
 }
 
-$producto = appweb\productos\Productos::getProducto($idProducto);
+$producto = appweb\productos\Productos::buscaProducto($idProducto);
 
 if (!$producto) {
 	appweb\Aplicacion::redirige($app->buildUrl('/productos.php'));
@@ -15,8 +15,22 @@ if (!$producto) {
 
 $tituloPagina = 'Producto';
 
+$precio = $producto->getPrecio();
+$link = $producto->getLink();
+$empresa = $producto->getEmpresa();
+$nombre = $producto->getNombre();
+$descripcion = $producto->getDescripcion();
+$tipo = $producto->getTipo();
+$ruta = RUTA_IMGS;
 
 $contenidoPrincipal = <<<EOS
+<h1>{$nombre}</h1>
+<div id='producto'>
+	<img src="$ruta/productos/$idProducto.png" alt="LIFETY">
+	<h2>Precio {$precio}€</h2>
+
+	<p>Es {$tipo} de {$empresa}. {$descripcion}</p>
+</div>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
