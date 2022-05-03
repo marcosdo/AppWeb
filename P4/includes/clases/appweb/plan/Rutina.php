@@ -274,7 +274,7 @@ class Rutina {
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
         $dias = count($arrayaux);
 
-        for ($i = 0; $i < $ejerciciostotales;$i++){
+        for ($i = 0; $i <= $ejerciciostotales;$i++){
             for ($j = 0; $j < $dias;$j++) { 
                 $tabla = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
                 $diaspos = $j;
