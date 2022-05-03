@@ -14,7 +14,7 @@ class FormularioEditarRutina extends Formulario {
         $html = "";
         $ejercicios = Rutina::getEjercicios();
         if($defecto == "")
-            $html .= "<option value='' selected>No hay ejercicio</option>";
+            $html .= "<option value='' selected>Agregar ejercicio</option>";
         foreach ($ejercicios as &$valor) {
             if($defecto == $valor)
                 $html .= "<option value='$valor' selected>$valor</option>";
@@ -40,7 +40,7 @@ class FormularioEditarRutina extends Formulario {
             $contenido .= "<th>Día $i </th>";
         }
         $contenido .= "</tr></thead><tbody>";
-        for ($i = 0; $i < $ejerciciostotales;$i++){
+        for ($i = 0; $i <= $ejerciciostotales;$i++){
             $contenido .= "<tr>";
             for ($j = 0; $j < count($arrayaux)  ; $j++) { 
                 $defecto = isset($arrayaux[$j][$i]) ? $arrayaux[$j][$i] : ""; 
