@@ -4,13 +4,15 @@ use appweb\foro\Foro;
 use appweb\foro\Mensaje;
 use appweb\foro\FormularioBorraForo;
 
+require_once __DIR__.'/mensajes.php';
+
 /**
  * @param
  * @return html
  */
 function muestraPrimerMensaje($idforo) {
     $msg = Mensaje::buscaPrimerMensajexIDForo($idforo);
-    $html = "<p id='foro-contenido'>" . $msg->getMensaje() . "</p>";
+    $html = visualizaMensajeObjeto($msg);
     return $html;
 }
 

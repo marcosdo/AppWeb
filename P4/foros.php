@@ -13,10 +13,10 @@ if ($app->usuarioLogueado()) {
 $tituloPagina = 'Foro';
 $contenidoPrincipal = <<<EOS
     <h1>Temas del foro</h1>
+    $html
+    $htmlFormForo
     <div id=tabla>
-        $htmlFormForo
-        $html
-</div>
+    </div>
 EOS;
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
