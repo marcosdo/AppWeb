@@ -162,4 +162,27 @@ class Mensaje {
         $result = $conn->query($query);
         return $result;
     }
+
+    /**
+     * Metodo que dado un ID de foro te devuelve el primer mensaje
+     * @param int $idforo ID del foro del que se quiere el mensaje
+     * @return data
+     */
+    public static function buscaPrimerMensajexIDForo($idforo) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT id_usuario, id_foro, titulo, mensaje, prioridad, id_referencia, MIN(id_mensaje) AS id_mensaje FROM mensaje WHERE mensaje.id_foro= %d"
+            , $idforo
+        );
+        
+        try {
+            $rs = $conn->query($query); 
+            $fila = $rs->fetch_assoc();
+            $msg = new Mensaje($fila['id_usuario'], $fila['id_foro'], $fila['titulo'], $fila['mensaje'], $fila['prioridad'], $fila['id_referencia'], $fila['id_mensaje']);
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $msg;
+    }
 }

@@ -1,6 +1,18 @@
 <?php
 use appweb\Aplicacion;
 use appweb\foro\Foro;
+use appweb\foro\Mensaje;
+use appweb\foro\FormularioBorraForo;
+
+/**
+ * @param
+ * @return html
+ */
+function muestraPrimerMensaje($idforo) {
+    $msg = Mensaje::buscaPrimerMensajexIDForo($idforo);
+    $html = "<p id='foro-contenido'>" . $msg->getMensaje() . "</p>";
+    return $html;
+}
 
 /**
  * Muestra los temas del foro y el boton de eliminar en funcion del tipo de usario que este logeado
@@ -9,37 +21,37 @@ use appweb\foro\Foro;
 function muestraTemas() {
     $app = Aplicacion::getInstance();
     // Coger todas las filas de foro
-    
     $enum = Foro::seleCategorias();
-    $data = Foro::getData();
-
-    $html = "<div class=temas>";
+    // Generar <HTML>
+    $html = "<div class='temas'>";
     $html .= "<h3>Lista de temas</h3>";
     for ($j = 0; $j < count($enum); $j++) {
-        $tipo = array_column($data, 'categoria');
-        $tema = array_column($data, 'tema');
-        $idforo = array_column($data, 'id_foro');
-        // Crear la variable html que devolvera el codigo
+        // Coge los datos de la BD
+        $data = Foro::getDataxCategoria($enum[$j]) ?? array();
+        $html .= "<div class='foro-temas'>";
         $html .= "<h4>{$enum[$j]}</h4>";
+        // Por cada tema muestra una entrada diferente
         for ($i = 0; $i < count($data); $i++) {
-            if ($tipo[$i] == $enum[$j]) {
-                // Busca el foro
-                $foro = Foro::buscaxID($idforo[$i]);
-                $formBorraForo = new appweb\foro\FormularioBorraForo($idforo[$i]);
-                $boton = $formBorraForo->gestiona();
-                // Mostrar el boton solo si es el creador o el admin
-                if ($app->usuarioLogueado() && ($app->idUsuario() == $foro->getIDUsuario()) || $app->esAdmin())
-                    $aux = $boton;
-                else $aux = ""; 
-                $html .= "<a href='foroindividual.php?idforo={$idforo[$i]}' class='listatemas'>{$tema[$i]}</a>";
-                $html .= "$aux";
-                
+            // Mostrar el boton solo si es el creador o el admin
+            $url = "foroindividual.php?idforo={$data[$i]['id_foro']}";
+            $html .= "<a href='{$url}' class='listatemas'>";
+            $html .= "<h4>{$data[$i]['tema']}</h4>";
+            $html .= muestraPrimerMensaje($data[$i]['id_foro']);
+            $html .= "</a>";
+            $boton = "";
+            if ($app->idUsuario() == $data[$i]['id_usuario'] || $app->esAdmin()) {
+                // Crea el formulario de borrar el foro
+                $formBorraForo = new FormularioBorraForo($data[$i]['id_foro']);
+                $boton = $formBorraForo->gestiona(); 
             }
+            $html .= $boton;
         }
+        $html .= "</div>"; 
     }
     $html .= "</div>"; 
     return $html;
 }
+
 
 /**
  * Muestra todos los temas posibles en un desplegable
