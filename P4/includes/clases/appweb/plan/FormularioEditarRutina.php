@@ -4,6 +4,7 @@ namespace appweb\plan;
 
 use appweb\Formulario;
 use appweb\plan\Rutina;
+use appweb\contenido\Ejercicios;
 
 
 class FormularioEditarRutina extends Formulario {
@@ -15,7 +16,7 @@ class FormularioEditarRutina extends Formulario {
     }
     private function selectEjercicios($defecto){
         $html = "";
-        $ejercicios = Rutina::getEjercicios();
+        $ejercicios = Ejercicios::getEjercicios();
         if($defecto == "")
             $html .= "<option value='' selected>Agregar ejercicio</option>";
         foreach ($ejercicios as &$valor) {

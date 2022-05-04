@@ -122,4 +122,46 @@ class Ejercicios {
         }
         return false;
     }
+
+    
+    public static function getEjercicios(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM ejercicios"); 
+        $rs = $conn->query($query); 
+        $ejercicios = array();
+        while($fila = $rs->fetch_assoc()){
+            $ejercicios[] = $fila["nombre"];
+        }
+        $rs->free();
+        return $ejercicios;
+    }
+
+    public static function compararEjercicios($tabla, $select, &$antiguo, &$nuevo){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM ejercicios");
+        $rs = $conn->query($query); 
+        while ($fila = $rs->fetch_assoc()){
+            if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
+            if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
+        }
+    }
+
+    public static function encontrarEjercicio($select){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM ejercicios");
+        $rs = $conn->query($query); 
+        while ($fila = $rs->fetch_assoc()){
+            if ($fila['nombre'] == $select) $ejercicio = $fila['id_ejercicio'];
+        }
+        return $ejercicio;
+    }
+
+    public static function getTipoEjercicio($ejercicio, $conn){
+        $querytipo = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $ejercicio);
+        $rstipo = $conn->query($querytipo);
+        $filatipo = $rstipo->fetch_assoc();
+        return $filatipo['tipo'];
+    }
+
+
 }

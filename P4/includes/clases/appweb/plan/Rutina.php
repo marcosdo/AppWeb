@@ -2,6 +2,7 @@
 namespace appweb\plan;
 
 use appweb\Aplicacion;
+use appweb\contenido\Ejercicios;
 
 class Rutina {
     
@@ -281,19 +282,6 @@ class Rutina {
 
     }
 
-
-    public static function getEjercicios(){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM ejercicios"); 
-        $rs = $conn->query($query); 
-        $ejercicios = array();
-        while($fila = $rs->fetch_assoc()){
-            $ejercicios[] = $fila["nombre"];
-        }
-        $rs->free();
-        return $ejercicios;
-    }
-
     public static function editarRutina($datos, $idusuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $alias = "";
@@ -316,12 +304,8 @@ class Rutina {
 
                 if($tabla != "") { // Ya hay un ejercicio
                     if($tabla != $select){ 
-                        $query = sprintf("SELECT * FROM ejercicios");
-                        $rs = $conn->query($query); 
-                        while ($fila = $rs->fetch_assoc()){
-                            if ($fila['nombre'] == $tabla) $antiguo = $fila['id_ejercicio'];
-                            if ($fila['nombre'] == $select) $nuevo = $fila['id_ejercicio'];
-                        }
+                        Ejercicios::compararEjercicios($tabla, $select, $antiguo, $nuevo);
+                        
                         $diaact = $j+1;
                         $repeticiones = self:: editarRepeticiones($nuevo, $idusuario, $conn, $rutinaactiva);
 
@@ -336,11 +320,7 @@ class Rutina {
             
                 } 
                 else if($select != ""){ // Se inserta un ejercicio extra
-                    $query = sprintf("SELECT * FROM ejercicios");
-                        $rs = $conn->query($query); 
-                        while ($fila = $rs->fetch_assoc()){
-                            if ($fila['nombre'] == $select) $ejercicio = $fila['id_ejercicio'];
-                        }
+                    $ejercicio = Ejercicios:: encontrarEjercicio($select);
                     $repeticiones = self:: editarRepeticiones($ejercicio, $idusuario, $conn, $rutinaactiva);
                     $diaact = $j+1;
 
@@ -356,7 +336,7 @@ class Rutina {
 
     private static function editarRepeticiones($nuevo, $idusuario, $conn, &$rutinaactiva){
         
-        $tipoejercicio = self::getTipoEjercicio($nuevo, $conn);
+        $tipoejercicio = Ejercicios::getTipoEjercicio($nuevo, $conn);
         $objetivo = self::getRutinaObjetivoUsuario($idusuario,$rutinaactiva, $conn);
 
         $nuevasrepeticiones = self::calculadoraRepeticiones($objetivo, $tipoejercicio);
@@ -364,12 +344,6 @@ class Rutina {
         return $nuevasrepeticiones;
     }
 
-    private static function getTipoEjercicio($ejercicio, $conn){
-        $querytipo = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $ejercicio);
-        $rstipo = $conn->query($querytipo);
-        $filatipo = $rstipo->fetch_assoc();
-        return $filatipo['tipo'];
-    }
 
     private static function getRutinaObjetivoUsuario($idUsuario, &$rutinaactiva, $conn){
         $queryobjetivo = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
