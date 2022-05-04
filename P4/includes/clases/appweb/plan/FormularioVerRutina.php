@@ -78,11 +78,9 @@ class FormularioVerRutina extends Formulario {
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formverrutina"> 
-            <legend id="ver-routine-plan">Ver Rutinas</legend>
+        <legend id="ver-routine-plan">Ver Rutinas</legend>
         $htmls
         $boton
-        </fieldset>
         EOF;
         return $html;
     }

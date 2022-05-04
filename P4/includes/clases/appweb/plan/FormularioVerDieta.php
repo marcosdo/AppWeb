@@ -2,13 +2,13 @@
 namespace appweb\plan;
 
 use appweb\Formulario;
+use appweb\plan\Dieta;
 use appweb\Aplicacion;
 
 class FormularioVerDieta extends Formulario {
     public function __construct() {
         parent::__construct('formVerDieta', ['urlRedireccion' => 'plandieta.php']);
     }
-    
 
     protected function generaCamposFormulario(&$datos) {
         
@@ -28,10 +28,8 @@ class FormularioVerDieta extends Formulario {
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset id ="formverdieta"> 
-            <legend id="ver-dieta-plan">Ver Dietas</legend>
+        <legend id="ver-dieta-plan">Ver Dietas</legend>
         $boton
-        </fieldset>
         EOF;
         return $html;
     }
