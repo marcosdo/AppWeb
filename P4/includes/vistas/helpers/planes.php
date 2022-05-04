@@ -8,14 +8,12 @@ use appweb\plan\Dieta;
  * Metodo que devuelve una tabla con el contenido de las rutinas de la base de datos
  * @return html Código en html de una tabla
 */
-function mostrarRutina(){
+function mostrarRutina($idRutina){
     $app = Aplicacion::getInstance();
-    $idusuario = $app->idUsuario();
     $obj = 10;
     $arrayreps = [];
     $arrayids = [];
-
-    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario, $arrayids);
+    $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idRutina, $arrayids);
     if($obj != 10) {
         // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 

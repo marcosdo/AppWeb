@@ -29,7 +29,7 @@ class FormularioVerDieta extends Formulario {
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset id ="formverdieta"> 
-            <legend id="ver-dieta-plan">Ver Dieta</legend>
+            <legend id="ver-dieta-plan">Ver Dietas</legend>
         $boton
         </fieldset>
         EOF;

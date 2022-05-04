@@ -90,7 +90,8 @@ class FormularioRutinas extends Formulario {
             $app = Aplicacion::getInstance();
             $rutina = Rutina::crea($app->idUsuario(), $objetivo, $nivel, $dias);
             $rutina->comprobarRutina($rutina);
-            
+            $idRutina = Rutina::getRutinaActiva($app->idUsuario());
+            $this->urlRedireccion = $app->buildUrl('/planrutina.php', ['idRutina' => $idRutina]);
         }
     }
 }
