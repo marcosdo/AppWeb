@@ -7,7 +7,10 @@ use appweb\plan\Rutina;
 
 
 class FormularioEditarRutina extends Formulario {
-    public function __construct() {
+    private $idUsuario;
+
+    public function __construct($idUsuario) {
+        $this->idUsuario = $idUsuario;
         parent::__construct('formEditarRutinas', ['urlRedireccion' => 'entrenadorplan.php']);
     }
     private function selectEjercicios($defecto){
@@ -26,13 +29,13 @@ class FormularioEditarRutina extends Formulario {
 
     private function generaTabla(){
         $alias = "";
-        $idusuario = Rutina::usuarioEditarRutina($alias);
+
         $contenido = "<table id=planificacion>";
         $obj = 0;
         $arrayreps = [];
         $arrayids = [];
 
-        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idusuario, $arrayids);
+        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $this->idUsuario, $arrayids);
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
         $contenido .= "<caption>Rutina de entrenamiento</caption><thead><tr>";
 
@@ -90,7 +93,7 @@ class FormularioEditarRutina extends Formulario {
     protected function procesaFormulario(&$datos) {
 
         if (count($this->errores) === 0) {
-            Rutina::editarRutina($datos);
+            Rutina::editarRutina($datos, $this->idUsuario);
         }
         
 

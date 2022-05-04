@@ -4,10 +4,12 @@ namespace appweb\plan;
 use appweb\Formulario;
 use appweb\Aplicacion;
 use appweb\usuarios\Profesional;
+use appweb\usuarios\Usuario;
+
 
 class FormularioPlanEntrenadorRutina extends Formulario {
     public function __construct() {
-        parent::__construct('formEntrenadorRutinas', ['urlRedireccion' => 'planeditarrutina.php']);
+        parent::__construct('formEntrenadorRutinas');
     }
     
     private function Usuarios(){
@@ -56,9 +58,10 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         $alias = trim($datos["alias"] ?? '');
 
         if (count($this->errores) === 0) {
-            $conn = Aplicacion::getInstance()->getConexionBd();
-            $queryr = sprintf("UPDATE entrena SET entrena.editarutina = '%d' WHERE entrena.usuario = '%s'",1, $alias); 
-            $conn->query($queryr);
+            $app = Aplicacion::getInstance();
+            $usuario = Usuario::buscaPorAlias($alias);
+            $idUsuario = $usuario->getId();
+            $this->urlRedireccion = $app->buildUrl('/planeditarrutina.php', ['idUsuario' => $idUsuario]);
             
         }
     }

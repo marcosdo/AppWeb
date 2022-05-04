@@ -238,18 +238,6 @@ class Rutina {
         return $arrayaux;
     }
 
-    public static function usuarioEditarRutina(&$alias){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE entrena.editarutina = '%d'",1); 
-        $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $alias =  $fila['usuario'];
-        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
-        $rs2 = $conn->query($query2); 
-        $fila2 = $rs2->fetch_assoc();
-        return $fila2['id_usuario'];
-    }
-
     public static function getEjercicios(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM ejercicios"); 
@@ -262,10 +250,9 @@ class Rutina {
         return $ejercicios;
     }
 
-    public static function editarRutina($datos){
+    public static function editarRutina($datos, $idusuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $alias = "";
-        $idusuario = self::usuarioEditarRutina($alias);
         $obj = 0;
         $arrayreps = [];
         $arrayids = [];
@@ -346,6 +333,14 @@ class Rutina {
         $objetivo = $filaobjetivo['objetivo'];
         $rutinaactiva = $filaobjetivo['id_rutina'];
         return $objetivo;
+    }
+
+    public static function getRutinaActiva($idUsuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        return $fila['id_rutina'];
     }
 
     public function __construct($id, $objetivo, $nivel, $dias) {
