@@ -31,6 +31,8 @@ $(document).ready(function() {
 
 	$("#correoNO").hide();
 	$("#aliasNO").hide();
+	$("#tituloNO").hide();
+	$("#ejercicioNO").hide();
 
 	$("#mail").change(function(){
 		const campo = $("#mail"); 
@@ -61,6 +63,16 @@ $(document).ready(function() {
 		if(pass1 != pass2) alert("Las password deben ser iguales");
     });
 
+	$("#titulo").change(function(){
+		var url = "comprobarNoticia.php?titulo=" + $("#titulo").val();
+		$.get(url,noticiaExiste);
+    });
+
+	$("#nombreE").change(function(){
+		var url = "comprobarEjercicio.php?ejercicio=" + $("#nombreE").val();
+		$.get(url,ejercicioExiste);
+    });
+
 	function usuarioExiste(data,status) {
 		if(status == "success"){
 			if(data == "disponible") {
@@ -68,6 +80,30 @@ $(document).ready(function() {
 			}
 			else{			
 				$('#aliasNO').show();
+				alert(data);
+			}
+		}
+	}
+
+	function noticiaExiste(data,status) {
+		if(status == "success"){
+			if(data == "disponible") {
+				$('#tituloNO').hide();
+			}
+			else{			
+				$('#tituloNO').show();
+				alert(data);
+			}
+		}
+	}
+
+	function ejercicioExiste(data,status) {
+		if(status == "success"){
+			if(data == "disponible") {
+				$('ejercicioNO').hide();
+			}
+			else{			
+				$('#ejercicioNO').show();
 				alert(data);
 			}
 		}

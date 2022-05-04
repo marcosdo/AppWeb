@@ -62,8 +62,9 @@ class FormularioCreaReceta extends Formulario {
             $this->errores['descripcion'] = 'Es necesario proporcionar una descripcion de comida';
 
         $link = filter_var($link, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (!$link || empty($link))
-                $this->errores['link'] = 'Es necesario aportar el link de la receta en youtube';
+        if (!$link || empty($link))
+            $this->errores['link'] = 'Es necesario aportar el link de la receta en youtube';
+        
         if (count($this->errores) === 0) {
             try {
                 Comidas::creaComida($objetivo, $tipo, $descripcion, $link);

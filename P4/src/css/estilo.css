@@ -430,7 +430,7 @@ div#repeticiones {
 /* input*/
 
 .form input, #formPago input,#formChatEntrenador input,#formChatUsuario input, #formAdminAnuncio input, #formAdminCrea input, #formAdminBorra input, 
-#formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio #nombre,  #formCreaEjercicio label, #formEditaMensaje input, #formForo input{
+#formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio input,  #formCreaEjercicio label, #formEditaMensaje input, #formForo input{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;
@@ -536,6 +536,7 @@ select option[value=""][disabled] {
 	cursor: pointer;
 	font-family: Century;
 }
+
 #formChatUsuario #usermsg, #formChatEntrenador #usermsg{
 	background-color: #e8eaed;
 	color: #292a3a;
@@ -752,6 +753,14 @@ div#mensajeObjeto {
 	font-weight: bold;
 	text-decoration: underline;
 } 
+
+/* iconos */
+
+#formCreaNoticia i, #formRegistro i, #formCreaEjercicio i{
+	font-size: 2em;
+	text-align: center;
+	display: block;
+}
 
 /* Diseño dispositivos pequeños*/
 

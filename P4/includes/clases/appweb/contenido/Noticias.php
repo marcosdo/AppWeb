@@ -89,6 +89,23 @@ class Noticias {
     private static function borra($idnoticia) {
         return self::borraXID($idnoticia->id_noticia);
     }
+   
+    public static function buscaTitulo($titulo){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM noticias WHERE noticias.titulo = '%s'",  $conn->real_escape_string($titulo));
+        
+        try {
+            $rs = $conn->query($query); 
+            if($rs->num_rows) return true;  
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return false;
+    }
+
+    
 
     public static function borraXID($idnoticia) {
         if (!$idnoticia)

@@ -63,7 +63,20 @@ class Ejercicios {
         }
         return $result;
     }
-
+    public static function buscaNombre($ejercicio){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM ejercicios WHERE ejercicios.nombre = '%s'",  $conn->real_escape_string($ejercicio));
+        
+        try {
+            $rs = $conn->query($query); 
+            if($rs->num_rows) return true;  
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return false;
+    }
     public static function buscaxID($id){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
