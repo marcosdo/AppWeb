@@ -54,8 +54,8 @@ $(document).ready(function() {
 		return regex.test(correo);
 	}
 
-	$("#alias").change(function(){
-		var url = "comprobarUsuario.php?user=" + $("#alias").val();
+	$("#aliasR").change(function(){
+		var url = "comprobarUsuario.php?user=" + $("#aliasR").val();
 		$.get(url,usuarioExiste);
     });
 

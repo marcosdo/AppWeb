@@ -28,7 +28,7 @@ class FormularioRegistro extends Formulario {
         <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="apellidos" />
         <div>
             <p class="error">{$erroresCampos['alias']}</p>
-            <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
+            <input id="aliasR" type="text" name="alias" value="$alias" placeholder="usuario" />
             <img id="aliasOK" src='$rutaimg/bien.png' alt=bien>
             <img id="aliasNO" src='$rutaimg/mal.png' alt=mal>
         </div>

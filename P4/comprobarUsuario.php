@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-
 $usuario = $_GET['user'];
 
 $existe = appweb\usuarios\Personas::buscaAlias($usuario);
