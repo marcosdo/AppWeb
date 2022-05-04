@@ -42,17 +42,16 @@ function visualizaMensaje($mensaje) {
  */
 function visualizaMensajeObjeto($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl("foromensajes.php", [
-        "id" => $mensaje->getID()
-    ]);
+    $user = Personas::buscaPorId($mensaje->getIDusuario());
+
     return <<<EOS
     <div id="mensajeObjeto">
-        <a href="{$verURL}">
-            {$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getFecha()})
-        </a>
-        <p>
-            {$mensaje->getMensaje()}
+        <p id="msg-contenido">
+        {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
         </p>
+        <div id="msg-datos">
+            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()}
+        </div>
     </div>
     EOS;
 }
