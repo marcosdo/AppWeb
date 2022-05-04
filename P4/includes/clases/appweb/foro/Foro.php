@@ -144,5 +144,27 @@ class Foro {
         return $result;
     }
 
-    
+    /**
+     * Funcion que devuelve las filas que son de una determinada categoria
+     * @param string $categoria Categoria = { Nutricion, Dieta }
+     * @return data Datos consultados en la BD
+     */
+    public static function getDataxCategoria($categoria) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM foro WHERE categoria = '%s'",
+            $categoria
+        );
+        $result = array();
+        try {
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila);
+            }
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
 }
