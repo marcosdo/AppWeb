@@ -35,7 +35,8 @@ class FormularioEditarRutina extends Formulario {
         $arrayreps = [];
         $arrayids = [];
 
-        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $this->idUsuario, $arrayids);
+        $idRutina = Rutina::getRutinaActiva($this->idUsuario);
+        $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idRutina, $arrayids);
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
         $contenido .= "<caption>Rutina de entrenamiento</caption><thead><tr>";
 

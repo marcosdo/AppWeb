@@ -134,8 +134,24 @@ class Rutina {
         return $reps;
     }
 
-    public static function hayRutinas($idUsuario){
-        $app = Aplicacion::getInstance();
+    public static function getRutinas($idUsuario, $app) {
+        $conn = $app->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $idUsuario);
+        $rs = $conn->query($query);
+        $result = array();
+        try {
+            $rs = $conn->query($query);
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($result, $fila);
+            }
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
+
+    public static function hayRutinas($idUsuario, $app){
         $conn = $app->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $idUsuario);
         $rs = $conn->query($query);
@@ -143,17 +159,24 @@ class Rutina {
         else return false;
     }
 
-    public static function buscaRutina(&$obj, &$arrayreps, &$usuario, &$arrayids){
+    public static function getRutinaActiva($idUsuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $usuario, 1);
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        return $fila['id_rutina'];
+    }
+
+    public static function buscaRutina(&$obj, &$arrayreps, &$rutina, &$arrayids){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_rutina = '%d'", $rutina);
         $rs = $conn->query($query);
         if($rs != null){
-            while( $fila = $rs->fetch_assoc()){
-                if($fila['activa'] == true){
-                    $objetivo = $fila['objetivo'];
-                    $rutinaid = $fila['id_rutina'];
-                }
-            }
+            $fila = $rs->fetch_assoc();
+            $objetivo = $fila['objetivo'];
+            $rutinaid = $fila['id_rutina'];
+                
+            
             $obj = $objetivo;
             $q = sprintf("SELECT * FROM contiene WHERE contiene.id_rutina = '%d'", $rutinaid);
             $t = $conn->query($q); 
@@ -266,7 +289,8 @@ class Rutina {
         $arrayreps = [];
         $arrayids = [];
 
-        $arrayaux = self::buscaRutina($obj, $arrayreps, $idusuario, $arrayids);
+        $idRutina = Rutina::getRutinaActiva($idusuario);
+        $arrayaux = self::buscaRutina($obj, $arrayreps, $idRutina, $arrayids);
         $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
         $dias = count($arrayaux);
 

@@ -31,7 +31,6 @@ class FormularioPlanEntrenadorRutina extends Formulario {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['alias'], $this->errores, 'span', array('class' => 'error'));
 
-        $app = Aplicacion::getInstance();
 
         $SelectUsuarios = self::Usuarios();
         $boton ="";
