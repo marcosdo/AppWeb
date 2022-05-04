@@ -160,16 +160,18 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
     $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);
-    if ($numMensajes == 0) {
-        return '';
-    }
+    if ($numMensajes == 0)
+        return "";
+    
+    $nPaginas = $numMensajes / $numPorPagina;
+    $nPaginas = round($nPaginas, 0, PHP_ROUND_HALF_UP);
 
     $haySiguientePagina = false;
     if ($numMensajes > $numPorPagina + $primerMensaje) {
         $haySiguientePagina = true;
     }
 
-    $html = '<ul class =listamensajes>';
+    $html = '<ul class=listamensajes>';
     for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
         $html .= '<li class=estilomensaje>';
@@ -216,10 +218,14 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
                 'numPorPagina' => $numPorPagina
             ]));
         }
-
+        
+        $botonAnterior = ($numPagina != 1) ? "<a class='boton $clasesPrevia' href='$hrefPrevia'>Previa</a>" : "Primera";
+        $botonSiguiente = ($haySiguientePagina) ? "<a class='boton $clasesSiguiente' href='$hrefSiguiente'>Siguiente</a>" : "Última";
         $html .=<<<EOS
             <div id=paginas>
-                Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
+                $botonAnterior
+                | ($numPagina de $nPaginas) | 
+                $botonSiguiente
             </div>
         EOS;
     }
