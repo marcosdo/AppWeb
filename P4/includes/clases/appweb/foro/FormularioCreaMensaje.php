@@ -65,7 +65,7 @@ class FormularioCreaMensaje extends Formulario {
            if ($idpadre) {
             $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idpadre]);
         } else {
-            $this->urlRedireccion = $app->buildUrl('/foroaux.php', ['idforo' => $idforo]);
+            $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $idforo]);
         }
         }
     }

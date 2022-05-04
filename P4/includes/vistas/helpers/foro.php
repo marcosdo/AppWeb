@@ -32,7 +32,7 @@ function muestraTemas() {
                 if ($app->usuarioLogueado() && ($app->idUsuario() == $foro->getIDUsuario()) || $app->esAdmin())
                     $aux = $boton;
                 else $aux = ""; 
-                $html .= "<a href='foroaux.php?idforo={$idforo[$i]}' class='listatemas'>{$tema[$i]}</a>";
+                $html .= "<a href='foroindividual.php?idforo={$idforo[$i]}' class='listatemas'>{$tema[$i]}</a>";
                 $html .= "$aux";
                 
             }

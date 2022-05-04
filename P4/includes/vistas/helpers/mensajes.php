@@ -3,6 +3,7 @@ use appweb\Aplicacion;
 use appweb\foro\Mensaje;
 use appweb\foro\FormularioBorraMensaje;
 use appweb\foro\FormularioEditaMensaje;
+use appweb\usuarios\Personas;
 
 /**
  * Crea html de un solo mensaje (a partir de un array)
@@ -11,18 +12,26 @@ use appweb\foro\FormularioEditaMensaje;
  */
 function visualizaMensaje($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl('mensajes.php', [
-        'id' => $mensaje['id_mensaje']
+    $verURL = $app->buildUrl("mensajes.php", [
+        "id" => $mensaje['id_mensaje']
     ]);
+    $user = Personas::buscaPorId($mensaje['id_usuario']);
+    $nick = $user->getAlias();
+
     return <<<EOS
-    <div id ="mensaje">
-        <a href="{$verURL}">
-            {$mensaje['titulo']} ({$mensaje['id_usuario']}) ({$mensaje['fecha']})
-        </a>
-        <p>
-            {$mensaje['mensaje']}
-        </p>
-    </div>
+    <a href="{$verURL}">
+        <div id ="mensaje">
+            <div id="msg-titulo">
+                <h3>{$mensaje['titulo']}</h3>
+            </div>
+            <p id="msg-contenido">
+                {$mensaje['mensaje']}
+            </p>
+            <div id="msg-datos">
+                Autor: {$nick} | Fecha: {$mensaje['fecha']}
+            </div>
+        </div> 
+    </a>
     EOS;
 }
 
@@ -33,11 +42,11 @@ function visualizaMensaje($mensaje) {
  */
 function visualizaMensajeObjeto($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl('mensajes.php', [
-        'id' => $mensaje->getID()
+    $verURL = $app->buildUrl("mensajes.php", [
+        "id" => $mensaje->getID()
     ]);
     return <<<EOS
-    <div id ="mensajeObjeto">
+    <div id="mensajeObjeto">
         <a href="{$verURL}">
             {$mensaje->getTitulo()} ({$mensaje->getID()}) ({$mensaje->getFecha()})
         </a>
@@ -102,16 +111,16 @@ function botonBorraMensajeObjecto($mensaje, $idMensajeRetorno = null) {
 function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null) {
     $mensajes = Mensaje::buscaPorMensajePadre($id);
     if (count($mensajes) == 0) {
-        return '';
+        return "";
     }
 
     $app = Aplicacion::getInstance();
-    $html = '<ul class = "listamensajes">';
+    $html = "<ul class='listamensajes'>";
     foreach($mensajes as $mensaje) {
-        $html .= '<li class=estilomensaje>';
+        $html .= "<li class='estilomensaje'>";
         $html .= visualizaMensajeObjeto($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
-            $html .= "<div class = msg>";
+            $html .= "<div class='msg'>";
             if (!$app->esAdmin())
                 $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
@@ -121,9 +130,9 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
         if ($recursivo) {
             $html .= listaMensajes($mensaje->getId(), $recursivo, $idMensajeRetorno);
         }
-        $html .= '</li>';
+        $html .= "</li>";
     }
-    $html .= '</ul>';
+    $html .= "</ul>";
 
     return $html;
 }
@@ -140,7 +149,7 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
  * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
  * @return html
  */
-function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
+function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="mensajes.php", $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
     return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, $url, $extraUrlParams, 1, $numPorPagina, $numPagina);
 }
 
@@ -156,26 +165,28 @@ function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRe
  * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
  * @return html
  */
-function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url='mensajes.php', $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
+function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="mensajes.php", $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
     $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);
-    if ($numMensajes == 0) {
-        return '';
-    }
+    if ($numMensajes == 0)
+        return "";
+    
+    $nPaginas = $numMensajes / $numPorPagina;
+    $nPaginas = round($nPaginas, 0, PHP_ROUND_HALF_UP);
 
     $haySiguientePagina = false;
     if ($numMensajes > $numPorPagina + $primerMensaje) {
         $haySiguientePagina = true;
     }
 
-    $html = '<ul class =listamensajes>';
+    $html = "<ul class=listamensajes>";
     for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
-        $html .= '<li class=estilomensaje>';
+        $html .= "<li class=estilomensaje>";
         $html .= visualizaMensaje($mensaje);
         if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
-            $html .= "<div class = msg>";
+            $html .= "<div class=msg>";
             if (!$app->esAdmin())
                 $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
                 $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
@@ -184,42 +195,46 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         if ($recursivo) {
             //$html .= listaMensajesPaginadosRecursivo($mensaje['id'], $recursivo, $idMensajeRetorno, $nivel+1, $numPagina, $numPorPagina);
         }
-        $html .= '</li>';
+        $html .= "</li>";
     }
-    $html .= '</ul>';
+    $html .= "</ul>";
 
     if ($nivel == 1) {
         // Controles de paginacion
-        $clasesPrevia='deshabilitado';
-        $clasesSiguiente = 'deshabilitado';
-        $hrefPrevia = '';
-        $hrefSiguiente = '';
+        $clasesPrevia="deshabilitado";
+        $clasesSiguiente = "deshabilitado";
+        $hrefPrevia = "";
+        $hrefSiguiente = "";
 
         if ($numPagina > 1) {
             // Seguro que hay mensajes anteriores
             $paginaPrevia = $numPagina - 1;
-            $clasesPrevia = '';
+            $clasesPrevia = "";
             $hrefPrevia = $app->buildUrl($url, array_merge($extraUrlParams, [
-                'id' => $idMensajeRetorno,
-                'numPagina' => $paginaPrevia,
-                'numPorPagina' => $numPorPagina
+                "id" => $idMensajeRetorno,
+                "numPagina" => $paginaPrevia,
+                "numPorPagina" => $numPorPagina
             ]));
         }
 
         if ($haySiguientePagina) {
             // Puede que haya mensajes posteriores
             $paginaSiguiente = $numPagina + 1;
-            $clasesSiguiente = '';
+            $clasesSiguiente = "";
             $hrefSiguiente = $app->buildUrl($url, array_merge($extraUrlParams, [
-                'id' => $idMensajeRetorno,
-                'numPagina' => $paginaSiguiente,
-                'numPorPagina' => $numPorPagina
+                "id" => $idMensajeRetorno,
+                "numPagina" => $paginaSiguiente,
+                "numPorPagina" => $numPorPagina
             ]));
         }
-
+        
+        $botonAnterior = ($numPagina != 1) ? "<a class='boton $clasesPrevia' href='$hrefPrevia'>Previa</a>" : "Primera";
+        $botonSiguiente = ($haySiguientePagina) ? "<a class='boton $clasesSiguiente' href='$hrefSiguiente'>Siguiente</a>" : "Última";
         $html .=<<<EOS
             <div id=paginas>
-                Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
+                $botonAnterior
+                | ($numPagina de $nPaginas) | 
+                $botonSiguiente
             </div>
         EOS;
     }
