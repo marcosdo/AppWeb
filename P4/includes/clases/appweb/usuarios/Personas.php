@@ -60,7 +60,7 @@ class Personas {
     public static function buscaPorId($id) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "SELECT * FROM usuario WHERE id_usuario = %d"
+            "SELECT * FROM personas WHERE id_usuario = %d"
             , $id
         );
         try {
