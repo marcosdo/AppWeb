@@ -62,7 +62,7 @@ class Productos {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
             $nombreEmpresa = self::getNombreEmpresa($fila['id_empresa']);
-            $producto = new Productos($id, $nombreEmpresa, $fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo']);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
         } finally {
             if ($rs != null)
                 $rs->free();
