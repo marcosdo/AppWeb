@@ -19,7 +19,7 @@ $nombreForo = $foro->getTema();
 $contenidoPrincipal = "<h1>$nombreForo</h1>";
 
 $params = [ 'idforo' => $idforo ];
-$contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroaux.php', $params, $numPorPagina, $numPagina);
+$contenidoPrincipal .= listaListaMensajesPaginados($msgs, false, null, 'foroindividual.php', $params, $numPorPagina, $numPagina);
 
 if ($app->tieneRol()) {
     $form = new appweb\foro\FormularioCreaMensaje($idforo);
