@@ -29,8 +29,6 @@ $(".message a").click(function () {
 
 $(document).ready(function() {
 
-	$("#correoOK").hide();
-	$("#aliasOK").hide();
 	$("#correoNO").hide();
 	$("#aliasNO").hide();
 
@@ -40,10 +38,8 @@ $(document).ready(function() {
 		const esCorreoValido = campo[0].checkValidity();
 		if (esCorreoValido && correoValido(campo.val())) {
 			$('#correoNO').hide();
-			$('#correoOK').show();
 			campo[0].setCustomValidity("");
 		} else {			
-			$('#correoOK').hide();
 			$('#correoNO').show();
 			campo[0].setCustomValidity("El correo debe ser válido");
 		}
@@ -59,15 +55,18 @@ $(document).ready(function() {
 		$.get(url,usuarioExiste);
     });
 
+	$("#password2").change(function(){
+		var pass1 = $("#password").val();
+		var pass2 = $("#password2").val();
+		if(pass1 != pass2) alert("Las password deben ser iguales");
+    });
+
 	function usuarioExiste(data,status) {
 		if(status == "success"){
 			if(data == "disponible") {
 				$('#aliasNO').hide();
-				$('#aliasOK').show();
-				alert(data);
 			}
 			else{			
-				$('#aliasOK').hide();
 				$('#aliasNO').show();
 				alert(data);
 			}

@@ -29,13 +29,11 @@ class FormularioRegistro extends Formulario {
         <div>
             <p class="error">{$erroresCampos['alias']}</p>
             <input id="aliasR" type="text" name="alias" value="$alias" placeholder="usuario" />
-            <img id="aliasOK" src='$rutaimg/bien.png' alt=bien>
             <img id="aliasNO" src='$rutaimg/mal.png' alt=mal>
         </div>
         <div>
             <p class="error">{$erroresCampos['mail']}</p>
             <input id="mail" type="email" name="mail" value="$mail" placeholder="correo electronico" />
-            <img id="correoOK" src='$rutaimg/bien.png' alt=bien>
             <img id="correoNO" src='$rutaimg/mal.png' alt=mal>
         </div>
         <p class="error">{$erroresCampos['password']}
