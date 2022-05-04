@@ -12,18 +12,43 @@ class FormularioPersonalizarProductos extends Formulario {
         parent::__construct('formPersProductos', ['urlRedireccion' => 'tiendapersonalizada.php']);
     }
 
+    private function comprobarPersonalizarProductos(){
+        $app = Aplicacion::getInstance();
+        $html = "";
+        $ok = true;
+        if(!Productos::haySeguimiento($app->idUsuario())){
+            $html .= "<p>Necesita tener una asesoria para ver productos personalizados, registrate desde Seguimiento.</p>";
+            $ok = false;
+        }
+        if(!Productos::hayRutina($app->idUsuario())){
+            $html .= "<p>Hace falta una rutina para mostrar los productos personalizados, creala desde Crear Plan.</p>";
+            $ok = false;
+        }
+        if(!Productos::hayDieta($app->idUsuario())){
+            $html .= "<p>Es necesario tener una dieta para ver productos personalizados, creala desde Crear Plan.</p>";
+            $ok = false;
+        }
+
+        if($ok){
+            $html .= "<p> Si quiere ver sus productos recomendados segun su planificación y seguimiento pulse el siguiente boton. </p>";
+            $html .= "<button type='submit' name='enviar'>Ver productos personalizados</button>";
+
+        }
+        
+        return $html;
+    }
+
     protected function generaCamposFormulario(&$datos) {
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
  
-        $boton = "<button type='submit' name='enviar'>Ver productos personalizados</button>";
-
+        
+        $html = self::comprobarPersonalizarProductos();
         $camposFormulario = <<<EOF
             <h2>Productos Personalizados</h2>
             $htmlErroresGlobales
-            <p> Si quiere ver sus productos recomendados segun su planificación y seguimiento pulse el siguiente boton. </p>
-            $boton
+                $html
             <p></p>
         EOF;
         return $camposFormulario;

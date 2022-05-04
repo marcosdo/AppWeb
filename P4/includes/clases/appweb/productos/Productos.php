@@ -2,6 +2,13 @@
 namespace appweb\productos;
 
 use appweb\Aplicacion;
+use appweb\usuarios\Premium;
+use appweb\usuarios\Profesional;
+use appweb\plan\Dieta;
+use appweb\plan\Rutina;
+
+
+
 
 class Productos {
     // ==================== CONSTANTES ====================
@@ -198,27 +205,35 @@ class Productos {
         return $precio; 
     }
 
-    public static function personalizaProductos($usuarioId){
-   /**
-     * campos filtrar
-     *  tipo (select)
-     *  empresa (select)
-     *  precio 
-     * 
-     *  si has iniciado sesion: 
-     *  objetivodieta 
-     *  objetivorutina
-     *  nivel 
-     * 
-     *  si eres premium 
-     *  peso
-     *  altura
-     *  imc
-     */
+    public static function personalizaProductos($idUsuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM `premium` WHERE premium.id_usuario = '%d'", $idUsuario);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        $peso = $fila['peso'];
+        $altura = $fila['altura'];
+        $imc = $peso / pow($altura, 2);
+        
+    }
+
+    public static function haySeguimiento($idUsuario){
+        if(!Profesional::usuarioSeguimiento($idUsuario)) return false;
+        else return true;
+    }
 
 
-    // comprobar si tiene plan rutina o dieta o seguimiento?
-    
+    public static function hayRutina($idUsuario){
+        $app = Aplicacion::getInstance();
+        if(!Rutina::hayRutinas($idUsuario, $app)) return false;
+        else return true;
 
     }
+
+    public static function hayDieta($idUsuario){
+        if(!Dieta::hayDietas(($idUsuario))) return false;
+        else return true;
+    }
+    
+
+    
 }
