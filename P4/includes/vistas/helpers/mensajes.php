@@ -12,7 +12,7 @@ use appweb\usuarios\Personas;
  */
 function visualizaMensaje($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl("mensajes.php", [
+    $verURL = $app->buildUrl("foromensajes.php", [
         "id" => $mensaje['id_mensaje']
     ]);
     $user = Personas::buscaPorId($mensaje['id_usuario']);
@@ -42,7 +42,7 @@ function visualizaMensaje($mensaje) {
  */
 function visualizaMensajeObjeto($mensaje) {
     $app = Aplicacion::getInstance();
-    $verURL = $app->buildUrl("mensajes.php", [
+    $verURL = $app->buildUrl("foromensajes.php", [
         "id" => $mensaje->getID()
     ]);
     return <<<EOS
@@ -149,7 +149,7 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
  * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
  * @return html
  */
-function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="mensajes.php", $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
+function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="foromensajes.php", $extraUrlParams = [], $numPorPagina = 5, $numPagina = 1) {
     return listaListaMensajesPaginadosRecursivo($mensajes, $recursivo, $idMensajeRetorno, $url, $extraUrlParams, 1, $numPorPagina, $numPagina);
 }
 
@@ -165,7 +165,7 @@ function listaListaMensajesPaginados($mensajes, $recursivo = false, $idMensajeRe
  * @param int       $numPagina          (opcional) numero de pagina en el que nos encontramos
  * @return html
  */
-function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="mensajes.php", $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
+function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $idMensajeRetorno = null, $url="foromensajes.php", $extraUrlParams = [], $nivel = 1, $numPorPagina = 5, $numPagina = 1) {
     $primerMensaje = ($numPagina - 1) * $numPorPagina;
     $app = Aplicacion::getInstance();
     $numMensajes = count($mensajes);

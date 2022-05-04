@@ -63,7 +63,7 @@ class FormularioCreaMensaje extends Formulario {
                 $this->errores[] = 'Este tema ya existe.';
            }
            if ($idpadre) {
-            $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idpadre]);
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idpadre]);
         } else {
             $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $idforo]);
         }

@@ -88,7 +88,7 @@ class FormularioEditaMensaje extends Formulario {
             }
         
             if ($idMensajeRetorno) {
-                $this->urlRedireccion = $app->buildUrl('/mensajes.php', ['id' => $idMensajeRetorno]);
+                $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idMensajeRetorno]);
             } else {
                 $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $msg->getIDForo()]);
             }
