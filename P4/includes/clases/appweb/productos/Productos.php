@@ -128,14 +128,17 @@ class Productos {
     }
 
     public static function getDataPers(){
+        $app = Aplicacion::getInstance();
+
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM productos");
+        $query = sprintf("SELECT * FROM recomienda WHERE recomienda.id_usuario = '%d'", $app->idUsuario());
         $rs = $conn->query($query);
         $result = array();
         try {
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()) {
-                array_push($result, $fila);
+                $producto = self::getProducto($fila['id_producto']);
+                array_push($result, $producto);
             }
         } finally {
             if ($rs != null)
@@ -143,6 +146,8 @@ class Productos {
         }
         return $result;
     }
+
+    
 
     public static function getEmpresas(){
         $empresas = array();
@@ -272,7 +277,28 @@ class Productos {
     }
 
     private static function actualizarProductosRecomendados($idUsuario, $productosTipos){
+        $conn = Aplicacion::getInstance()->getConexionBd();
 
+        // comprobar si ya habia datos antes y borrarlos
+        self::borrarProductosRecomendadosAntiguos($idUsuario);
+        foreach ($productosTipos as &$tipo) {
+            $query = sprintf("SELECT * FROM productos WHERE productos.tipo = '%s'", $tipo);
+            $rs = $conn->query($query);
+            while($fila = $rs->fetch_assoc()){ 
+                $producto = $fila['id_producto'];
+                $query2 = sprintf("INSERT INTO recomienda (id_usuario, id_producto) VALUES ('%d', '%d')", 
+                $idUsuario, $producto);
+                if ($conn->query($query2)){} 
+            }
+        }
+
+
+    }
+
+    private static function borrarProductosRecomendadosAntiguos($idUsuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM recomienda WHERE recomienda.id_usuario = '%d'", $idUsuario);
+        if ($conn->query($query)){} 
     }
 
     public static function haySeguimiento($idUsuario){
