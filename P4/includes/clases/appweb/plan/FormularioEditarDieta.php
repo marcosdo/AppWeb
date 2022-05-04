@@ -7,7 +7,10 @@ use appweb\plan\Dieta;
 
 
 class FormularioEditarDieta extends Formulario {
-    public function __construct() {
+    private $idUsuario;
+
+    public function __construct($idUsuario) {
+        $this->idUsuario = $idUsuario;
         parent::__construct('formEditarDietas', ['urlRedireccion' => 'entrenadorplan.php']);
     }
     
@@ -26,12 +29,10 @@ class FormularioEditarDieta extends Formulario {
 
     private function generaTabla(){
         $dias = 0;
-        $alias = "";
-        $idusuario = Dieta::usuarioEditarDieta($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
-        $fecha = Dieta:: buscaDieta($idusuario, $dias, $desayuno, $almuerzo, $cena);
+        $fecha = Dieta:: buscaDieta($this->idUsuario, $dias, $desayuno, $almuerzo, $cena);
 
         $contenido = "<table id=planificacion>";
         $contenido .= "<caption>Dieta especializada</caption>";
@@ -120,7 +121,7 @@ class FormularioEditarDieta extends Formulario {
     protected function procesaFormulario(&$datos) {
 
         if (count($this->errores) === 0) {
-            Dieta::editarDieta($datos);
+            Dieta::editarDieta($datos, $this->idUsuario);
         }
         
 

@@ -335,24 +335,12 @@ class Dieta {
         return $comidas;
     }
 
-    public static function usuarioEditarDieta(&$alias){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM entrena WHERE entrena.editadieta = '%d'",1); 
-        $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        $alias =  $fila['usuario'];
-        $query2 = sprintf("SELECT * FROM personas WHERE personas.nick = '%s'", $alias);
-        $rs2 = $conn->query($query2); 
-        $fila2 = $rs2->fetch_assoc();
-        return $fila2['id_usuario'];
-    }
 
-    public static function editarDieta($datos){
+    public static function editarDieta($datos, $idusuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
 
         $dias = 0;
         $alias = "";
-        $idusuario = self::usuarioEditarDieta($alias);
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
