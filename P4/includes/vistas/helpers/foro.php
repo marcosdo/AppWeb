@@ -21,7 +21,6 @@ function muestraTemas() {
         $idforo = array_column($data, 'id_foro');
         // Crear la variable html que devolvera el codigo
         $html .= "<h4>{$enum[$j]}</h4>";
-        $html .= "<li>";
         for ($i = 0; $i < count($data); $i++) {
             if ($tipo[$i] == $enum[$j]) {
                 // Busca el foro
@@ -37,7 +36,6 @@ function muestraTemas() {
                 
             }
         }
-        $html .= "</li>";
     }
     $html .= "</div>"; 
     return $html;

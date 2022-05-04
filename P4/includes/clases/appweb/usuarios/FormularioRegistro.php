@@ -29,7 +29,7 @@ class FormularioRegistro extends Formulario {
         <div>
             <p class="error">{$erroresCampos['alias']}</p>
             <input id="aliasR" type="text" name="alias" value="$alias" placeholder="usuario" />
-            <i class="fa-solid fa-triangle-exclamation" id='usuarioNO'></i>
+            <i class="fa-solid fa-triangle-exclamation" id='aliasNO'></i>
         </div>
         <div>
             <p class="error">{$erroresCampos['mail']}</p>
