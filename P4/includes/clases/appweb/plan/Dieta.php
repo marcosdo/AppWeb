@@ -405,6 +405,22 @@ class Dieta {
 
     }
 
+    public static function getObjetivoDieta($idUsuario){
+        $bd = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM dieta WHERE dieta.id_usuario = %d",
+            $idUsuario
+        );
+        $rs = $bd->query($query);
+        $ok = false;
+        while($fila = $rs->fetch_assoc() && !$ok){
+            $objetivo = $fila['objetivo'];
+            $ok = true;
+        }
+        return $objetivo;
+    }
+
+    
 
 }
 ?>

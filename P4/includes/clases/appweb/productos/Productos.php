@@ -205,15 +205,74 @@ class Productos {
         return $precio; 
     }
 
-    public static function personalizaProductos($idUsuario){
+    private static function getDatosSeguimiento($idUsuario, &$peso, &$altura){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM `premium` WHERE premium.id_usuario = '%d'", $idUsuario);
         $rs = $conn->query($query);
         $fila = $rs->fetch_assoc();
         $peso = $fila['peso'];
         $altura = $fila['altura'];
+    }
+
+    
+
+    public static function personalizaProductos($idUsuario){
+        self::getDatosSeguimiento($idUsuario, $peso, $altura);
+        $objetivoDieta = Dieta::getObjetivoDieta($idUsuario);
+        $objetivoRutina = Rutina::getObjetivoRutina($idUsuario, $nivelRutina);
+        $productosTipos = array();
         $imc = $peso / pow($altura, 2);
+        switch ($objetivoDieta){
+            case 1: // Pérdida
+                array_push($productosTipos, "preentreno");
+                break;
+            case 2: // Ganancia
+                if($imc <= 25){
+                    array_push($productosTipos, "gainer");
+                }
+                break;
+            case 3: // Mantener
+                if($imc > 18){
+                    array_push($productosTipos, "preentreno");
+                }
+                break;
+        }
+
+        switch($objetivoRutina){
+            case 1: // Fuerza
+                array_push($productosTipos, "proteina");
+                if($nivelRutina == 2){
+                    array_push($productosTipos, "creatina");
+                }
+                else if($nivelRutina == 3){
+                    array_push($productosTipos, "creatina");
+                    array_push($productosTipos, "aminoacidos");
+                }
+                break;
+            case 2: // Hipertrofia
+                array_push($productosTipos, "proteina");
+                if($nivelRutina == 2){
+                    array_push($productosTipos, "creatina");
+                }
+                else if($nivelRutina == 3){
+                    array_push($productosTipos, "creatina");
+                    array_push($productosTipos, "caseina");
+                }
+                break;
+            case 3: // Resistencia
+                array_push($productosTipos, "proteina");
+                if($nivelRutina >= 2){
+                    array_push($productosTipos, "aminoacidos");
+                }
+                break;
+
+        }
+        self::actualizarProductosRecomendados($idUsuario,$productosTipos);
         
+    }
+
+    private static function actualizarProductosRecomendados($idUsuario, $productosTipos){
+
     }
 
     public static function haySeguimiento($idUsuario){

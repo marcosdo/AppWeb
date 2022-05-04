@@ -7,7 +7,7 @@ require_once __DIR__.'/includes/vistas/helpers/productos.php';
 $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
 $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 9;
 
-// Coger los productos recomendados
+// Coger los productos recomendados de la BBDD
 $productos = appweb\productos\Productos::getDataPers();
 $htmlProductos = listaListaProductosPaginadas($productos, 'tiendapersonalizada.php', $numPorPagina, $numPagina);
 

@@ -270,6 +270,18 @@ class Rutina {
         return $arrayaux;
     }
 
+    public static function getObjetivoRutina($idUsuario, &$nivelRutina){
+        $idRutinaActiva = self::getRutinaActiva($idUsuario);
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_rutina = '%d'", $idRutinaActiva);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        $nivelRutina = $fila['nivel'];
+        return $fila['objetivo'];
+
+    }
+
+
     public static function getEjercicios(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM ejercicios"); 
