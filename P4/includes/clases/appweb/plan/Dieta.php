@@ -412,10 +412,9 @@ class Dieta {
             $idUsuario
         );
         $rs = $bd->query($query);
-        $ok = false;
-        while($fila = $rs->fetch_assoc() && !$ok){
-            $objetivo = $fila['objetivo'];
-            $ok = true;
+        while($fila = $rs->fetch_assoc()){
+            $objetivo = $fila['tipo'];
+            break;
         }
         return $objetivo;
     }

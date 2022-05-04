@@ -38,7 +38,8 @@ class Productos {
 
     // Constructor
 
-    public function __construct($id = null, $empresa, $nombre, $descripcion, $precio, $link, $tipo) {
+
+    public function __construct($nombre,$descripcion, $precio, $link, $tipo, $id = null, $empresa) {
         $this->empresa = $empresa;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
@@ -127,6 +128,18 @@ class Productos {
         return $result;
     }
 
+    public static function getDataProducto($idProducto){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM productos WHERE productos.id_producto = '%d'", $idProducto);
+        $rs = $conn->query($query);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+
+        return $fila;
+    }
+
+
+
     public static function getDataPers(){
         $app = Aplicacion::getInstance();
 
@@ -137,7 +150,7 @@ class Productos {
         try {
             $rs = $conn->query($query);
             while ($fila = $rs->fetch_assoc()) {
-                $producto = self::getProducto($fila['id_producto']);
+                $producto = self::getDataProducto($fila['id_producto']);
                 array_push($result, $producto);
             }
         } finally {
@@ -189,7 +202,7 @@ class Productos {
             $fila = $rs->fetch_assoc();
             $query2 = sprintf("SELECT * FROM empresas WHERE empresas.id_empresa = %d", $fila['id_empresa']);
             $rs2 = $conn->query($query2); 
-            $fila2 = $rs->fetch_assoc();
+            $fila2 = $rs2->fetch_assoc();
 
             $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $fila2['nombre']);
         } finally {
@@ -226,7 +239,8 @@ class Productos {
         $objetivoDieta = Dieta::getObjetivoDieta($idUsuario);
         $objetivoRutina = Rutina::getObjetivoRutina($idUsuario, $nivelRutina);
         $productosTipos = array();
-        $imc = $peso / pow($altura, 2);
+        $alturaaux = $altura/100;
+        $imc = $peso / pow($alturaaux, 2);
         switch ($objetivoDieta){
             case 1: // Pérdida
                 array_push($productosTipos, "preentreno");
@@ -246,27 +260,27 @@ class Productos {
         switch($objetivoRutina){
             case 1: // Fuerza
                 array_push($productosTipos, "proteina");
-                if($nivelRutina == 2){
+                if($nivelRutina == "M"){
                     array_push($productosTipos, "creatina");
                 }
-                else if($nivelRutina == 3){
+                else if($nivelRutina == "A"){
                     array_push($productosTipos, "creatina");
                     array_push($productosTipos, "aminoacidos");
                 }
                 break;
             case 2: // Hipertrofia
                 array_push($productosTipos, "proteina");
-                if($nivelRutina == 2){
+                if($nivelRutina == "M"){
                     array_push($productosTipos, "creatina");
                 }
-                else if($nivelRutina == 3){
+                else if($nivelRutina == "A"){
                     array_push($productosTipos, "creatina");
                     array_push($productosTipos, "caseina");
                 }
                 break;
             case 3: // Resistencia
                 array_push($productosTipos, "proteina");
-                if($nivelRutina >= 2){
+                if($nivelRutina == "M" || $nivelRutina == "A"){
                     array_push($productosTipos, "aminoacidos");
                 }
                 break;
