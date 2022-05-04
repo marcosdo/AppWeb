@@ -335,6 +335,14 @@ class Dieta {
         return $comidas;
     }
 
+    public static function hayDietas($idUsuario){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%s'", $idUsuario); 
+        $rs = $conn->query($query);
+        if($rs->num_rows > 0) return true;
+        else return false;
+    }
 
     public static function editarDieta($datos, $idusuario){
         $conn = Aplicacion::getInstance()->getConexionBd();

@@ -134,6 +134,15 @@ class Rutina {
         return $reps;
     }
 
+    public static function hayRutinas($idUsuario){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $idUsuario);
+        $rs = $conn->query($query);
+        if($rs->num_rows > 0) return true;
+        else return false;
+    }
+
     public static function buscaRutina(&$obj, &$arrayreps, &$usuario, &$arrayids){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $usuario, 1);
@@ -333,14 +342,6 @@ class Rutina {
         $objetivo = $filaobjetivo['objetivo'];
         $rutinaactiva = $filaobjetivo['id_rutina'];
         return $objetivo;
-    }
-
-    public static function getRutinaActiva($idUsuario){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
-        $rs = $conn->query($query);
-        $fila = $rs->fetch_assoc();
-        return $fila['id_rutina'];
     }
 
     public function __construct($id, $objetivo, $nivel, $dias) {
