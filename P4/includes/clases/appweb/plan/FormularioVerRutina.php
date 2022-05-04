@@ -46,6 +46,7 @@ class FormularioVerRutina extends Formulario {
             case 3: $caracteristicas .= "3 dias."; break;
             case 5: $caracteristicas .= "5 dias."; break;
         }
+        if($rutina["activa"]) $caracteristicas .= " Rutina Activa.";
         return $caracteristicas;
 
     }
