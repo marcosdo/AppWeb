@@ -157,6 +157,15 @@ class Profesional extends Personas {
        return $usuarios;
     }
 
+    public static function usuarioSeguimiento($idUsuario){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $usuario = Usuario::buscaPorId($idUsuario);
+        $nickUsuario = $usuario->getAlias();
+        $query = sprintf("SELECT * FROM entrena WHERE usuario = '%s'",$nickUsuario); 
+        $rs = $conn->query($query); 
+        if($rs->num_rows > 0) return true;
+        else return false;
+    }
 
     public static function getUsuariosDieta ($entNombre){
         $usuarios = array();
