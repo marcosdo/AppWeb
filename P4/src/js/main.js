@@ -26,3 +26,51 @@ window.addEvent('domready',function(){
 $(".message a").click(function () {
 	$("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
 });
+
+$(document).ready(function() {
+
+	$("#correoOK").hide();
+	$("#aliasOK").hide();
+	$("#correoNO").hide();
+	$("#aliasNO").hide();
+
+	$("#mail").change(function(){
+		const campo = $("#mail"); 
+		campo[0].setCustomValidity(""); 
+		const esCorreoValido = campo[0].checkValidity();
+		if (esCorreoValido && correoValido(campo.val())) {
+			$('#correoNO').hide();
+			$('#correoOK').show();
+			campo[0].setCustomValidity("");
+		} else {			
+			$('#correoOK').hide();
+			$('#correoNO').show();
+			campo[0].setCustomValidity("El correo debe ser válido");
+		}
+	});
+
+	function correoValido(correo) {
+		var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		return regex.test(correo);
+	}
+
+	$("#alias").change(function(){
+		var url = "comprobarUsuario.php?user=" + $("#alias").val();
+		$.get(url,usuarioExiste);
+    });
+
+	function usuarioExiste(data,status) {
+		if(status == "success"){
+			if(data == "disponible") {
+				$('#aliasNO').hide();
+				$('#aliasOK').show();
+				alert(data);
+			}
+			else{			
+				$('#aliasOK').hide();
+				$('#aliasNO').show();
+				alert(data);
+			}
+		}
+	}
+})

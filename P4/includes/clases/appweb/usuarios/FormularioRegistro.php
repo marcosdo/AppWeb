@@ -16,7 +16,7 @@ class FormularioRegistro extends Formulario {
         $apellidos = $datos['apellidos'] ?? '';
         $mail = $datos['mail'] ?? '';
 
-
+        $rutaimg = RUTA_IMGS;
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre', 'apellidos', 'mail', 'alias', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
@@ -26,10 +26,18 @@ class FormularioRegistro extends Formulario {
         <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="nombre" />
         <p class="error">{$erroresCampos['apellidos']}</p>
         <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="apellidos" />
-        <p class="error">{$erroresCampos['alias']}</p>
-        <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
-        <p class="error">{$erroresCampos['mail']}</p>
-        <input id="mail" type="text" name="mail" value="$mail" placeholder="correo electronico" />
+        <div>
+            <p class="error">{$erroresCampos['alias']}</p>
+            <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
+            <img id="aliasOK" src='$rutaimg/bien.png' alt=bien>
+            <img id="aliasNO" src='$rutaimg/mal.png' alt=mal>
+        </div>
+        <div>
+            <p class="error">{$erroresCampos['mail']}</p>
+            <input id="mail" type="email" name="mail" value="$mail" placeholder="correo electronico" />
+            <img id="correoOK" src='$rutaimg/bien.png' alt=bien>
+            <img id="correoNO" src='$rutaimg/mal.png' alt=mal>
+        </div>
         <p class="error">{$erroresCampos['password']}
         <input id="password" type="password" name="password" placeholder="password" />
         <p class="error">{$erroresCampos['password2']}</p>
