@@ -16,7 +16,7 @@ class FormularioVerRutina extends Formulario {
         $rutinas = Rutina::getRutinas($app->idUsuario(), $app);
         $contador = 1;
         $values = "";
-        $select = "<select name=selectrutina id=selectrutina>";
+        $select = "<select name=rutina id=selectrutina>";
         
         foreach($rutinas as $rutina){
             $caracteristicas = self::parametrosRutina($rutina);
