@@ -16,7 +16,7 @@ class FormularioVerRutina extends Formulario {
         $rutinas = Rutina::getRutinas($app->idUsuario(), $app);
         $contador = 1;
         $values = "";
-        $select = "<select name=rutina id=selectrutina>";
+        $select = "<select name=selectrutina id=selectrutina>";
         
         foreach($rutinas as $rutina){
             $caracteristicas = self::parametrosRutina($rutina);
@@ -78,7 +78,8 @@ class FormularioVerRutina extends Formulario {
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <legend id="ver-routine-plan">Ver Rutinas</legend>
+
+        <h1>Ver Rutinas</h1>        
         $htmls
         $boton
         EOF;
