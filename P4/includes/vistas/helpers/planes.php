@@ -16,7 +16,12 @@ function mostrarRutina($idRutina){
     $arrayaux = Rutina::buscaRutina($obj, $arrayreps, $idRutina, $arrayids);
     if($obj != 10) {
         // DIA 1 A 3 MISMOS EJERCICIOS DIA 4 A 5 MAS EJERCICIOS
-        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]); 
+        $ejerciciostotales = 0;
+        for($d = 0; $d < count($arrayaux); $d++){
+            $aux = count($arrayaux [$d]);
+            if($aux > $ejerciciostotales) $ejerciciostotales = $aux; 
+
+        }
         $contenido = "<caption>Rutina de entrenamiento</caption><thead><tr>";
 
         // num. de dias

@@ -291,7 +291,12 @@ class Rutina {
 
         $idRutina = Rutina::getRutinaActiva($idusuario);
         $arrayaux = self::buscaRutina($obj, $arrayreps, $idRutina, $arrayids);
-        $ejerciciostotales = count($arrayaux [count($arrayaux)-1]);
+        $ejerciciostotales = 0;
+        for($d = 0; $d < count($arrayaux); $d++){
+            $aux = count($arrayaux [$d]);
+            if($aux > $ejerciciostotales) $ejerciciostotales = $aux; 
+
+        }
         $dias = count($arrayaux);
 
         for ($i = 0; $i <= $ejerciciostotales;$i++){
