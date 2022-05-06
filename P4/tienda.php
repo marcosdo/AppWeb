@@ -6,6 +6,7 @@ require_once __DIR__.'/includes/vistas/helpers/productos.php';
 $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
 $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 9;
 
+// Params ?precio=X&tipo=Y&empresa=Z
 $precio = filter_input(INPUT_GET, 'precio', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 $empresa = filter_input(INPUT_GET, 'empresa', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';

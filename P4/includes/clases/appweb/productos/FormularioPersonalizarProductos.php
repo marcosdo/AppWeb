@@ -60,7 +60,8 @@ class FormularioPersonalizarProductos extends Formulario {
 
         if (count($this->errores) === 0) {
             $app = Aplicacion::getInstance();
-            Productos::personalizaProductos($app->idUsuario());
+            if ($app->esPremium())
+                Productos::personalizaProductos($app->idUsuario());
         }
     }
 }
