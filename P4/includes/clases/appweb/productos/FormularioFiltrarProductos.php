@@ -30,7 +30,7 @@ class FormularioFiltrarProductos extends Formulario {
      */
 
     private function listaEmpresas(){
-        $empresas = Productos::getEmpresas();
+        $empresas = Productos::getNombresEmpresas();
         $html = "<option value='det' disabled='disabled' selected='selected'>Elige una empresa</option>";
         foreach ($empresas as &$valor) 
             $html .= "<option value='$valor'>$valor</option>";
@@ -99,12 +99,12 @@ class FormularioFiltrarProductos extends Formulario {
 
         $empresa = trim($datos['empresa'] ?? '');
         $empresa = filter_var($empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!array_search($empresa, Productos::getEmpresas()))
+        if (!in_array($empresa, Productos::getNombresEmpresas()))
             $this->errores['empresa'] = 'Empresa no encontrada';
 
         $tipo = trim($datos['tipo'] ?? '');
         $tipo = filter_var($tipo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!array_search($empresa, Productos::getEmpresas()))
+        if (!in_array($empresa, Productos::getNombresEmpresas()))
             $this->errores['tipo'] = 'Tipo no encontrado';
 
         if (count($this->errores) === 0) {
@@ -115,7 +115,7 @@ class FormularioFiltrarProductos extends Formulario {
                 "empresa" => $empresa,
                 "tipo" => $tipo
             ];
-            $url = Aplicacion::buildParams($params);
+            $url = "tienda.php?" . Aplicacion::buildParams($params);
             Aplicacion::redirige($url);
         }
     }

@@ -2,22 +2,16 @@
 namespace appweb\productos;
 
 use appweb\Aplicacion;
-use appweb\usuarios\Premium;
-use appweb\usuarios\Profesional;
 use appweb\plan\Dieta;
 use appweb\plan\Rutina;
+use appweb\usuarios\Profesional;
 
-
-
-
-class Productos {
+class Productos extends Empresas {
     // ==================== CONSTANTES ====================
     // ====================           ====================
-    
 
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
-  
     private $empresa;
     private $nombre;
     private $descripcion;
@@ -28,18 +22,8 @@ class Productos {
     // ==================== MÉTODOS ====================
     // ==================== no estaticos ====================
 
-    public function getLink() { return $this->link; }
-    public function getTipo() { return $this->tipo; }
-    public function getPrecio() { return $this->precio; }
-    public function getEmpresa() { return $this->empresa; }
-    public function getNombre() { return $this->nombre; }
-    public function getDescripcion() { return $this->descripcion; }
-
-
     // Constructor
-
-
-    public function __construct($nombre,$descripcion, $precio, $link, $tipo, $id = null, $empresa) {
+    public function __construct($nombre, $descripcion, $precio, $link, $tipo, $id = null, $empresa) {
         $this->empresa = $empresa;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
@@ -49,7 +33,13 @@ class Productos {
     }
    
     // Getters y setters
-  
+    public function getLink() { return $this->link; }
+    public function getTipo() { return $this->tipo; }
+    public function getPrecio() { return $this->precio; }
+    public function getEmpresa() { return $this->empresa; }
+    public function getNombre() { return $this->nombre; }
+    public function getDescripcion() { return $this->descripcion; }
+
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================
 
@@ -61,8 +51,8 @@ class Productos {
         try {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
-            $nombreEmpresa = self::getNombreEmpresa($fila['id_empresa']);
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
+            $nombreEmpresa = self::getNombreEmpresaxID($fila['id_empresa']);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $nombreEmpresa, $id);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -70,14 +60,33 @@ class Productos {
         return $producto;
     }
 
-    private static function getNombreEmpresa ($id){
+    /**
+     * Dados unos parametros devuelve unos datos
+     * @param int $precio
+     * @param string $empresa
+     * @param string $tipo
+     * @return array Datos de la query
+     */
+    public static function buscaxFiltros($precio, $empresa, $tipo) {
+        $empresa = self::getIDEmpresaxNombre($empresa);
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "SELECT * FROM empresas WHERE empresas.id_empresa = %d", $id
+            "SELECT * FROM productos P WHERE P.precio <= %d AND P.id_empresa = %d AND P.tipo = '%s'"
+            , $precio
+            , $empresa
+            , $tipo
         );
-        $rs = $conn->query($query); 
-        $fila = $rs->fetch_assoc();
-        return $fila['nombre'];
+        $result = array();
+        try {
+            $rs = $conn->query($query); 
+            while ($fila = $rs->fetch_assoc())
+                array_push($result, $fila);
+        }
+        finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
     }
 
     /**
@@ -160,19 +169,6 @@ class Productos {
         return $result;
     }
 
-    
-
-    public static function getEmpresas(){
-        $empresas = array();
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM empresas");
-        $rs = $conn->query($query);
-        while($fila = $rs->fetch_assoc()){ 
-            array_push($empresas, $fila["nombre"]);
-        } 
-        return $empresas;    
-    }
-
     public static function getTipos(){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
@@ -204,7 +200,7 @@ class Productos {
             $rs2 = $conn->query($query2); 
             $fila2 = $rs2->fetch_assoc();
 
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $fila2['nombre']);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $fila2['nombre'], $id);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -231,8 +227,6 @@ class Productos {
         $peso = $fila['peso'];
         $altura = $fila['altura'];
     }
-
-    
 
     public static function personalizaProductos($idUsuario){
         self::getDatosSeguimiento($idUsuario, $peso, $altura);
