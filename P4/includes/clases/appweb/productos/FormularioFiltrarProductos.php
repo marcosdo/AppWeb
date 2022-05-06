@@ -12,23 +12,6 @@ class FormularioFiltrarProductos extends Formulario {
         parent::__construct('formPersProductos', ['urlRedireccion' => 'tienda.php']);
     }
 
-    /**
-     * campos filtrar
-     *  tipo (select)
-     *  empresa (select)
-     *  precio 
-     * 
-     *  si has iniciado sesion: 
-     *  objetivodieta 
-     *  objetivorutina
-     *  nivel 
-     * 
-     *  si eres premium 
-     *  peso
-     *  altura
-     *  imc
-     */
-
     private function listaEmpresas(){
         $empresas = Productos::getNombresEmpresas();
         $html = "<option value='det' disabled='disabled' selected='selected'>Elige una empresa</option>";
@@ -50,10 +33,6 @@ class FormularioFiltrarProductos extends Formulario {
     }
 
     protected function generaCamposFormulario(&$datos) {
-        $precio = $datos['precio'] ?? '';
-        $empresa = $datos['empresa'] ?? '';
-        $tipo = $datos['tipo'] ?? '';
-
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['precio', 'empresa', 'tipo'], $this->errores, 'span', array('class' => 'error'));
@@ -68,21 +47,23 @@ class FormularioFiltrarProductos extends Formulario {
             $htmlErroresGlobales
             <h2>Filtrar Productos</h2>
             <p> Selecciona el precio maximo deseado </p>
+
+            <p class="error">{$erroresCampos['precio']}</p>
             <input name="precio" id="choose-precio" type="range" min="0" max=$preciomaximo value="0"
                 onchange="document.getElementById('outprecio').value=value">
             <output id="outprecio" name="outprecio" for ="precio">0</output>
 
-            <p class="error">{$erroresCampos['precio']}</p>
-
-            <select name="empresa" id="choose-empresa" required>
-                $empresas
-            </select>
-            <p class="error">{$erroresCampos['empresa']}</p>
-
+            <p class="error">{$erroresCampos['tipo']}</p>
             <select name="tipo" id="choose-tipo" required>
                 $tipos
             </select>
-            <p class="error">{$erroresCampos['tipo']}</p>
+
+            <p class="error">{$erroresCampos['empresa']}</p>
+            <p> Campo opcional <p>
+            <select name="empresa" id="choose-empresa" required>
+                $empresas
+            </select>
+
             $boton
         EOF;
         return $camposFormulario;
@@ -97,24 +78,26 @@ class FormularioFiltrarProductos extends Formulario {
         if ($precio < 0 || $precio > Productos::getPrecioMaximo())
             $this->errores['precio'] = 'Precio invalido';
 
-        $empresa = trim($datos['empresa'] ?? '');
-        $empresa = filter_var($empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!in_array($empresa, Productos::getNombresEmpresas()))
-            $this->errores['empresa'] = 'Empresa no encontrada';
-
         $tipo = trim($datos['tipo'] ?? '');
         $tipo = filter_var($tipo, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!in_array($empresa, Productos::getNombresEmpresas()))
+        if (!in_array($tipo, Productos::getTipos()))
             $this->errores['tipo'] = 'Tipo no encontrado';
+
+        $empresa = trim($datos['empresa'] ?? 'none');
+        $empresa = filter_var($empresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ($empresa != "none" && !in_array($empresa, Productos::getNombresEmpresas()))
+                $this->errores['empresa'] = 'Empresa no encontrada';
 
         if (count($this->errores) === 0) {
             $params = [
                 "numPorPagina" => 9,
                 "numPagina" => 1,
                 "precio" => $precio,
-                "empresa" => $empresa,
                 "tipo" => $tipo
             ];
+            if ($empresa != "none")
+                $params["empresa"] = $empresa;
+
             $url = "tienda.php?" . Aplicacion::buildParams($params);
             Aplicacion::redirige($url);
         }

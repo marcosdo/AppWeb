@@ -12,8 +12,8 @@ $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 
 $productos = null;
 // Ya se ha filtrado
-if ($precio != '' && $empresa != '' && $tipo != '') {
-    $productos = appweb\productos\Productos::buscaxFiltros($precio, $empresa, $tipo);
+if ($precio != '' && $tipo != '') {
+    $productos = appweb\productos\Productos::buscaxFiltros($precio, $tipo, $empresa);
 }
 // No se ha filtrado
 else $productos = appweb\productos\Productos::getData();

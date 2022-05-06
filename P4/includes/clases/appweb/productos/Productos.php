@@ -67,15 +67,25 @@ class Productos extends Empresas {
      * @param string $tipo
      * @return array Datos de la query
      */
-    public static function buscaxFiltros($precio, $empresa, $tipo) {
-        $empresa = self::getIDEmpresaxNombre($empresa);
+    public static function buscaxFiltros($precio, $tipo, $empresa = null) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "SELECT * FROM productos P WHERE P.precio <= %d AND P.id_empresa = %d AND P.tipo = '%s'"
-            , $precio
-            , $empresa
-            , $tipo
-        );
+        if ($empresa == null) {
+            $query = sprintf(
+                "SELECT * FROM productos P WHERE P.precio <= %d AND P.tipo = '%s'"
+                , $precio
+                , $tipo
+            );
+        }
+        else {
+            $empresa = self::getIDEmpresaxNombre($empresa);
+            $query = sprintf(
+                "SELECT * FROM productos P WHERE P.precio <= %d AND P.id_empresa = %d AND P.tipo = '%s'"
+                , $precio
+                , $empresa
+                , $tipo
+            );
+        }
+
         $result = array();
         try {
             $rs = $conn->query($query); 
