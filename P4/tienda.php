@@ -6,8 +6,18 @@ require_once __DIR__.'/includes/vistas/helpers/productos.php';
 $numPagina = filter_input(INPUT_GET, 'numPagina', FILTER_SANITIZE_NUMBER_INT) ?? 1;
 $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_INT) ?? 9;
 
-// Coger todos los productos
-$productos = appweb\productos\Productos::getData();
+$precio = filter_input(INPUT_GET, 'precio', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+$empresa = filter_input(INPUT_GET, 'empresa', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+$tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+
+$productos = null;
+// Ya se ha filtrado
+if ($precio != '' && $empresa != '' && $tipo != '') {
+    $productos = appweb\productos\Productos::buscaxFiltros($precio, $empresa, $tipo);
+}
+// No se ha filtrado
+else $productos = appweb\productos\Productos::getData();
+
 $htmlProductos = listaListaProductosPaginadas($productos, 'tienda.php', $numPorPagina, $numPagina);
 
 // Filtrar productos: Precio, Empresa, Tipo
