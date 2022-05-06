@@ -100,4 +100,48 @@ class Empresas {
         }
         return $empresas;
     }
+
+    /**
+     * Devuelve el nombre de una empresa dado su ID
+     * @param int $id ID de la empresa
+     * @return string Campo de la query del nombre
+     */
+    public static function getNombreEmpresaxID($id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM empresas WHERE empresas.id_empresa = %d"
+            , $id
+        );
+        try {
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+        }
+        finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $fila['nombre'];
+    }
+
+    /**
+     * Devuelve el ID de una empresa dado su nombre
+     * @param string $nombre nombre de la empresa
+     * @return int Campo de la query del ID
+     */
+    public static function getIDEmpresaxNombre($nombre) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT * FROM empresas WHERE empresas.nombre = '%s'"
+            , $nombre
+        );
+        try {
+            $rs = $conn->query($query);
+            $fila = $rs->fetch_assoc();
+        }
+        finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $fila['id_empresa'];
+    }
 }
