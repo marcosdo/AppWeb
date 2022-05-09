@@ -8,7 +8,7 @@ $app = Aplicacion::getInstance();
 $myID = $app->idUsuario();
 $user = Personas::buscaPorId($myID);
 if($user){
-    $formContenido = new appweb\usuarios\FormularioEditaUsuario($user);
+    $formContenido = new appweb\usuarios\FormularioEditaUsuario();
     $htmlFormContenido = $formContenido->gestiona();
 }
 

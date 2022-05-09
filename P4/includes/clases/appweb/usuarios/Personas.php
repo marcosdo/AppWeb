@@ -162,4 +162,62 @@ class Personas {
     private static function hashPassword($password) { 
         return password_hash($password, PASSWORD_DEFAULT);
     }
+
+    public function updateAlias($alias){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE personas SET nick = '%s' WHERE id_usuario = %d"
+            , $conn->real_escape_string($alias)
+            , $this->_id
+        );
+        $conn->query($query);
+        $this->_alias = $alias;
+        $_SESSION['alias'] = $alias;
+    }
+
+    public function updateNombre($nombre){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE personas SET nombre = '%s' WHERE id_usuario = %d"
+            , $conn->real_escape_string($nombre)
+            , $this->_id
+        );
+        $conn->query($query);
+        $this->_nombre = $nombre;
+        $_SESSION['nombre'] = $nombre;
+    }
+
+    public function updateApellidos($apellidos){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE personas SET apellidos = '%s' WHERE id_usuario = %d"
+            , $conn->real_escape_string($apellidos)
+            , $this->_id
+        );
+        $conn->query($query);
+        $this->_apellidos = $apellidos;
+    }
+
+    public function updateMail($mail){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE personas SET correo = '%s' WHERE id_usuario = %d"
+            , $conn->real_escape_string($mail)
+            , $this->_id
+        );
+        $conn->query($query);
+        $this->_correo = $mail;
+
+    }
+
+    public function updatePassword($password){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE personas SET contraseña = '%s' WHERE id_usuario = %d"
+            , $conn->real_escape_string(self::hashPassword($password))
+            , $this->_id
+        );
+        $conn->query($query);
+        $this->_password = $password;
+    }
 }

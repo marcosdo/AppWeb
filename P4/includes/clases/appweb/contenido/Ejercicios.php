@@ -101,7 +101,6 @@ class Ejercicios {
             , $idEjercicio
         );
         $conn->query($query);
-        
     }
 
 
@@ -174,6 +173,4 @@ class Ejercicios {
         $filatipo = $rstipo->fetch_assoc();
         return $filatipo['tipo'];
     }
-
-
 }

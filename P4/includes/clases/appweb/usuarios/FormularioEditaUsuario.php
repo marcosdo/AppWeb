@@ -5,20 +5,12 @@ use appweb\Formulario;
 use appweb\Aplicacion;
 
 class FormularioEditaUsuario extends Formulario {
-    private $_user = null;
 
-    public function __construct($user) {
-        $this->_user = $user; 
+    public function __construct() {
         parent::__construct('formEditaUsuario', ['urlRedireccion' => 'micuenta.php']);
     }
     
     protected function generaCamposFormulario(&$datos) {
-
-        $actual_nombre = $this->_user->getNombre();
-        $actual_apellido = $this->_user->getApellidos();
-        $actual_correo = $this->_user->getCorreo();
-
-
         $alias = $datos['alias'] ?? '';
         $nombre = $datos['nombre'] ?? '';
         $apellidos = $datos['apellidos'] ?? '';
@@ -50,7 +42,7 @@ class FormularioEditaUsuario extends Formulario {
             </div>
             
             <p class="error">{$erroresCampos['password']}
-            <input id="password" type="password" name="password" placeholder="Mejora tu password y actulizala" />
+            <input id="password" type="password" name="password" placeholder="Mejora tu password y actualizala" />
             
             <p class="error">{$erroresCampos['password2']}</p>
             <input id="password2" type="password" name="password2" placeholder="Confirma tu password" />
@@ -62,14 +54,51 @@ class FormularioEditaUsuario extends Formulario {
 
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
+       
+        $alias = $datos['alias'] ?? '';
+        $nombre = $datos['nombre'] ?? '';
+        $apellidos = $datos['apellidos'] ?? '';
+        $mail = $datos['mail'] ?? '';
+
+        if (!empty($alias)){
+            $alias = filter_var($alias, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$alias) $this->errores['alias'] = 'Debe ser un alias valido';
+        }
+
+        if (!empty($nombre)){
+            $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$nombre) $this->errores['nombre'] = 'Debe ser un nombre valido';
+        }
+
+        if (!empty($apellidos)){
+            $apellidos = filter_var($apellidos, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$apellidos) $this->errores['apellidos'] = 'Deben ser unos apellidos validos';
+        }
+
+        if (!empty($mail)){
+            $mail = filter_var($mail, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$mail) $this->errores['mail'] = 'Debe ser un correo valido';
+        }
         
-        $a = trim($datos[''] ?? '');
-        $a = filter_var($a, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!$a || empty($a))
-            $this->errores[''] = '';
+        $password = trim($datos['password'] ?? '');
+        if(!empty($password)){
+            $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (!$password || mb_strlen($password) < 5) 
+                $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+                $password2 = trim($datos['password2'] ?? '');
+                $password2 = filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                if (!$password2 || empty($password2) || $password != $password2)
+                    $this->errores['password2'] = 'Los passwords deben coincidir.';
+        }
         
         if (count($this->errores) === 0) {
             try {
+                $persona = Personas::buscaPorId($_SESSION['id']);
+                if($alias) $persona->updateAlias($alias);
+                if($nombre) $persona->updateNombre($nombre);
+                if($apellidos) $persona->updateApellidos($apellidos);
+                if($mail) $persona->updateMail($mail);
+                if($password) $persona->updatePassword($password);
                 $app = Aplicacion::getInstance();
                 $mensajes = ['Se han actualizado exitosamente', "Bienvenido {$app->nombreUsuario()}"];
                 $app->putAtributoPeticion('mensajes', $mensajes);
