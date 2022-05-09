@@ -47,6 +47,19 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#mailE").change(function(){
+		const campo = $("#mailE"); 
+		campo[0].setCustomValidity(""); 
+		const esCorreoValido = campo[0].checkValidity();
+		if (esCorreoValido && correoValido(campo.val())) {
+			$('#correoNO').hide();
+			campo[0].setCustomValidity("");
+		} else {			
+			$('#correoNO').show();
+			campo[0].setCustomValidity("El correo debe ser válido");
+		}
+	});
+
 	function correoValido(correo) {
 		var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 		return regex.test(correo);
@@ -54,6 +67,11 @@ $(document).ready(function() {
 
 	$("#aliasR").change(function(){
 		var url = "comprobarUsuario.php?user=" + $("#aliasR").val();
+		$.get(url,usuarioExiste);
+    });
+
+	$("#aliasE").change(function(){
+		var url = "comprobarUsuario.php?user=" + $("#aliasE").val();
 		$.get(url,usuarioExiste);
     });
 

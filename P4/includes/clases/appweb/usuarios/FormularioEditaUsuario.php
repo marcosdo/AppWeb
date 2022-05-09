@@ -37,11 +37,17 @@ class FormularioEditaUsuario extends Formulario {
             <p class="error">{$erroresCampos['apellidos']}</p>
             <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="Cambia tus apellidos" />
             
-            <p class="error">{$erroresCampos['alias']}</p>
-            <input id="alias" type="text" name="alias" value="$alias" placeholder="Modifica tu nick de usuario" />
+            <div>
+                <p class="error">{$erroresCampos['alias']}</p>
+                <input id="aliasE" type="text" name="alias" value="$alias" placeholder="Modifica tu nick de usuario" />
+                <i class="fa-solid fa-triangle-exclamation" id='aliasNO'></i>
+            </div>
             
-            <p class="error">{$erroresCampos['mail']}</p>
-            <input id="mail" type="text" name="mail" value="$mail" placeholder="Utiliza otra cuenta diferente de mail" />
+            <div>
+                <p class="error">{$erroresCampos['mail']}</p>
+                <input id="mailE" type="email" name="mail" value="$mail" placeholder="Utiliza otra cuenta diferente de mail" />
+                <i class="fa-solid fa-triangle-exclamation" id='correoNO'></i>
+            </div>
             
             <p class="error">{$erroresCampos['password']}
             <input id="password" type="password" name="password" placeholder="Mejora tu password y actulizala" />

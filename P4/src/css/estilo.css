@@ -290,8 +290,6 @@ footer {
 
 .descripcion-producto{
 	color: #292a3a;
-
-
 }
 .imagen-producto img{
     border-radius: 20px;
@@ -453,6 +451,12 @@ div#repeticiones {
 
 #cuenta p:hover{
 	color: #e1523d;
+}
+
+#formEditaUsuario i{
+	font-size: 2em;
+	text-align: center;
+	display: block;
 }
 
 /* input*/
@@ -798,6 +802,7 @@ select option[value=""][disabled] {
 div#mensaje {
 	word-wrap: break-word;
 }
+
 div#mensajeObjeto {
 	word-wrap: break-word;
 }
