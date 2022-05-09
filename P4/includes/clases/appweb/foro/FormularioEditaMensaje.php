@@ -87,11 +87,12 @@ class FormularioEditaMensaje extends Formulario {
                 $this->errores[] = 'Imposible actualizar el mensaje';
             }
         
-            if ($idMensajeRetorno) {
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idMensaje]);
+          /*  if ($idMensajeRetorno) {
                 $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idMensajeRetorno]);
             } else {
                 $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $msg->getIDForo()]);
-            }
+            }*/
         }
     }
 }

@@ -25,10 +25,27 @@ $tituloMensaje = $mensaje->getTitulo();
 $contenidoPrincipal = "";
 $contenidoPrincipal .= <<<EOS
 <h1>$tituloMensaje</h1>
-<p class = respuesta>{$msg}</p>
+<div class = respuesta>{$msg}
 EOS;
+
+$html ='';
+
+if ($app->usuarioLogueado()) {
+	if ($app->idUsuario() == $mensaje->getIDUsuario() || $app->esAdmin()) {
+		$html .= "<div class='msg'>";
+		$html .= "<h4 class='message1'><a href='#'> Actualizar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+		$html .= botonEditaMensajeObjeto($mensaje, $mensaje->getIDRefencia());
+		$html .= "<h4 class='message2'><a href='#'> Borrar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+		$html .= botonBorraMensajeObjecto($mensaje, $mensaje->getIDRefencia());
+		$html .= "</div>";
+	}
+}
+
+$contenidoPrincipal .= $html . "</div>";
+
 // Mensajes sin paginar
-$contenidoPrincipal .= listaMensajes($idMensaje, true, $idMensaje);
+if ($mensaje->getIDRefencia() == null)
+	$contenidoPrincipal .= listaMensajes($idMensaje, true, $idMensaje);
 
 if ($app->usuarioLogueado()) {
 	$form = new appweb\foro\FormularioCreaMensaje($idMensaje);

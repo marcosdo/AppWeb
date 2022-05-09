@@ -32,6 +32,7 @@ function visualizaMensaje($mensaje) {
             </div>
         </div> 
     </a>
+    
     EOS;
 }
 
@@ -43,16 +44,21 @@ function visualizaMensaje($mensaje) {
 function visualizaMensajeObjeto($mensaje) {
     $app = Aplicacion::getInstance();
     $user = Personas::buscaPorId($mensaje->getIDusuario());
-
+    $verURL = $app->buildUrl("foromensajes.php", [
+        "id" => $mensaje->getID()
+    ]);
     return <<<EOS
-    <div id="mensajeObjeto">
+    <a href="{$verURL}">
+    <div class="msg-objeto">
         <p id="msg-contenido">
         {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
         </p>
         <div id="msg-datos">
             Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()}
-        </div>
+        </div>   
+       
     </div>
+    </a>
     EOS;
 }
 
@@ -117,14 +123,15 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     $html = "<ul class='listamensajes'>";
     foreach($mensajes as $mensaje) {
         $html .= "<li class='estilomensaje'>";
+       
         $html .= visualizaMensajeObjeto($mensaje);
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
+      /*  if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
             $html .= "<div class='msg'>";
             if (!$app->esAdmin())
                 $html .= botonEditaMensajeObjeto($mensaje, $idMensajeRetorno);
             $html .= botonBorraMensajeObjecto($mensaje, $idMensajeRetorno);
             $html .= "</div>";
-        }
+        }*/
 
         if ($recursivo) {
             $html .= listaMensajes($mensaje->getId(), $recursivo, $idMensajeRetorno);
@@ -184,13 +191,13 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
         $mensaje = $mensajes[$idx];
         $html .= "<li class=estilomensaje>";
         $html .= visualizaMensaje($mensaje);
-        if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
+        /*if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
             $html .= "<div class=msg>";
-            if (!$app->esAdmin())
+              if (!$app->esAdmin())
                 $html .= botonEditaMensaje($mensaje, $idMensajeRetorno);
                 $html .= botonBorraMensaje($mensaje, $idMensajeRetorno);
                 $html .= "</div>";
-        }
+        }*/
         if ($recursivo) {
             //$html .= listaMensajesPaginadosRecursivo($mensaje['id'], $recursivo, $idMensajeRetorno, $nivel+1, $numPagina, $numPorPagina);
         }

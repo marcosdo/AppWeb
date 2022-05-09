@@ -19,6 +19,7 @@ function muestraEjercicio($ejercicio) {
 
 function botonBorraEjercicio($ejercicio) {
     $form = new  FormularioBorraEjercicio($ejercicio['id_ejercicio']);
+    
     return $form->gestiona();
 }
 
@@ -56,6 +57,7 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         $ejercicio = $ejercicios[$idx];
         $html .= muestraEjercicio($ejercicio);
         if($app->esProfesional()){
+            
             $html .= botonBorraEjercicio($ejercicio);
         }
         $html .= '</div>';
