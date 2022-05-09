@@ -126,4 +126,11 @@ $(document).ready(function() {
 			}
 		}
 	}
+	$(".message1 a").click(function () {
+		$("#formEditaMensaje").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
+	
+	$(".message2 a").click(function () {
+		$("#formBorraMensaje").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
 })
