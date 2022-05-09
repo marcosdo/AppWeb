@@ -54,7 +54,7 @@ function visualizaMensajeObjeto($mensaje) {
         {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
         </p>
         <div id="msg-datos">
-            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()}
+            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()} | Respuestas {$mensaje->getNumRespuestas()}
         </div>   
        
     </div>

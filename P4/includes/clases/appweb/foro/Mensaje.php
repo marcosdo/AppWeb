@@ -52,6 +52,24 @@ class Mensaje {
         $conn->query($query);
     }
 
+    public function getNumRespuestas() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT COUNT(*) FROM mensaje WHERE id_referencia = %d GROUP BY id_referencia"
+            , $this->_id_mensaje
+        );
+        
+        try {
+            $result = 0;
+            $rs = $conn->query($query);
+            if ($fila = $rs->fetch_assoc())
+                $result = $fila['COUNT(*)'];
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }
