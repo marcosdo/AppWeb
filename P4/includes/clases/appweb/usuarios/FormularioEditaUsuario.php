@@ -32,22 +32,22 @@ class FormularioEditaUsuario extends Formulario {
         $html = <<<EOF
             $htmlErroresGlobales
             <p class="error">{$erroresCampos['nombre']}</p>
-            <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="" />
+            <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="Escribe tu nuevo nombre" />
             
             <p class="error">{$erroresCampos['apellidos']}</p>
-            <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="" />
+            <input id="apellidos" type="text" name="apellidos" value="$apellidos" placeholder="Cambia tus apellidos" />
             
             <p class="error">{$erroresCampos['alias']}</p>
-            <input id="alias" type="text" name="alias" value="$alias" placeholder="" />
+            <input id="alias" type="text" name="alias" value="$alias" placeholder="Modifica tu nick de usuario" />
             
             <p class="error">{$erroresCampos['mail']}</p>
-            <input id="mail" type="text" name="mail" value="$mail" placeholder="" />
+            <input id="mail" type="text" name="mail" value="$mail" placeholder="Utiliza otra cuenta diferente de mail" />
             
             <p class="error">{$erroresCampos['password']}
-            <input id="password" type="password" name="password" placeholder="" />
+            <input id="password" type="password" name="password" placeholder="Mejora tu password y actulizala" />
             
             <p class="error">{$erroresCampos['password2']}</p>
-            <input id="password2" type="password" name="password2" placeholder="" />
+            <input id="password2" type="password" name="password2" placeholder="Confirma tu password" />
             
             <button type="submit" name="registro">Actualizar</button>
         EOF;
