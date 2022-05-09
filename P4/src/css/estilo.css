@@ -405,7 +405,7 @@ div#repeticiones {
 
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .estilomensaje, .respuesta, 
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg-objeto, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
 #formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta{
 	background: #FFFFFF;
@@ -797,6 +797,11 @@ select option[value=""][disabled] {
 
 .listamensajes li{
 	list-style: none;
+	background:#e6e6e6;
+	margin: 10px 10px 10px;
+	padding: 1%;
+	padding-bottom:3px;
+	border-radius: 20px;
 }
 
 div#mensaje {
@@ -814,7 +819,9 @@ div#mensajeObjeto {
 	font-weight: bold;
 	text-decoration: none;
 }
-
+#formEditaMensaje, #formBorraMensaje{
+	display: none;
+}
 .listamensajes a:hover, div#mensajes a:hover, .listatemas:hover {
 	color: #e1523d;
 	font-weight: bold;
