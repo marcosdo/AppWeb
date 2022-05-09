@@ -70,6 +70,56 @@ class Mensaje {
         }
         return $result;
     }
+
+    public function like() {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO likes (id_usuario, id_mensaje) VALUES (%d, %d)"
+            , $app->idUsuario()
+            , $this->_id_mensaje
+        );
+        try {
+            $conn->query($query);
+        } catch (\mysqli_sql_exception $e) {
+            throw $e;
+        }
+    }
+
+    public function dislike(){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $query = sprintf(
+            "DELETE FROM likes WHERE id_mensaje = %d AND id_usuario = %d"
+            , $this->_id_mensaje
+            , $app->idUsuario()
+        );
+        try {
+            $conn->query($query);
+        } catch (\mysqli_sql_exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getLikes() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT COUNT(*) FROM likes WHERE id_mensaje = %d GROUP BY id_mensaje"
+            , $this->_id_mensaje
+        );
+        
+        try {
+            $result = 0;
+            $rs = $conn->query($query);
+            if ($fila = $rs->fetch_assoc())
+                $result = $fila['COUNT(*)'];
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result;
+    }
+
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }

@@ -47,6 +47,12 @@ function visualizaMensajeObjeto($mensaje) {
     $verURL = $app->buildUrl("foromensajes.php", [
         "id" => $mensaje->getID()
     ]);
+
+    $form1 = new appweb\foro\FormularioLike($mensaje->getID());
+	$btnLike = $form1->gestiona();
+	$form2 = new appweb\foro\FormularioDislike($mensaje->getID());
+	$btnDislike = $form2->gestiona();
+
     return <<<EOS
     <a href="{$verURL}">
     <div class="msg-objeto">
@@ -54,11 +60,13 @@ function visualizaMensajeObjeto($mensaje) {
         {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
         </p>
         <div id="msg-datos">
-            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()} | Respuestas {$mensaje->getNumRespuestas()}
-        </div>   
-       
-    </div>
-    </a>
+            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()} | Respuestas {$mensaje->getNumRespuestas()} | Likes: {$mensaje->getLikes()}
+        </div> 
+        </div>
+        </a>
+        <div id="msg-botones"> 
+            $btnLike $btnDislike
+        </div>
     EOS;
 }
 
