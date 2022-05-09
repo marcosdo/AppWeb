@@ -49,8 +49,7 @@ class FormularioEditaUsuario extends Formulario {
             <p class="error">{$erroresCampos['password2']}</p>
             <input id="password2" type="password" name="password2" placeholder="" />
             
-            <button type="submit" name="registro">Registrar</button>
-            <p class="message">¿Ya estas registrado? <a href='#'>Logeate.</a></p>
+            <button type="submit" name="registro">Actualizar</button>
         EOF;
         return $html;
     }

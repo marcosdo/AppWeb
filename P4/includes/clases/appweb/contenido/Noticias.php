@@ -44,7 +44,24 @@ class Noticias {
         $noticia = new Noticias($id_profesional, $titulo,  $cuerpo, $fecha);
         return self::inserta($noticia);
     }
-
+    public static function UpdateNoticia($titulo, $idNoticia){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE noticias SET titulo = '%s' WHERE id_noticia = %d"
+            , $conn->real_escape_string($titulo)
+            , $idNoticia
+        );
+        $conn->query($query);
+    }
+    public static function UpdateCuerpo($cuerpo, $idNoticia){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE noticias SET cuerpo = '%s' WHERE id_noticia = %d"
+            , $conn->real_escape_string($cuerpo)
+            , $idNoticia
+        );
+        $conn->query($query);
+    }
     public static function inserta($noticia) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(

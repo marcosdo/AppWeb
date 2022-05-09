@@ -35,7 +35,7 @@ class FormularioCreaReceta extends Formulario {
         {$erroresCampos['tipo']}
         <input id="descripcion" type="text" name="descripcion" value="$descripcion" placeholder="descripcion de la comida" />
         {$erroresCampos['descripcion']}
-        <input id="link" type="text" name="link" value="$link" placeholder="link del video youtube" />
+        <input id="link" type="text" name="link" value="$link" placeholder="id del video youtube" />
         {$erroresCampos['link']}
         <button type="submit" name="enviar">Crea esta receta</button>
         EOF;

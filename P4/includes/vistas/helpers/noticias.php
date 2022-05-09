@@ -85,10 +85,16 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
             'numPagina' => $paginaSiguiente,
             'numPorPagina' => $numPorPagina]);
         }
-
+        $numnoticias = count($noticias);
+        $nPaginas = $numnoticias / $numPorPagina;
+        $nPaginas = ceil($nPaginas);
+        $botonAnterior = ($numPagina != 1) ? "<a class='boton $clasesPrevia' href='$hrefPrevia'>Previa</a>" : "Primera";
+        $botonSiguiente = ($haySiguientePagina) ? "<a class='boton $clasesSiguiente' href='$hrefSiguiente'>Siguiente</a>" : "Última";
         $html .=<<<EOS
             <div id=paginas>
-                Página: $numPagina, <a class="boton $clasesPrevia" href="$hrefPrevia">Previa</a> <a class="boton $clasesSiguiente" href="$hrefSiguiente">Siguiente</a>
+                $botonAnterior
+                | ($numPagina de $nPaginas) | 
+                $botonSiguiente
             </div>
         EOS;
     }

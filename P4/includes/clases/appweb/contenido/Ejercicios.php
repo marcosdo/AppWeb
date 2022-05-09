@@ -93,6 +93,18 @@ class Ejercicios {
         return $ejercicio;
     }
 
+    public static function updateDescription($descripcion, $idEjercicio){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE ejercicios SET descripcion = '%s' WHERE id_ejercicio = %d"
+            , $conn->real_escape_string($descripcion)
+            , $idEjercicio
+        );
+        $conn->query($query);
+        
+    }
+
+
     public function getId_ejercicio() { return $this->id_ejercicio; }
     public function getTipo() { return $this->tipo; }
     public function getMusculo() { return $this->musculo; }

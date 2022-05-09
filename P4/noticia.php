@@ -13,6 +13,9 @@ if (!$noticia) {
 }
 $tituloPagina = 'Noticia';
 
+$formEdita = new appweb\contenido\FormularioEditaNoticia($idNoticia);
+$htmlFormEdita = $formEdita->gestiona();
+
 $titulo = $noticia->getTitulo();
 $cuerpo = $noticia->getCuerpo();
 
@@ -20,6 +23,8 @@ $contenidoPrincipal = <<<EOS
 <div id='noticia'>
 	<h1>{$titulo}</h1>
 	<p>{$cuerpo}</p>
+	<h4 class="message"><a href='#'>Edita este noticia para corrergir cualquier fallo. <i class="fa-solid fa-pen-to-square"></i></a></h4>
+	$htmlFormEdita
 </div>
 EOS;
 
