@@ -554,7 +554,7 @@ select option[value=""][disabled] {
 
 /* botones */
 
-.plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
+#formPersProductos button, #formFilProductos button, .plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
 #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario button, #formChatEntrenador button, #formAdminCrea button, #formAdminBorra button, 
 #formContenido button,#formAdminAnuncio button, #formCreaReceta button, #formCreaNoticia button, #formCreaEjercicio button, #formBorraReceta button, 
 #formBorraNoticia button, #formBorraEjercicio button, #formEditaEjercicio button, #formEditaNoticia button, #formEditaUsuario button{

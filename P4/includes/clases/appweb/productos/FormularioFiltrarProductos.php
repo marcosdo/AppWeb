@@ -9,7 +9,7 @@ use appweb\Formulario;
 class FormularioFiltrarProductos extends Formulario {
 
     public function __construct() {
-        parent::__construct('formPersProductos', ['urlRedireccion' => 'tienda.php']);
+        parent::__construct('formFilProductos', ['urlRedireccion' => 'tienda.php']);
     }
 
     private function listaEmpresas(){
