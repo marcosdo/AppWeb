@@ -26,12 +26,16 @@ $ruta = RUTA_IMGS;
 $contenidoPrincipal = <<<EOS
 <h1>{$nombre}</h1>
 <div id='producto'>
-	<img src="$ruta/productos/$idProducto.png" alt="LIFETY">
-	<h2>Precio {$precio}€</h2>
-	<p>Se trata de {$tipo} de la marca {$empresa}. {$descripcion}</p>
-
+	<div id='carac-producto'>
+		<img src="$ruta/productos/$idProducto.png" alt="LIFETY">
+		<h4>Precio {$precio}€</h4>
+		<h4>Marca {$empresa}</h4>
+		<h4>Producto {$tipo}</h4>
+	</div>
+	<p>{$descripcion}</p>
+	<div id='enlace-comprarp'>
 	<a href=$link class="comprar-producto">Comprar</a>
-
+	</div>
 </div>
 EOS;
 
