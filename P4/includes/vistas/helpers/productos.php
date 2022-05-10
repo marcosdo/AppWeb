@@ -9,7 +9,7 @@ function muestraProducto($producto) {
     ]);
     $ruta = RUTA_IMGS;
     return <<<EOS
-    <a href="{$verURL}">
+    <a href="{$verURL}" class='ver-producto'>
          <h4 class='nombre-producto'> {$producto['nombre']} </h4>
          <div class='imagen-producto'><img src="$ruta/productos/$producto[id_producto].png" alt="LIFETY"></div>
      </a>
