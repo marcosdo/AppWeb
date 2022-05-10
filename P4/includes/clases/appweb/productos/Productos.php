@@ -52,7 +52,7 @@ class Productos extends Empresas {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
             $nombreEmpresa = self::getNombreEmpresaxID($fila['id_empresa']);
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $nombreEmpresa, $id);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -206,11 +206,8 @@ class Productos extends Empresas {
         try {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
-            $query2 = sprintf("SELECT * FROM empresas WHERE empresas.id_empresa = %d", $fila['id_empresa']);
-            $rs2 = $conn->query($query2); 
-            $fila2 = $rs2->fetch_assoc();
-
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $fila2['nombre'], $id);
+            $nombreEmpresa = self::getNombreEmpresaxID($fila['id_empresa']);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
         } finally {
             if ($rs != null)
                 $rs->free();
