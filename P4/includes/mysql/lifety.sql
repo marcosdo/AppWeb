@@ -381,6 +381,11 @@ CREATE TABLE IF NOT EXISTS `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 TRUNCATE TABLE `productos`;
+INSERT INTO `productos` (`id_producto`, `id_empresa`, `nombre`, `descripcion`, `precio`, `link`, `tipo`) VALUES
+('1', '4', 'Life Pro Whey Choco Monky 1kg Limited Edition', 'Life Pro Whey Protein Choco Monky es una proteína whey hecha con una de las mejores materias primas, LACPRODAN SP-8011. Cuenta con una calidad excelente que la diferencian del resto de proteínas del mercado y con el autentico sabor de las tabletas de chocolate.', '32', 'https://www.lifepronutrition.com/es/concentrado-suero/life-pro-whey-chocolate-jungle-1kg-limited-edition.html', 'proteina'),
+('2', '2', 'Creatina Creapure', 'Al utilizar Creapure®, una marca líder en creatina monohidrato producida en Alemania a partir de la mejor materia prima y cumpliendo con los más altos estándares de calidad, Prozis ha logrado crear Creatine Creapure®, un suplemento de creatina de un solo ingrediente para deportistas y sin ninguna de las sustancias adicionales utilizadas por otras marcas como relleno. Creatine Creapure® de Prozis proporciona 3000 mg de la forma de creatina más limpia y eficaz por dosis, de una manera práctica y asequible.', '28', 'https://www.prozis.com/es/es/prozis/creatina-creapure-300-g', 'creatina'),
+('3', '5', 'Science Casein Black Cookies', 'La caseina se trata de un complemento alimenticio que gracias a su compleja composición supone un aporte alimenticio a largo plazo para los músculos, por lo que es una excelente opción antes de irse a la cama o durante un viaje largo, porque la digestión puede durar varias horas.', '36', 'https://www.emfitnutrition.com/science-casein-black-cookies-peanut-butter-crunchy-limited-edition-1kg-efficient-science-p-11204.html', 'caseina');
+
 DROP TABLE IF EXISTS `profesional`;
 CREATE TABLE IF NOT EXISTS `profesional` (
   `id_profesional` int(5) UNSIGNED NOT NULL,
