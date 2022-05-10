@@ -163,7 +163,7 @@ class Productos extends Empresas {
         $app = Aplicacion::getInstance();
 
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM recomienda WHERE recomienda.id_usuario = '%d'", $app->idUsuario());
+        $query = sprintf("SELECT * FROM usuariosproductos WHERE usuariosproductos.id_usuario = '%d'", $app->idUsuario());
         $rs = $conn->query($query);
         $result = array();
         try {
@@ -304,7 +304,7 @@ class Productos extends Empresas {
             $rs = $conn->query($query);
             while($fila = $rs->fetch_assoc()){ 
                 $producto = $fila['id_producto'];
-                $query2 = sprintf("INSERT INTO recomienda (id_usuario, id_producto) VALUES ('%d', '%d')", 
+                $query2 = sprintf("INSERT INTO usuariosproductos (id_usuario, id_producto) VALUES ('%d', '%d')", 
                 $idUsuario, $producto);
                 if ($conn->query($query2)){} 
             }
@@ -315,7 +315,7 @@ class Productos extends Empresas {
 
     private static function borrarProductosRecomendadosAntiguos($idUsuario){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM recomienda WHERE recomienda.id_usuario = '%d'", $idUsuario);
+        $query = sprintf("DELETE FROM usuariosproductos WHERE usuariosproductos.id_usuario = '%d'", $idUsuario);
         if ($conn->query($query)){} 
     }
 
