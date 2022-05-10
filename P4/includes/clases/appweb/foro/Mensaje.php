@@ -75,14 +75,22 @@ class Mensaje {
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
         $query = sprintf(
-            "INSERT INTO likes (id_usuario, id_mensaje) VALUES (%d, %d)"
+            "SELECT * FROM likes WHERE id_usuario = %d AND id_mensaje = %d"
             , $app->idUsuario()
             , $this->_id_mensaje
         );
-        try {
-            $conn->query($query);
-        } catch (\mysqli_sql_exception $e) {
-            throw $e;
+        $rs = $conn->query($query); 
+        if(!$rs->num_rows){
+            $query = sprintf(
+                "INSERT INTO likes (id_usuario, id_mensaje) VALUES (%d, %d)"
+                , $app->idUsuario()
+                , $this->_id_mensaje
+            );
+            try {
+                $conn->query($query);
+            } catch (\mysqli_sql_exception $e) {
+                throw $e;
+            }
         }
     }
 
