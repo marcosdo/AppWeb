@@ -263,37 +263,10 @@ footer {
 
 /* Productos Recomendados */
 
-.ver-producto {
-	outline: none;
-	text-decoration: none;
-	padding: 2px 1px 0;
-  }
-  
-.ver-producto a:link {
-	color: #265301;
-  }
-  
-.ver-producto a:visited {
-	color: #437A16;
-  }
-  
-  .ver-producto a:focus {
-	border-bottom: 1px solid;
-	background: #BAE498;
-  }
-  
-  .ver-producto  a:hover {
-	border-bottom: 1px solid;
-	background: #CDFEAA;
-  }
-  
-  .ver-producto a:active {
-	background: #265301;
-	color: #CDFEAA;
-  }
-
-
-
+a.ver-producto {
+    outline: none;
+    text-decoration: none;
+}
 
 .comprar-producto{
 	background-color: #199319;
