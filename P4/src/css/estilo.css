@@ -844,7 +844,10 @@ div#mensajeObjeto {
 	font-weight: bold;
 	text-decoration: underline;
 } 
-
+.inline-button{
+	display: inline-block;
+	background-color: #e1523d;
+}
 /* iconos */
 
 #formCreaNoticia i, #formRegistro i, #formCreaEjercicio i{
@@ -924,4 +927,5 @@ div#mensajeObjeto {
 	.fila {
 		grid-template-columns: auto;
 	}
+
 }
