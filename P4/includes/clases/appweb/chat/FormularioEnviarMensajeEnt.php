@@ -32,7 +32,7 @@ class FormularioEnviarMensajeEnt extends Formulario {
         $html = <<<EOF
         $htmlErroresGlobales
         <p class="error">{$erroresCampos['usuario']}</p>
-        <select id = "usuario" name = "usuario" value="$usuario">
+        <select name = "usuario" value="$usuario">
         $selectUsuarios
         </select>
         <p class="error">{$erroresCampos['mensaje']}</p>

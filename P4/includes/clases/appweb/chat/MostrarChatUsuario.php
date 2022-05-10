@@ -8,23 +8,19 @@ class  MostrarChatUsuario {
     function __construct() {}
     
     private function mostrarMensajes($Receptor,$Origen){
-        $rts = "";
-        $rts = $rts ."<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
 		$array_msg = Chat::arrayMensajes($Receptor,$Origen);
 
-        $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
+        $chat = "<div id=chat> <div class='entrenador'> Entrenador 🡺 $Origen</div><div id=scroll>";
         for ($i=0; $i < sizeof($array_msg); $i++) { 
             if($array_msg[$i][4] == "E-U"){
-                $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
-                $array_msg[$i][1] . ": " . $array_msg[$i][2];
+                $chat = $chat. "<div id=entrenador><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
             }else{
-                $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
-                $array_msg[$i][1] . ": " . $array_msg[$i][2];
+                $chat = $chat. "<div id=usuario><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
            }
         }
-        $rts = $rts . $data;
-		$rts = $rts . "</textarea>";
-        return $rts;
+        $chat .= "</div></div>";
+
+        return $chat;
     }
     public function mostrarChat(){
         $app = Aplicacion::getInstance();

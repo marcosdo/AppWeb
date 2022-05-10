@@ -18,26 +18,23 @@ class  MostrarChatEntrenador {
     }
 
     private function mostrarMensajes($Receptor,$Origen,$actualizado){
-        $mensajes = "";
-        $mensajes = $mensajes . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
         if($actualizado){
             $array_msg = Chat::arrayMensajes($Receptor,$Origen);
-            $data = "[" . $Origen . " 🡺 " . $Receptor . "]";
+
+            $chat = "<div id=chat> <div class='entrenador'> Usuario 🡺 $Receptor</div><div id=scroll>";
             for ($i=0; $i < sizeof($array_msg); $i++) { 
                 if($array_msg[$i][4] == "E-U"){
-                    $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
-                    $array_msg[$i][1] . ": " . $array_msg[$i][2];
+                    $chat = $chat. "<div id=entrenador><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
                 }else{
-                    $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
-                    $array_msg[$i][1] . ": " . $array_msg[$i][2];
-               }
+                    $chat = $chat. "<div id=usuario><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
             }
-            $mensajes = $mensajes . $data;
-        }else{
-            $mensajes = $mensajes . "Debes Actualizar Chat para ver la información";
+            }
+            $chat .= "</div></div>";
         }
-        $mensajes = $mensajes ."</textarea>";
-        return $mensajes;
+        else{
+            return "Debes Actualizar Chat para ver la información";
+        }
+        return $chat;
     }
 
     public function mostrarChat(){
