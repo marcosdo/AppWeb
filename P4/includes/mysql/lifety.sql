@@ -12,19 +12,22 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `anuncio`;
 CREATE TABLE IF NOT EXISTS `anuncio` (
   `id_anuncio` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(5) UNSIGNED NOT NULL,
+  `nombre_empresa` varchar(20) NOT NULL,
   `contenido` mediumtext NOT NULL,
-  `imagen` varchar(30) NOT NULL,
-  `link` varchar(50) NOT NULL,
+  `imagen` varchar(50) NOT NULL,
+  `link` varchar(50)  NOT NULL,
   PRIMARY KEY (`id_anuncio`),
-  KEY `Empresa_FK` (`id_empresa`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+  KEY `Empresa_FK` (`nombre_empresa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 TRUNCATE TABLE `anuncio`;
-INSERT INTO `anuncio` (`id_anuncio`, `id_empresa`, `contenido`, `imagen`, `link`) VALUES
-(3, 1, '1', 'entrenamiento.jpg', 'https://es-es.facebook.com/ '),
-(4, 1, '1', 'nutricionista.jpg', 'https://es-es.facebook.com/ '),
-(5, 1, 'hola que tal', '9.jpg', 'https://www.nutritienda.com/es/prozis?');
+INSERT INTO `anuncio` (`id_anuncio`, `nombre_empresa`, `contenido`, `imagen`, `link`) VALUES
+(12, 'goldgym', '50% de descuento en el primer mes', '5.jpg', 'https://www.goldsgym.com/'),
+(13, 'energyFitness', '3 meses por solo 50 euros!!!!!', '6.jpg', 'http://energiefitness.es/'),
+(14, 'fitnessCenter', 'FitnessCenter el mejor gimnasio de Madrid !!', '10.jpg', 'https://www.fitnesscentervaguada.com/'),
+(15, 'energyFitness', 'GET FIT NOW', '11.jpg', 'http://energiefitness.es/'),
+(16, 'theGym', '50% en el mes de enero', '16.jpg', 'https://thegym.es/'),
+(17, 'fitnessCenter', 'GET YOUR ONE YEAR MEMBERSHIP NOW!', '25.jpg', 'https://www.fitnesscentervaguada.com/');
 
 DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE IF NOT EXISTS `categorias` (
@@ -34,18 +37,22 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 TRUNCATE TABLE `categorias`;
+
 DROP TABLE IF EXISTS `chat`;
 CREATE TABLE IF NOT EXISTS `chat` (
-  `Receptor` text NOT NULL,
-  `Origen` text NOT NULL,
+  `id_mensaje` int(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Receptor` varchar(6) NOT NULL,
+  `Origen` varchar(6) NOT NULL,
   `Contenido` mediumtext NOT NULL,
   `Tiempo` datetime NOT NULL,
-  `Tipo` enum('U-E','E-U') NOT NULL
+  `Tipo` enum('U-E','E-U') NOT NULL,
+  PRIMARY KEY (`id_mensaje`),
+  KEY `receptor_FK` (`Receptor`),
+  KEY `origen_FK` (`Origen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 TRUNCATE TABLE `chat`;
-INSERT INTO `chat` (`Receptor`, `Origen`, `Contenido`, `Tiempo`, `Tipo`) VALUES
-('pintus', 'perspa', 'hola que tal', '2022-04-10 15:27:50', 'U-E');
+
 
 DROP TABLE IF EXISTS `comidas`;
 CREATE TABLE IF NOT EXISTS `comidas` (
@@ -227,7 +234,11 @@ INSERT INTO `empresas` (`id_empresa`, `nombre`) VALUES
 (4, 'Lifepro'),
 (3, 'Myprotein'),
 (8, 'Potential'),
-(2, 'Prozis');
+(2, 'Prozis'),
+(9, 'goldgym'),
+(10, 'energyFitness'),
+(11, 'fitnessCenter'),
+(12, 'theGym');
 
 DROP TABLE IF EXISTS `entrena`;
 CREATE TABLE IF NOT EXISTS `entrena` (
@@ -444,11 +455,15 @@ CREATE TABLE IF NOT EXISTS `usuariosproductos` (
 TRUNCATE TABLE `usuariosproductos`;
 
 ALTER TABLE `anuncio`
-  ADD CONSTRAINT `Empresa_FK` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_empresa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Empresa_FK` FOREIGN KEY (`nombre_empresa`) REFERENCES `empresas` (`nombre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `contiene`
   ADD CONSTRAINT `Ejercicio_FK` FOREIGN KEY (`id_ejercicio`) REFERENCES `ejercicios` (`id_ejercicio`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Idrut_FK` FOREIGN KEY (`id_rutina`) REFERENCES `rutina` (`id_rutina`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `chat`
+  ADD CONSTRAINT `receptor_FK` FOREIGN KEY (`Receptor`) REFERENCES `personas` (`nick`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `origen_FK` FOREIGN KEY (`Origen`) REFERENCES `personas` (`nick`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `dieta`
   ADD CONSTRAINT `clave-dieta-almurezo` FOREIGN KEY (`id_almuerzo`) REFERENCES `comidas` (`id_comida`) ON DELETE SET NULL ON UPDATE CASCADE,

@@ -22,13 +22,13 @@ class  MostrarChatEntrenador {
         $mensajes = $mensajes . "<textarea rows= '10' name = 'msg' readonly= 'readonly' class = 'chat'>";
         if($actualizado){
             $array_msg = Chat::arrayMensajes($Receptor,$Origen);
-            $data = "[" . $Receptor . " 🡺 " . $Origen . "]";
+            $data = "[" . $Origen . " 🡺 " . $Receptor . "]";
             for ($i=0; $i < sizeof($array_msg); $i++) { 
                 if($array_msg[$i][4] == "E-U"){
-                    $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
+                    $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
                     $array_msg[$i][1] . ": " . $array_msg[$i][2];
                 }else{
-                    $data = $data . "\n". "🡺 [" . $array_msg[$i][3] . "] " .
+                    $data = $data . "\n". "🡸 [" . $array_msg[$i][3] . "] " .
                     $array_msg[$i][1] . ": " . $array_msg[$i][2];
                }
             }
