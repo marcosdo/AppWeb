@@ -232,12 +232,14 @@ INSERT INTO `empresas` (`id_empresa`, `nombre`) VALUES
 DROP TABLE IF EXISTS `entrena`;
 CREATE TABLE IF NOT EXISTS `entrena` (
   `nutri` text NOT NULL,
-  `usuario` text NOT NULL
+  `usuario` text NOT NULL,
+  `editarutina` int(1) NOT NULL,
+  `editadieta` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 TRUNCATE TABLE `entrena`;
-INSERT INTO `entrena` (`nutri`, `usuario`) VALUES
-('pintus', 'perspa');
+INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
+('pintus', 'perspa', 0, 0);
 
 DROP TABLE IF EXISTS `foro`;
 CREATE TABLE IF NOT EXISTS `foro` (
