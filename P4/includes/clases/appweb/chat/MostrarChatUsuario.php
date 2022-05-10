@@ -13,9 +13,9 @@ class  MostrarChatUsuario {
         $chat = "<div id=chat> <div class='entrenador'> Entrenador 🡺 $Origen</div><div id=scroll>";
         for ($i=0; $i < sizeof($array_msg); $i++) { 
             if($array_msg[$i][4] == "E-U"){
-                $chat = $chat. "<div id=entrenador><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
+                $chat = $chat. "<div id=entrenador><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]."</div></div>";
             }else{
-                $chat = $chat. "<div id=usuario><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]. ": " ."</div></div>";
+                $chat = $chat. "<div id=usuario><div class=texto>". $array_msg[$i][2]."</div><div class=fecha>".$array_msg[$i][3]."</div></div>";
            }
         }
         $chat .= "</div></div>";
