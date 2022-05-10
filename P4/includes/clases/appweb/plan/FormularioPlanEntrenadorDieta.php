@@ -33,9 +33,10 @@ class FormularioPlanEntrenadorDieta extends Formulario {
     
         $SelectUsuarios = self::Usuarios();
         $boton ="";
-        if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
+        $Select = "<h1>Editar Dieta de usuarios con Seguimiento</h1>"; 
+        if($SelectUsuarios == "") $Select .= "<p>No hay usuarios disponibles.</p>";
         else {
-            $Select = "<p>Selecciona el usuario<p><div><select name = 'alias' id = 'alias' type = 'text'>";
+            $Select .= "<p>Elija al usuario al que quiere editar su dieta<p><div><select name = 'alias' id = 'alias' type = 'text'>";
             $Select .= $SelectUsuarios;
             $Select .= "</select>";
             $boton = "<button type='submit' name='enviar'>Editar dieta </button>";

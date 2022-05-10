@@ -34,9 +34,10 @@ class FormularioPlanEntrenadorRutina extends Formulario {
 
         $SelectUsuarios = self::Usuarios();
         $boton ="";
-        if($SelectUsuarios == "") $Select = "<p>No hay usuarios disponibles.</p>";
+        $Select = "<h1>Editar Rutina de usuarios con Seguimiento</h1>"; 
+        if($SelectUsuarios == "") $Select .= "<p>No hay usuarios disponibles.</p>";
         else {
-            $Select = "<p>Selecciona el usuario<p><select name = 'alias' id = 'alias' type = 'text'>";
+            $Select .= "<p>Selecciona el usuario que desea para modificar su rutina<p><select name = 'alias' id = 'alias' type = 'text'>";
             $Select .= $SelectUsuarios;
             $Select .= "</select>";
             $boton = "<button type='submit' name='enviar'>Editar rutina</button>";
