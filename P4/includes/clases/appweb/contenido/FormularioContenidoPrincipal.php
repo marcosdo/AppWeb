@@ -14,30 +14,30 @@ class FormularioContenidoPrincipal extends Formulario {
         $ruta = RUTA_IMGS;
         $html = <<<EOF
         <div class=contenido>
-            <div id=recetas>
-                <div>
+            <button type="submit" name="recetas" id=recetas>
+                <div>    
                     <img src=$ruta/recetasCPP.png alt="recetas">
                 </div>
-                <div>
-                    <button type="submit" name="recetas">RECETAS</button>
-                </div>
-            </div>
-            <div id=noticias>
+                <div>    
+                    <p> Recetas </p>
+                <div>    
+            </button>
+            <button type="submit" name="noticias" id=noticias>
                 <div>
                     <img src=$ruta/noticiasCPP.png alt="noticias">
                 </div>
-                <div>
-                    <button type="submit" name="noticias">NOTICIAS</button>
-                </div>
-            </div>
-            <div id=ejercicios>
+                <div>    
+                    <p> Noticias </p>
+                <div>    
+            </button>
+            <button type="submit" name="ejercicios" id=ejercicios>
                 <div>
                     <img src=$ruta/ejerciciosCPPaux.png alt="ejercicios">
                 </div>
-                <div>
-                    <button type="submit" name="ejercicios">EJERCICIOS</button>
-                </div>
-            </div>
+                <div>    
+                    <p> Ejercicios </p>
+                <div>    
+            </button>
         <div>
         EOF;
         return $html;

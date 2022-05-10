@@ -19,10 +19,9 @@ class FormularioEnviarMensajeUsu extends Formulario {
 
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
-        <h3>Enviar Mensaje</h3>
         $htmlErroresGlobales
         <p class="error">{$erroresCampos['mensaje']}</p>
-        <input id="mensaje" type="text" name="mensaje" value="$mensaje" placeholder="mensaje" />
+        <input id="mensaje" type="text" name="mensaje" value="$mensaje" placeholder="Introduzca el mensaje a enviar..." />
         <button type="submit" name="enviar">Confirmar</button>
         EOF;
         return $html;

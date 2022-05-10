@@ -573,7 +573,7 @@ select option[value=""][disabled] {
 
 #formPersProductos button, #formFilProductos button, .plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
 #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario button, #formChatEntrenador button, #formAdminCrea button, #formAdminBorra button, 
-#formContenido button,#formAdminAnuncio button, #formCreaReceta button, #formCreaNoticia button, #formCreaEjercicio button, #formBorraReceta button, 
+#formContenido p,#formAdminAnuncio button, #formCreaReceta button, #formCreaNoticia button, #formCreaEjercicio button, #formBorraReceta button, 
 #formBorraNoticia button, #formBorraEjercicio button, #formEditaEjercicio button, #formEditaNoticia button, #formEditaUsuario button{
 	outline: 0;
 	background: #EF3B3A;
@@ -585,6 +585,12 @@ select option[value=""][disabled] {
 	transition: all 0.3 ease;
 	cursor: pointer;
 	font-family: Century;
+}
+
+#formContenido button {
+	border: 0;
+	background: #ffffff;
+	cursor: pointer;
 }
 
 #formChatUsuario #usermsg, #formChatEntrenador #usermsg{
@@ -782,7 +788,7 @@ select option[value=""][disabled] {
 .fila {
 	display: grid;
 	grid-template-columns: auto auto auto;
-	grid-template-rows: auto auto auto;
+	grid-template-rows: auto;
 	grid-template-areas: "izq"  "centro" "der";
 }
 
@@ -899,13 +905,13 @@ div#mensajeObjeto {
 	}
 
 	#tabla, .plan, .verplan {
-		display: grid;
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
 	}
 
-	.contenido {
+	.contenido, .productos-layout, .fila {
 		grid-template-rows: auto auto auto;
+		grid-template-columns: auto;
 	}
 	
 	#tabla img {
