@@ -335,8 +335,6 @@ class Rutina {
                 }
             }
         }
-        $queryeditar = sprintf("UPDATE entrena SET entrena.editarutina = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
-        $conn->query($queryeditar);
     }
 
     private static function editarRepeticiones($nuevo, $idusuario, $conn, &$rutinaactiva){

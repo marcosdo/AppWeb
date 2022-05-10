@@ -400,8 +400,6 @@ class Dieta {
                 $fecha = date('Y-m-d', strtotime($fecha . '+1 day'));
             }
         }
-        $queryeditar = sprintf("UPDATE entrena SET entrena.editadieta = '%d' WHERE entrena.usuario = '%s'", 0, $alias); 
-        $conn->query($queryeditar);
 
     }
 
