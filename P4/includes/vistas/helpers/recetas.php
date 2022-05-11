@@ -39,7 +39,7 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
         $html .= $form->gestiona();
         $html .= "</div>";
     }
-    else $html = '';
+    else $html = '</div>';
     
 
     $descripcion = array_column($recetas, 'descripcion');
