@@ -169,7 +169,7 @@ nav a, nav h3{
 aside {
 	background-color: #f8f9fa;
 	grid-area: anuncios;
-	margin-left: 15px;
+	margin-left: 5px;
 }
 
 main {
@@ -626,6 +626,17 @@ select option[value=""][disabled] {
 
 #formBorraEjercicio button, #formBorraReceta button {
 	margin-bottom: 15px;
+}
+
+/*banner*/
+
+#actua a img {
+	margin-top: 70px;
+	width: 100%;
+	border-radius: 5px;
+}
+#actua {
+	margin-right: 5px;
 }
 
 /*chats*/
