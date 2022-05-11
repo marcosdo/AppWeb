@@ -422,7 +422,7 @@ div#repeticiones {
 
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, #formBorraForo, .msg-objeto, .respuesta, 
+#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
 #formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta{
 	background: #FFFFFF;
@@ -878,17 +878,44 @@ select option[value=""][disabled] {
 
 /* foro */
 
+.formBorraForo {
+	margin: 1%;
+	padding: 0%;
+
+}
+
+.un-foro {
+	background-color: #e6e6e6;
+	border-radius: 20px;
+	padding: 1%;
+}
+
+.titulo-foro, .tipo-foro {
+	bottom: 0px;
+	padding: 0px;
+}
+
 .msg-botones {
+	margin-top: 1%;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
 
+.inline-button-like i:hover, .inline-button-dislike i:hover {
+	cursor: pointer;
+	color: #e1523d;
+}
+
 .inline-button-like {
+	border: none;
+	background-color: #e6e6e6;
 	float: right;
 	grid-column: 1;
 }
 
 .inline-button-dislike {
+	border: none;
+	background-color: #e6e6e6;
 	float: left;
 	grid-column: 2;
 }

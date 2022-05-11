@@ -31,15 +31,13 @@ function muestraTemas() {
         // Coge los datos de la BD
         $data = Foro::getDataxCategoria($enum[$j]) ?? array();
         $html .= "<div class='foro-temas'>";
-        $html .= "<h4>{$enum[$j]}</h4>";
+        $html .= "<h1 class='foro-tipo'>{$enum[$j]}</h1>";
         // Por cada tema muestra una entrada diferente
         for ($i = 0; $i < count($data); $i++) {
             // Mostrar el boton solo si es el creador o el admin
-            $url = "foroindividual.php?idforo={$data[$i]['id_foro']}";
-            $html .= "<a href='{$url}' class='listatemas'>";
-            $html .= "<h4>{$data[$i]['tema']}</h4>";
+            $html .= "<div class='un-foro'>";
+            $html .= "<h3 class='titulo-foro'>{$data[$i]['tema']}</h3>";
             $html .= muestraPrimerMensaje($data[$i]['id_foro']);
-            $html .= "</a>";
             $boton = "";
             if ($app->idUsuario() == $data[$i]['id_usuario'] || $app->esAdmin()) {
                 // Crea el formulario de borrar el foro
@@ -47,6 +45,7 @@ function muestraTemas() {
                 $boton = $formBorraForo->gestiona(); 
             }
             $html .= $boton;
+            $html .= "</div>";
         }
         $html .= "</div>"; 
     }
