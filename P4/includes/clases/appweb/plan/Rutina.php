@@ -200,49 +200,35 @@ class Rutina {
             $dia5i = array();
         
             while($fila = $t->fetch_assoc()){
-            
+                $nombreEjercicio = Ejercicios::getNombreEjercicioxId($fila['id_ejercicio']);
+
                 if($fila['dia'] == 1){
                     array_push($dia1r, $fila['repeticiones']);
-                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                    $rs = $conn->query($c);
-                    $fila = $rs->fetch_assoc();
-                    array_push($dia1, $fila['nombre']);
+                    array_push($dia1, $nombreEjercicio);
                     array_push($dia1i, $fila['id_ejercicio']);
 
                 }
                 else if ($fila['dia'] == 2){
                     array_push($dia2r, $fila['repeticiones']);
-                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                    $rs = $conn->query($c);
-                    $fila = $rs->fetch_assoc();
-                    array_push($dia2, $fila['nombre']);
+                    array_push($dia2, $nombreEjercicio);
                     array_push($dia2i, $fila['id_ejercicio']);
 
                 }
                 else if ($fila['dia'] == 3){
                     array_push($dia3r, $fila['repeticiones']);
-                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                    $rs = $conn->query($c);
-                    $fila = $rs->fetch_assoc();
-                    array_push($dia3, $fila['nombre']);
+                    array_push($dia3, $nombreEjercicio);
                     array_push($dia3i, $fila['id_ejercicio']);
 
                 }
                 else if ($fila['dia'] == 4){
                     array_push($dia4r, $fila['repeticiones']);
-                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                    $rs = $conn->query($c);
-                    $fila = $rs->fetch_assoc();
-                    array_push($dia4, $fila['nombre']);
+                    array_push($dia4, $nombreEjercicio);
                     array_push($dia4i, $fila['id_ejercicio']);
 
                 }
                 else{
                     array_push($dia5r, $fila['repeticiones']);
-                    $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $fila['id_ejercicio']);
-                    $rs = $conn->query($c);
-                    $fila = $rs->fetch_assoc();
-                    array_push($dia5, $fila['nombre']);
+                    array_push($dia5, $nombreEjercicio);
                     array_push($dia5i, $fila['id_ejercicio']);
 
                 }

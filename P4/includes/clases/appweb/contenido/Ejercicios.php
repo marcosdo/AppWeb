@@ -180,4 +180,12 @@ class Ejercicios {
         $rs = $conn->query($query);
         return $rs;
     }
+
+    public static function getNombreEjercicioxId($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $c = sprintf("SELECT * FROM ejercicios WHERE ejercicios.id_ejercicio = '%d'", $id);
+        $rs = $conn->query($c);
+        $fila = $rs->fetch_assoc();
+        return $fila["nombre"];
+    }
 }
