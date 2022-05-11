@@ -302,7 +302,11 @@ class Dieta {
         $conn = $app->getConexionBd();
         $query = sprintf("SELECT * FROM dieta WHERE dieta.id_usuario = '%s'", $idUsuario); 
         $rs = $conn->query($query);
-        if($rs->num_rows > 0) return true;
+        $n = $rs->num_rows;
+
+        $rs->free();
+
+        if($n > 0) return true;
         else return false;
     }
 

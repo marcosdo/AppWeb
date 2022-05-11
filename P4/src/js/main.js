@@ -133,4 +133,8 @@ $(document).ready(function() {
 	$(".message2 a").click(function () {
 		$("#formBorraMensaje").animate({ height: "toggle", opacity: "toggle" }, "slow");
 	});
+
+	$(".message3 a").click(function () {
+		$("#formFilEjercicios").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
 })

@@ -9,6 +9,7 @@ $numPorPagina = filter_input(INPUT_GET, 'numPorPagina', FILTER_SANITIZE_NUMBER_I
 $musculo = filter_input(INPUT_GET, 'musculo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 
+$html = '';
 // Ya se ha filtrado
 if ($musculo != '' || $tipo != '') {
     $cond = "";
@@ -25,15 +26,17 @@ if ($musculo != '' || $tipo != '') {
 // No se ha filtrado
 else $ejercicios = appweb\contenido\Ejercicios::getData("1");
 
-$form = new appweb\contenido\FormularioFiltrarEjercicios();
-$htmlFilt = $form->gestiona();
+
+$html .= "<h4 class='message3'><a href='#'> Filtrar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+$html .= filtrarEjercicio();
+
 
 $lista = listaListaEjerciciosPaginadas($ejercicios, 'ejercicios.php', $numPorPagina, $numPagina);
 
 $tituloPagina = 'Ejercicios';
 $contenidoPrincipal = <<<EOS
 <h1>EJERCICIOS</h1>
-$htmlFilt
+$html
 $lista
 EOS;
 

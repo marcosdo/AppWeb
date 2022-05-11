@@ -21,7 +21,10 @@ function botonBorraEjercicio($ejercicio) {
     $form = new  FormularioBorraEjercicio($ejercicio['id_ejercicio']);
     return $form->gestiona();
 }
-
+function filtrarEjercicio(){
+    $filtro = new appweb\contenido\FormularioFiltrarEjercicios();
+   return $filtro->gestiona();
+}
 function listaListaEjerciciosPaginadas($ejercicios, $url, $numPorPagina = 18, $numPagina = 1) {
     return listaListaejerciciosPaginadasRecursivo($ejercicios, $url,  1, $numPorPagina, $numPagina);
 }
