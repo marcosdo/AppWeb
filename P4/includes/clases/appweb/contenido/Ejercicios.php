@@ -188,5 +188,4 @@ class Ejercicios {
         $fila = $rs->fetch_assoc();
         return $fila["nombre"];
     }
-    
 }
