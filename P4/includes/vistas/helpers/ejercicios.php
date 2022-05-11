@@ -77,14 +77,17 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         $clasesSiguiente = 'deshabilitado';
         $hrefPrevia = '';
         $hrefSiguiente = '';
-
+        $musculo = filter_input(INPUT_GET, 'musculo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+        $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
         if ($numPagina > 1) {
             // Seguro que hay ejercicios anteriores
             $paginaPrevia = $numPagina - 1;
             $clasesPrevia = '';
             $hrefPrevia = $app->buildUrl($url,[
                 'numPagina' => $paginaPrevia,
-                'numPorPagina' => $numPorPagina
+                'numPorPagina' => $numPorPagina,
+                "tipo" => $tipo,
+                "musculo" => $musculo
             ]);
         }
 
@@ -94,7 +97,10 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
             $clasesSiguiente = '';
             $hrefSiguiente = $app->buildUrl($url, [ 
             'numPagina' => $paginaSiguiente,
-            'numPorPagina' => $numPorPagina]);
+            'numPorPagina' => $numPorPagina,
+            "tipo" => $tipo,
+            "musculo" => $musculo
+        ]);
         }
         $numejercicios = count($ejercicios);
         $nPaginas = $numejercicios / $numPorPagina;
