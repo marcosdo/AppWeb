@@ -12,8 +12,7 @@ function mostrarSaludo() {
     $rutaApp = RUTA_APP;
     $html = "";
     if ($app->usuarioLogueado()) {
-        $html .= "{$app->nombreUsuario()} ";
-        $html .= "<a href='{$rutaApp}/micuenta.php'><i class='fa-solid fa-circle-user'></i></a> ";
+        $html .= "<a href='{$rutaApp}/micuenta.php'> {$app->nombreUsuario()} <i class='fa-solid fa-circle-user'></i></a> ";
         $html .= "<a href='{$rutaApp}/logout.php'><i class='fa-solid fa-right-from-bracket'></i></a>";
     } else {
         $html .= "<a href='{$rutaApp}/login.php#'><i class='fa-solid fa-door-open'></i> Login/Registro</a>";
