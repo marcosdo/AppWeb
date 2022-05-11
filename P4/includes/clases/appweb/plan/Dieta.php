@@ -233,7 +233,27 @@ class Dieta {
      * @return array|false 
      */
     private static function llenar_array($bd, $tipo, $horario) {
-        return Comidas::getNombres($bd, $tipo, $horario);
+        // Consulta que te devuelve descripciones de elementos que hay de ese tipo 
+        $query = sprintf(
+            "SELECT comidas.id_comida FROM comidas WHERE comidas.tipo = '%s' AND comidas.objetivo = %d",
+            $horario, $tipo
+        );
+        // Si la consulta da error tratar el error
+        if (!($result = $bd->query($query))) {
+            error_log("Error BD ({$bd->errno}): {$bd->error}");
+            exit();
+        }
+        // Si no, mete en un array todas las descripciones
+        $ret = array();
+        while ($fila = mysqli_fetch_assoc($result)) {
+            array_push($ret, $fila['id_comida']);
+        }
+        $result->free();
+        // Si no hay elementos en el array devuelve false
+        if (empty($ret))
+            return false;
+        // En caso contrario devuelve el array
+        return $ret;
     }
 
     public static function buscaDieta($id, &$dias, &$desayuno, &$almuerzo, &$cena){
@@ -291,11 +311,30 @@ class Dieta {
      * @return array|false 
      */
     private static function fill_array($bd, $src) {
-        return Comidas::getDescripciones($bd, $src);
+        $ret = array();
+        for ($i = 0; $i < count($src); $i++) { 
+            $query = sprintf(
+                "SELECT comidas.descripcion FROM comidas WHERE comidas.id_comida = %d",
+                $src[$i]
+            );
+            $result = $bd->query($query);
+            $fila = mysqli_fetch_assoc($result);
+            array_push($ret, $fila['descripcion']);
+            $result->free();
+        }
+        return $ret;
     }
 
     public static function getComidas($tipo){
-        return Comidas::getComidasTipo($tipo);
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM comidas WHERE comidas.tipo = '%s'", $tipo); 
+        $rs = $conn->query($query); 
+        $comidas = array();
+        while($fila = $rs->fetch_assoc()){
+            $comidas[] = $fila["descripcion"];
+        }
+        $rs->free();
+        return $comidas;
     }
 
     public static function hayDietas($idUsuario){
