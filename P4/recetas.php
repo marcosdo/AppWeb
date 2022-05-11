@@ -24,7 +24,7 @@ if ($objetivo != '' || $tipo != '') {
 // No se ha filtrado
 else $recetas = appweb\contenido\Comidas::getData("1");
 
-$html = "<h4 class='message4'><a href='#'> Filtrar. <i class='fa-solid fa-magnifying-glass'></i></a></h4>";
+$html = "<div class='creafiltra'><h4 class='message4'><a href='#'> Filtrar. <i class='fa-solid fa-magnifying-glass'></i></a></h4>";
 $html .= FiltraProducto();
 
 $lista = listaListaRecetasPaginadas($recetas, 'recetas.php', $numPorPagina, $numPagina);

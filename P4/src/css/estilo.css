@@ -420,11 +420,12 @@ div#repeticiones {
 	height: 250px;
 }
 
+
 /* formularios */
 
 #formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
-#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios{
+#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios, .creafiltra {
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -763,13 +764,13 @@ select option[value=""][disabled] {
 	font-weight: bold;
 }
 
-#paginas a, #paginas a:visited{
+#paginas a, #paginas a:visited, .creafiltra h4 a, .creafiltra h4 a:visited {
 	color: #292a3a;
 	font-weight: bold;
 	text-decoration: none;
 }
 
-#paginas a:hover {
+#paginas a:hover, .creafiltra h4 a:hover {
 	color: #e1523d;
 	text-decoration: underline;
 }
@@ -895,7 +896,7 @@ select option[value=""][disabled] {
 	display: none;
 }
 
-#formFilEjercicios, #formFilRecetas, #formCreaEjercicio{
+#formFilEjercicios, #formFilRecetas, #formCreaEjercicio, #formCreaReceta, #formCreaNoticia{
 	display:none;
 }
 

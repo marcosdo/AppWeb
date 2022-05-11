@@ -27,7 +27,7 @@ if ($musculo != '' || $tipo != '') {
 else $ejercicios = appweb\contenido\Ejercicios::getData("1");
 
 
-$html .= "<h4 class='message3'><a href='#'> Filtrar. <i class='fa-solid fa-magnifying-glass'></i></a></h4>";
+$html .= "<div class='creafiltra'><h4 class='message3'><a href='#'> Filtrar. <i class='fa-solid fa-magnifying-glass'></i></a></h4>";
 $html .= filtrarEjercicio();
 
 

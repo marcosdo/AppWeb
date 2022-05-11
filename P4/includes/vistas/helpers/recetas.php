@@ -34,8 +34,10 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
         $haySiguientePagina = true;
     }
     if($app->esProfesional()){
+        $html = "<h4 class='message6'><a href='#'> Crea una receta. <i class='fa-solid fa-plus'></i></a></h4>";
         $form = new appweb\contenido\FormularioCreaReceta();
-        $html = $form->gestiona();
+        $html .= $form->gestiona();
+        $html .= "</div>";
     }
     else $html = '';
     

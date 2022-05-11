@@ -42,8 +42,10 @@ function listaListaNoticiasPaginadasRecursivo($noticias, $url, $nivel = 1, $numP
         $haySiguientePagina = true;
     }
     if($app->esProfesional()){
+        $html = "<div class='creafiltra'><h4 class='message7'><a href='#'> Crea una noticia. <i class='fa-solid fa-plus'></i></i></a></h4>";
         $form = new appweb\contenido\FormularioCreaNoticia();
-        $html = $form->gestiona();
+        $html .= $form->gestiona();
+        $html .= "</div>";
     }
     else $html ='';
     $html .= '<div class=noticias><ul>';

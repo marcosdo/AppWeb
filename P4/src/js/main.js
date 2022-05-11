@@ -144,4 +144,10 @@ $(document).ready(function() {
 	$(".message5 a").click(function () {
 		$("#formCreaEjercicio").animate({ height: "toggle", opacity: "toggle" }, "slow");
 	});
+	$(".message6 a").click(function () {
+		$("#formCreaReceta").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
+	$(".message7 a").click(function () {
+		$("#formCreaNoticia").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
 })

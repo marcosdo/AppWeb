@@ -43,9 +43,10 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
     }
 
     if($app->esProfesional()){
-        $html = "<h4 class='message5'><a href='#'> Crea un ejercicio. <i class='fa-solid fa-magnifying-glass'></i></a></h4>";
+        $html = "<h4 class='message5'><a href='#'> Crea un ejercicio. <i class='fa-solid fa-plus'></i></a></h4>";
         $form = new appweb\contenido\FormularioCreaEjercicio();
         $html .= $form->gestiona();
+        $html .= "</div>";
     }
     else $html = '';
 
