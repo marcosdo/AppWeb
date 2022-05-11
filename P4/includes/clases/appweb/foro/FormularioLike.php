@@ -17,7 +17,7 @@ class FormularioLike extends Formulario {
 
     protected function generaCamposFormulario(&$datos) {
         $camposFormulario = <<<EOF
-            <button class="inline-button" type="submit"><i class="fa-solid fa-heart"></i></button>
+            <button class="inline-button-like" type="submit"><i class="fa-solid fa-heart"></i></button>
         EOF;
         return $camposFormulario;
     }

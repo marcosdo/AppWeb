@@ -19,7 +19,7 @@ class FormularioDislike extends Formulario {
     protected function generaCamposFormulario(&$datos) {
         
         $camposFormulario = <<<EOF
-        <button class="inline-button" type="submit"><i class="fa-solid fa-heart-crack"></i></button>
+        <button class="inline-button-dislike" type="submit"><i class="fa-solid fa-heart-crack"></i></button>
         EOF;
         return $camposFormulario;
     }

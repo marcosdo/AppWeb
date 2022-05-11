@@ -878,6 +878,21 @@ select option[value=""][disabled] {
 
 /* foro */
 
+.msg-botones {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.inline-button-like {
+	float: right;
+	grid-column: 1;
+}
+
+.inline-button-dislike {
+	float: left;
+	grid-column: 2;
+}
+
 #mensaje, #mensajeObjeto, .respuesta{
 	text-align: center;
 }

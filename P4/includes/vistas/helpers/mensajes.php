@@ -64,7 +64,7 @@ function visualizaMensajeObjeto($mensaje) {
         </div> 
         </div>
         </a>
-        <div id="msg-botones"> 
+        <div class="msg-botones"> 
             $btnLike  <span> $btnDislike </span>
         </div>
     EOS;
