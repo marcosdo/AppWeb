@@ -109,7 +109,7 @@ class Comidas {
         return false;
     }
 
-    public static function getNombres($bd, $horario, $tipo){
+    public static function llenar_array($bd, $tipo, $horario) {
         // Consulta que te devuelve descripciones de elementos que hay de ese tipo 
         $query = sprintf(
             "SELECT comidas.id_comida FROM comidas WHERE comidas.tipo = '%s' AND comidas.objetivo = %d",
@@ -130,9 +130,10 @@ class Comidas {
         if (empty($ret))
             return false;
         // En caso contrario devuelve el array
+        return $ret;
     }
 
-    public static function getDescripciones($bd, $src) {
+    public static function fill_array($bd, $src) {
         $ret = array();
         for ($i = 0; $i < count($src); $i++) { 
             $query = sprintf(
