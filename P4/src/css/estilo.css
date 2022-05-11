@@ -630,6 +630,29 @@ select option[value=""][disabled] {
 
 /*chats*/
 
+#scroll::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+#scroll::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+#scroll::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#scroll::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+#scroll::-webkit-scrollbar-thumb:active {
+	background: rgba(0, 0, 0, 0.9);
+}
+
 #chat {
 	width: 100%;
 	border-radius: 5px;
