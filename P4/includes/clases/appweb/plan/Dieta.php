@@ -311,7 +311,6 @@ class Dieta {
         $conn = Aplicacion::getInstance()->getConexionBd();
 
         $dias = 0;
-        $alias = "";
         $desayuno = array();
         $almuerzo = array();
         $cena = array();
@@ -340,11 +339,8 @@ class Dieta {
                 $diaspos .= "-";
                 $diaspos .= $j;
                 $select = $datos[$diaspos];
-                if($defecto != $select){ // Se cambia el ejercicio
-                    $queryaux = sprintf("SELECT * FROM comidas WHERE comidas.descripcion = '%s'", $select); 
-                    $rsaux = $conn->query($queryaux); 
-                    $filaaux = $rsaux->fetch_assoc();
-                    $idc = $filaaux['id_comida'];
+                if($defecto != $select){ // Se cambia la comida porque es distinta la seleccion
+                    $idc = Comidas::getIdComidas($select, $conn);
                     switch ($i){
                         case 0: 
                             $query2 = sprintf("UPDATE dieta SET dieta.id_desayuno = '%d' WHERE dieta.id_usuario = '%d' AND dieta.fecha = '%s'", $idc, $idusuario, $fecha);
