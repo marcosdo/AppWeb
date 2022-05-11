@@ -895,7 +895,7 @@ select option[value=""][disabled] {
 	display: none;
 }
 
-#formFilEjercicios, #formFilRecetas{
+#formFilEjercicios, #formFilRecetas, #formCreaEjercicio{
 	display:none;
 }
 

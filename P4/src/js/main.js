@@ -141,4 +141,7 @@ $(document).ready(function() {
 	$(".message4 a").click(function () {
 		$("#formFilRecetas").animate({ height: "toggle", opacity: "toggle" }, "slow");
 	});
+	$(".message5 a").click(function () {
+		$("#formCreaEjercicio").animate({ height: "toggle", opacity: "toggle" }, "slow");
+	});
 })
