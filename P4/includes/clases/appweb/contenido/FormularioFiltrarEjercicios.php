@@ -60,7 +60,7 @@ class FormularioFiltrarEjercicios extends Formulario {
         
         if (count($this->errores) === 0) {
             $params = [
-                "numPorPagina" => 9,
+                "numPorPagina" => 18,
                 "numPagina" => 1,
                 "tipo" => $tipo,
                 "musculo" => $musculo
