@@ -10,8 +10,6 @@ class FormularioCreaReceta extends Formulario {
     }
 
     protected function generaCamposFormulario(&$datos) {
-        $objetivo = $datos['objetivo'] ?? '';
-        $tipo = $datos['tipo'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
         $link = $datos['link'] ?? '';
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
