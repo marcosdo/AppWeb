@@ -29,7 +29,7 @@ function visualizaMensaje($mensaje) {
                 {$mensaje['mensaje']}
             </p>
             <div id="msg-datos">
-                Autor: {$nick} | Fecha: {$mensaje['fecha']}
+                Autor: {$nick} 
             </div>
         </div> 
     </a>
@@ -62,7 +62,7 @@ function visualizaMensajeObjeto($mensaje) {
         {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
         </p>
         <div id="msg-datos">
-            Autor: {$user->getAlias()} | Fecha: {$mensaje->getFecha()} | Respuestas {$mensaje->getNumRespuestas()} | Likes: {$mensaje->getLikes()}
+            Autor: {$user->getAlias()} | Respuestas {$mensaje->getNumRespuestas()} | Likes: {$mensaje->getLikes()}
         </div> 
         </div>
         </a>
