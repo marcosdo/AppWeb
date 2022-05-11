@@ -22,7 +22,7 @@ class FormularioLogin extends Formulario {
         <p class="error">{$erroresCampos['alias']}</p>
         <input id="alias" type="text" name="alias" value="$alias" placeholder="usuario" />
         <p class="error">{$erroresCampos['password']}</p>
-        <input id="password" type="password" name="password" placeholder="password"/>
+        <input id="passwordL" type="password" name="password" placeholder="password"/>
         <button type="submit" name="login">Entrar</button>
         <h4 class="message">¿No estas registrado? <a href='#'>Crea una cuenta</a></h4>
         EOF;
