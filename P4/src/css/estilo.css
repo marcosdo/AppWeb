@@ -901,7 +901,7 @@ div#mensajeObjeto {
 
 /* enlaces foro */
 
-.listamensajes a, div#mensajes a, .listatemas, .listamensajes a:visited, div#mensajes a:visited, .listatemas:visited{
+.listamensajes a, div#mensajes a, .listatemas, .listamensajes a:visited, div#mensajes a:visited, .listatemas:visited, #lista, #lista:visited{
 	color: #292a3a;
 	font-weight: bold;
 	text-decoration: none;
@@ -909,7 +909,7 @@ div#mensajeObjeto {
 #formEditaMensaje, #formBorraMensaje{
 	display: none;
 }
-.listamensajes a:hover, div#mensajes a:hover, .listatemas:hover {
+.listamensajes a:hover, div#mensajes a:hover, .listatemas:hover, #lista:hover {
 	color: #e1523d;
 	font-weight: bold;
 	text-decoration: underline;

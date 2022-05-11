@@ -54,7 +54,7 @@ function visualizaMensajeObjeto($mensaje) {
 	$btnDislike = $form2->gestiona();
 
     return <<<EOS
-    <a href="{$verURL}">
+    <a href="{$verURL}" id=lista>
     <div class="msg-objeto">
         <p id="msg-contenido">
         {$mensaje->getTitulo()}: {$mensaje->getMensaje()}
@@ -65,7 +65,7 @@ function visualizaMensajeObjeto($mensaje) {
         </div>
         </a>
         <div id="msg-botones"> 
-            $btnLike  $btnDislike </span>
+            $btnLike  <span> $btnDislike </span>
         </div>
     EOS;
 }

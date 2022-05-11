@@ -12,7 +12,7 @@ class FormularioLike extends Formulario {
  
 
     public function __construct($idMensaje = -1) {
-        parent::__construct('formLike', ['class' => 'inline', 'formId' => $idMensaje]);
+        parent::__construct('formLike', ['formId' => $idMensaje]);
         $this->idMensaje = $idMensaje;
        
     }
