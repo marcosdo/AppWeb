@@ -19,6 +19,7 @@ function visualizaMensaje($mensaje) {
     $nick = $user->getAlias();
 
     return <<<EOS
+    
     <a href="{$verURL}">
         <div id ="mensaje">
             <div id="msg-titulo">
@@ -32,6 +33,7 @@ function visualizaMensaje($mensaje) {
             </div>
         </div> 
     </a>
+   
     
     EOS;
 }
@@ -131,8 +133,9 @@ function listaMensajes($id = NULL, $recursivo = false, $idMensajeRetorno = null)
     $html = "<ul class='listamensajes'>";
     foreach($mensajes as $mensaje) {
         $html .= "<li class='estilomensaje'>";
-       
+        $html .=  "<div id=fondo-mensaje>";
         $html .= visualizaMensajeObjeto($mensaje);
+        $html .= "</div>";
       /*  if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje->getIDUsuario()) || $app->esAdmin()) {
             $html .= "<div class='msg'>";
             if (!$app->esAdmin())
@@ -198,7 +201,9 @@ function listaListaMensajesPaginadosRecursivo($mensajes, $recursivo = false, $id
     for($idx = $primerMensaje; $idx < $primerMensaje + $numPorPagina && $idx < $numMensajes; $idx++) {
         $mensaje = $mensajes[$idx];
         $html .= "<li class=estilomensaje>";
+        $html .= "<div id=fondo-mensaje>";
         $html .= visualizaMensaje($mensaje);
+        $html .= "</div>";
         /*if ($app->usuarioLogueado() && ($app->idUsuario() == $mensaje['id_usuario']) || $app->esAdmin()) {
             $html .= "<div class=msg>";
               if (!$app->esAdmin())
