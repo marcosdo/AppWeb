@@ -100,8 +100,7 @@ class Rutina {
         for ($i = 0; $i < $nveces; $i++){ //2
             $j = 0;
             $musculo = $rutina->_muscs[$cont];
-            $query = sprintf("SELECT * FROM ejercicios WHERE musculo = '%s'", $conn->real_escape_string($musculo)); 
-            $rs = $conn->query($query);
+            $rs = Ejercicios::getEjsMusculo($musculo);
             while ($fila = $rs->fetch_assoc()){
                 if($j < 2){
                     $repeticiones = self:: calculadoraRepeticiones($rutina->_objetivo, $fila['tipo']);
