@@ -201,27 +201,30 @@ footer {
   }
   
 .mensaje {
-	border: 2px solid black;
 	border-radius: 5px;
 	width: 30%;
 	margin: 0.2em auto;
-	background-color: #b0f5f1;
+	background-color: #FFFFFF;
+	color: #292a3a;
+	display: grid;
+	grid-template-columns: 90% 10%;
 }
 
 .mensajes input {
 	display: none;
 }
 
+.mensaje .contenido {
+	padding: 0.2em 1em;
+	text-align: left;
+	font-size: 1.2em;
+}
+
 .mensaje .cabecera {
 	font-size: 2em;
 	line-height: 0.7em;
 	text-align: right;
-	padding: 0 0.1em;
-}
-
-.mensaje .contenido {
-	padding: 0.2em 1em;
-	text-align: center;
+	padding: 0.2em 0.1em;
 }
 
 .mensajes input:checked + .mensaje {
