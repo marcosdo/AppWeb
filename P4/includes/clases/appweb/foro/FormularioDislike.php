@@ -9,7 +9,6 @@ use Exception;
 
 class FormularioDislike extends Formulario {
     private $idMensaje;
-   
 
     public function __construct($idMensaje = -1) {
         parent::__construct('formDislike', ['class' => 'inline', 'formId' => $idMensaje]);
@@ -28,10 +27,8 @@ class FormularioDislike extends Formulario {
     /**
      * Procesa los datos del formulario.
      */
-    protected function procesaFormulario(&$datos)
-    {
+    protected function procesaFormulario(&$datos) {
         $this->errores = [];
-
         if (count($this->errores) === 0) {
             $app = Aplicacion::getInstance();
             $mensaje = Mensaje::buscaxID($this->idMensaje);
@@ -40,10 +37,7 @@ class FormularioDislike extends Formulario {
             } catch(Exception $e){
                 $this->errores[] = "Solo pudes dar dislike a un mensaje que has dado like previamente";
             }
-    
-            
-            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $this->idMensaje]);
-           
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $mensaje->getIDRefencia()]);
         }
     }
 }
