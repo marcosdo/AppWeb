@@ -39,27 +39,33 @@ class  MostrarChatEntrenador {
 
     public function mostrarChat(){
         $app = Aplicacion::getInstance();
-        $usuactual = $app->nombreUsuario();
-        $id_usuario = $app->idUsuario();
-       
-        $mensajes = "";
 
-        if(isset($_POST['idE2'])) $mensajes = self::mostrarMensajes($_POST["idE2"] ,$usuactual,true);
-        else $mensajes = self::mostrarMensajes("",$usuactual,false);
-
-        $SelectUsuarios = self::Usuarios($usuactual);
-        $form1 = new FormularioEnviarMensajeEnt();
-        $html1 = $form1->gestiona();
-
-        $contenidoPrincipal = <<<EOF
-        <h1>CHAT CON USUARIO</h1>
-        <h3>Elige usuario para visualizar su chat:</h3>
-        <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
-        <button class = "ButtonActua"name='actua1' type='submit' id='actua1' >Actualizar Chat</button>
-        $mensajes
-        $html1
-        EOF;
-        
-        return $contenidoPrincipal;
+        if ($app->usuarioLogueado() == true){
+            $usuactual = $app->nombreUsuario();
+            $id_usuario = $app->idUsuario();
+           
+            $mensajes = "";
+    
+            if(isset($_POST['idE2'])) $mensajes = self::mostrarMensajes($_POST["idE2"] ,$usuactual,true);
+            else $mensajes = self::mostrarMensajes("",$usuactual,false);
+    
+            $SelectUsuarios = self::Usuarios($usuactual);
+            $form1 = new FormularioEnviarMensajeEnt();
+            $html1 = $form1->gestiona();
+    
+            $contenidoPrincipal = <<<EOF
+            <h1>CHAT CON USUARIO</h1>
+            <h3>Elige usuario para visualizar su chat:</h3>
+            <select name = 'idE2' id = 'idE2' type = 'text'>$SelectUsuarios</select>
+            <button class = "ButtonActua"name='actua1' type='submit' id='actua1' >Actualizar Chat</button>
+            $mensajes
+            $html1
+            EOF;
+            
+            return $contenidoPrincipal;
+        }else{
+            header('Location: login.php');
+            die();
+        }
     }
 }
