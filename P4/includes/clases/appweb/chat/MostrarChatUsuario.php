@@ -43,7 +43,7 @@ class  MostrarChatUsuario {
         }
         else{
             header('Location: login.php');
-            die();
+            exit();
         }
         
     }

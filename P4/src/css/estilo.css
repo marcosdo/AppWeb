@@ -641,30 +641,31 @@ select option[value=""][disabled] {
 	margin-right: 5px;
 }
 
-/*chats*/
-
-#scroll::-webkit-scrollbar {
+/* scroll bar*/
+::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
 }
 
-#scroll::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
 	border-radius: 10px;
 	background: rgba(0, 0, 0, 0.1);
 }
 
-#scroll::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	background: rgba(0, 0, 0, 0.2);
 }
 
-#scroll::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
 	background: rgba(0, 0, 0, 0.4);
 }
 
-#scroll::-webkit-scrollbar-thumb:active {
+::-webkit-scrollbar-thumb:active {
 	background: rgba(0, 0, 0, 0.9);
 }
+
+/*chats*/
 
 #chat {
 	width: 100%;

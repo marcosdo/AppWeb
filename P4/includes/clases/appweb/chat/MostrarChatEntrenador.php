@@ -65,7 +65,7 @@ class  MostrarChatEntrenador {
             return $contenidoPrincipal;
         }else{
             header('Location: login.php');
-            die();
+            exit();
         }
     }
 }
