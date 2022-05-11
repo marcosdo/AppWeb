@@ -39,6 +39,7 @@ class FormularioLike extends Formulario {
                 $this->errores[] = "Ya has dado like a este mensaje";
             }
             $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $mensaje->getIDRefencia()]);
+            Aplicacion::redirige($this->urlRedireccion);
         }
     }
 }
