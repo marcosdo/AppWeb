@@ -14,7 +14,7 @@ if ($objetivo != '' || $tipo != '') {
     $cond = "";
     if ($objetivo != '') {
         $cond = "objetivo = $objetivo";
-        if($tipo != '') $cond .= ", tipo = $tipo";
+        if($tipo != '') $cond .= " AND tipo = '{$tipo}'";
     }
     else {
         $cond = "tipo = '{$tipo}'";

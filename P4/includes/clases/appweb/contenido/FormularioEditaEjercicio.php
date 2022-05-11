@@ -12,10 +12,6 @@ class FormularioEditaEjercicio extends Formulario {
     }
 
     protected function generaCamposFormulario(&$datos) {
-      
-        $descripcion = $datos['descripcion'] ?? '';
-        $imagen = $datos['imagen'] ?? '';
-
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['descripcion', 'imagen'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.

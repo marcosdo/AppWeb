@@ -13,8 +13,6 @@ class FormularioFiltrarEjercicios extends Formulario {
 
    
     protected function generaCamposFormulario(&$datos){
-        $objetivo = $datos['musculo'] ?? '';
-        $tipo = $datos['tipo'] ?? '';
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['musculo', 'tipo'], array('class' => 'error'));
         
@@ -47,25 +45,25 @@ class FormularioFiltrarEjercicios extends Formulario {
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
 
-        $objetivo = trim($datos['tipo'] ?? '');
-        if(!empty($objetivo)){
-            if ($objetivo < 1 || $objetivo > 3)
+        $tipo = trim($datos['tipo'] ?? '');
+        if(!empty($tipo)){
+            if ($tipo < 1 || $tipo > 3)
                 $this->errores['tipo'] = 'Tipo no encontrado';
         }
 
         $musculo = trim($datos['musculo'] ?? '');
         if(!empty($musculo)){
-            if ($musculo != "Hombro" || $musculo != "Pecho" || $musculo != "Espalda" ||  $musculo != "Triceps" ||  $musculo != "Biceps" ||  $musculo != "Pierna")
+            if ($musculo != "Hombro" && $musculo != "Pecho" && $musculo != "Espalda" &&  $musculo != "Triceps" &&  $musculo != "Biceps" && $musculo != "Pierna")
             $this->errores['musculo'] = 'Musculo invalido';
         }
 
         
         if (count($this->errores) === 0) {
             $params = [
-                "numPorPagina" => 9,
+                "numPorPagina" => 18,
                 "numPagina" => 1,
-                "musculo" => $musculo,
-                "objetivo" => $objetivo
+                "tipo" => $tipo,
+                "musculo" => $musculo
             ];
            
             $url = "ejercicios.php?" . Aplicacion::buildParams($params);

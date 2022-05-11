@@ -58,7 +58,7 @@ class FormularioFiltrarRecetas extends Formulario {
 
         if (count($this->errores) === 0) {
             $params = [
-                "numPorPagina" => 9,
+                "numPorPagina" => 3,
                 "numPagina" => 1,
                 "objetivo" => $objetivo,
                 "tipo" => $tipo

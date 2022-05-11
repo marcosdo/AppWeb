@@ -12,14 +12,14 @@ $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 // Ya se ha filtrado
 if ($musculo != '' || $tipo != '') {
     $cond = "";
-    if ($musculo != '') {
-        $cond = "musculo = $musculo";
-        if($tipo != '') $cond .= ", tipo = $tipo";
+    if ($tipo != '') {
+        $cond = "tipo = $tipo";
+        if($musculo != '') $cond .= " AND musculo = '{$musculo}'";
     }
     else {
-        $cond = "tipo = $tipo";
+        $cond = "musculo = '{$musculo}'";
     }
-    $recetas = appweb\contenido\Ejercicios::getData($cond);
+    $ejercicios = appweb\contenido\Ejercicios::getData($cond);
 
 }
 // No se ha filtrado
