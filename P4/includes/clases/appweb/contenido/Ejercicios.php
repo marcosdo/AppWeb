@@ -47,9 +47,9 @@ class Ejercicios {
         }
     }
     
-    public static function getData(){
+    public static function getData($cond){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM ejercicios");
+        $query = sprintf("SELECT * FROM ejercicios WHERE %s", $conn->real_escape_string($cond));
         $rs = $conn->query($query);
         $result = array();
         try {
@@ -173,4 +173,5 @@ class Ejercicios {
         $filatipo = $rstipo->fetch_assoc();
         return $filatipo['tipo'];
     }
+
 }

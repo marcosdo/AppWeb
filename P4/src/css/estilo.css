@@ -424,7 +424,7 @@ div#repeticiones {
 
 #formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
-#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta{
+#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios{
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -574,7 +574,8 @@ select option[value=""][disabled] {
 #formPersProductos button, #formFilProductos button, .plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
 #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario button, #formChatEntrenador button, #formAdminCrea button, #formAdminBorra button, 
 #formContenido p,#formAdminAnuncio button, #formCreaReceta button, #formCreaNoticia button, #formCreaEjercicio button, #formBorraReceta button, 
-#formBorraNoticia button, #formBorraEjercicio button, #formEditaEjercicio button, #formEditaNoticia button, #formEditaUsuario button{
+#formBorraNoticia button, #formBorraEjercicio button, #formEditaEjercicio button, #formEditaNoticia button, #formEditaUsuario button, #formFilRecetas button, 
+#formFilEjercicios button{
 	outline: 0;
 	background: #EF3B3A;
 	border: 0;
@@ -911,6 +912,17 @@ select option[value=""][disabled] {
 } 
 
 /* foro */
+.message1 a, .message1 a:visited, .message2 a, .message2 a:visited {
+	color: #292a3a;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.message1 a:hover, .message2 a:hover{
+	color: #e1523d;
+	font-weight: bold;
+	text-decoration: underline;
+}
 
 .formBorraForo {
 	margin: 1%;

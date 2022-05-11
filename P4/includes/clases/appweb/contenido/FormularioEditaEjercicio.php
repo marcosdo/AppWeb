@@ -20,8 +20,8 @@ class FormularioEditaEjercicio extends Formulario {
         $erroresCampos = self::generaErroresCampos(['descripcion', 'imagen'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
+        <h3>Aqui puedes editar un ejercicio</h3>
         $htmlErroresGlobales
-      
         <h3>Descripcion del ejercicio</h3>
         <textarea id="descripcion" type="text" name="descripcion" placeholder="Empieza a escribir aqui..."></textarea>
         {$erroresCampos['descripcion']}

@@ -18,6 +18,7 @@ class FormularioCreaReceta extends Formulario {
         $erroresCampos = self::generaErroresCampos(['objetivo', 'tipo', 'descripcion', 'link'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
+        <h3>Aqui puedes crear una receta</h3>
         $htmlErroresGlobales
         <select name="objetivo" id="objetivo">
         <option value="" disabled="disabled" selected="selected">Selecciona el tipo de comida</option>

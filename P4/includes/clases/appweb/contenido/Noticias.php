@@ -25,7 +25,7 @@ class Noticias {
 
     public static function getData(){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM noticias");
+        $query = sprintf("SELECT * FROM noticias ORDER BY fecha DESC");
         $rs = $conn->query($query);
         $result = array();
         try {

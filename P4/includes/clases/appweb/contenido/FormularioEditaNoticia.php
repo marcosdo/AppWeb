@@ -18,8 +18,8 @@ class FormularioEditaNoticia extends Formulario {
         $erroresCampos = self::generaErroresCampos(['titulo', 'cuerpo'], $this->errores, 'span', array('class' => 'error'));
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
+        <h3>Aqui puedes editar una noticia</h3>
         $htmlErroresGlobales
-        
         <input id="titulo" type="text" name="titulo" placeholder="titulo de la noticia" />
         <i class="fa-solid fa-triangle-exclamation" id='tituloNO'></i>
         {$erroresCampos['titulo']}
