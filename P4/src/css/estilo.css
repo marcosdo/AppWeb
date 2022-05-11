@@ -672,6 +672,12 @@ select option[value=""][disabled] {
 	color: #292a3a;
 }
 
+#entrenador .texto, #usuario .texto {
+	word-wrap: break-word;
+	width: 100%;
+	text-align: left;
+}
+
 #entrenador, #usuario .texto, #entrenador .texto {
 	float: left;
 }
