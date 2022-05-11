@@ -959,14 +959,14 @@ select option[value=""][disabled] {
 
 .inline-button-like {
 	border: none;
-	background-color: #ffffff;
+	background-color: transparent;
 	float: right;
 	grid-column: 1;
 }
 
 .inline-button-dislike {
 	border: none;
-	background-color: #ffffff;
+	background-color: transparent;
 	float: left;
 	grid-column: 2;
 }
