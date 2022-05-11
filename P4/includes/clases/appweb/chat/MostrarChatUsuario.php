@@ -24,20 +24,27 @@ class  MostrarChatUsuario {
     }
     public function mostrarChat(){
         $app = Aplicacion::getInstance();
-        $usuactual = $app->nombreUsuario();
-        $id_usuario = $app->idUsuario();
-        $nombreEnt = Premium::getNombreEntrenador($id_usuario);
-
-        $form1 = new FormularioEnviarMensajeUsu();
-        $html1 = $form1->gestiona();
-
-        $mensajes = self::mostrarMensajes($usuactual,$nombreEnt);
-
-        $contenidoPrincipal = <<<EOF
-        <h1>CHAT ENTRENADOR</h1>
-        $mensajes 
-        $html1
-        EOF;
-        return $contenidoPrincipal;
+        if ($app->usuarioLogueado() == true){
+            $usuactual = $app->nombreUsuario();
+            $id_usuario = $app->idUsuario();
+            $nombreEnt = Premium::getNombreEntrenador($id_usuario);
+    
+            $form1 = new FormularioEnviarMensajeUsu();
+            $html1 = $form1->gestiona();
+    
+            $mensajes = self::mostrarMensajes($usuactual,$nombreEnt);
+    
+            $contenidoPrincipal = <<<EOF
+            <h1>CHAT ENTRENADOR</h1>
+            $mensajes 
+            $html1
+            EOF;
+            return $contenidoPrincipal;
+        }
+        else{
+            header('Location: login.php');
+            die();
+        }
+        
     }
 }

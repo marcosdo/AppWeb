@@ -158,4 +158,15 @@ class Comidas {
         $rs->free();
         return $comidas;
     }
+
+    public static function getIdComidas($select, $conn){
+        $queryaux = sprintf("SELECT * FROM comidas WHERE comidas.descripcion = '%s'", $select); 
+        $rsaux = $conn->query($queryaux); 
+        $filaaux = $rsaux->fetch_assoc();
+        $idComida = $filaaux['id_comida'];
+
+        $rsaux->free();
+        return $idComida;
+
+    }
 }
