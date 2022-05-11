@@ -155,7 +155,10 @@ class Rutina {
         $conn = $app->getConexionBd();
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%s'", $idUsuario);
         $rs = $conn->query($query);
-        if($rs->num_rows > 0) return true;
+        $n = $rs->num_rows;
+        $rs->free();
+
+        if($n > 0) return true;
         else return false;
     }
 
@@ -164,7 +167,10 @@ class Rutina {
         $query = sprintf("SELECT * FROM rutina WHERE rutina.id_usuario = '%d' AND rutina.activa = '%d'", $idUsuario, 1);
         $rs = $conn->query($query);
         $fila = $rs->fetch_assoc();
-        return $fila['id_rutina'];
+        $idRutina = $fila['id_rutina'];
+        $rs->free();
+
+        return $idRutina;
     }
 
     public static function buscaRutina(&$obj, &$arrayreps, &$rutina, &$arrayids){
@@ -233,6 +239,8 @@ class Rutina {
 
                 }
             }
+            $t->free();
+
             if(!empty($dia1)) array_push($arrayaux, $dia1);
             if(!empty($dia2)) array_push($arrayaux, $dia2);
             if(!empty($dia3)) array_push($arrayaux, $dia3);
@@ -263,7 +271,10 @@ class Rutina {
         $rs = $conn->query($query);
         $fila = $rs->fetch_assoc();
         $nivelRutina = $fila['nivel'];
-        return $fila['objetivo'];
+        $objetivo = $fila['objetivo'];
+        $rs->free();
+
+        return $objetivo;
 
     }
 
@@ -339,6 +350,8 @@ class Rutina {
         $filaobjetivo = $rsobjetivo->fetch_assoc();
         $objetivo = $filaobjetivo['objetivo'];
         $rutinaactiva = $filaobjetivo['id_rutina'];
+        $rsobjetivo->free();
+
         return $objetivo;
     }
 
