@@ -10,7 +10,8 @@ class FormularioLike extends Formulario {
     private $idMensaje;
 
     public function __construct($idMensaje = -1) {
-        parent::__construct('formLike', ['formId' => $idMensaje]);
+        $form = ($idMensaje != -1) ? "formLike" . $idMensaje : "formLike";
+        parent::__construct($form);
         $this->idMensaje = $idMensaje;
        
     }
@@ -27,7 +28,8 @@ class FormularioLike extends Formulario {
      */
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-        if (count($this->errores) === 0) {
+        $form = "formLike" . $this->idMensaje;
+        if ($form == $this->formId) {
             $app = Aplicacion::getInstance();
             $mensaje = Mensaje::buscaxID($this->idMensaje);
             try {

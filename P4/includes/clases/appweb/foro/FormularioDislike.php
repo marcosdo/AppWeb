@@ -11,7 +11,8 @@ class FormularioDislike extends Formulario {
     private $idMensaje;
 
     public function __construct($idMensaje = -1) {
-        parent::__construct('formDislike', ['class' => 'inline', 'formId' => $idMensaje]);
+        $form = ($idMensaje != -1) ? "formDislike" . $idMensaje : "formDislike";
+        parent::__construct($form);
         $this->idMensaje = $idMensaje;
       
     }
@@ -29,7 +30,8 @@ class FormularioDislike extends Formulario {
      */
     protected function procesaFormulario(&$datos) {
         $this->errores = [];
-        if (count($this->errores) === 0) {
+        $form = "formDislike" . $this->idMensaje;
+        if ($form == $this->formId) {
             $app = Aplicacion::getInstance();
             $mensaje = Mensaje::buscaxID($this->idMensaje);
             try{
