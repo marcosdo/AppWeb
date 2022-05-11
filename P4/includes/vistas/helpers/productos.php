@@ -13,7 +13,7 @@ function muestraProducto($producto) {
          <h4 class='nombre-producto'> {$producto['nombre']} </h4>
          <div class='imagen-producto'><img src="$ruta/productos/$producto[id_producto].png" alt="LIFETY"></div>
      </a>
-     <h4 class='precio-producto'> {$producto['precio']} </h4>
+     <h4 class='precio-producto'> Precio: {$producto['precio']} € </h4>
     EOS;
  }
 
@@ -34,25 +34,13 @@ function listaListaProductosPaginadasRecursivo($productos, $url, $nivel = 1, $nu
         $haySiguientePagina = true;
     }
 
-    
-
-    $html = "<h2>Ver Productos</h2><div class ='productos-layout'>";
-    $auxiliar = 0; 
-    for($idx = $primerproducto; $idx < $primerproducto + $numPorPagina && $idx < $numproductos; $idx++) {
-        if(!$auxiliar) $html .= '<div class="row-producto">';
-        $id= 'row'.$auxiliar;
-        $html .= "<div class = 'producto'>";
-
-        //$html .= "<div id=$id>";
-        $auxiliar += 1;
+    $html = "<h2>Ver Productos</h2>";
+    $html .= "<div class='productos-layout'>";
+    for ($idx = $primerproducto; $idx < $primerproducto + $numPorPagina && $idx < $numproductos; $idx++) {
+        $html .= "<div class='producto'>";
         $productoi = $productos[$idx];
         $html .= muestraProducto($productoi);
-        
         $html .= '</div>';
-        if($auxiliar == 3){
-            $auxiliar = 0;
-            $html .= '</div>';
-        }
     }
     $html .= '</div>';
 
