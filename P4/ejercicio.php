@@ -1,4 +1,6 @@
 <?php
+use appweb\Aplicacion;
+
 require_once __DIR__.'/includes/config.php';
 
 // Coger los parametros $_GET: ?id=n, y si no existe redirigir al index
@@ -21,8 +23,15 @@ $musculo = $ejercicio->getMusculo();
 $tipo = $ejercicio->getTipo();
 $ruta = RUTA_IMGS;
 
-$formEdita = new appweb\contenido\FormularioEditaEjercicio($idEjercicio);
-$htmlFormEdita = $formEdita->gestiona();
+
+$app = Aplicacion::getInstance();
+
+if($app->esProfesional()){
+	$formEdita = new appweb\contenido\FormularioEditaEjercicio($idEjercicio);
+	$htmlFormEdita = "<h4 class='message'><a href='#'>Edita este ejercicio. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+	$htmlFormEdita .= $formEdita->gestiona();
+}
+else $htmlFormEdita='';
 
 switch($tipo) {
 	case 0: $aux = "fuerza"; break;
@@ -36,7 +45,6 @@ $contenidoPrincipal = <<<EOS
 	<h4>Musculo entrenado: {$musculo}</h4>
 	<h4>Util para mejorar la {$aux}</h4>
 	<p>{$descripcion}</p>
-	<h4 class="message"><a href='#'>Edita este ejercicio. <i class="fa-solid fa-pen-to-square"></i></a></h4>
 	$htmlFormEdita
 </div>
 EOS;
