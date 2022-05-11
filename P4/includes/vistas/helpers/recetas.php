@@ -12,6 +12,10 @@ function botonBorraReceta($receta) {
     $form = new  FormularioBorraReceta($receta['id_comida']);
     return $form->gestiona();
 }
+function FiltraProducto(){
+    $filtra =  new appweb\contenido\FormularioFiltrarRecetas();
+    return $filtra->gestiona();
+}
 
 function listaListaRecetasPaginadas($recetas, $url, $numPorPagina = 3, $numPagina = 1) {
     return listaListaRecetasPaginadasRecursivo($recetas, $url, 1, $numPorPagina, $numPagina);

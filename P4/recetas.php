@@ -24,8 +24,8 @@ if ($objetivo != '' || $tipo != '') {
 // No se ha filtrado
 else $recetas = appweb\contenido\Comidas::getData("1");
 
-$form = new appweb\contenido\FormularioFiltrarRecetas();
-$htmlFilt = $form->gestiona();
+$html = "<h4 class='message4'><a href='#'> Filtrar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+$html .= FiltraProducto();
 
 $lista = listaListaRecetasPaginadas($recetas, 'recetas.php', $numPorPagina, $numPagina);
 
@@ -33,7 +33,7 @@ $lista = listaListaRecetasPaginadas($recetas, 'recetas.php', $numPorPagina, $num
 $tituloPagina = 'Recetas';
 $contenidoPrincipal = <<<EOS
 <h1>RECETAS</h1>
-$htmlFilt
+$html
 $lista
 EOS;
 
