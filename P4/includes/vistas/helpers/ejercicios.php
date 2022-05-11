@@ -48,7 +48,7 @@ function listaListaEjerciciosPaginadasRecursivo($ejercicios, $url, $nivel = 1, $
         $html .= $form->gestiona();
         $html .= "</div>";
     }
-    else $html = '';
+    else $html = '</div>';
 
     $html .= '<div class=ejercicios>';
      //MOSTRAR 3 EJERCICIOS EN UNA FILA :)
