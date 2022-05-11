@@ -960,14 +960,14 @@ select option[value=""][disabled] {
 
 .inline-button-like {
 	border: none;
-	background-color: #e6e6e6;
+	background-color: transparent;
 	float: right;
 	grid-column: 1;
 }
 
 .inline-button-dislike {
 	border: none;
-	background-color: #e6e6e6;
+	background-color: transparent;
 	float: left;
 	grid-column: 2;
 }
@@ -980,7 +980,7 @@ select option[value=""][disabled] {
 	list-style: none;
 	background:#e6e6e6;
 	margin: 10px 10px 10px;
-	padding: 1%;
+	padding: 5%;
 	padding-bottom:3px;
 	border-radius: 20px;
 }
@@ -1011,6 +1011,12 @@ div#mensajeObjeto {
 .inline-button{
 	display: inline-block;
 	background-color: #e1523d;
+}
+div#fondo-mensaje{
+	background-color: #ffffff;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
 }
 /* iconos */
 
