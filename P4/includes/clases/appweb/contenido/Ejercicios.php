@@ -174,14 +174,10 @@ class Ejercicios {
         return $filatipo['tipo'];
     }
 
-<<<<<<< Updated upstream
-=======
     public static function getEjsMusculo($musculo){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM ejercicios WHERE musculo = '%s'", $conn->real_escape_string($musculo)); 
         $rs = $conn->query($query);
         return $rs;
     }
-    
->>>>>>> Stashed changes
 }
