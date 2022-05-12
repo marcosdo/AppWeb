@@ -10,16 +10,22 @@
 
     $objetivo = filter_input(INPUT_GET, 'objetivo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
     $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+    $descripcion = filter_input(INPUT_GET, 'descripcion', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 
     // Ya se ha filtrado
-    if ($objetivo != '' || $tipo != '') {
+    if ($objetivo != '' || $tipo != '' || $descripcion != '') {
         $cond = "";
         if ($objetivo != '') {
             $cond = "objetivo = $objetivo";
             if($tipo != '') $cond .= " AND tipo = '{$tipo}'";
+            if($descripcion != '') $cond .= " AND descripcion LIKE '%{$descripcion}%'";
         }
         else {
-            $cond = "tipo = '{$tipo}'";
+            if($tipo != '') {
+                $cond = "tipo = '{$tipo}'";
+                if($descripcion != '') $cond .= " AND descripcion LIKE '%{$descripcion}%'";
+            }
+            else $cond = "descripcion LIKE '%{$descripcion}%'";
         }
         $recetas = appweb\contenido\Comidas::getData($cond);
     }

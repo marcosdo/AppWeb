@@ -47,9 +47,9 @@ class Comidas {
         }
     }
 
-    public static function getData($cond = '1'){
+    public static function getData($cond){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM comidas WHERE $cond");
+        $query = "SELECT * FROM comidas WHERE $cond";
         $rs = $conn->query($query);
         $result = array();
         try {

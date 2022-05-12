@@ -11,17 +11,23 @@
 
         $musculo = filter_input(INPUT_GET, 'musculo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
         $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+        $nombre = filter_input(INPUT_GET, 'nombre', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
 
         $html = '';
         // Ya se ha filtrado
-        if ($musculo != '' || $tipo != '') {
+        if ($musculo != '' || $tipo != '' || $nombre != '') {
             $cond = "";
             if ($tipo != '') {
                 $cond = "tipo = $tipo";
                 if($musculo != '') $cond .= " AND musculo = '{$musculo}'";
+                if($nombre != '') $cond .= " AND nombre LIKE '%{$nombre}%'";
             }
             else {
-                $cond = "musculo = '{$musculo}'";
+                if($musculo != ''){
+                    $cond = "musculo = '{$musculo}'";
+                    if($nombre != '') $cond .= " AND nombre LIKE '%{$nombre}%'";
+                }
+                else $cond = "nombre LIKE '%{$nombre}%'";
             }
             $ejercicios = appweb\contenido\Ejercicios::getData($cond);
 

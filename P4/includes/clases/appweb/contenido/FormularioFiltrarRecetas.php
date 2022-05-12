@@ -15,11 +15,11 @@ class FormularioFiltrarRecetas extends Formulario {
    
     protected function generaCamposFormulario(&$datos) {
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['objetivo', 'tipo'], $this->errores, 'span', array('class' => 'error'));
-
+        $erroresCampos = self::generaErroresCampos(['objetivo', 'tipo', 'search'], $this->errores, 'span', array('class' => 'error'));
         $camposFormulario = <<<EOF
-            $htmlErroresGlobales
             <h3>Filtra entre las recetas que tenemos disponibles</h3>
+            $htmlErroresGlobales
+            <input id="search" type="text" name="search" placeholder="Buscar"/>
             <select name="objetivo" id="objetivo">
             <option value="" disabled="disabled" selected="selected">Selecciona el objetivo de nutricion</option>
             <option value="1">Pérdida de peso</option>
@@ -56,12 +56,21 @@ class FormularioFiltrarRecetas extends Formulario {
             if ($objetivo < 1 || $objetivo > 3)
                 $this->errores['objetivo'] = 'Objetivo no encontrado';
 
+                $objetivo = trim($datos['objetivo'] ?? '');
+
+        $search = trim($datos['search'] ?? '');
+        $search = filter_var($search, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        if(!empty($search))
+            if(!$search) $this->errores['search'] = 'Busqueda incorrecta';
+
         if (count($this->errores) === 0) {
             $params = [
                 "numPorPagina" => 3,
                 "numPagina" => 1,
                 "objetivo" => $objetivo,
-                "tipo" => $tipo
+                "tipo" => $tipo,
+                "descripcion" => $search
             ];
 
             $url = "recetas.php?" . Aplicacion::buildParams($params);

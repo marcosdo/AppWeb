@@ -484,7 +484,7 @@ div#repeticiones {
 
 .form input, #formPago input,#formChatEntrenador input,#formChatUsuario input, #formAdminAnuncio input, #formAdminCrea input, #formAdminBorra input, 
 #formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio input,  #formCreaEjercicio label, #formEditaMensaje input, #formForo input, 
-#formEditaEjercicio label, #formEditaNoticia input, #formEditaUsuario input, #cuenta p{
+#formEditaEjercicio label, #formEditaNoticia input, #formEditaUsuario input, #cuenta p, #formFilRecetas input, #formFilEjercicios input{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;

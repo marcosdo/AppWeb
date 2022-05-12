@@ -49,7 +49,7 @@ class Ejercicios {
     
     public static function getData($cond){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM ejercicios WHERE $cond");
+        $query = "SELECT * FROM ejercicios WHERE $cond";
         $rs = $conn->query($query);
         $result = array();
         try {

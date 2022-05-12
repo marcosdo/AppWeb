@@ -65,6 +65,7 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
         $hrefSiguiente = '';
         $objetivo = filter_input(INPUT_GET, 'objetivo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
         $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
+        $descripcion = filter_input(INPUT_GET, 'descripcion', FILTER_SANITIZE_SPECIAL_CHARS) ?? '';
         if ($numPagina > 1) {
             // Seguro que hay Recetas anteriores
             $paginaPrevia = $numPagina - 1;
@@ -73,7 +74,8 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
                 'numPagina' => $paginaPrevia,
                 'numPorPagina' => $numPorPagina,
                 "objetivo" => $objetivo,
-                "tipo" => $tipo
+                "tipo" => $tipo,
+                "descripcion" => $descripcion
             ]);
         }
 
@@ -85,7 +87,8 @@ function listaListaRecetasPaginadasRecursivo($recetas,  $url, $nivel = 1, $numPo
                 'numPagina' => $paginaSiguiente,
                 'numPorPagina' => $numPorPagina,
                 "objetivo" => $objetivo,
-                "tipo" => $tipo
+                "tipo" => $tipo,
+                "descripcion" => $descripcion
             ]);
         }
         $numrecetas = count($recetas);

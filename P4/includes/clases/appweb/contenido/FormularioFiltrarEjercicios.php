@@ -14,11 +14,12 @@ class FormularioFiltrarEjercicios extends Formulario {
    
     protected function generaCamposFormulario(&$datos){
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['musculo', 'tipo'], array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['musculo', 'tipo', 'search'], array('class' => 'error'));
         
         $camposFormulario = <<<EOF
             <h3>Filtra por ejercicios segun tus preferencias</h3>
             $htmlErroresGlobales
+            <input id="search" type="text" name="search" placeholder="Buscar"/>
             <select name="tipo" id="tipo">
             <option value="" disabled="disabled" selected="selected">Selecciona el tipo de ejercicio</option>
             <option value="0">Basico</option>
@@ -57,13 +58,19 @@ class FormularioFiltrarEjercicios extends Formulario {
             $this->errores['musculo'] = 'Musculo invalido';
         }
 
+        $search = trim($datos['search'] ?? '');
+        $search = filter_var($search, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        if(!empty($search))
+            if(!$search) $this->errores['search'] = 'Busqueda incorrecta';
         
         if (count($this->errores) === 0) {
             $params = [
                 "numPorPagina" => 18,
                 "numPagina" => 1,
                 "tipo" => $tipo,
-                "musculo" => $musculo
+                "musculo" => $musculo,
+                "nombre" => $search
             ];
            
             $url = "ejercicios.php?" . Aplicacion::buildParams($params);
