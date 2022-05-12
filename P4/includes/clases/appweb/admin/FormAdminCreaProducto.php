@@ -81,6 +81,7 @@ class FormAdminCreaProducto extends Formulario {
 
             <p class="error">{$erroresCampos['imagen']}</p>
             <input id="imagen" type="file" name="imagen" accept= "image/png"/>
+            <label for="imagen">Pulsa aqui para subir la imagen del ejercicio</label>
 
             <p><button type="submit" name="enviar">Confirmar</button><p>
         EOF;

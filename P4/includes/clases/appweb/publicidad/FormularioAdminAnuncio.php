@@ -40,10 +40,11 @@ class FormularioAdminAnuncio extends Formulario {
         </select>
         <p class="error">{$erroresCampos['contenido']}</p>
         <input id="contenido" type="text" name="contenido" value="$contenido" placeholder="contenido" />
-        <p class="error">{$erroresCampos['imagen']}</p>
-        <input id="imagen" type="file" name="imagen" accept= "image/jpg"/>
         <p class="error">{$erroresCampos['link']}</p>
         <input id="link" type="text" name="link" value="$link" placeholder="link" />
+        <p class="error">{$erroresCampos['imagen']}</p>
+        <label for="imagen">Pulsa aqui para subir la imagen del ejercicio</label>
+        <input id="imagen" type="file" name="imagen" accept= "image/jpg"/>
         <button type="submit" name="enviar">Confirmar</button>
         EOF;
         return $html;

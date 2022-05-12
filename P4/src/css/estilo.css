@@ -432,7 +432,7 @@ div#repeticiones {
 
 #formAdminCreaProd, #formAdminCreaEmp, #formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
-#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios, .creafiltra {
+#formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios, .creafiltra, #consola {
 	background: #FFFFFF;
 	margin: 20px auto 20px;
 	padding: 3%;
@@ -488,7 +488,8 @@ div#repeticiones {
 
 .form input, #formAdminCreaProd input, #formAdminCreaEmp input, #formPago input,#formChatEntrenador input,#formChatUsuario input, #formAdminAnuncio input, #formAdminCrea input, #formAdminBorra input, 
 #formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio input,  #formCreaEjercicio label, #formEditaMensaje input, #formForo input, 
-#formEditaEjercicio label, #formEditaNoticia input, #formEditaUsuario input, #cuenta p, #formFilRecetas input, #formFilEjercicios input{
+#formEditaEjercicio label, #formEditaNoticia input, #formEditaUsuario input, #cuenta p, #formFilRecetas input, #formFilEjercicios input, #formAdminAnuncio label
+, #formAdminCreaProd label{
 	background: #f2f2f2;
 	width: 100%;
 	border: 0;
@@ -534,7 +535,7 @@ div#repeticiones {
 	margin: 0;
 }
 
-.element input {
+.element input, #formAdminAnuncio #imagen, #formAdminCreaProd #imagen {
 	display: none;
 }
 
@@ -1036,6 +1037,24 @@ div#fondo-mensaje{
 	display: block;
 }
 
+
+/*admin*/
+
+#consola ul li {
+	list-style: none;
+}
+
+#consola ul li a, #consola ul li a:visited {
+	color: #292a3a;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#consola ul li a:hover {
+	color: #e1523d;
+	font-weight: bold;
+	text-decoration: underline;
+}
 /* Diseño dispositivos pequeños*/
 
 @media all and (max-width: 860px) {
