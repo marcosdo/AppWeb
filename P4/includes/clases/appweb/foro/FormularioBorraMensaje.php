@@ -55,9 +55,9 @@ class FormularioBorraMensaje extends Formulario {
     
             if ($idMensajeRetorno) {
                 $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idMensajeRetorno]);
-            } else {
+            } /*else {
                 $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $idforo]);
-            }
+            }*/
         }
     }
 }
