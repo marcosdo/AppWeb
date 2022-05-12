@@ -37,13 +37,18 @@ class FormularioBorraEjercicio extends Formulario {
         if (count($this->errores) === 0) {
             try{
             $ejercicio = Ejercicios::buscaxID($idejercicio);
-
+            $id = $ejercicio->getId_ejercicio();
             if ($app->usuarioLogueado() && $app->esProfesional()) {
                 $ejercicio->borrate();
+                $fichero = "{$id}.png";
+                $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_ALMACEN_EJERCICIOS, $fichero]);
+                if (!unlink($ruta)) {
+                    $this->errores['imagen'] = 'Error al eliminar el archivo';
+                }
             }
             $app = Aplicacion::getInstance();
-                $mensajes = ['Se ha borrado el ejercicio'];
-                $app->putAtributoPeticion('mensajes', $mensajes);
+            $mensajes = ['Se ha borrado el ejercicio'];
+            $app->putAtributoPeticion('mensajes', $mensajes);
             }
             catch (\Exception $e) {
                 $this->errores[] = 'No se puede eliminar el ejercicio.';
