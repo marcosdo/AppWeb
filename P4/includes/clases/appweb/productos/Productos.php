@@ -151,15 +151,25 @@ class Productos extends Empresas {
         $rs = $conn->query($query);
         $rs = $conn->query($query);
         $fila = $rs->fetch_assoc();
-
         return $fila;
     }
 
+    public static function getLastID(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT MAX(productos.id_producto) AS num_productos FROM productos");
+        try {
+            $rs = $conn->query($query);
+            $result = $rs->fetch_assoc();
+        } finally {
+            if ($rs != null)
+                $rs->free();
+        }
+        return $result['num_productos'];
+    }
 
-
-    public static function getDataPers(){
+    public static function getDataPers() {
         $app = Aplicacion::getInstance();
-
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM usuariosproductos WHERE usuariosproductos.id_usuario = '%d'", $app->idUsuario());
         $rs = $conn->query($query);
@@ -184,17 +194,14 @@ class Productos extends Empresas {
             "tipo"
         );
         $rs = $conn->query($query);
-
         $fila = $rs->fetch_assoc();
         $type = $fila['Type'];
         $matches = array();
         $enum = array();
         preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
         $enum = explode("','", $matches[1]);
-
         return $enum;
     }
-
 
     public static function getProducto($id){
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -212,7 +219,7 @@ class Productos extends Empresas {
         }
         return $producto;
     }
-    
+
     public static function getPrecioMaximo(){
         $precio = 0;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -283,7 +290,6 @@ class Productos extends Empresas {
                     array_push($productosTipos, "aminoacidos");
                 }
                 break;
-
         }
         self::actualizarProductosRecomendados($idUsuario,$productosTipos);
         
@@ -291,7 +297,6 @@ class Productos extends Empresas {
 
     private static function actualizarProductosRecomendados($idUsuario, $productosTipos){
         $conn = Aplicacion::getInstance()->getConexionBd();
-
         // comprobar si ya habia datos antes y borrarlos
         self::borrarProductosRecomendadosAntiguos($idUsuario);
         foreach ($productosTipos as &$tipo) {
@@ -304,8 +309,6 @@ class Productos extends Empresas {
                 if ($conn->query($query2)){} 
             }
         }
-
-
     }
 
     private static function borrarProductosRecomendadosAntiguos($idUsuario){
@@ -319,19 +322,13 @@ class Productos extends Empresas {
         else return true;
     }
 
-
     public static function hayRutina($idUsuario){
         $app = Aplicacion::getInstance();
         if(!Rutina::hayRutinas($idUsuario, $app)) return false;
         else return true;
-
     }
-
     public static function hayDieta($idUsuario){
         if(!Dieta::hayDietas(($idUsuario))) return false;
         else return true;
     }
-    
-
-    
 }
