@@ -263,15 +263,59 @@ footer {
 	font-weight: 400;
 	margin-bottom: 60px;
 }
-*/
 
 /* Productos Recomendados */
-
-a.ver-producto {
-    outline: none;
-    text-decoration: none;
+/* Tienda */
+.productos-layout { /* Grid layout muestra productos */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 1fr;
+	grid-gap: 20px;
+	align-items: stretch;
+	text-align: center;
 }
 
+.comprar-producto {
+	background-color: #199319;
+	border-radius: 10px;
+	color: white;
+	padding: 15px 25px;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.producto {
+	border: 1px solid #ccc;
+	padding: 20px;
+}
+
+.imagen-producto img {
+	max-height: 250px;
+	border-radius: 20px;
+}
+.imagen-producto {
+	text-align: center;
+}
+
+.precio-producto {
+	color: #6c6c6c;
+	font-weight: bold;
+	text-align: right;
+}
+
+.nombre-producto {
+	color:#EF3B3A;
+	text-align: center;
+	outline: none;
+	text-decoration: none;
+}
+
+.producto a {
+	outline: none;
+	text-decoration: none;
+}
+
+/* Prodcuto individual */
 #enlace-comprarp {
 	text-align: center;
 	margin-bottom: 30px;
@@ -282,48 +326,8 @@ a.ver-producto {
 	margin-bottom: 30px;
 }
 
-.comprar-producto {
-	background-color: #199319;
-	color: white;
-	padding: 15px 25px;
-	text-decoration: none;
-	display: inline-block;
-}
-
-.productos-layout { /* Grid layout muestra productos */
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-	grid-auto-rows: 1fr;
-    grid-gap: 20px;
-    align-items: stretch;
-}
-
-.producto {
-	border: 1px solid #ccc;
-	padding: 20px;
-}
-
-.nombre-producto {
-	color:#EF3B3A;
-	text-align: center;
-}
-
 .descripcion-producto {
 	color: #292a3a;
-}
-.imagen-producto img {
-	max-height: 250px;
-    border-radius: 20px;
-}
-
-.imagen-producto {
-	text-align: center;
-}
-
-.precio-producto {
-	color: #6c6c6c;
-	font-weight: bold;
-	text-align: right;
 }
 
 /* Tablas planificacion */
@@ -426,7 +430,7 @@ div#repeticiones {
 
 /* formularios */
 
-#formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
+#formAdminCreaProd, #formAdminCreaEmp, #formRutinas, #formDietas, .form, #formPago, #formForo, .temas, .verplan, #formEntrenadorRutinas, #formEntrenadorDietas, .respuesta, 
 #formChatUsuario,#formAdminAnuncio, #formChatEntrenador, .logros, #formAdminCrea, #formAdminBorra, #formContenido, #formCreaReceta, #formCreaNoticia, 
 #formCreaEjercicio, #formEditaEjercicio, #formEditaNoticia, #formEditaUsuario, #cuenta, #formFilRecetas, #formFilEjercicios, .creafiltra {
 	background: #FFFFFF;
@@ -482,7 +486,7 @@ div#repeticiones {
 
 /* input*/
 
-.form input, #formPago input,#formChatEntrenador input,#formChatUsuario input, #formAdminAnuncio input, #formAdminCrea input, #formAdminBorra input, 
+.form input, #formAdminCreaProd input, #formAdminCreaEmp input, #formPago input,#formChatEntrenador input,#formChatUsuario input, #formAdminAnuncio input, #formAdminCrea input, #formAdminBorra input, 
 #formCreaReceta input, #formCreaNoticia input, #formCreaEjercicio input,  #formCreaEjercicio label, #formEditaMensaje input, #formForo input, 
 #formEditaEjercicio label, #formEditaNoticia input, #formEditaUsuario input, #cuenta p, #formFilRecetas input, #formFilEjercicios input{
 	background: #f2f2f2;
@@ -575,7 +579,7 @@ select option[value=""][disabled] {
 
 /* botones */
 
-#formPersProductos button, #formFilProductos button, .plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
+#formAdminCreaProd button, #formAdminCreaEmp button,#formPersProductos button, #formFilProductos button, .plan #formRutinas button, .plan #formDietas button, .form button, #formPago button, #formForo button, .verplan button, #formBorraForo button, 
 #formEditaMensaje button, #formBorraMensaje button, #formChatUsuario button, #formChatEntrenador button, #formAdminCrea button, #formAdminBorra button, 
 #formContenido p,#formAdminAnuncio button, #formCreaReceta button, #formCreaNoticia button, #formCreaEjercicio button, #formBorraReceta button, 
 #formBorraNoticia button, #formBorraEjercicio button, #formEditaEjercicio button, #formEditaNoticia button, #formEditaUsuario button, #formFilRecetas button, 
@@ -746,7 +750,7 @@ select option[value=""][disabled] {
 }
 
 /* textarea */
-.chat, #formCreaNoticia textarea, #formCreaEjercicio textarea, #formEditaMensaje textarea, #formForo textarea, #formEditaEjercicio textarea, #formEditaNoticia textarea{
+.chat, #formAdminCreaProd textarea, #formCreaNoticia textarea, #formCreaEjercicio textarea, #formEditaMensaje textarea, #formForo textarea, #formEditaEjercicio textarea, #formEditaNoticia textarea{
 	width: 100%;
 	height: 200px;
 	resize: none;
