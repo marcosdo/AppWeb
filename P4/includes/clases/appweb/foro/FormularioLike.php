@@ -34,11 +34,12 @@ class FormularioLike extends Formulario {
             $mensaje = Mensaje::buscaxID($this->idMensaje);
             try {
                 $mensaje->like();
+                $origen = $mensaje->getMsgOrigen();
             }
             catch (\Exception $e) {
                 $this->errores[] = "Ya has dado like a este mensaje";
             }
-            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $mensaje->getIDRefencia()]);
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $origen]);
             Aplicacion::redirige($this->urlRedireccion);
         }
     }
