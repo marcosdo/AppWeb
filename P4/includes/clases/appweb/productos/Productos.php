@@ -121,10 +121,8 @@ class Productos extends Empresas {
             array_push($precio, $fila["precio"]);
             array_push($link, $fila["link"]);
             array_push($tipo, $fila["tipo"]);
-            $queryempresa = sprintf("SELECT * FROM empresas WHERE empresas.id_empresa = %d", $fila["id_empresa"]);
-            $rsempresa = $conn->query($queryempresa);
-            $filaempresa = $rsempresa->fetch_assoc();
-            array_push($empresa, $filaempresa["nombre"]);
+            $nombreEmpresa = Empresas::getNombreEmpresaxID($fila["id_empresa"]);
+            array_push($empresa, $nombreEmpresa);
         } 
         
         return $rs; 
