@@ -128,6 +128,42 @@ class Mensaje {
         return $result;
     }
 
+    /**
+     * Funcion que devuelve el ID del mensaje raiz
+     * @return int ID mensaje
+     */
+    public function getMsgOrigen() {
+        return self::getMsgOrigenRec($this->_id_mensaje);
+    }
+
+    /**
+     * Funcion que calcula recursivamente quien es el padre original
+     * @param int ID del mensaje actuak
+     * @return int ID del mensaje padre
+     */
+    private function getMsgOrigenRec($id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "SELECT id_referencia FROM mensaje WHERE id_mensaje = %d"
+            , $id
+        );
+
+        try {
+            $result = 0;
+            $rs = $conn->query($query);
+            if ($fila = $rs->fetch_assoc())
+                $result = $fila['id_referencia'];
+        } finally {
+        if ($rs != null)
+            $rs->free();
+        }
+
+        if ($result == null) {
+            return $id;
+        }
+        return self::getMsgOrigenRec($result);
+    }
+
     // Getters y setters
     public function getID() { return $this->_id_mensaje; }
     public function getIDForo() { return $this->_id_foro; }

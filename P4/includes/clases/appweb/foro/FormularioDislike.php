@@ -36,10 +36,11 @@ class FormularioDislike extends Formulario {
             $mensaje = Mensaje::buscaxID($this->idMensaje);
             try{
                 $mensaje->dislike();
+                $origen = $mensaje->getMsgOrigen();
             } catch(Exception $e){
                 $this->errores[] = "Solo pudes dar dislike a un mensaje que has dado like previamente";
             }
-            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $mensaje->getIDRefencia()]);
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $origen]);
             Aplicacion::redirige($this->urlRedireccion);
         }
     }
