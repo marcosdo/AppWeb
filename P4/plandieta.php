@@ -12,8 +12,8 @@ if ($app->usuarioLogueado() == true){
     EOS;
 }
 else {
-  header('Location: login.php');
-  exit();
+  appweb\Aplicacion::redirige($app->buildUrl('/login.php'));
+
 }
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
