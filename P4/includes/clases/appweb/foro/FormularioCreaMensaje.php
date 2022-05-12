@@ -41,7 +41,7 @@ class FormularioCreaMensaje extends Formulario {
 
         $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$mensaje || empty($mensaje) || mb_strlen($mensaje) > Mensaje::MAX_SIZE)
-            $this->errores['mensaje'] = 'Es necesario rellenar el mensaje de contestacion.';
+            $this->errores['mensaje'] = 'Mensaje invalido.';
 
         $idpadre = $_GET['id'] ?? null;
         $idforo = $_GET['idforo'] ?? null;
