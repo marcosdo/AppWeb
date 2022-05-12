@@ -19,8 +19,7 @@ INSERT INTO `anuncio` (`id_anuncio`, `nombre_empresa`, `contenido`, `imagen`, `l
 (17, 'fitnessCenter', 'GET YOUR ONE YEAR MEMBERSHIP NOW!', '25.jpg', 'https://www.fitnesscentervaguada.com/');
 
 TRUNCATE TABLE `categorias`;
-
-
+TRUNCATE TABLE `chat`;
 TRUNCATE TABLE `comidas`;
 INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) VALUES
 (1, 1, 'Desayuno', 'Copos de avena con leche', 'B-dbqL7gNv4'),
@@ -113,15 +112,6 @@ INSERT INTO `comidas` (`id_comida`, `objetivo`, `tipo`, `descripcion`, `link`) V
 
 TRUNCATE TABLE `contiene`;
 TRUNCATE TABLE `dieta`;
-INSERT INTO `dieta` (`id_usuario`, `fecha`, `id_desayuno`, `id_almuerzo`, `id_cena`, `tipo`) VALUES
-(36, '2022-04-10', NULL, NULL, NULL, 1),
-(36, '2022-04-11', NULL, NULL, NULL, 1),
-(36, '2022-04-12', NULL, NULL, NULL, 1),
-(36, '2022-04-13', NULL, NULL, NULL, 1),
-(36, '2022-04-14', NULL, NULL, NULL, 1),
-(36, '2022-04-15', NULL, NULL, NULL, 1),
-(36, '2022-04-16', NULL, NULL, NULL, 1);
-
 TRUNCATE TABLE `ejercicios`;
 INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripcion`) VALUES
 (1, 2, 'Hombro', 'Elevacion lateral', 'Tomando aire elevamos las mancuernas hasta que los brazos queden alineados con los hombros y desde alli­ bajamos lentamente mientras exhalamos. Las elevaciones laterales se pueden hacer con ambas manos juntas o tambien, alternando un brazo y otro.'),
@@ -150,17 +140,18 @@ INSERT INTO `ejercicios` (`id_ejercicio`, `tipo`, `musculo`, `nombre`, `descripc
 (24, 1, 'Espalda', 'Remo mancuernas banco', 'Necesita colocar un banco inclinado a 360 para hacer el ejercicio. Seleccione el peso adecuado de las mancuernas. Coja las pesas, sientese en el banco y descanse el pecho sobre la almohadilla. Su cabeza debe estar mas alta que el banco. Los pies deben estar en el suelo y los brazos deben estar rectos. Retrayendo los omoplatos, levante las mancuernas hacia los lados de su pecho mientras exhala. Mientras hace el ejercicio, mueva solo el brazo, asegurese de no mover ninguna otra parte de su cuerpo. Vuelva a la posicion inicial con un suave movimiento mientras inhala.');
 
 TRUNCATE TABLE `empresas`;
-INSERT INTO `empresas` VALUES (1,'facebook'),
-(2,'Prozis'),
-(3,'Myprotein'),
-(4,'Lifepro'),
-(5,'Emfit'),
-(6,'Iogenix'),
-(7,'HSN'),
-(8,'Potential'),
-(9, 'goldgym'),
+INSERT INTO `empresas` (`id_empresa`, `nombre`) VALUES
+(5, 'Emfit'),
 (10, 'energyFitness'),
+(1, 'facebook'),
 (11, 'fitnessCenter'),
+(9, 'goldgym'),
+(7, 'HSN'),
+(6, 'Iogenix'),
+(4, 'Lifepro'),
+(3, 'Myprotein'),
+(8, 'Potential'),
+(2, 'Prozis'),
 (12, 'theGym');
 
 TRUNCATE TABLE `entrena`;
@@ -169,7 +160,16 @@ INSERT INTO `entrena` (`nutri`, `usuario`, `editarutina`, `editadieta`) VALUES
 
 TRUNCATE TABLE `foro`;
 INSERT INTO `foro` (`id_foro`, `id_usuario`, `tema`, `nickcreador`, `fecha`, `contenido`, `categoria`, `respuestas`) VALUES
-(27, 31, '&iquest;Creatina-&gt;p&eacute;rdida de pelo?', 'pintus', '2022-04-19 15:27:25', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', 'Dieta', 0);
+(27, 31, '&iquest;Creatina-&gt;p&eacute;rdida de pelo?', 'pintus', '2022-04-19 15:27:25', 'La creatina, &aacute;cido &alpha;-metil guanido-ac&eacute;tico, es un &aacute;cido org&aacute;nico nitrogenado que se encuentra en los m&uacute;sculos y c&eacute;lulas nerviosas de algunos organismos vivos. Se puede obtener tanto de manera natural como de manera artificial como suplemento', 'Dieta', 0),
+(29, 32, '&iquest;Alimentos-&gt;perder peso?', 'anakin', '2022-05-12 19:46:29', 'Quiero encontrar alimentos que puedan servirme para perder peso, ya que me lo ha recomendado el m&eacute;dico y quiero ponerme las pilas. &iquest;Que me recomendais para ello?', 'Dieta', 0),
+(30, 32, 'Importancia de las vitaminas en nuestra nutricion', 'anakin', '2022-05-12 19:53:41', '&iquest;Como son de importantes las vitaminas en nuestra nutricion? &iquest;Deberiamos incluir complementos en nuestra alimentacion para tener mayores cantidades de vitaminas?', 'Nutricion', 0);
+
+TRUNCATE TABLE `likes`;
+INSERT INTO `likes` (`id_usuario`, `id_mensaje`) VALUES
+(32, 31),
+(32, 36),
+(32, 37),
+(32, 39);
 
 TRUNCATE TABLE `mensaje`;
 INSERT INTO `mensaje` (`id_mensaje`, `id_usuario`, `id_referencia`, `id_foro`, `titulo`, `mensaje`, `fecha`, `prioridad`) VALUES
@@ -180,7 +180,19 @@ INSERT INTO `mensaje` (`id_mensaje`, `id_usuario`, `id_referencia`, `id_foro`, `
 (19, 32, 18, 27, 'Mi experiencia con la creatina', 'Yo la tomo y noto mi cabello igual de denso y fuerte, la p&eacute;rdida depende de las hormonas. La creatina no lo induce, ya que la creamos con nuestro propio cuerpo', '2022-04-19 15:56:56', 2),
 (20, 31, NULL, 27, 'asdf', 'asdf', '2022-04-21 10:09:42', 0),
 (21, 31, NULL, 27, 'asdf', 'asdf', '2022-04-21 10:09:46', 0),
-(22, 31, NULL, 27, 'asdf', 'asdf', '2022-04-21 10:09:50', 0);
+(22, 31, NULL, 27, 'asdf', 'asdf', '2022-04-21 10:09:50', 0),
+(23, 32, NULL, 27, 'prueba1', 'jsjsjsjs', '2022-05-09 21:43:17', 0),
+(25, 32, 12, 27, 'Prueba 1', 'contenido prueba 1', '2022-05-09 21:55:13', 1),
+(31, 32, NULL, 29, 'Contexto', 'Quiero encontrar alimentos que puedan servirme para perder peso, ya que me lo ha recomendado el m&eacute;dico y quiero ponerme las pilas. &iquest;Que me recomendais para ello?', '2022-05-12 19:46:29', 0),
+(32, 32, 31, 29, 'Alimentaci&oacute;n buena -&gt; perder peso? ', 'Yo creo que es un mito, sin ejercicio no se puede perder peso', '2022-05-12 19:47:19', 1),
+(33, 32, 31, 29, 'Alimentos beneficiosos para perder peso', 'Te verde: adem&aacute;s de ser delicioso ayuda a acelerar nuestro metabolismo y a disminuir antojos rapidamente. SUERTE!', '2022-05-12 19:48:07', 1),
+(34, 32, 32, 29, 'Otro alimento para perder peso', 'Almendras: en general la mayoria de las nueces son excelentes para perder peso debido a su alto contenido de grasas mono-insaturadas. Nos ayudan a combatir antojos', '2022-05-12 19:49:07', 2),
+(35, 32, 34, 29, 'Oro de espa&ntilde;a', 'Aceite de oliva: es otra fuente de acidos grados mono-insaturados que nos ayuda a controlar nuestros antojos', '2022-05-12 19:50:39', 3),
+(36, 32, NULL, 30, 'Contexto', '&iquest;Como son de importantes las vitaminas en nuestra nutricion? &iquest;Deberiamos incluir complementos en nuestra alimentacion para tener mayores cantidades de vitaminas?', '2022-05-12 19:53:41', 0),
+(37, 32, 36, 30, 'Vitamina D', 'La vitamina D es una vitamina liposoluble que cumple diferentes funciones en el organismo, entre las que destaca la de servir como veh&iacute;culo para la absorci&oacute;n del calcio por parte del organismo, un mineral que es esencial para el desarrollo y crecimiento de los huesos y para mantenerlos fuertes', '2022-05-12 19:54:07', 1),
+(38, 32, 36, 30, 'Cuidado con los suplementos vitaminicos', 'Los suplementos diet&eacute;ticos, aunque pueden ser beneficiosos para la salud del organismo, es necesario consumirlo de forma temporal, si en realidad tenemos deficiencia de vitaminas. Jam&aacute;s debe utilizarse como una suplantaci&oacute;n de alimentos naturales.', '2022-05-12 19:55:19', 1),
+(39, 32, 37, 30, 'Vitamina A', 'Tambi&eacute;n conocida como retinol, es com&uacute;nmente conocida por sus incre&iacute;bles beneficios para la piel. No obstante, este nutriente tambi&eacute;n contribuye a mantener una visi&oacute;n saludable y fortalece al sistema inmunitario. Las zanahorias, el piment&oacute;n, los mangos, guisantes verdes y las hojas de nabo, entre otros, son una fuente natural de vitamina A.', '2022-05-12 19:56:03', 2),
+(40, 32, 37, 30, 'Omega-3', ' contribuye a prevenir enfermedades cardiovasculares, as&iacute; como ayuda a mantener el colesterol en niveles saludables.  Se encuentra en los pescados y mariscos, en las nueces y aceites como el de soja, canola o linaza.  ', '2022-05-12 19:56:44', 2);
 
 TRUNCATE TABLE `noticias`;
 INSERT INTO `noticias` (`id_noticia`, `id_profesional`, `titulo`, `cuerpo`, `fecha`) VALUES
@@ -210,30 +222,34 @@ TRUNCATE TABLE `premium`;
 INSERT INTO `premium` (`id_usuario`, `id_profesional`, `peso`, `altura`, `alergias`, `observaciones_adicionales`, `num_logros`, `logros`) VALUES
 (36, 31, 70, 1, 'no', 'no', 0, '');
 
-
-
 TRUNCATE TABLE `productos`;
 INSERT INTO `productos` (`id_producto`, `id_empresa`, `nombre`, `descripcion`, `precio`, `link`, `tipo`) VALUES
-('1', '4', 'Life Pro Whey Choco Monky 1kg Limited Edition', 'Life Pro Whey Protein Choco Monky es una proteína whey hecha con una de las mejores materias primas, LACPRODAN SP-8011. Cuenta con una calidad excelente que la diferencian del resto de proteínas del mercado y con el autentico sabor de las tabletas de chocolate.', '32', 'https://www.lifepronutrition.com/es/concentrado-suero/life-pro-whey-chocolate-jungle-1kg-limited-edition.html', 'proteina'),
-('2', '2', 'Creatina Creapure', 'Al utilizar Creapure®, una marca líder en creatina monohidrato producida en Alemania a partir de la mejor materia prima y cumpliendo con los más altos estándares de calidad, Prozis ha logrado crear Creatine Creapure®, un suplemento de creatina de un solo ingrediente para deportistas y sin ninguna de las sustancias adicionales utilizadas por otras marcas como relleno. Creatine Creapure® de Prozis proporciona 3000 mg de la forma de creatina más limpia y eficaz por dosis, de una manera práctica y asequible.', '28', 'https://www.prozis.com/es/es/prozis/creatina-creapure-300-g', 'creatina'),
-('3', '5', 'Science Casein Black Cookies', 'La caseina se trata de un complemento alimenticio que gracias a su compleja composición supone un aporte alimenticio a largo plazo para los músculos, por lo que es una excelente opción antes de irse a la cama o durante un viaje largo, porque la digestión puede durar varias horas.', '36', 'https://www.emfitnutrition.com/science-casein-black-cookies-peanut-butter-crunchy-limited-edition-1kg-efficient-science-p-11204.html', 'caseina');
+(1, 4, 'Life Pro Whey Choco Monky 1kg Limited Edition', 'Life Pro Whey Protein Choco Monky es una proteína whey hecha con una de las mejores materias primas, LACPRODAN SP-8011. Cuenta con una calidad excelente que la diferencian del resto de proteínas del mercado y con el autentico sabor de las tabletas de chocolate.', '32', 'https://www.lifepronutrition.com/es/concentrado-suero/life-pro-whey-chocolate-jungle-1kg-limited-edition.html', 'proteina'),
+(2, 2, 'Creatina Creapure', 'Al utilizar Creapure®, una marca líder en creatina monohidrato producida en Alemania a partir de la mejor materia prima y cumpliendo con los más altos estándares de calidad, Prozis ha logrado crear Creatine Creapure®, un suplemento de creatina de un solo ingrediente para deportistas y sin ninguna de las sustancias adicionales utilizadas por otras marcas como relleno. Creatine Creapure® de Prozis proporciona 3000 mg de la forma de creatina más limpia y eficaz por dosis, de una manera práctica y asequible.', '28', 'https://www.prozis.com/es/es/prozis/creatina-creapure-300-g', 'creatina'),
+(3, 5, 'Science Casein Black Cookies', 'La caseina se trata de un complemento alimenticio que gracias a su compleja composición supone un aporte alimenticio a largo plazo para los músculos, por lo que es una excelente opción antes de irse a la cama o durante un viaje largo, porque la digestión puede durar varias horas.', '36', 'https://www.emfitnutrition.com/science-casein-black-cookies-peanut-butter-crunchy-limited-edition-1kg-efficient-science-p-11204.html', 'caseina'),
+(4, 3, 'Impact EAA', 'Mezcla nueva y mejorada, con todos los aminoácidos esenciales.', '30', 'https://www.myprotein.es/nutricion-deportiva/impact-eaa/11985042.html?affil=thggpsad&switchcurrency=EUR&shippingcountry=ES&variation=11985043&affil=mpppc_campaign=71700000048326108&adtype=pla&product_', 'aminoacidos'),
+(5, 3, 'Aislado de Proteína de Guisante', 'Sin soja ni lácteos, nuestro Aislado de Proteína de Guisante contiene 23 g de proteína por ración, perfecto para aquellos que entrenan con una dieta vegetal. Podrás obtener más información sobre nuestra gama de productos Myvegan.', '23', 'https://www.myprotein.es/nutricion-deportiva/aislado-de-proteina-de-guisante/10530136.html', 'proteina'),
+(6, 4, 'Wild Pump', 'Favorece la mejora del rendimiento y ayuda a aumentar los niveles de energía: especialmente, los días en los que realicemos entrenamientos de alta intensidad o que nos sintamos cansados, puede ser el aliado ideal. Gracias al aporte de cafeína, en combinación con los extractos vegetales y minerales, aumenta la claridad mental, el foco y el estado de alerta. Mejora los niveles de fuerza y de resistencia.  Mayor tiempo de entrenamiento: ayuda a posponer la aparición de fatiga y de cansancio: de esta manera, podremos continuar durante un mayor tiempo realizando un entrenamiento de calidad y alta intensidad.  La cafeína tiene efecto termogénico: puede ayudar a la perdida de grasa. Favorece la congestión muscular o sensación de pump. La citrulinamalato, especialmente, es un precursor de la arginina: encargada de mejorar la vasodilatación. ', '41', 'https://www.lifepronutrition.com/es/preentreno/life-pro-wild-pump-400g.html', 'preentreno'),
+(7, 7, 'Evomass 2.0', 'Evomass 2.0 (Ganador de peso) de SportSeries es un preparado alimenticio a base de carbohidratos (como la harina de avena) y proteínas en polvo (como el concentrado de proteína de suero de leche - WPC).  Evomass 2.0 está destinado, por su gran aporte enegético, a deportistas intensos que estén sometidos a altas cargas de entrenamiento, culturistas y practicantes de fitness en volumen que busquen un alimento para complementar su dieta, alto en proteínas, en carbohidratos complejos y calorías.', '12', 'https://www.hsnstore.com/marcas/sport-series/evomass-2-0-ganador-de-peso-1kg-chocolate?gclid=Cj0KCQjwmuiTBhDoARIsAPiv6L97_Z2-RVmDctEMYokMUIkTq2jyGrEbt_a4NBNWj6kvg3ECGPwZTSMaAuxdEALw_wcB', 'gainer'),
+(8, 2, 'Big Shot - Pre-Workout 46 servings', 'Con una fórmula especial, ideal para entrenamientos de gran fuerza, fomentará tu rendimiento físico en ejercicios de alta intensidad. El óxido nítrico aumentará tu flujo sanguíneo y el complejo de ingredientes presentes en este suplemento potenciará definitivamente la calidad de tus entrenamientos. Gracias a la creatina monohidrato, la arginina, la beta-alanina y la cafeína podrás conseguir grandes logros en tu rendimiento, un gran aumento de energía y una concentración mayor que te llevará directamente a tus objetivos. Esta potente fórmula te ayudará a alcanzar tu siguiente nivel de motivación y a dar un gran paso hacia la perfección. Todos los \"Big Shots\" tienen algo en común: están determinados a superar sus límites, pero serás tú quien podrá llegar aún más lejos.', '24', 'https://www.prozis.com/es/es/prozis/big-shot-pre-workout-46-servings?ot=GAESSS&campaignid=14564370617&adgroupid=127663082780&keyword=&placement=', 'preentreno'),
+(9, 3, 'Caseína de Liberación Lenta', 'Al tardar más en ser digerido y utilizado por tu cuerpo, este es el batido perfecto para obtener un aporte de proteínas entre comidas e incluso mientras duermes y así cumplir tus objetivos de entrenamiento. También incluye un perfil completo de aminoácidos, naturalmente presentes en la proteína, que te ayudarán a desarrollar y recuperar tus nuevos músculos1 antes, durante y después de hacer ejercicio para que te despiertes deseando empezar tu siguiente sesión deportiva.', '25', 'https://www.myprotein.es/nutricion-deportiva/caseina-de-liberacion-lenta/10798909.html?affil=mpppc_campaign=71700000079561931&adtype=&product_id=&gclid=Cj0KCQjw4PKTBhD8ARIsAHChzRIxY7BJgwzYC2IWfspBGeBK', 'caseina'),
+(10, 4, 'Life Pro Creatine Creapure', 'La fórmula patentada Creapure es un sinónimo de calidad, por lo que esta creatina de LifePro Nutrition, con un 99.9% de pureza se convierte en un suplemento con un nivel de profesionalidad muy alto. Por ello, Life Pro Nutrition Creatine Creapure 500g. es el producto perfecto para todos esos deportistas que quieren complementar su actividad física con la ayuda de productos que impulsen su rendimiento. Además, la creatina es una de las sustancias más importantes del sector, gracias a sus grandes propiedades.', '34', 'https://www.nutrimarket.com/es/creatina/life-pro-creatine-creapure-500g.html', 'creatina'),
+(11, 7, 'Aminoacidos esenciales (EAAS)', 'Aminoácidos esenciales (EAA’s) en polvo de RawSeries es un complemento alimenticio en polvo vegano, a base de los 9 aminoácidos esenciales, de fermentación vegetal. Los aminoácidos (proteinogénicos) son los elementos que componen la proteína. Los aminoácidos esenciales son aquellos aminoácidos proteinogénicos que nuestro organismo no puede sintetizar de forma endógena y requiere de su consumo a través de la dieta. Este producto, a diferencia de la mayoría de EAAs del mercado, es 100% apto para vegetarianos y veganos.', '7', 'https://www.hsnstore.com/marcas/raw-series/aminoacidos-esenciales-eaa-s-en-polvo', 'aminoacidos'),
+(12, 2, '100% Real Whey Protein', '100% Real Whey Protein de Prozis contiene concentrado de proteína de suero de leche de calidad superior en una fórmula altamente concentrada. Esta proteína pura de alto valor biológico aporta un perfil completo de aminoácidos, con BCAA, y te ayudará a incrementar la masa muscular, al tiempo que favorecerá el mantenimiento del tejido muscular que tanto te ha costado ganar. Sometida a rigurosas pruebas en laboratorios avanzados, la composición de 100% Real Whey Protein no tiene ningún secreto que esconder. Con este suplemento, lo que ves en la etiqueta es exactamente lo que añades a tu mezclador. Además, gracias a los procesos tecnológicamente avanzados empleados en su producción, este suplemento en polvo se presenta de forma instantánea para favorecer una mezcla rápida y fácil, proporcionándote un batido suave y sin grumos.', '30', 'https://www.prozis.com/es/es/prozis/100-real-whey-protein-1000-g?ot=GAESSS&campaignid=14564370617&adgroupid=127663082780&keyword=&placement=', 'proteina');
 
 TRUNCATE TABLE `profesional`;
 INSERT INTO `profesional` (`id_profesional`, `nutri`, `num_usuarios`, `usuarios`) VALUES
 (31, 'pintus', 2, '');
 
 TRUNCATE TABLE `rutina`;
-INSERT INTO `rutina` (`id_rutina`, `id_usuario`, `activa`, `objetivo`, `nivel`, `dias`) VALUES
-(91, 36, 1, 1, 'P', 3),
-(92, 32, 1, 1, 'P', 3);
-
 TRUNCATE TABLE `usuario`;
 INSERT INTO `usuario` (`id_usuario`, `premium`) VALUES
 (32, 0),
 (35, 0),
 (36, 1),
 (38, 0);
-SET FOREIGN_KEY_CHECKS=1;
+
+TRUNCATE TABLE `usuariosproductos`;SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
