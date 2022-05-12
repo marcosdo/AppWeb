@@ -12,6 +12,7 @@ class Productos extends Empresas {
 
     // ==================== ATRIBUTOS ====================
     // ====================           ====================
+    private $_id_producto;
     private $empresa;
     private $nombre;
     private $descripcion;
@@ -23,16 +24,41 @@ class Productos extends Empresas {
     // ==================== no estaticos ====================
 
     // Constructor
-    public function __construct($nombre, $descripcion, $precio, $link, $tipo, $id = null, $empresa) {
+    public function __construct($nombre, $descripcion, $precio, $link, $tipo, $empresa, $id = null) {
         $this->empresa = $empresa;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio = $precio;
         $this->link = $link;
         $this->tipo = $tipo;
+        $this->_id_producto = $id;
     }
-   
+
+    private function inserta($producto) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO productos (id_empresa, nombre, descripcion, precio, link) 
+            VALUES (%d, '%s', '%s', %d, '%s')"
+            , $producto->empresa
+            , $producto->nombre
+            , $producto->descripcion
+            , $producto->precio
+            , $producto->link
+        );
+        try {
+            $conn->query($query);
+            $producto->_id_producto = $conn->insert_id;
+            return $producto;
+        } catch (\mysqli_sql_exception $e) {
+            if ($conn->sqlstate == 23000) // código de violación de restricción de integridad (PK)
+                throw new \Exception("Ya existe la empresa");
+            throw $e;
+        }
+        return false;
+    }
+
     // Getters y setters
+    public function getId() { return $this->_id_producto; }
     public function getLink() { return $this->link; }
     public function getTipo() { return $this->tipo; }
     public function getPrecio() { return $this->precio; }
@@ -43,6 +69,12 @@ class Productos extends Empresas {
     // ====================  MÉTODOS  ====================
     // ==================== estaticos ====================
 
+
+    public static function creaProducto($nombre, $descripcion, $precio, $link, $tipo, $idEmpresa ,$id = null) {
+        $producto = new Productos($nombre, $descripcion, $precio, $link, $tipo, $idEmpresa, $id);
+        return $producto->inserta($producto);
+    }
+
     public static function buscaProducto($id){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
@@ -51,8 +83,9 @@ class Productos extends Empresas {
         try {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
-            $nombreEmpresa = self::getNombreEmpresaxID($fila['id_empresa']);
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
+            $idEmpresa = $fila['id_empresa'];
+            $nombreEmpresa = Empresas::getNombreEmpresaxID($idEmpresa);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $nombreEmpresa, $id);
         } finally {
             if ($rs != null)
                 $rs->free();
@@ -212,7 +245,7 @@ class Productos extends Empresas {
             $rs = $conn->query($query); 
             $fila = $rs->fetch_assoc();
             $nombreEmpresa = self::getNombreEmpresaxID($fila['id_empresa']);
-            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $id, $nombreEmpresa);
+            $producto = new Productos($fila['nombre'], $fila['descripcion'], $fila['precio'], $fila['link'], $fila['tipo'], $fila['id_empresa'], $id);
         } finally {
             if ($rs != null)
                 $rs->free();

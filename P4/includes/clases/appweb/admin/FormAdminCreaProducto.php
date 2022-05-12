@@ -30,16 +30,25 @@ class FormAdminCreaProducto extends Formulario {
         return $html;
     }
 
+    private static function check_file_uploaded_name($filename) {
+        return (bool) ((mb_ereg_match('/^[0-9A-Z-_\.]+$/i', $filename) === 1) ? true : false);
+    }
+
+    private function check_file_uploaded_length($filename) {
+        return (bool) ((mb_strlen($filename, 'UTF-8') < 250) ? true : false);
+    }
+
     protected function generaCamposFormulario(&$datos) {
         $idempresa = $datos['idempresa'] ?? '';
         $tipo = $datos['tipo'] ?? '';
         $nombre = $datos['nombre'] ?? '';
-        $descipcion = $datos['descipcion'] ?? '';
+        $descripcion = $datos['descripcion'] ?? '';
         $precio = $datos['precio'] ?? '';
+        $imagen = $datos['imagen'] ?? '';
         $link = $datos['link'] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['idempresa', 'nombre', 'descipcion', 'precio', 'link', 'tipo'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['idempresa', 'nombre', 'descripcion', 'precio', 'link', 'tipo', 'imagen'], $this->errores, 'span', array('class' => 'error'));
 
         $empresas = self::listaEmpresas();
         $tipos = self::listaTipos();
@@ -61,14 +70,17 @@ class FormAdminCreaProducto extends Formulario {
             <p class="error">{$erroresCampos['nombre']}</p>
             <input id="nombre" type="text" name="nombre" value="$nombre" placeholder="nombre del producto"/>
 
-            <p class="error">{$erroresCampos['descipcion']}</p>
-            <textarea id="descipcion" type="text" name="descipcion" value="$descipcion" placeholder="descripcion"></textarea>
+            <p class="error">{$erroresCampos['descripcion']}</p>
+            <textarea id="descripcion" type="text" name="descripcion" value="$descripcion" placeholder="descripcion"></textarea>
 
             <p class="error">{$erroresCampos['precio']}</p>
             <input id="precio" type="text" name="precio" value="$precio" placeholder="precio"/>
 
             <p class="error">{$erroresCampos['link']}</p>
             <input id="link" type="text" name="link" value="$link" placeholder="link"/>
+
+            <p class="error">{$erroresCampos['imagen']}</p>
+            <input id="imagen" type="file" name="imagen" accept= "image/png"/>
 
             <p><button type="submit" name="enviar">Confirmar</button><p>
         EOF;
@@ -81,8 +93,6 @@ class FormAdminCreaProducto extends Formulario {
 
         $idempresa = trim($datos['idempresa'] ?? '');
         $idempresa = filter_var($idempresa, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ($idempresa != '1' && $idempresa != '2' && $idempresa != '3')
-            $this->errores['idempresa'] = 'No hagas cosas feas.';
         if (!$idempresa || empty($idempresa))
             $this->errores['idempresa'] = 'Elige un campo.';
 
@@ -91,11 +101,11 @@ class FormAdminCreaProducto extends Formulario {
         if (!$nombre || empty($nombre)) 
             $this->errores['nombre'] = 'El descripcion de usuario no puede estar vacio.';
 
-        $descripcion = trim($datos['descripcion'] ?? '');
+        $descripcion = $datos['descripcion'] ?? '';
         $descripcion = filter_var($descripcion, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$descripcion || empty($descripcion)) 
             $this->errores['descripcion'] = 'El descripcion no puede estar vacío.';
-        
+
         $precio = trim($datos['precio'] ?? '');
         $precio = filter_var($precio, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$precio || empty($precio)) 
@@ -111,17 +121,28 @@ class FormAdminCreaProducto extends Formulario {
         if (!$tipo || empty($tipo) || mb_strlen($tipo) < 5) 
             $this->errores['tipo'] = 'El tipo tiene que tener una longitud de al menos 5 caracteres.';
 
-        // Si todo ha ido bien, 
+        $checkname = $_FILES["imagen"]["name"];
+        $ok = self::check_file_uploaded_name($checkname) && $this->check_file_uploaded_length($checkname);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->file($_FILES['imagen']['tmp_name']);
+        $ok = preg_match('/image\/*./', $mimeType);
+        if (!$ok) 
+            $this->errores['imagen'] = 'El archivo tiene un nombre o tipo no soportado';
+
+            // Si todo ha ido bien, 
         if (count($this->errores) === 0) {
             try {
-                switch ($idempresa) {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default: break;
+                $tmp_name = $_FILES['imagen']['tmp_name'];
+                $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_ALMACEN_PRODUCTOS, $checkname]);
+                if (!move_uploaded_file($tmp_name, $ruta)) {
+                    $this->errores['imagen'] = 'Error al mover el archivo';
+                }
+                else {
+                    $producto = Productos::creaProducto($nombre, $descripcion, $precio, $link, $tipo, $idempresa);
+                    $filename = $producto->getId() . ".png";
+                    $antiguo =RUTA_ALMACEN_PRODUCTOS . DIRECTORY_SEPARATOR .  $checkname;
+                    $nuevo = RUTA_ALMACEN_PRODUCTOS . DIRECTORY_SEPARATOR . $filename;
+                    rename($antiguo, $nuevo );
                 }
             }
             catch (\Exception $e) {

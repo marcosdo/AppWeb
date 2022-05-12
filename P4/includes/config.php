@@ -14,6 +14,7 @@ define('RUTA_CSS', RUTA_APP.'/src/css');
 define('RUTA_JS', RUTA_APP.'/src/js');
 define('RUTA_ALMACEN_EJERCICIOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'ejercicios']));
 define('RUTA_ALMACEN_ANUNCIOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'anuncios']));
+define('RUTA_ALMACEN_PRODUCTOS', implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'img', 'productos']));
 /** Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria */
 ini_set('default_charset', 'UTF-8');
 setLocale(LC_ALL, 'es_ES.UTF.8');
