@@ -55,7 +55,7 @@ class FormularioCreaMensaje extends Formulario {
                     $idforo = $padre->getIDForo();
                     $prioridad = $padre->getPrioridad() + 1;
                 }
-                Mensaje::creaMensaje($app->idUsuario(), $idforo, $mensaje, $prioridad, $titulo, $idpadre);
+                $msg = Mensaje::creaMensaje($app->idUsuario(), $idforo, $mensaje, $prioridad, $titulo, $idpadre);
                 /* POP UP */
                 $mensajes = ['Se ha creado el mensaje'];
                 $app->putAtributoPeticion('mensajes', $mensajes);
@@ -63,7 +63,8 @@ class FormularioCreaMensaje extends Formulario {
                 $this->errores[] = 'Este tema ya existe.';
            }
            if ($idpadre) {
-            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $idpadre]);
+            $return = $msg->getMsgOrigen();
+            $this->urlRedireccion = $app->buildUrl('/foromensajes.php', ['id' => $return]);
         }/* else {
             $this->urlRedireccion = $app->buildUrl('/foroindividual.php', ['idforo' => $idforo]);
         }*/
