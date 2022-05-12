@@ -269,6 +269,28 @@ class Productos extends Empresas {
         Premium::getDatosSeguimiento($idUsuario, $peso, $altura);
     }
 
+
+
+    /**
+     * Personaliza productos segun tipo y los añade a una lista
+     * @param int $id ID del usuario
+     * Algoritmo para calcular productos personalizados:
+     *  - Productos en función de dieta y seguimiento:
+     *    Se usa el IMC (con peso y altura del seguimiento); IMC puede ser alto, moderado o bajo. Comparandolo
+     *    con el objetivo de la dieta {mantener, perder o ganar} se recomiendan unos porductos u otros.
+     *    Preentreno para tener energía y realizar mucha actividad física (Quema calorías).
+     *    Y Gainer para ganar peso con más facilidad.
+     *  - Productos en funcion de rutina:
+     *    En este caso, se utiliza el objetivo del entrenamiento {fuerza, hipertrofia, resistencia} y el
+     *    nivel del usuario {principiante, intermedio, avanzado}.
+     *    Proteina es el suplemento basico para mejorar a partir de cualquier nivel u objetivo.
+     *    Creatina ofrece ventajas en el entrenamiento a avanzados o enfocados en la fuerza y también hipertrofia
+     *    (aumenta diametro muscular entre sus muchas ventajas).
+     *    Caseina es un extra de proteinas para usuarios que se enfocan mucho en la hipertrofia y ganancia muscular a nivel
+     *    avanzado.
+     *    Y aminoacidos que es el sumplemento mas prescindible solo para avanzados en ciertos aspectos ya que mejora el rendimiento.
+     */
+
     public static function personalizaProductos($idUsuario){
         self::getDatosSeguimiento($idUsuario, $peso, $altura);
         $objetivoDieta = Dieta::getObjetivoDieta($idUsuario);
