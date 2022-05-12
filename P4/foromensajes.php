@@ -38,9 +38,11 @@ $app = Aplicacion::getInstance();
 				$html .= "<h4 class='message1'><a href='#'> Actualizar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
 				$html .= botonEditaMensajeObjeto($mensaje, $mensaje->getIDRefencia());
 			}
-			if ($app->idUsuario() == $mensaje->getIDUsuario() || $app->esAdmin()) {
-				$html .= "<h4 class='message2'><a href='#'> Borrar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
-				$html .= botonBorraMensajeObjecto($mensaje, $mensaje->getIDRefencia());
+			if ($app->idUsuario() == $mensaje->getIDUsuario() || $app->esAdmin()) {	
+				if($mensaje->getIDRefencia()!=null){
+					$html .= "<h4 class='message2'><a href='#'> Borrar. <i class='fa-solid fa-pen-to-square'></i></a></h4>";
+					$html .= botonBorraMensajeObjecto($mensaje, $mensaje->getIDRefencia());
+				}
 			}
 			$html .= "</div>";
 		}
