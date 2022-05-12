@@ -27,6 +27,16 @@ class Premium extends Usuario {
         return false;
     }
 
+    public static function getDatosSeguimiento($idUsuario, &$peso, &$altura){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM `premium` WHERE premium.id_usuario = '%d'", $idUsuario);
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        $peso = $fila['peso'];
+        $altura = $fila['altura'];
+        $rs->free();
+    }
+
     private static function inserta($premium) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(

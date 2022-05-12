@@ -4,6 +4,7 @@ namespace appweb\productos;
 use appweb\Aplicacion;
 use appweb\plan\Dieta;
 use appweb\plan\Rutina;
+use appweb\usuarios\Premium;
 use appweb\usuarios\Profesional;
 
 class Productos extends Empresas {
@@ -265,12 +266,7 @@ class Productos extends Empresas {
     }
 
     private static function getDatosSeguimiento($idUsuario, &$peso, &$altura){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM `premium` WHERE premium.id_usuario = '%d'", $idUsuario);
-        $rs = $conn->query($query);
-        $fila = $rs->fetch_assoc();
-        $peso = $fila['peso'];
-        $altura = $fila['altura'];
+        Premium::getDatosSeguimiento($idUsuario, $peso, $altura);
     }
 
     public static function personalizaProductos($idUsuario){
