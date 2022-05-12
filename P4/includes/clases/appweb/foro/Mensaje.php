@@ -7,7 +7,7 @@ use DateTime;
 class Mensaje {
     // ==================== CONSTANTES ====================
     // ====================           ====================
-    public const MAX_SIZE = 200;
+    public const MAX_SIZE = 400;
     public const MAX_SIZE_TITLE = 50;
 
     // ==================== ATRIBUTOS ====================

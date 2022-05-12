@@ -41,7 +41,7 @@ class FormularioCreaMensaje extends Formulario {
 
         $mensaje = filter_var($mensaje, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$mensaje || empty($mensaje) || mb_strlen($mensaje) > Mensaje::MAX_SIZE)
-            $this->errores['mensaje'] = 'Mensaje invalido.';
+            $this->errores['mensaje'] = 'Mensaje invalido, tamaño excedido.';
 
         $idpadre = $_GET['id'] ?? null;
         $idforo = $_GET['idforo'] ?? null;
